@@ -33,24 +33,48 @@
             android:id="@+id/datParent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@id/textView1"
             android:orientation="vertical"
             android:padding="8dp">
+
+            <!--<TextView-->
+                <!--android:id="@+id/textView8"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="@string/prbm_date"-->
+                <!--android:textColor="@color/Blue"-->
+                <!--android:textSize="18sp"/>-->
 
             <DatePicker
                 android:id="@+id/datDate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
-                android:calendarViewShown="true"
+                android:calendarViewShown="false"
                 android:spinnersShown="false"/>
+
+            <!--<TextView-->
+                <!--android:id="@+id/textView9"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="@string/prbm_time"-->
+                <!--android:textColor="@color/Blue"-->
+                <!--android:textSize="18sp"/>-->
 
             <TimePicker
                 android:id="@+id/datTime"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"/>
+                android:layout_weight="4"
+                />
         </LinearLayout>
 
         <TextView

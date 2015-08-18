@@ -54,5 +54,7 @@
     <string name="title_create_prbm_activity">Creazione nuovo PRBM</string>
     <string name="error_no_title_prbm">Per poter continuare è necessario inserire almeno il titolo del percorso rettificato</string>
     <string name="app_description">PRBMM - Percorso Rettificato Belga Multimediale Mobile</string>
+    <string name="prbm_date">Data percorso</string>
+    <string name="prbm_time">Orario percorso</string>
 
 </resources>

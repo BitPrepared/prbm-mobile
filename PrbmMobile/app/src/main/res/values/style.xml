@@ -4,6 +4,9 @@
     <style name="MyAppTheme" parent="@android:style/Theme.Holo">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
+    <style name="MyAppThemeLight" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
     <style name="MySplashTheme" parent="@android:style/Theme.Holo.NoActionBar"/>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">

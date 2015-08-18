@@ -66,9 +66,10 @@ public class CreatePrbmActivity extends Activity {
 
         Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
         datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        datTime.setCurrentHour(c.get(Calendar.HOUR));
+        datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
         datTime.setCurrentMinute(c.get(Calendar.MINUTE));
-
+        datTime.setIs24HourView(true);
+        datDate.setCalendarViewShown(false);
     }
 
     @Override
@@ -122,7 +123,7 @@ public class CreatePrbmActivity extends Activity {
                         "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
                 Calendar c = Calendar.getInstance();
                 c.set(datDate.getYear(), datDate.getMonth(), datDate.getDayOfMonth(), datTime.getCurrentHour(), datTime.getCurrentMinute());
-                newPrbm.setDate(dateFormat.format(c));
+                newPrbm.setDate(dateFormat.format(c.getTime()));
 
                 // Setting global PRBM
                 UserData.getInstance().setPrbm(newPrbm);
