@@ -2,24 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:divider="@drawable/linear_divider"
               android:orientation="horizontal"
               android:showDividers="middle"
-              android:divider="@drawable/linear_divider"
     >
 
-    <ListView
+    <LinearLayout
         android:id="@+id/lstEntityFarLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:orientation="vertical">
 
-    <ListView
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:focusable="false"
+            android:text="Aggiungi"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/lstEntityNearLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:focusable="false"
+            android:text="Aggiungi"/>
+    </LinearLayout>
+
+
+    <LinearLayout android:id="@+id/linearUnitcenter"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
                   android:layout_margin="5dp"
@@ -45,16 +65,34 @@
             />
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
         android:id="@+id/lstEntityNearRight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
 
-    <ListView
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:focusable="false"
+            android:text="Aggiungi"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/lstEntityFarRight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:orientation="vertical">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:focusable="false"
+            android:text="Aggiungi"/>
+    </LinearLayout>
 </LinearLayout>

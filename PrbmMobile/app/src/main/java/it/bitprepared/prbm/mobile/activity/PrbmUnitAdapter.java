@@ -18,16 +18,22 @@ package it.bitprepared.prbm.mobile.activity;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
+import it.bitprepared.prbm.mobile.model.Prbm;
+import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 /**
@@ -75,10 +81,10 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
             viewHolder.txtAzimut = (TextView) convertView.findViewById(R.id.txtAzimut);
             viewHolder.txtMeters = (TextView) convertView.findViewById(R.id.txtMeters);
             viewHolder.txtMinutes = (TextView) convertView.findViewById(R.id.txtMinutes);
-            viewHolder.lstFarLeft = (ListView) convertView.findViewById(R.id.lstEntityFarLeft);
-            viewHolder.lstFarRight = (ListView) convertView.findViewById(R.id.lstEntityFarRight);
-            viewHolder.lstNearLeft = (ListView) convertView.findViewById(R.id.lstEntityNearLeft);
-            viewHolder.lstNearRight = (ListView) convertView.findViewById(R.id.lstEntityNearRight);
+            viewHolder.lstFarLeft = (LinearLayout) convertView.findViewById(R.id.lstEntityFarLeft);
+            viewHolder.lstFarRight = (LinearLayout) convertView.findViewById(R.id.lstEntityFarRight);
+            viewHolder.lstNearLeft = (LinearLayout) convertView.findViewById(R.id.lstEntityNearLeft);
+            viewHolder.lstNearRight = (LinearLayout) convertView.findViewById(R.id.lstEntityNearRight);
 
             // Set the tag tag
             convertView.setTag(viewHolder);
@@ -87,12 +93,42 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         PrbmUnit unit = getItem(position);
-        Log.d("ADAPTER", "Item " + position + " Azimut " + unit.getAzimut());
 
         viewHolder.txtAzimut.setText(c.getString(R.string.azimut) + unit.getAzimut());
         viewHolder.txtMeters.setText(c.getString(R.string.meters) + unit.getMeter());
         viewHolder.txtMinutes.setText(c.getString(R.string.minutes) + unit.getMinutes());
 
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        param.setMargins(5, 0, 5, 5);
+
+        for (PrbmEntity farLeft: unit.getFarLeft()){
+            Button b = new Button(c);
+            b.setText(farLeft.getType());
+            b.setLayoutParams(param);
+            b.setFocusable(false);
+            viewHolder.lstFarLeft.addView(b);
+        }
+        for (PrbmEntity nearLeft: unit.getNearLeft()){
+            Button b = new Button(c);
+            b.setText(nearLeft.getType());
+            b.setLayoutParams(param);
+            b.setFocusable(false);
+            viewHolder.lstNearLeft.addView(b);
+        }
+        for (PrbmEntity nearRight: unit.getNearRight()){
+            Button b = new Button(c);
+            b.setText(nearRight.getType());
+            b.setLayoutParams(param);
+            b.setFocusable(false);
+            viewHolder.lstNearRight.addView(b);
+        }
+        for (PrbmEntity farRight: unit.getFarRight()){
+            Button b = new Button(c);
+            b.setText(farRight.getType());
+            b.setLayoutParams(param);
+            b.setFocusable(false);
+            viewHolder.lstFarRight.addView(b);
+        }
         return convertView;
     }
 
@@ -108,12 +144,12 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
         /** Reference to Steps label */
         public TextView txtMinutes;
         /** Reference to far left list */
-        public ListView lstFarLeft;
+        public LinearLayout lstFarLeft;
         /** Reference to near left list */
-        public ListView lstNearLeft;
+        public LinearLayout lstNearLeft;
         /** Reference to near right list */
-        public ListView lstNearRight;
+        public LinearLayout lstNearRight;
         /** Reference to far right list */
-        public ListView lstFarRight;
+        public LinearLayout lstFarRight;
     }
 }

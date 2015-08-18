@@ -25,18 +25,6 @@ import org.json.JSONObject;
  */
 public abstract class PrbmEntity {
 
-    /** Constant for far left column */
-    public static final int FAR_LEFT = 1;
-    /** Constant for near left column */
-    public static final int NEAR_LEFT = 2;
-    /** Constant for near right column */
-    public static final int NEAR_RIGHT = 3;
-    /** Constant for far right column */
-    public static final int FAR_RIGHT = 4;
-
-    /** ID for entity column */
-    private int column;
-
     /** Entity description */
     private String description;
     /** Entity caption */
@@ -52,15 +40,11 @@ public abstract class PrbmEntity {
 
     /**
      * Base constructor for a new PRBM Entity
-     * @param column      Entity positioning
      * @param description Entity description
      * @param caption     Entity caption
      * @param timestamp   Entity timestamp
      */
-    public PrbmEntity(int column, String description, String caption, String timestamp) {
-        if (column < 1 || column > 4)
-            throw new RuntimeException("Wrong Entity Positioning!");
-        this.column = column;
+    public PrbmEntity(String description, String caption, String timestamp) {
         this.description = description;
         this.caption = caption;
         this.timestamp = timestamp;
@@ -96,11 +80,5 @@ public abstract class PrbmEntity {
         this.timestamp = timestamp;
     }
 
-    public int getColumn() {
-        return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
-    }
+    public abstract String getType();
 }

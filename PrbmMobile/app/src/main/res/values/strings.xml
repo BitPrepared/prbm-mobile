@@ -61,5 +61,6 @@
     <string name="minutes">"Minuti: "</string>
     <string name="meters">"Metri: "</string>
     <string name="azimut">"Azimut: "</string>
+    <string name="you_cant_delete_last_unit">Non puoi cancellare l\'ultima riga dal percorso rettificato</string>
 
 </resources>

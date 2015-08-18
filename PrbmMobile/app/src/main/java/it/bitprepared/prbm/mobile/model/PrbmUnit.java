@@ -37,8 +37,15 @@ public class PrbmUnit {
     /** Minutes elapsed of this PrbmUnit */
     private float minutes;
 
-    /** List of Entities */
-    private List<PrbmEntity> entities;
+    /** List of Entities far Left*/
+    private List<PrbmEntity> entitiesFarLeft;
+    /** List of Entities far Right*/
+    private List<PrbmEntity> entitiesFarRight;
+    /** List of Entities near Left*/
+    private List<PrbmEntity> entitiesNearLeft;
+    /** List of Entities near Left*/
+    private List<PrbmEntity> entitiesNearRight;
+
 
 
     // //////////////////////////////////////
@@ -57,7 +64,10 @@ public class PrbmUnit {
         this.azimut = azimut;
         this.meter = meter;
         this.minutes = minutes;
-        this.entities = new ArrayList<>();
+        this.entitiesFarLeft = new ArrayList<>();
+        this.entitiesFarRight = new ArrayList<>();
+        this.entitiesNearLeft = new ArrayList<>();
+        this.entitiesNearRight = new ArrayList<>();
     }
 
     /**
@@ -82,10 +92,25 @@ public class PrbmUnit {
             jsonObject.put("minutes", minutes);
 
             JSONArray jsonArray = new JSONArray();
-            for (PrbmEntity e : entities) {
+            for (PrbmEntity e : entitiesFarLeft) {
                 jsonArray.put(e.toJSONObject());
             }
-            jsonObject.put("entities", jsonArray);
+            jsonObject.put("entities-far-left", jsonArray);
+            jsonArray = new JSONArray();
+            for (PrbmEntity e : entitiesNearLeft) {
+                jsonArray.put(e.toJSONObject());
+            }
+            jsonObject.put("entities-near-left", jsonArray);
+            jsonArray = new JSONArray();
+            for (PrbmEntity e : entitiesNearRight) {
+                jsonArray.put(e.toJSONObject());
+            }
+            jsonObject.put("entities-near-right", jsonArray);
+            jsonArray = new JSONArray();
+            for (PrbmEntity e : entitiesFarRight) {
+                jsonArray.put(e.toJSONObject());
+            }
+            jsonObject.put("entities-far-right", jsonArray);
 
             return jsonObject;
         } catch (JSONException e) {
@@ -106,4 +131,16 @@ public class PrbmUnit {
     public float getMinutes() {
         return minutes;
     }
+
+    public List<PrbmEntity> getFarLeft() {
+        return entitiesFarLeft;
+    }
+    public List<PrbmEntity> getFarRight() {
+        return entitiesFarRight;
+    }
+    public List<PrbmEntity> getNearLeft() {
+        return entitiesNearLeft;
+    }
+    public List<PrbmEntity> getNearRight() { return entitiesNearRight; }
+
 }

@@ -63,6 +63,15 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
     /** Debug TAG */
     private final static String TAG = "PrbmActivity";
 
+    /** Flag used for context menu - Edit unit */
+    private final static int MENU_UNIT_EDIT = 1;
+    /** Flag used for context menu - Add unit before */
+    private final static int MENU_UNIT_ADD_BEFORE = 2;
+    /** Flag used for context menu - Add unit after */
+    private final static int MENU_UNIT_ADD_AFTER = 3;
+    /** Flag used for context menu - Delete Unit */
+    private final static int MENU_UNIT_DELETE = 4;
+
     /** Riference to Prbm object */
     private Prbm refPrbm = null;
 
@@ -87,6 +96,8 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
             adtUnit = new PrbmUnitAdapter(PrbmActivity.this,
                     R.layout.list_units, refPrbm.getUnits());
             lstUnits.setAdapter(adtUnit);
+            registerForContextMenu(lstUnits);
+            Log.d(TAG, "Registred for context menu");
         }
     }
 
@@ -94,13 +105,38 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle(getString(R.string.menu_prbm_unit));
+        if (v.getId() == R.id.lstUnits) {
+            menu.setHeaderTitle(getString(R.string.menu_prbm_unit));
+            menu.add(Menu.NONE, MENU_UNIT_EDIT, 0, "Modifica valori");
+            menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, "Inserisci riga sopra");
+            menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, "Inserisci riga sotto");
+            menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, "Elimina riga");
+        }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
                 .getMenuInfo();
+
+        if (item.getItemId() == MENU_UNIT_EDIT) {
+
+            /** SHOW A DIALOG */
+
+        } else if (item.getItemId() == MENU_UNIT_ADD_AFTER) {
+            refPrbm.addNewUnits(info.position, true);
+            adtUnit.notifyDataSetChanged();
+        } else if (item.getItemId() == MENU_UNIT_ADD_BEFORE) {
+            refPrbm.addNewUnits(info.position, false);
+            adtUnit.notifyDataSetChanged();
+        } else if (item.getItemId() == MENU_UNIT_DELETE) {
+            if (refPrbm.canDelete()) {
+                refPrbm.deleteUnit(info.position);
+                adtUnit.notifyDataSetChanged();
+            } else{
+                Toast.makeText(this, getString(R.string.you_cant_delete_last_unit), Toast.LENGTH_SHORT).show();
+            }
+        }
         return true;
     }
 

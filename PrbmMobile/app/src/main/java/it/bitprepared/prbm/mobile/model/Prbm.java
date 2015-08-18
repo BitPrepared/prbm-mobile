@@ -189,4 +189,25 @@ public class Prbm {
     public void addNewUnits(){
         units.add(new PrbmUnit());
     }
+    public void addNewUnits(int posit, boolean after){
+        if (after)
+            units.add(posit+1, new PrbmUnit());
+        else
+            units.add(posit, new PrbmUnit());
+    }
+    public void addNewUnits(PrbmUnit unit, boolean after){
+        int posit = units.indexOf(unit);
+        addNewUnits(posit, after);
+    }
+
+    public boolean canDelete() {
+        return units.size() > 1;
+    }
+
+    public void deleteUnit(PrbmUnit u){
+        units.remove(u);
+    }
+    public void deleteUnit(int pos){
+        units.remove(pos);
+    }
 }
