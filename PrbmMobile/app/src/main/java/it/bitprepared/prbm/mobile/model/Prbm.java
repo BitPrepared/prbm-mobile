@@ -183,4 +183,10 @@ public class Prbm {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public List<PrbmUnit> getUnits(){ return units; }
+
+    public void addNewUnits(){
+        units.add(new PrbmUnit());
+    }
 }

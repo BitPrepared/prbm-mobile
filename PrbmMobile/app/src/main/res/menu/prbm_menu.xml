@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="it.bitprepared.prbm.mobile.activity.PrbmActivity" >
+
+    <item
+        android:id="@+id/discard"
+        android:title="@string/back"
+        android:icon="@drawable/ic_action_cancel"
+        android:showAsAction="ifRoom|withText"
+        />
+
+    <item
+        android:id="@+id/add"
+        android:title="@string/add"
+        android:icon="@drawable/ic_action_new"
+        android:showAsAction="always|withText"
+        />
+
+    <item
+        android:id="@+id/save"
+        android:title="@string/save"
+        android:icon="@drawable/ic_action_save"
+        android:showAsAction="ifRoom|withText"
+        />
+
+</menu>

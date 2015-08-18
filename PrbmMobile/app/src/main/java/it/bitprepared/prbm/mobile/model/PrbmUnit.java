@@ -61,6 +61,14 @@ public class PrbmUnit {
     }
 
     /**
+     * Base constructor for a new PrbmUnit
+     * sets all parameters to 0
+     */
+    public PrbmUnit(){
+        this(0,0,0);
+    }
+
+    /**
      * Return JSON representation of a single PrbmUnit
      * @return A JSONObject from a PrbmUnit
      */
@@ -85,5 +93,17 @@ public class PrbmUnit {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public float getAzimut() {
+        return azimut;
+    }
+
+    public float getMeter() {
+        return meter;
+    }
+
+    public float getMinutes() {
+        return minutes;
     }
 }

@@ -11,10 +11,10 @@
     <string name="note">Note</string>
     <string name="benvenuto">Benvenuto</string>
     <string name="procedi">Procedi</string>
-    <string name="annulla">Annulla</string>
+    <string name="abort">Annulla</string>
     <string name="avanti">Avanti</string>
-    <string name="aggiungi">Aggiungi</string>
-    <string name="salva">Salva</string>
+    <string name="add">Aggiungi</string>
+    <string name="save">Salva</string>
     <string name="sync">Sincronizza</string>
     <string name="ok">OK</string>
     <string name="articolo_inserito_manualmente">Articolo inserito manualmente</string>
@@ -24,11 +24,11 @@
     <string name="cancella">Cancella</string>
     <string name="fields_incomplete">Campi incompleti!</string>
 
-    <string name="indietro">Indietro</string>
-    <string name="continua">Continua</string>
-    <string name="inserisci">Inserisci</string>
-    <string name="confermi_">Confermi?</string>
-    <string name="annulli_sei_sicuro">Se annulli perderai le modifiche non salvate, sei sicuro?</string>
+    <string name="back">Indietro</string>
+    <string name="continue_">Continua</string>
+    <string name="insert">Inserisci</string>
+    <string name="confirmation">Confermi?</string>
+    <string name="are_you_sure">Se annulli perderai le modifiche non salvate, sei sicuro?</string>
     <string name="no_empty">Il campo di testo della descrizione non può essere vuoto</string>
     <string name="parse_error">Hai inserito dei caratteri invalidi</string>
 
@@ -52,9 +52,14 @@
     <string name="date">Data</string>
     <string name="note_hint">Insirisci eventuali note sul percorso rettificato</string>
     <string name="title_create_prbm_activity">Creazione nuovo PRBM</string>
+    <string name="title_prbm_activity">Modifica il PRBM</string>
     <string name="error_no_title_prbm">Per poter continuare è necessario inserire almeno il titolo del percorso rettificato</string>
     <string name="app_description">PRBMM - Percorso Rettificato Belga Multimediale Mobile</string>
     <string name="prbm_date">Data percorso</string>
     <string name="prbm_time">Orario percorso</string>
+    <string name="menu_prbm_unit">Menù riga percorso rettificato</string>
+    <string name="minutes">"Minuti: "</string>
+    <string name="meters">"Metri: "</string>
+    <string name="azimut">"Azimut: "</string>
 
 </resources>

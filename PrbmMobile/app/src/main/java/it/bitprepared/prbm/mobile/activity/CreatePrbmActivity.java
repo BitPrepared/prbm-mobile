@@ -20,6 +20,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
@@ -125,13 +126,15 @@ public class CreatePrbmActivity extends Activity {
                 c.set(datDate.getYear(), datDate.getMonth(), datDate.getDayOfMonth(), datTime.getCurrentHour(), datTime.getCurrentMinute());
                 newPrbm.setDate(dateFormat.format(c.getTime()));
 
+                newPrbm.addNewUnits();
+
                 // Setting global PRBM
                 UserData.getInstance().setPrbm(newPrbm);
 
-//                Intent it = new Intent(CreatePrbmActivity.this,
-//                        PrbmActivity.class);
-//                startActivity(it);
-//                finish();
+                Intent it = new Intent(CreatePrbmActivity.this,
+                        PrbmActivity.class);
+                startActivity(it);
+                finish();
             }
             return true;
         }

@@ -49,6 +49,12 @@
             android:label="@string/title_create_prbm_activity"
             android:theme="@style/MyAppThemeLight">
         </activity>
+        <activity
+            android:name=".activity.PrbmActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/title_prbm_activity"
+            android:theme="@style/MyAppThemeLight">
+        </activity>
 
 
         <!--<activity-->
