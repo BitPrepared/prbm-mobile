@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="it.bitprepared.prbm.mobile.activity.CreatePrbmActivity" >
+
+    <item
+        android:id="@+id/back"
+        android:title="@string/annulla"
+        android:icon="@drawable/ic_action_cancel"
+        android:showAsAction="ifRoom|withText"
+        />
+    
+    <item
+        android:id="@+id/confirm"
+        android:title="@string/avanti"
+        android:icon="@drawable/ic_action_accept"
+        android:showAsAction="always|withText"
+        />
+    
+</menu>

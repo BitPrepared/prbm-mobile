@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PRBMM - Prbm Mobile</string>
+    <string name="app_name_short">PRBMM</string>
+    <string name="app_name_description">Percorso Rettificato Belga Multimediale Mobile</string>
+    <string name="welcome">Benvenuto!</string>
+    <string name="title_activity_main">PRBMM - Prbm Mobile</string>
+    <string name="new_prbm">Nuovo PRBM</string>
+    <string name="list_prbm">Elenco PRBM</string>
+    <string name="note">Note</string>
+    <string name="benvenuto">Benvenuto</string>
+    <string name="procedi">Procedi</string>
+    <string name="annulla">Annulla</string>
+    <string name="avanti">Avanti</string>
+    <string name="aggiungi">Aggiungi</string>
+    <string name="salva">Salva</string>
+    <string name="sync">Sincronizza</string>
+    <string name="ok">OK</string>
+    <string name="articolo_inserito_manualmente">Articolo inserito manualmente</string>
+    <string name="visualizza">Visualizza</string>
+    <string name="modifica">Modifica</string>
+    <string name="elimina">Elimina</string>
+    <string name="cancella">Cancella</string>
+    <string name="fields_incomplete">Campi incompleti!</string>
+
+    <string name="indietro">Indietro</string>
+    <string name="continua">Continua</string>
+    <string name="inserisci">Inserisci</string>
+    <string name="confermi_">Confermi?</string>
+    <string name="annulli_sei_sicuro">Se annulli perderai le modifiche non salvate, sei sicuro?</string>
+    <string name="no_empty">Il campo di testo della descrizione non può essere vuoto</string>
+    <string name="parse_error">Hai inserito dei caratteri invalidi</string>
+
+    <string name="background_splash_image">Background splash image</string>
+    <string name="main_splash_image">Main splash image</string>
+    <string name="about">About</string>
+    <string name="about_text">PRBMM è un\'applicazione sviluppata da Nicola Corti per BitPrepared (http://www.bitprepared.it/). Questa applicazione è open source, puoi trovare il codice sorgente su GitHub</string>
+    <string name="contact">Contattaci</string>
+    <string name="sendmail">Invia mail</string>
+    <string name="close">Chiudi</string>
+    <string name="rate">Valuta</string>
+    <string name="create_new_prbm">Creazione nuovo PRBM</string>
+    <string name="choose_place">Seleziona il luogo del percorso</string>
+    <string name="insert_data_description">Inserisci i dati del nuovo percorso rettificato</string>
+    <string name="title">Titolo</string>
+    <string name="title_hint">Inserisci il titolo del percorso rettificato.</string>
+    <string name="authors">Autori</string>
+    <string name="authors_hint">Inserisci l\'elenco degli autori</string>
+    <string name="place">Località</string>
+    <string name="place_hint">Inserisci il nome della località relativa al percorso rettificato</string>
+    <string name="date">Data</string>
+    <string name="note_hint">Insirisci eventuali note sul percorso rettificato</string>
+    <string name="title_create_prbm_activity">Creazione nuovo PRBM</string>
+    <string name="error_no_title_prbm">Per poter continuare è necessario inserire almeno il titolo del percorso rettificato</string>
+    <string name="app_description">PRBMM - Percorso Rettificato Belga Multimediale Mobile</string>
+
+</resources>

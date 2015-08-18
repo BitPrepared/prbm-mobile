@@ -1,0 +1,91 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             tools:context="it.bitprepared.prbm.mobile.activity.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/main_splash_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnAbout"
+            android:layout_width="520dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/syncro"
+            android:padding="10dp"
+            android:text="@string/about"
+            android:textColor="@color/White"/>
+
+        <Button
+            android:id="@+id/btnSyncro"
+            android:layout_width="520dp"
+            android:layout_height="60dp"
+            android:layout_above="@id/btnAbout"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/syncro"
+            android:enabled="false"
+            android:padding="10dp"
+            android:text="@string/sync"
+            android:textColor="@color/White"/>
+
+        <Button
+            android:id="@+id/btnList"
+            android:layout_width="520dp"
+            android:layout_height="60dp"
+            android:layout_above="@id/btnSyncro"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/list_prbm"
+            android:padding="10dp"
+            android:text="@string/list_prbm"
+            android:textColor="@color/White"/>
+
+        <Button
+            android:id="@+id/btnNew"
+            android:layout_width="520dp"
+            android:layout_height="60dp"
+            android:layout_above="@id/btnList"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/new_prbm"
+            android:padding="10dp"
+            android:text="@string/new_prbm"
+            android:textColor="@color/White"/>
+
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:text="@string/welcome"
+            android:textColor="@color/Blue"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/welcome"
+            android:layout_margin="10dp"
+            android:text="@string/app_name"
+            android:textColor="@color/Blue"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+</FrameLayout>
