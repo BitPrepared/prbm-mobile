@@ -23,6 +23,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.bitprepared.prbm.mobile.model.entities.EntityFauna;
+import it.bitprepared.prbm.mobile.model.entities.EntityFlower;
+
 /**
  * Class related to model. PrbmUnit represent a single row of
  * Prbm that is composed by several PrbmEntity
@@ -143,4 +146,15 @@ public class PrbmUnit {
     }
     public List<PrbmEntity> getNearRight() { return entitiesNearRight; }
 
+    public void addEntity(PrbmEntity unit, int column){
+        if (unit == null) return;
+        List<PrbmEntity> toAdd = null;
+        switch (column){
+            case 0: toAdd = entitiesFarLeft; break;
+            case 1: toAdd = entitiesNearLeft; break;
+            case 2: toAdd = entitiesNearRight; break;
+            case 3: toAdd = entitiesFarRight; break;
+        }
+        if (toAdd != null) toAdd.add(unit);
+    }
 }

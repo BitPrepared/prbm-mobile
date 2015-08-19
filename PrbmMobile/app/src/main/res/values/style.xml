@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="MyAlertDialogCustom" parent="@android:style/Theme.Holo.Light.Dialog"/>
+
     <style name="MyAppTheme" parent="@android:style/Theme.Holo">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>

@@ -55,7 +55,18 @@
             android:label="@string/title_prbm_activity"
             android:theme="@style/MyAppThemeLight">
         </activity>
-
+        <activity
+            android:name=".activity.PrbmAddEntityActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/choose_entity"
+            android:theme="@style/MyAppThemeLight">
+        </activity>
+        <activity
+            android:name=".activity.EntityActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/entity_details"
+            android:theme="@style/MyAppTheme">
+        </activity>
 
         <!--<activity-->
             <!--android:name=".activity.SyncroActivity"-->

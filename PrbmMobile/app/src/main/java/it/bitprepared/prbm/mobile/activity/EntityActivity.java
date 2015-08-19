@@ -1,0 +1,128 @@
+/*   This file is part of PrbmMobile
+ *
+ *   PrbmMobile is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   PrbmMobile is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with PrbmMobile.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package it.bitprepared.prbm.mobile.activity;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.util.Calendar;
+
+import it.bitprepared.prbm.mobile.R;
+import it.bitprepared.prbm.mobile.model.PrbmEntity;
+import it.bitprepared.prbm.mobile.model.PrbmUnit;
+
+/**
+ * Class responsible for visualizing and modifying a single PrbmEntity
+ * @author Nicola Corti
+ */
+public class EntityActivity extends Activity {
+
+    /** Debug TAG */
+    private final static String TAG = "EntityActivity";
+
+    private LinearLayout linFree = null;
+
+    private EditText edtCaption = null;
+    private EditText edtDescription = null;
+    private TimePicker datTime = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Setting up Home back button
+        ActionBar bar = getActionBar();
+        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
+
+        setContentView(R.layout.activity_entity);
+        linFree = (LinearLayout)findViewById(R.id.linearFreeEntity);
+        ImageView imgBack = (ImageView)findViewById(R.id.imgEntity);
+        TextView txtTitle = (TextView)findViewById(R.id.txtEntityTitleAdd);
+        datTime = (TimePicker)findViewById(R.id.datTimeEntity);
+        edtCaption = (EditText)findViewById(R.id.edtCaption);
+        edtDescription = (EditText)findViewById(R.id.edtDescription);
+
+        Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
+        datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
+        datTime.setCurrentMinute(c.get(Calendar.MINUTE));
+        datTime.setIs24HourView(true);
+
+        PrbmEntity entity = UserData.getInstance().getEntity();
+        if (entity != null){
+            imgBack.setImageResource(entity.getIdBackImage());
+            entity.drawYourSelf(EntityActivity.this, linFree);
+            txtTitle.setText(entity.getType());
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.prbm_entity, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.discard || id == android.R.id.home) {
+
+            AlertDialog.Builder build = new AlertDialog.Builder(EntityActivity.this);
+            build.setTitle(R.string.confirmation);
+            build.setMessage(R.string.are_you_sure);
+            build.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            build.setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            build.show();
+            return true;
+        } else if (id == R.id.save) {
+            PrbmEntity entity = UserData.getInstance().getEntity();
+            if (entity != null) {
+                entity.saveFields(EntityActivity.this, linFree);
+                entity.setCaption(edtCaption.getText().toString());
+                entity.setDescription(edtDescription.getText().toString());
+                // TODO Salvare il timestamp
+                PrbmUnit involved = UserData.getInstance().getUnit();
+                involved.addEntity(entity, UserData.getInstance().getColumn());
+                Toast.makeText(EntityActivity.this, "Entità aggiunta con successo", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}

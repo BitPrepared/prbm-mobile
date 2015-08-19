@@ -16,7 +16,9 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -68,8 +71,11 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
      * @param parent      ViewGroup padre della vista
      * @return La nuova vista disegnata
      */
-    public View getViewOptimize(int position, View convertView, ViewGroup parent) {
+    public View getViewOptimize(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+
+        final PrbmUnit unit = getItem(position);
+
         if (convertView == null) {
 
             // Se la convertView e' nulla la devo caricare la prima volta
@@ -85,50 +91,55 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
             viewHolder.lstFarRight = (LinearLayout) convertView.findViewById(R.id.lstEntityFarRight);
             viewHolder.lstNearLeft = (LinearLayout) convertView.findViewById(R.id.lstEntityNearLeft);
             viewHolder.lstNearRight = (LinearLayout) convertView.findViewById(R.id.lstEntityNearRight);
+            viewHolder.btnFarLeft = (Button) convertView.findViewById(R.id.btnAddFarLeft);
+            viewHolder.btnFarRight = (Button) convertView.findViewById(R.id.btnAddFarRight);
+            viewHolder.btnNearLeft = (Button) convertView.findViewById(R.id.btnAddNearLeft);
+            viewHolder.btnNearRight = (Button) convertView.findViewById(R.id.btnAddNearRight);
 
             // Set the tag tag
             convertView.setTag(viewHolder);
+
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            param.setMargins(5, 0, 5, 5);
+
+            List[] arrayEntity = {unit.getFarLeft(), unit.getNearLeft(), unit.getNearRight(), unit.getFarRight()};
+            LinearLayout[] arrayLin = {viewHolder.lstFarLeft, viewHolder.lstNearLeft, viewHolder.lstNearRight, viewHolder.lstFarRight};
+
+            for(int i = 0; i < arrayLin.length; i++){
+                List<PrbmEntity> entities = arrayEntity[i];
+                for (PrbmEntity entity: entities){
+                    Button b = new Button(c);
+                    b.setText(entity.getType());
+                    b.setLayoutParams(param);
+                    b.setFocusable(false);
+                    b.setBackgroundResource(entity.getIdButtonImage());
+                    b.setTextColor(c.getResources().getColor(R.color.White));
+                    arrayLin[i].addView(b);
+                }
+            }
         } else {
             // Restore tag
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        PrbmUnit unit = getItem(position);
-
         viewHolder.txtAzimut.setText(c.getString(R.string.azimut) + unit.getAzimut());
         viewHolder.txtMeters.setText(c.getString(R.string.meters) + unit.getMeter());
         viewHolder.txtMinutes.setText(c.getString(R.string.minutes) + unit.getMinutes());
 
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        param.setMargins(5, 0, 5, 5);
+        Button[] arrayBtn = {viewHolder.btnFarLeft, viewHolder.btnNearLeft, viewHolder.btnNearRight, viewHolder.btnFarRight};
+        for(int j = 0; j < arrayBtn.length; j++){
+            final int column = j;
+            arrayBtn[j].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserData.getInstance().setColumn(column);
+                    UserData.getInstance().setUnit(unit);
+                    Log.d("ADAPTER", "Position " + position + " Column " + column);
+                    Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
+                    ((Activity)c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
+                }
+            });
+        }
 
-        for (PrbmEntity farLeft: unit.getFarLeft()){
-            Button b = new Button(c);
-            b.setText(farLeft.getType());
-            b.setLayoutParams(param);
-            b.setFocusable(false);
-            viewHolder.lstFarLeft.addView(b);
-        }
-        for (PrbmEntity nearLeft: unit.getNearLeft()){
-            Button b = new Button(c);
-            b.setText(nearLeft.getType());
-            b.setLayoutParams(param);
-            b.setFocusable(false);
-            viewHolder.lstNearLeft.addView(b);
-        }
-        for (PrbmEntity nearRight: unit.getNearRight()){
-            Button b = new Button(c);
-            b.setText(nearRight.getType());
-            b.setLayoutParams(param);
-            b.setFocusable(false);
-            viewHolder.lstNearRight.addView(b);
-        }
-        for (PrbmEntity farRight: unit.getFarRight()){
-            Button b = new Button(c);
-            b.setText(farRight.getType());
-            b.setLayoutParams(param);
-            b.setFocusable(false);
-            viewHolder.lstFarRight.addView(b);
-        }
         return convertView;
     }
 
@@ -151,5 +162,13 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
         public LinearLayout lstNearRight;
         /** Reference to far right list */
         public LinearLayout lstFarRight;
+        /** Reference to far left button */
+        public Button btnFarLeft;
+        /** Reference to near left button */
+        public Button btnNearLeft;
+        /** Reference to near right button */
+        public Button btnNearRight;
+        /** Reference to far right button */
+        public Button btnFarRight;
     }
 }

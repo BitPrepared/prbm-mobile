@@ -16,39 +16,23 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.IOException;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
@@ -72,6 +56,9 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
     /** Flag used for context menu - Delete Unit */
     private final static int MENU_UNIT_DELETE = 4;
 
+    /** Flag used for activity add Entity */
+    public final static int ACTIVITY_ADD_ENTITY = 101;
+
     /** Riference to Prbm object */
     private Prbm refPrbm = null;
 
@@ -89,7 +76,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
         if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_prbm);
-        lstUnits = (ListView)findViewById(R.id.lstUnits);
+        lstUnits = (ListView) findViewById(R.id.lstUnits);
 
         refPrbm = UserData.getInstance().getPrbm();
         if (refPrbm != null) {
@@ -133,7 +120,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
             if (refPrbm.canDelete()) {
                 refPrbm.deleteUnit(info.position);
                 adtUnit.notifyDataSetChanged();
-            } else{
+            } else {
                 Toast.makeText(this, getString(R.string.you_cant_delete_last_unit), Toast.LENGTH_SHORT).show();
             }
         }
@@ -179,5 +166,14 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "Here");
+        if (requestCode == ACTIVITY_ADD_ENTITY) {
+            Log.d(TAG, "Here2");
+            adtUnit.notifyDataSetChanged();
+        }
     }
 }

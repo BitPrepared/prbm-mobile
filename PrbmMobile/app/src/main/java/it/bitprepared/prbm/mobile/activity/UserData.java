@@ -17,6 +17,8 @@
 package it.bitprepared.prbm.mobile.activity;
 
 import it.bitprepared.prbm.mobile.model.Prbm;
+import it.bitprepared.prbm.mobile.model.PrbmEntity;
+import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 /**
  * Class used to collect global data related to user/application
@@ -31,6 +33,12 @@ public class UserData {
 
 	/** Reference to actual prbm */
 	private Prbm prbm = null;
+	/** Reference to actual unit */
+	private PrbmUnit unit;
+	/** Reference to actual entity */
+	private PrbmEntity entity;
+	/** Reference to actual entity column*/
+	private int entityColumn;
 
 	/**
 	 * Empty constructor
@@ -66,5 +74,34 @@ public class UserData {
 	 */
 	public void setPrbm(Prbm p) {
 		this.prbm = p;
+	}
+
+	/**
+	 * Returns reference to actual entity
+	 *
+	 * @return Global reference to entity
+	 */
+	public PrbmEntity getEntity() {
+		return this.entity;
+	}
+
+	public void setEntity(PrbmEntity entity) {
+		this.entity = entity;
+	}
+
+	public PrbmUnit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(PrbmUnit unit) {
+		this.unit = unit;
+	}
+
+	public int getColumn() {
+		return entityColumn;
+	}
+
+	public void setColumn(int entityColumn) {
+		this.entityColumn = entityColumn;
 	}
 }

@@ -14,22 +14,36 @@
  *   along with PrbmMobile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.bitprepared.prbm.mobile.model;
+package it.bitprepared.prbm.mobile.model.entities;
+
+import android.content.Context;
+import android.widget.LinearLayout;
 
 import org.json.JSONObject;
+
+import it.bitprepared.prbm.mobile.R;
+import it.bitprepared.prbm.mobile.activity.EntityActivity;
+import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * @author Nicola Corti
  */
-public class EntityMountain extends PrbmEntity{
+public class EntityFlower extends PrbmEntity {
     /**
      * Base constructor for a new PRBM Entity
      * @param description Entity description
      * @param caption     Entity caption
      * @param timestamp   Entity timestamp
      */
-    public EntityMountain(String description, String caption, String timestamp) {
+    public EntityFlower(String description, String caption, String timestamp) {
         super(description, caption, timestamp);
+    }
+
+    /**
+     * Base constructor for an empty EntityFlower
+     */
+    public EntityFlower() {
+        this("", "", "");
     }
 
     @Override
@@ -38,6 +52,31 @@ public class EntityMountain extends PrbmEntity{
     }
 
     public String getType(){
-        return "Montagna";
+        return "Fiore/Erba";
+    }
+
+    @Override
+    public String getTypeDescription() {
+        return "Utilizza questa classe per inserire avvistamente di fiori o erba.";
+    }
+
+    @Override
+    public int getIdListImage() {
+        return R.drawable.background_flower_list;
+    }
+
+    @Override
+    public int getIdButtonImage() {
+        return R.drawable.background_flower_button;
+    }
+
+    @Override
+    public int getIdBackImage() {
+        return R.drawable.background_flower;
+    }
+
+    @Override
+    public void drawYourSelf(Context context, LinearLayout linFree) {
+
     }
 }

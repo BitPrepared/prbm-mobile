@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnAddFarLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -30,6 +31,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnAddNearLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -74,6 +76,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnAddNearRight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -89,6 +92,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnAddFarRight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
