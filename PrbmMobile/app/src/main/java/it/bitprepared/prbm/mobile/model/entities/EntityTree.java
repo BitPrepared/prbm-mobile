@@ -86,8 +86,8 @@ public class EntityTree extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune della pianta");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico della pianta");
+        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune della pianta.");
+        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico della pianta.");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[2], "Altezza media (m): ");
         EntityViewHelper.addLongTextView(context, linFree, id_fields[3], "Portamento", "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare," +
                 " ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ", 3);
