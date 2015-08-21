@@ -36,6 +36,7 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityTree extends PrbmEntity {
 
     private static final int[] id_fields = {1001,1002, 1003, 1004, 1005,1006, 1007, 1008, 1009,1010, 1011};
+    private List<String> extraFields = new ArrayList<>();
 
     /**
      * Base constructor for a new PRBM Entity
@@ -97,5 +98,15 @@ public class EntityTree extends PrbmEntity {
         EntityViewHelper.addShortTextView(context, linFree, id_fields[8], "Distribuzione", "Inserire la descrizione della distribuzione della pianta.");
         EntityViewHelper.addShortTextView(context, linFree, id_fields[9], "Proprietà", "Inserire eventuali proprietà di questa pianta.");
         EntityViewHelper.addShortTextView(context, linFree, id_fields[10], "Curiosità", "Spazio per eventuali curiosità.");
+    }
+
+    @Override
+    public void saveFields(Context context, LinearLayout linFree) {
+        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
+    }
+
+    @Override
+    public void restoreFields(Context context, LinearLayout linFree) {
+        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
     }
 }

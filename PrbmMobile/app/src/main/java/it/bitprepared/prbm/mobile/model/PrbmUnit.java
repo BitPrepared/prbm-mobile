@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import it.bitprepared.prbm.mobile.model.entities.EntityFlower;
  * Prbm that is composed by several PrbmEntity
  * @author Nicola Corti
  */
-public class PrbmUnit {
+public class PrbmUnit implements Serializable {
 
     /** Azimut angle of this PrbmUnit */
     private float azimut;

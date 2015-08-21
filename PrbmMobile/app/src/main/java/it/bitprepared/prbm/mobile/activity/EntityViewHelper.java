@@ -2,11 +2,14 @@ package it.bitprepared.prbm.mobile.activity;
 
 import android.content.Context;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
 
@@ -47,7 +50,7 @@ public class EntityViewHelper {
         shortEditText.setTextColor(c.getResources().getColor(R.color.White));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(15,15,15,0);
+        params.setMargins(15, 15, 15, 0);
         shortTextView.setLayoutParams(params);
         shortEditText.setLayoutParams(params);
 
@@ -96,5 +99,30 @@ public class EntityViewHelper {
     public static View addDatePicker(){
 
         return null;
+    }
+
+    public static void saveLinearLayoutFields(List<String> extraFields, int[] id_fields, LinearLayout linFree){
+        if (extraFields.size() == 0){
+            for (int i = 0; i < id_fields.length; i++){
+                EditText edt = (EditText)linFree.findViewById(id_fields[i]);
+                extraFields.add(edt.getText().toString());
+            }
+        } else {
+            for (int i = 0; i < id_fields.length; i++){
+                EditText edt = (EditText)linFree.findViewById(id_fields[i]);
+                extraFields.set(i, edt.getText().toString());
+            }
+        }
+    }
+
+    public static void restoreLinearLayoutFields(List<String> extraFields, int[] id_fields, LinearLayout linFree){
+        if (extraFields.size() == 0){
+            return;
+        } else {
+            for (int i = 0; i < id_fields.length; i++){
+                EditText edt = (EditText)linFree.findViewById(id_fields[i]);
+                edt.setText(extraFields.get(i));
+            }
+        }
     }
 }

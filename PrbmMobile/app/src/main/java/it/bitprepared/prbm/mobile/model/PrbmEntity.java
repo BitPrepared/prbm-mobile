@@ -17,11 +17,13 @@
 package it.bitprepared.prbm.mobile.model;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +34,7 @@ import it.bitprepared.prbm.mobile.activity.EntityActivity;
  * that must be inserted in a column of a Prbm.
  * @author Nicola Corti
  */
-public abstract class PrbmEntity {
-
-    private static final int[] id_fields = {};
-    private List<String> extraFields = null;
+public abstract class PrbmEntity implements Serializable{
 
     /** Entity description */
     private String description;
@@ -60,7 +59,6 @@ public abstract class PrbmEntity {
         this.description = description;
         this.caption = caption;
         this.timestamp = timestamp;
-        this.extraFields = new ArrayList<>();
     }
 
     /**
@@ -69,7 +67,6 @@ public abstract class PrbmEntity {
     public PrbmEntity() {
         this("","","");
     }
-
     /**
      * Returns JSON representation of a PrbmUnit instance.
      * @return A JSONObject from PrbmUnit
@@ -108,28 +105,7 @@ public abstract class PrbmEntity {
 
     public abstract void drawYourSelf(Context context, LinearLayout linFree);
 
-    public void saveFields(Context context, LinearLayout linFree) {
-        if (extraFields.size() == 0){
-            for (int i = 0; i < id_fields.length; i++){
-                EditText edt = (EditText)linFree.findViewById(id_fields[i]);
-                extraFields.add(edt.getText().toString());
-            }
-        } else {
-            for (int i = 0; i < id_fields.length; i++){
-                EditText edt = (EditText)linFree.findViewById(id_fields[i]);
-                extraFields.set(i, edt.getText().toString());
-            }
-        }
-    }
+    public abstract void saveFields(Context context, LinearLayout linFree);
 
-    public void restoreFields(Context context, LinearLayout linFree) {
-        if (extraFields.size() == 0){
-            return;
-        } else {
-            for (int i = 0; i < id_fields.length; i++){
-                EditText edt = (EditText)linFree.findViewById(id_fields[i]);
-                edt.setText(extraFields.get(i));
-            }
-        }
-    }
+    public abstract void restoreFields(Context context, LinearLayout linFree);
 }

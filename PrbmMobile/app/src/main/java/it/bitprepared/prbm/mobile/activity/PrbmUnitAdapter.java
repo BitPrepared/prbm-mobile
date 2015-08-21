@@ -98,25 +98,6 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
 
             // Set the tag tag
             convertView.setTag(viewHolder);
-
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-            param.setMargins(5, 0, 5, 5);
-
-            List[] arrayEntity = {unit.getFarLeft(), unit.getNearLeft(), unit.getNearRight(), unit.getFarRight()};
-            LinearLayout[] arrayLin = {viewHolder.lstFarLeft, viewHolder.lstNearLeft, viewHolder.lstNearRight, viewHolder.lstFarRight};
-
-            for(int i = 0; i < arrayLin.length; i++){
-                List<PrbmEntity> entities = arrayEntity[i];
-                for (PrbmEntity entity: entities){
-                    Button b = new Button(c);
-                    b.setText(entity.getType());
-                    b.setLayoutParams(param);
-                    b.setFocusable(false);
-                    b.setBackgroundResource(entity.getIdButtonImage());
-                    b.setTextColor(c.getResources().getColor(R.color.White));
-                    arrayLin[i].addView(b);
-                }
-            }
         } else {
             // Restore tag
             viewHolder = (ViewHolder) convertView.getTag();
@@ -133,11 +114,60 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                 public void onClick(View v) {
                     UserData.getInstance().setColumn(column);
                     UserData.getInstance().setUnit(unit);
-                    Log.d("ADAPTER", "Position " + position + " Column " + column);
+//                    Log.d("ADAPTER", "Position " + position + " Column " + column);
                     Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
                     ((Activity)c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
                 }
             });
+        }
+
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        param.setMargins(5, 0, 5, 5);
+
+        List[] arrayEntity = {unit.getFarLeft(), unit.getNearLeft(), unit.getNearRight(), unit.getFarRight()};
+        LinearLayout[] arrayLin = {viewHolder.lstFarLeft, viewHolder.lstNearLeft, viewHolder.lstNearRight, viewHolder.lstFarRight};
+
+
+        for(int i = 0; i < arrayLin.length; i++){
+            List<PrbmEntity> entities = arrayEntity[i];
+            int j;
+            for (j = 0; j < entities.size(); j++){
+                final PrbmEntity entity = entities.get(j);
+                View v = arrayLin[i].getChildAt(j+1);
+//                Log.d("ADAPTER", "Lin " + i + " " + arrayLin[i].getChildCount());
+                if (v != null && v instanceof Button){
+                    Button b = (Button)v;
+//                    Log.d("ADAPTER", "Running " + position + " Column " + i + " Entity " + j + " " +b.getText().toString() + " " + entity.getType());
+                    if (b.getText().toString().contentEquals(entity.getType()))
+                        continue; // Button is already present...skip to next
+                    else
+                        arrayLin[i].removeViewAt(j+1);
+                }
+                Button b = new Button(c);
+                b.setText(entity.getType());
+                b.setLayoutParams(param);
+                b.setFocusable(false);
+                b.setBackgroundResource(entity.getIdButtonImage());
+                b.setTextColor(c.getResources().getColor(R.color.White));
+                final int column = i;
+                b.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserData.getInstance().setColumn(column);
+                        UserData.getInstance().setUnit(unit);
+                        UserData.getInstance().setEntity(entity);
+                        Intent addEntity = new Intent(c, EntityActivity.class);
+                        addEntity.putExtra("edit", true);
+                        ((Activity)c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_MODIFY_ENTITY);
+                    }
+                });
+                arrayLin[i].addView(b);
+            }
+            try {
+                arrayLin[i].removeViews(j + 1, arrayLin[i].getChildCount() - (j + 1));
+            } catch (Exception e ) {
+//                Log.d("ADAPTER", "Lin: " + i + " j+1 " + (j+1) + " " + arrayLin[i].getChildCount());
+            }
         }
 
         return convertView;

@@ -16,10 +16,13 @@
 
 package it.bitprepared.prbm.mobile.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +34,7 @@ import java.util.Locale;
  * by several PrbmUnit.
  * @author Nicola Corti
  */
-public class Prbm {
+public class Prbm implements Serializable {
 
     /** DB ID of Prbm */
     private long id = -1;
@@ -209,5 +212,29 @@ public class Prbm {
     }
     public void deleteUnit(int pos){
         units.remove(pos);
+    }
+
+    public void print(){
+        Log.d("PRBM", "--- Printing PRBM ---");
+        for (int i = 0; i < units.size(); i++) {
+            PrbmUnit u = units.get(i);
+            Log.d("PRBM", " --- Unit " + i);
+            for (int j = 0; j < u.getFarLeft().size(); j++){
+                PrbmEntity e = u.getFarLeft().get(j);
+                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+            }
+            for (int j = 0; j < u.getNearLeft().size(); j++){
+                PrbmEntity e = u.getNearLeft().get(j);
+                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+            }
+            for (int j = 0; j < u.getNearRight().size(); j++){
+                PrbmEntity e = u.getNearRight().get(j);
+                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+            }
+            for (int j = 0; j < u.getFarRight().size(); j++){
+                PrbmEntity e = u.getFarRight().get(j);
+                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+            }
+        }
     }
 }

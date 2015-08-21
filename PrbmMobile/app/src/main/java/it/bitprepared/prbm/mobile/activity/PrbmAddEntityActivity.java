@@ -131,6 +131,7 @@ public class PrbmAddEntityActivity extends Activity {
                 // Set the tag tag
                 convertView.setTag(viewHolder);
                 convertView.setLongClickable(true);
+                convertView.setClickable(true);
             } else {
                 // Restore tag
                 viewHolder = (ViewHolder) convertView.getTag();

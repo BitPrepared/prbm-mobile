@@ -21,14 +21,23 @@ import android.widget.LinearLayout;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.activity.EntityActivity;
+import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * @author Nicola Corti
  */
 public class EntityFlower extends PrbmEntity {
+
+    private static final int[] id_fields = {};
+    private List<String> extraFields = new ArrayList<>();
+
+
     /**
      * Base constructor for a new PRBM Entity
      * @param description Entity description
@@ -78,5 +87,15 @@ public class EntityFlower extends PrbmEntity {
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
 
+    }
+
+    @Override
+    public void saveFields(Context context, LinearLayout linFree) {
+        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
+    }
+
+    @Override
+    public void restoreFields(Context context, LinearLayout linFree) {
+        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
     }
 }

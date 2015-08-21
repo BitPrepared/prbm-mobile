@@ -20,7 +20,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -51,9 +53,14 @@ public class EntityActivity extends Activity {
     private EditText edtDescription = null;
     private TimePicker datTime = null;
 
+    private boolean edit = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        edit = intent.getBooleanExtra("edit", false);
 
         // Setting up Home back button
         ActionBar bar = getActionBar();
@@ -77,6 +84,13 @@ public class EntityActivity extends Activity {
             imgBack.setImageResource(entity.getIdBackImage());
             entity.drawYourSelf(EntityActivity.this, linFree);
             txtTitle.setText(entity.getType());
+
+            if (edit) {
+                edtCaption.setText(entity.getCaption());
+                edtDescription.setText(entity.getDescription());
+                // TODO Restore date
+                entity.restoreFields(this, linFree);
+            }
         }
     }
 
@@ -116,9 +130,12 @@ public class EntityActivity extends Activity {
                 entity.setCaption(edtCaption.getText().toString());
                 entity.setDescription(edtDescription.getText().toString());
                 // TODO Salvare il timestamp
-                PrbmUnit involved = UserData.getInstance().getUnit();
-                involved.addEntity(entity, UserData.getInstance().getColumn());
-                Toast.makeText(EntityActivity.this, "Entità aggiunta con successo", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Edit " + edit);
+                if (!edit) {
+                    PrbmUnit involved = UserData.getInstance().getUnit();
+                    involved.addEntity(entity, UserData.getInstance().getColumn());
+                }
+//                Toast.makeText(EntityActivity.this, "Entità aggiunta con successo", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK);
                 finish();
             }

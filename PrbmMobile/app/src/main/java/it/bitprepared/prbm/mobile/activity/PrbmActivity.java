@@ -58,6 +58,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
 
     /** Flag used for activity add Entity */
     public final static int ACTIVITY_ADD_ENTITY = 101;
+    public static final int ACTIVITY_MODIFY_ENTITY = 102;
 
     /** Riference to Prbm object */
     private Prbm refPrbm = null;
@@ -107,19 +108,17 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
                 .getMenuInfo();
 
         if (item.getItemId() == MENU_UNIT_EDIT) {
-
-            /** SHOW A DIALOG */
-
+            refPrbm.print();
         } else if (item.getItemId() == MENU_UNIT_ADD_AFTER) {
-            refPrbm.addNewUnits(info.position, true);
-            adtUnit.notifyDataSetChanged();
-        } else if (item.getItemId() == MENU_UNIT_ADD_BEFORE) {
             refPrbm.addNewUnits(info.position, false);
-            adtUnit.notifyDataSetChanged();
+            adtUnit.notifyDataSetInvalidated();
+        } else if (item.getItemId() == MENU_UNIT_ADD_BEFORE) {
+            refPrbm.addNewUnits(info.position, true);
+            adtUnit.notifyDataSetInvalidated();
         } else if (item.getItemId() == MENU_UNIT_DELETE) {
             if (refPrbm.canDelete()) {
                 refPrbm.deleteUnit(info.position);
-                adtUnit.notifyDataSetChanged();
+                adtUnit.notifyDataSetInvalidated();
             } else {
                 Toast.makeText(this, getString(R.string.you_cant_delete_last_unit), Toast.LENGTH_SHORT).show();
             }
@@ -170,9 +169,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "Here");
-        if (requestCode == ACTIVITY_ADD_ENTITY) {
-            Log.d(TAG, "Here2");
+        if (requestCode == ACTIVITY_ADD_ENTITY || requestCode == ACTIVITY_MODIFY_ENTITY) {
             adtUnit.notifyDataSetChanged();
         }
     }
