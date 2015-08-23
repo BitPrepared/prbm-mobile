@@ -61,7 +61,7 @@ public class EntityMonument extends PrbmEntity {
     }
 
     public String getType() {
-        return "Monumento/Luogo storico";
+        return "Monumento";
     }
 
     @Override

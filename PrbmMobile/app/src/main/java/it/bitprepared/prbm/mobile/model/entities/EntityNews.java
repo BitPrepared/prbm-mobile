@@ -59,7 +59,7 @@ public class EntityNews extends PrbmEntity {
     }
 
     public String getType() {
-        return "Notizia/Fatto di cronaca";
+        return "Fatto di cronaca";
     }
 
     @Override
