@@ -114,7 +114,6 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                 public void onClick(View v) {
                     UserData.getInstance().setColumn(column);
                     UserData.getInstance().setUnit(unit);
-//                    Log.d("ADAPTER", "Position " + position + " Column " + column);
                     Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
                     ((Activity)c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
                 }

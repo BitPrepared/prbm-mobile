@@ -75,7 +75,7 @@ public class EntityCuriosity extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_curiosity_button;
+        return R.drawable.button_curiosity;
     }
 
     @Override

@@ -25,6 +25,7 @@ public class EntityViewHelper {
 
         shortTextView.setTextColor(c.getResources().getColor(R.color.White));
         shortEditText.setTextColor(c.getResources().getColor(R.color.White));
+        shortEditText.setHintTextColor(c.getResources().getColor(R.color.LightGray));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15,15,15,0);
@@ -48,6 +49,7 @@ public class EntityViewHelper {
 
         shortTextView.setTextColor(c.getResources().getColor(R.color.White));
         shortEditText.setTextColor(c.getResources().getColor(R.color.White));
+        shortEditText.setHintTextColor(c.getResources().getColor(R.color.LightGray));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 0);
@@ -84,7 +86,7 @@ public class EntityViewHelper {
         params.setMargins(15,0,0,0);
         numericTextView.setLayoutParams(paramsSon);
         numericEditText.setLayoutParams(paramsSon);
-        numericEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        numericEditText.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         numericTextView.setTextSize(18);
         numericEditText.setEms(5);

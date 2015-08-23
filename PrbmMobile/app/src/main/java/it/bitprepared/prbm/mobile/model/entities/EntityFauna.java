@@ -76,7 +76,7 @@ public class EntityFauna extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_fauna_button;
+        return R.drawable.button_fauna;
     }
 
     @Override

@@ -76,7 +76,7 @@ public class EntityWeather extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_forecast_button;
+        return R.drawable.button_forecast;
     }
 
     @Override

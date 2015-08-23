@@ -76,7 +76,7 @@ public class EntityMonument extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_monument_button;
+        return R.drawable.button_monument;
     }
 
     @Override

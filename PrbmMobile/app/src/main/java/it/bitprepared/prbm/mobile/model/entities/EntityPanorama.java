@@ -75,7 +75,7 @@ public class EntityPanorama extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_panorama_button;
+        return R.drawable.button_panorama;
     }
 
     @Override

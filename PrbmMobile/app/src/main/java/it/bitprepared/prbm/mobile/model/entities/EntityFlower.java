@@ -76,7 +76,7 @@ public class EntityFlower extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_flower_button;
+        return R.drawable.button_flower;
     }
 
     @Override

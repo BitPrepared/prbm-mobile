@@ -76,7 +76,7 @@ public class EntityInterview extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_interview_button;
+        return R.drawable.button_interview;
     }
 
     @Override

@@ -8,5 +8,6 @@
     <color name="Blue">#1976D2</color>
     <color name="Black">#000000</color>
     <color name="White">#FFFFFF</color>
+    <color name="LightGray">#ffdedede</color>
 
 </resources>

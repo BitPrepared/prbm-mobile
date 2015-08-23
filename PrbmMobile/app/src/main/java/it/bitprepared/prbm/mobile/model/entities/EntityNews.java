@@ -74,7 +74,7 @@ public class EntityNews extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_news_button;
+        return R.drawable.button_news;
     }
 
     @Override

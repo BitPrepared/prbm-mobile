@@ -76,7 +76,7 @@ public class EntityTree extends PrbmEntity {
 
     @Override
     public int getIdButtonImage() {
-        return R.drawable.background_tree_button;
+        return R.drawable.button_tree;
     }
 
     @Override
