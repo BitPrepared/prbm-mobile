@@ -25,9 +25,15 @@ import java.util.List;
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
+import it.bitprepared.prbm.mobile.model.entities.EntityCuriosity;
 import it.bitprepared.prbm.mobile.model.entities.EntityFauna;
 import it.bitprepared.prbm.mobile.model.entities.EntityFlower;
+import it.bitprepared.prbm.mobile.model.entities.EntityInterview;
+import it.bitprepared.prbm.mobile.model.entities.EntityMonument;
+import it.bitprepared.prbm.mobile.model.entities.EntityNews;
+import it.bitprepared.prbm.mobile.model.entities.EntityPanorama;
 import it.bitprepared.prbm.mobile.model.entities.EntityTree;
+import it.bitprepared.prbm.mobile.model.entities.EntityWeather;
 
 /**
  * Created by nicola on 19/08/15.
@@ -54,6 +60,12 @@ public class PrbmAddEntityActivity extends Activity {
         availableEntities.add(new EntityFlower());
         availableEntities.add(new EntityTree());
         availableEntities.add(new EntityFauna());
+        availableEntities.add(new EntityPanorama());
+        availableEntities.add(new EntityWeather());
+        availableEntities.add(new EntityMonument());
+        availableEntities.add(new EntityInterview());
+        availableEntities.add(new EntityNews());
+        availableEntities.add(new EntityCuriosity());
 
         setContentView(R.layout.activity_add_entity);
         lstAvailableEntities = (ListView) findViewById(R.id.lstAvailableEntities);
