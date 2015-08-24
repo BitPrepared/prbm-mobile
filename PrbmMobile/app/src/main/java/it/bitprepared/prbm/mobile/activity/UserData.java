@@ -232,7 +232,7 @@ public class UserData {
      * Serialize all prbms to private file
      * @param c Execution context
      */
-    private synchronized void saveAllPrbm(Context c) {
+    protected synchronized void saveAllPrbm(Context c) {
         FileOutputStream fos;
         try {
             fos = c.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -250,7 +250,7 @@ public class UserData {
      * Deserialize all prbms from private file
      * @param c Execution context
      */
-    private synchronized boolean restorePrbms(Context c) {
+    protected synchronized boolean restorePrbms(Context c) {
         FileInputStream fis;
         try {
             fis = c.openFileInput(FILENAME);
