@@ -29,11 +29,14 @@ import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent an observation of a panorama
  * @author Nicola Corti
  */
 public class EntityPanorama extends PrbmEntity {
 
-    private static final int[] id_fields = {1001,1002, 1003, 1004, 1005,1006, 1007, 1008};
+    /** List of View IDs */
+    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
 
@@ -59,7 +62,8 @@ public class EntityPanorama extends PrbmEntity {
         return null;
     }
 
-    public String getType(){
+    @Override
+    public String getType() {
         return "Ambiente Naturale";
     }
 
@@ -85,14 +89,14 @@ public class EntityPanorama extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Località", "Inserire il nome della località dell'ambiente osservato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Tipo Ambiente", "Inserire la tipologia di ambiente osservato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[2], "Descrizione della flora", "Inserire una breve descrizione della flora circostante.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[3], "Impatto dell'uomo", "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[4], "Cosa ti è piaciuto di più?", "Indica ciò che ti è piaciuto di più in questo ambiente naturale.", 3);
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[5], "Cosa ti è piaciuto di meno?", "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.", 3);
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[6], "Senzazioni personali positive", "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.", 3);
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[7], "Senzazioni personali nevative", "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.", 3);
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Località", "Inserire il nome della località dell'ambiente osservato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Tipo Ambiente", "Inserire la tipologia di ambiente osservato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Descrizione della flora", "Inserire una breve descrizione della flora circostante.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[3], "Impatto dell'uomo", "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.");
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[4], "Cosa ti è piaciuto di più?", "Indica ciò che ti è piaciuto di più in questo ambiente naturale.", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[5], "Cosa ti è piaciuto di meno?", "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[6], "Senzazioni personali positive", "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[7], "Senzazioni personali nevative", "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.", 3);
     }
 
     @Override

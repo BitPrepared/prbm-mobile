@@ -36,8 +36,8 @@ import java.util.Locale;
  */
 public class Prbm implements Serializable {
 
-    /** DB ID of Prbm */
-    private long id = -1;
+    /** Debug TAG */
+    private final static String TAG = "Prbm";
 
     /** Creation timestamp of Prbm */
     private String time;
@@ -89,14 +89,6 @@ public class Prbm implements Serializable {
     }
 
     /**
-     * Setter if Database ID.
-     * @param id Prbm database ID
-     */
-    public void setID(long id) {
-        this.id = id;
-    }
-
-    /**
      * Return JSON representation of a single Prbm
      * @return A JSONObject from a Prbm
      */
@@ -107,7 +99,7 @@ public class Prbm implements Serializable {
             // Primitive fields
             jsonObject.put("time", time);
             jsonObject.put("version", version);
-            jsonObject.put("id", id);
+
             jsonObject.put("note", note);
 
             // List of units
@@ -147,97 +139,181 @@ public class Prbm implements Serializable {
         return jsonObject.toString();
     }
 
+    /**
+     * Getter for PRBM Title
+     * @return Prbm Title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Setter for PRBM Title
+     * @param title The Prbm Title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Getter for PRBM Authors
+     * @return Prbm Authors
+     */
     public String getAuthors() {
         return authors;
     }
 
+    /**
+     * Setter for PRBM Authors
+     * @param authors The Prbm Authors
+     */
     public void setAuthors(String authors) {
         this.authors = authors;
     }
 
+    /**
+     * Getter for PRBM Date (timestamp)
+     * @return Prbm Date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Setter for PRBM Date
+     * @param date The Prbm Date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     * Getter for PRBM Place
+     * @return Prbm Place
+     */
     public String getPlace() {
         return place;
     }
 
+    /**
+     * Setter for PRBM Place
+     * @param place The Prbm Place
+     */
     public void setPlace(String place) {
         this.place = place;
     }
 
+    /**
+     * Getter for PRBM Notes
+     * @return Prbm Notes
+     */
     public String getNote() {
         return note;
     }
 
+    /**
+     * Setter for PRBM Note
+     * @param note The Prbm Notes
+     */
     public void setNote(String note) {
         this.note = note;
     }
 
-    public List<PrbmUnit> getUnits(){ return units; }
+    /**
+     * Getter for PRBM Unit list
+     * @return PrbmUnit list
+     */
+    public List<PrbmUnit> getUnits() {
+        return units;
+    }
 
-    public void addNewUnits(){
+    /**
+     * Getter for a single PRBM Unit
+     * @param pos Position of PRBM unit
+     * @return
+     */
+    public PrbmUnit getUnit(int pos) {
+        return units.get(pos);
+    }
+
+    /**
+     * Public method to add a new empty unit at the end of unit list
+     */
+    public void addNewUnits() {
         units.add(new PrbmUnit());
     }
-    public void addNewUnits(int posit, boolean after){
+
+    /**
+     * Public method to add a new empty unit at a specific position.
+     * Units will be shifted subsequently.
+     * @param posit Position of new Unit.
+     * @param after Boolean flag to set if new unit must be inserted before or after posit
+     */
+    public void addNewUnits(int posit, boolean after) {
         if (after)
-            units.add(posit+1, new PrbmUnit());
+            units.add(posit + 1, new PrbmUnit());
         else
             units.add(posit, new PrbmUnit());
     }
-    public void addNewUnits(PrbmUnit unit, boolean after){
+
+    /**
+     * Public method to add a new empty unit after a specific unit.
+     * Units will be shifted subsequently.
+     * @param unit Unit involved in adding.
+     * @param after Boolean flag to set if new unit must be inserted before or after posit
+     */
+    public void addNewUnits(PrbmUnit unit, boolean after) {
         int posit = units.indexOf(unit);
         addNewUnits(posit, after);
     }
 
+    /**
+     * Public method to check if Unit can be deleted. At least one unit must be present
+     * @return
+     */
     public boolean canDelete() {
         return units.size() > 1;
     }
 
-    public PrbmUnit getUnit(int pos){
-        return units.get(pos);
-    }
-
-    public void deleteUnit(PrbmUnit u){
+    /**
+     * Delete a single Prbm Unit
+     * @param u Unit to be deleted
+     */
+    public void deleteUnit(PrbmUnit u) {
         units.remove(u);
     }
-    public void deleteUnit(int pos){
+
+    /**
+     * Delete PRBM unit in a specific position
+     * @param pos Position of Unit to be deleted
+     */
+    public void deleteUnit(int pos) {
         units.remove(pos);
     }
 
-    public void print(){
-        Log.d("PRBM", "--- Printing PRBM ---");
+    /**
+     * Public method to print a DUBUG dump of PRBM
+     */
+    public void print() {
+        Log.d(TAG, "--- Printing PRBM ---");
         for (int i = 0; i < units.size(); i++) {
             PrbmUnit u = units.get(i);
-            Log.d("PRBM", " --- Unit " + i);
-            for (int j = 0; j < u.getFarLeft().size(); j++){
+            Log.d(TAG, " --- Unit " + i);
+            for (int j = 0; j < u.getFarLeft().size(); j++) {
                 PrbmEntity e = u.getFarLeft().get(j);
-                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.getType());
             }
-            for (int j = 0; j < u.getNearLeft().size(); j++){
+            for (int j = 0; j < u.getNearLeft().size(); j++) {
                 PrbmEntity e = u.getNearLeft().get(j);
-                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.getType());
             }
-            for (int j = 0; j < u.getNearRight().size(); j++){
+            for (int j = 0; j < u.getNearRight().size(); j++) {
                 PrbmEntity e = u.getNearRight().get(j);
-                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.getType());
             }
-            for (int j = 0; j < u.getFarRight().size(); j++){
+            for (int j = 0; j < u.getFarRight().size(); j++) {
                 PrbmEntity e = u.getFarRight().get(j);
-                Log.d("PRBM", " ------ Entity " + j + " Tyep " + e.getType());
+                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.getType());
             }
         }
     }

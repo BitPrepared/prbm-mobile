@@ -25,16 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityActivity;
 import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent an animal observation
  * @author Nicola Corti
  */
 public class EntityFauna extends PrbmEntity {
 
-    private static final int[] id_fields = {1001,1002, 1003, 1004, 1005,1006, 1007, 1008, 1009,1010, 1011, 1012, 1013, 1014, 1015};
+    /** List of View IDs */
+    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
 
@@ -60,7 +62,8 @@ public class EntityFauna extends PrbmEntity {
         return null;
     }
 
-    public String getType(){
+    @Override
+    public String getType() {
         return "Fauna";
     }
 
@@ -86,21 +89,21 @@ public class EntityFauna extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune dell'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico dall'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[2], "Dimensione", "Inserire la dimensione tipica dell'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[3], "Corteggiamento e riproduzione", "Inserire dettagli sulle abitudini di corteggiamento e riproduzione della specie.");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[4], "Tracce/Segni di presenza", "Inserire eventuali ritrovamenti di tracce o di segni di presenza dell'animale.", 3);
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[5], "Escrementi", "Inserire dettagli sugli escrementi dell'animale.", 3);
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[6], "I piccoli e la prole", "Inserire dettagli sull'accudimento della prole da parte dell'animale.", 3);
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[7], "Alimentazione", "Informazioni sulle abitudini alimentari dell'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[8], "Posizione nella catena alimentare", "Inserire la posizione che l'animale ricopre all'interno della catena alimentare.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[9], "Tane/Nidi/Rifugi", "Inserire eventuali dettagli su avvistamenti di tane, nidi o rifugi dell'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[10], "Attacco/Difesa/Mimetismo", "Inserire dettagli sulle tecniche di attacco, difesa o mimetismo utilizzate dall'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[11], "Habitat tipico", "Inserire la descrizione dell'habitat tipico dell'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[12], "Distribuzione", "Inserire la descrizione della distribuzione dell'animale.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[13], "Territorialità", "Inserire eventuali informazioni sulla territorialità della specie.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[14], "Curiosità", "Spazio per eventuali curiosità.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune dell'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico dall'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Dimensione", "Inserire la dimensione tipica dell'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[3], "Corteggiamento e riproduzione", "Inserire dettagli sulle abitudini di corteggiamento e riproduzione della specie.");
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[4], "Tracce/Segni di presenza", "Inserire eventuali ritrovamenti di tracce o di segni di presenza dell'animale.", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[5], "Escrementi", "Inserire dettagli sugli escrementi dell'animale.", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[6], "I piccoli e la prole", "Inserire dettagli sull'accudimento della prole da parte dell'animale.", 3);
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Alimentazione", "Informazioni sulle abitudini alimentari dell'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Posizione nella catena alimentare", "Inserire la posizione che l'animale ricopre all'interno della catena alimentare.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[9], "Tane/Nidi/Rifugi", "Inserire eventuali dettagli su avvistamenti di tane, nidi o rifugi dell'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[10], "Attacco/Difesa/Mimetismo", "Inserire dettagli sulle tecniche di attacco, difesa o mimetismo utilizzate dall'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[11], "Habitat tipico", "Inserire la descrizione dell'habitat tipico dell'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[12], "Distribuzione", "Inserire la descrizione della distribuzione dell'animale.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[13], "Territorialità", "Inserire eventuali informazioni sulla territorialità della specie.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[14], "Curiosità", "Spazio per eventuali curiosità.");
     }
 
     @Override

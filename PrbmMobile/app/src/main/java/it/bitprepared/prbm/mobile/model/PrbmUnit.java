@@ -25,9 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import it.bitprepared.prbm.mobile.model.entities.EntityFauna;
-import it.bitprepared.prbm.mobile.model.entities.EntityFlower;
-
 /**
  * Class related to model. PrbmUnit represent a single row of
  * Prbm that is composed by several PrbmEntity
@@ -42,15 +39,14 @@ public class PrbmUnit implements Serializable {
     /** Minutes elapsed of this PrbmUnit */
     private float minutes;
 
-    /** List of Entities far Left*/
+    /** List of Entities far Left */
     private List<PrbmEntity> entitiesFarLeft;
-    /** List of Entities far Right*/
+    /** List of Entities far Right */
     private List<PrbmEntity> entitiesFarRight;
-    /** List of Entities near Left*/
+    /** List of Entities near Left */
     private List<PrbmEntity> entitiesNearLeft;
-    /** List of Entities near Left*/
+    /** List of Entities near Left */
     private List<PrbmEntity> entitiesNearRight;
-
 
 
     // //////////////////////////////////////
@@ -79,8 +75,8 @@ public class PrbmUnit implements Serializable {
      * Base constructor for a new PrbmUnit
      * sets all parameters to 0
      */
-    public PrbmUnit(){
-        this(0,0,0);
+    public PrbmUnit() {
+        this(0, 0, 0);
     }
 
     /**
@@ -125,90 +121,188 @@ public class PrbmUnit implements Serializable {
         }
     }
 
+    /**
+     * Getter for Unit Azimut
+     * @return The unit azimut
+     */
     public float getAzimut() {
         return azimut;
     }
 
+    /**
+     * Getter for Unit Meters
+     * @return The unit meters
+     */
     public float getMeter() {
         return meter;
     }
 
+    /**
+     * Getter for Unit Minutes
+     * @return The unit minutes
+     */
     public float getMinutes() {
         return minutes;
     }
 
+    /**
+     * Setter for Unit Azimut
+     * @param azimut The new unit azimut
+     */
     public void setAzimut(String azimut) {
         this.azimut = Float.parseFloat(azimut);
     }
+
+    /**
+     * Setter for Unit Minutes
+     * @param minutes The new unit minutes
+     */
     public void setMinutes(String minutes) {
         this.minutes = Float.parseFloat(minutes);
     }
+
+    /**
+     * Setter for Unit Meters
+     * @param meter The new unit meters
+     */
     public void setMeters(String meter) {
         this.meter = Float.parseFloat(meter);
     }
 
+    /**
+     * Getter for Far Left Entity List
+     * @return The Far Left Entity List
+     */
     public List<PrbmEntity> getFarLeft() {
         return entitiesFarLeft;
     }
+
+    /**
+     * Getter for Far Right Entity List
+     * @return The Far Right Entity List
+     */
     public List<PrbmEntity> getFarRight() {
         return entitiesFarRight;
     }
+
+    /**
+     * Getter for Near Left Entity List
+     * @return The Near Left Entity List
+     */
     public List<PrbmEntity> getNearLeft() {
         return entitiesNearLeft;
     }
-    public List<PrbmEntity> getNearRight() { return entitiesNearRight; }
 
-    public void addEntity(PrbmEntity entity, int column){
+    /**
+     * Getter for Near Right Entity List
+     * @return The Near Right Entity List
+     */
+    public List<PrbmEntity> getNearRight() {
+        return entitiesNearRight;
+    }
+
+    /**
+     * Add an entity in a specified column
+     * @param entity Entity to add
+     * @param column Involved column (0-3)
+     */
+    public void addEntity(PrbmEntity entity, int column) {
         if (entity == null) return;
         List<PrbmEntity> toAdd = null;
-        switch (column){
-            case 0: toAdd = entitiesFarLeft; break;
-            case 1: toAdd = entitiesNearLeft; break;
-            case 2: toAdd = entitiesNearRight; break;
-            case 3: toAdd = entitiesFarRight; break;
+        switch (column) {
+            case 0:
+                toAdd = entitiesFarLeft;
+                break;
+            case 1:
+                toAdd = entitiesNearLeft;
+                break;
+            case 2:
+                toAdd = entitiesNearRight;
+                break;
+            case 3:
+                toAdd = entitiesFarRight;
+                break;
         }
         if (toAdd != null) toAdd.add(entity);
     }
 
-    public List<PrbmEntity> getEntitiesFromColumn(int column){
+    /**
+     * Getter for entity list from a specified column
+     * @param column Desired column (0-3)
+     */
+    public List<PrbmEntity> getEntitiesFromColumn(int column) {
         List<PrbmEntity> toReturn = null;
-        switch (column){
-            case 0: toReturn = entitiesFarLeft; break;
-            case 1: toReturn = entitiesNearLeft; break;
-            case 2: toReturn = entitiesNearRight; break;
-            case 3: toReturn = entitiesFarRight; break;
+        switch (column) {
+            case 0:
+                toReturn = entitiesFarLeft;
+                break;
+            case 1:
+                toReturn = entitiesNearLeft;
+                break;
+            case 2:
+                toReturn = entitiesNearRight;
+                break;
+            case 3:
+                toReturn = entitiesFarRight;
+                break;
         }
         return toReturn;
     }
 
+    /**
+     * Delete an entity from a specified column
+     * @param entity Entity to delete
+     * @param column Involved column (0-3)
+     */
     public void deleteEntity(PrbmEntity entity, int column) {
         if (entity == null) return;
         List<PrbmEntity> toDelete = null;
-        switch (column){
-            case 0: toDelete = entitiesFarLeft; break;
-            case 1: toDelete = entitiesNearLeft; break;
-            case 2: toDelete = entitiesNearRight; break;
-            case 3: toDelete = entitiesFarRight; break;
+        switch (column) {
+            case 0:
+                toDelete = entitiesFarLeft;
+                break;
+            case 1:
+                toDelete = entitiesNearLeft;
+                break;
+            case 2:
+                toDelete = entitiesNearRight;
+                break;
+            case 3:
+                toDelete = entitiesFarRight;
+                break;
         }
         if (toDelete != null) toDelete.remove(entity);
     }
 
+    /**
+     * Move an entity within a specified column
+     * @param entity Entity to add
+     * @param column Involved column (0-3)
+     * @param down   Boolean flag to specify if movement must be downside or upside
+     */
     public void moveEntity(PrbmEntity entity, int column, boolean down) {
         if (entity == null) return;
         List<PrbmEntity> toMove = null;
-        switch (column){
-            case 0: toMove = entitiesFarLeft; break;
-            case 1: toMove = entitiesNearLeft; break;
-            case 2: toMove = entitiesNearRight; break;
-            case 3: toMove = entitiesFarRight; break;
+        switch (column) {
+            case 0:
+                toMove = entitiesFarLeft;
+                break;
+            case 1:
+                toMove = entitiesNearLeft;
+                break;
+            case 2:
+                toMove = entitiesNearRight;
+                break;
+            case 3:
+                toMove = entitiesFarRight;
+                break;
         }
         if (toMove != null) {
             int index = toMove.indexOf(entity);
             if (down)
-                Collections.swap(toMove, index, index+1);
+                Collections.swap(toMove, index, index + 1);
             else
-                Collections.swap(toMove, index, index-1);
+                Collections.swap(toMove, index, index - 1);
         }
-
     }
 }

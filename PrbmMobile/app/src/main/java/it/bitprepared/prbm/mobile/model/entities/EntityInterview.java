@@ -29,12 +29,15 @@ import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent an interview to a specific person
  * @author Nicola Corti
  */
 public class EntityInterview extends PrbmEntity {
 
+    /** List of View IDs */
     private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008,
             1009, 1010, 1011, 1012};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
 
@@ -60,6 +63,7 @@ public class EntityInterview extends PrbmEntity {
         return null;
     }
 
+    @Override
     public String getType() {
         return "Intervista";
     }
@@ -87,17 +91,17 @@ public class EntityInterview extends PrbmEntity {
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[0], "Età: ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Professione", "Inserire la professione dell'intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[2], "Stato civile", "Inserire lo stato civile dell'intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[3], "Provenienza", "Indicare se l'intervistato è un abitante del luogo oppure è un forestiero.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[4], "Ruolo", "Indicare in quale veste il soggetto è stato intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[5], "Scopo dell'intervista", "Indicare quale è il motivo/scopo di questa intervista.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[6], "Come si è arrivati a lui", "Indicare attraverso quali contatti si è arrivati al soggetto intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[7], "Stato d'animo", "Indicare lo stato d'animo dell'intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[8], "Gradimento", "Indicare il grado di gradimento dell'intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[9], "Affidabilità", "Indicare lo stato civile dell'intervistato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[10], "Rapporto con l'intervistato", "Indicare che genere di rapporto si è avuto con l'intervistato.");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[11], "Trascrizione dell'intervista", "Riportare la trascrizione integrale dell'intervista.", 5);
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Professione", "Inserire la professione dell'intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Stato civile", "Inserire lo stato civile dell'intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[3], "Provenienza", "Indicare se l'intervistato è un abitante del luogo oppure è un forestiero.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Ruolo", "Indicare in quale veste il soggetto è stato intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Scopo dell'intervista", "Indicare quale è il motivo/scopo di questa intervista.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[6], "Come si è arrivati a lui", "Indicare attraverso quali contatti si è arrivati al soggetto intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Stato d'animo", "Indicare lo stato d'animo dell'intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Gradimento", "Indicare il grado di gradimento dell'intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[9], "Affidabilità", "Indicare lo stato civile dell'intervistato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[10], "Rapporto con l'intervistato", "Indicare che genere di rapporto si è avuto con l'intervistato.");
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[11], "Trascrizione dell'intervista", "Riportare la trascrizione integrale dell'intervista.", 5);
     }
 
     @Override

@@ -17,24 +17,18 @@
 package it.bitprepared.prbm.mobile.model;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import it.bitprepared.prbm.mobile.activity.EntityActivity;
 
 /**
  * Class related to model. PrbmEntity represent a single observation
  * that must be inserted in a column of a Prbm.
  * @author Nicola Corti
  */
-public abstract class PrbmEntity implements Serializable{
+public abstract class PrbmEntity implements Serializable {
 
     /** Entity description */
     private String description;
@@ -65,47 +59,112 @@ public abstract class PrbmEntity implements Serializable{
      * Base constructor for an empty PRBM Entity
      */
     public PrbmEntity() {
-        this("","","");
+        this("", "", "");
     }
+
     /**
      * Returns JSON representation of a PrbmUnit instance.
      * @return A JSONObject from PrbmUnit
      */
     public abstract JSONObject toJSONObject();
 
+    /**
+     * Getter for Entity description
+     * @return The Entity description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Setter for Entity description
+     * @param description The new entity description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Getter for Entity caption
+     * @return The Entity caption
+     */
     public String getCaption() {
         return caption;
     }
 
+    /**
+     * Setter for Entity caption
+     * @param caption The new entity caption
+     */
     public void setCaption(String caption) {
         this.caption = caption;
     }
 
+    /**
+     * Getter for Entity timestamp
+     * @return The Entity timestamp
+     */
     public String getTimestamp() {
         return timestamp;
     }
 
+    /**
+     * Setter for Entity timestamp
+     * @param timestamp The new entity timestamp
+     */
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
-    public abstract  String getType();
+    /**
+     * Abstract method for returing Entity Type name
+     * @return The Type name of an entity
+     */
+    public abstract String getType();
+
+    /**
+     * Abstract method for returing Entity Type description
+     * @return The Description of an entity
+     */
     public abstract String getTypeDescription();
+
+    /**
+     * Abstract method for returing Resource ID for list image background
+     * @return Resource ID for list image background
+     */
     public abstract int getIdListImage();
+
+    /**
+     * Abstract method for returing Resource ID for button background
+     * @return Resource ID for button background
+     */
     public abstract int getIdButtonImage();
+
+    /**
+     * Abstract method for returing Resource ID for entity activity background
+     * @return Resource ID for entity activity background
+     */
     public abstract int getIdBackImage();
 
+    /**
+     * Abstract method invoked when each entity must render itself.
+     * Each entity can use a LinearLayout to draw its own fields
+     * @param context Execution Context
+     * @param linFree Linear Layout that can be used to draw views
+     */
     public abstract void drawYourSelf(Context context, LinearLayout linFree);
 
+    /**
+     * Abstract method invoked when each entity must save its own fields.
+     * @param context Execution Context
+     * @param linFree Linear Layout that must be used to save view values
+     */
     public abstract void saveFields(Context context, LinearLayout linFree);
 
+    /**
+     * Abstract method invoked when each entity must restore its own fields.
+     * @param context Execution Context
+     * @param linFree Linear Layout that must be used to restore view values
+     */
     public abstract void restoreFields(Context context, LinearLayout linFree);
 }

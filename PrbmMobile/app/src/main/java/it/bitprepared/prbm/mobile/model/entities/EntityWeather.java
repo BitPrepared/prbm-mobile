@@ -29,12 +29,15 @@ import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent a weather/forecast observation
  * @author Nicola Corti
  */
 public class EntityWeather extends PrbmEntity {
 
+    /** List of View IDs */
     private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008,
             1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
 
@@ -60,6 +63,7 @@ public class EntityWeather extends PrbmEntity {
         return null;
     }
 
+    @Override
     public String getType() {
         return "Meteo";
     }
@@ -90,22 +94,22 @@ public class EntityWeather extends PrbmEntity {
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[1], "Umidità (%): ");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[2], "Pressione (mBar): ");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[3], "Velocità del vento (Km/h): ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[4], "Direzione del vento", "Inserire la direzione del vento (Nord, Sud, Est, Ovest).");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[5], "Precipitazioni", "Inserire una breve descrizione delle precipitazioni attuali.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Direzione del vento", "Inserire la direzione del vento (Nord, Sud, Est, Ovest).");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Precipitazioni", "Inserire una breve descrizione delle precipitazioni attuali.");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[6], "Quantità di pioggia (mm): ");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[7], "Acidità dell'acqua (Ph): ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[8], "Neve", "Inserire una breve descrizione della neve (intensità, tipo di fiocco, torbidità dell'acqua)");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Neve", "Inserire una breve descrizione della neve (intensità, tipo di fiocco, torbidità dell'acqua)");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[9], "Neve, acidità dell'acqua distillata (Ph): ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[10], "Grandine", "Inserire una breve descrizione della grandine (intensità, tipo di fiocco, torbidità dell'acqua)");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[10], "Grandine", "Inserire una breve descrizione della grandine (intensità, tipo di fiocco, torbidità dell'acqua)");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[11], "Grandine, diametro (cm): ");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[12], "Grandine, acidità dell'acqua (Ph): ");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[13], "Eventi particolari", "Inserire eventuali eventi particolari (trombe d'aria, tornadi, cicloni, tempeste)", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[13], "Eventi particolari", "Inserire eventuali eventi particolari (trombe d'aria, tornadi, cicloni, tempeste)", 3);
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[14], "Sole, angolazione (°): ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[15], "Sole, eventuali anomalie", "Inserire eventuali anomalie solari quali eclissi parziali o totali");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[15], "Sole, eventuali anomalie", "Inserire eventuali anomalie solari quali eclissi parziali o totali");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[16], "Nebbia, visibilità (m): ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[17], "Nebbia, tipo di formazione", "Inserire il tipo di formazione della nebbia (nebbia, nuvole, evaporazione)");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[17], "Nebbia, tipo di formazione", "Inserire il tipo di formazione della nebbia (nebbia, nuvole, evaporazione)");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[18], "Nubi, velocità di spostamento: ");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[19], "Nubi, tipologia", "Inserire la tipologia delle nubi osservate (nembi, cumoli, cirri, etc.)");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[19], "Nubi, tipologia", "Inserire la tipologia delle nubi osservate (nembi, cumoli, cirri, etc.)");
     }
 
     @Override

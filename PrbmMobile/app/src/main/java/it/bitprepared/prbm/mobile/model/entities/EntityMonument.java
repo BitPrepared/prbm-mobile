@@ -29,12 +29,15 @@ import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent a monument or an interesting place
  * @author Nicola Corti
  */
 public class EntityMonument extends PrbmEntity {
 
+    /** List of View IDs */
     private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008,
             1009, 1010, 1011, 1012, 1013, 1014};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
 
@@ -60,6 +63,7 @@ public class EntityMonument extends PrbmEntity {
         return null;
     }
 
+    @Override
     public String getType() {
         return "Monumento";
     }
@@ -86,19 +90,19 @@ public class EntityMonument extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Denominazione", "Inserisci la denominazione del luogo storico.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Comune e Provincia", "Inserisci il comune e la provicina del monumento/luogo.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[2], "Proprietà attuali", "Inserisci una breve descrizione dello stato attuale del monumento/luogo.");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[3], "Proprietà attuali", "Inserisci una breve descrizione dello stato attuale del monumento/luogo.", 3);
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[4], "Monumento - Fatto costruire da", "Inserisci il nome di chi ha commissionato la costruzione del monumento.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[5], "Monumento - Perchè lo fece costruire", "Inserisci il motivo che ha portato alla costruzione del monumento.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[6], "Monumento - Materiali", "Inserisci quali sono i materiali utilizzati nella costruzione.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[7], "Monumento - Opere d'arte", "Inserisci la descrizione di eventuali opere d'arte presenti nelle vicinanze.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Denominazione", "Inserisci la denominazione del luogo storico.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Comune e Provincia", "Inserisci il comune e la provicina del monumento/luogo.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Proprietà attuali", "Inserisci una breve descrizione dello stato attuale del monumento/luogo.");
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[3], "Proprietà attuali", "Inserisci una breve descrizione dello stato attuale del monumento/luogo.", 3);
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Monumento - Fatto costruire da", "Inserisci il nome di chi ha commissionato la costruzione del monumento.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Monumento - Perchè lo fece costruire", "Inserisci il motivo che ha portato alla costruzione del monumento.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[6], "Monumento - Materiali", "Inserisci quali sono i materiali utilizzati nella costruzione.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Monumento - Opere d'arte", "Inserisci la descrizione di eventuali opere d'arte presenti nelle vicinanze.");
         EntityViewHelper.addDatePicker(context, linFree, id_fields[8], "Monumento - Data Costruzione");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[9], "Luogo - Da cosa è scaturito", "Inserisci come mai questo luogo storico è importante.");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[10], "Luogo - Racconto dell'avvenimento", "Inserisci la descrizione dell'avvennimento legato a questo luogo storico.", 3);
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[11], "Luogo - Uso attuale", "Inserisci la descrizione di quale utilizzo se ne fa oggi di questo luogo.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[12], "Luogo - Stato di manutenzione", "Inserisci lo stato di conservazione/manutenzione in cui si trova adesso questo luogo.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[9], "Luogo - Da cosa è scaturito", "Inserisci come mai questo luogo storico è importante.");
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[10], "Luogo - Racconto dell'avvenimento", "Inserisci la descrizione dell'avvennimento legato a questo luogo storico.", 3);
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[11], "Luogo - Uso attuale", "Inserisci la descrizione di quale utilizzo se ne fa oggi di questo luogo.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[12], "Luogo - Stato di manutenzione", "Inserisci lo stato di conservazione/manutenzione in cui si trova adesso questo luogo.");
         EntityViewHelper.addDatePicker(context, linFree, id_fields[13], "Luogo - Data Avvenimento");
     }
 

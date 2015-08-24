@@ -29,13 +29,15 @@ import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent a generic observation or a curiosity
  * @author Nicola Corti
  */
 public class EntityCuriosity extends PrbmEntity {
 
+    /** List of View IDs */
     private static final int[] id_fields = {1001, 1002};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
-
 
     /**
      * Base constructor for a new PRBM Entity
@@ -59,6 +61,7 @@ public class EntityCuriosity extends PrbmEntity {
         return null;
     }
 
+    @Override
     public String getType() {
         return "Curiosità";
     }
@@ -85,8 +88,8 @@ public class EntityCuriosity extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[0], "Perchè è importante?", "Come mai è importante riportare questa curiosità?", 3);
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[1], "Impressioni/Stato d'animo", "Inserire una breve descrizione delle impressioni o dello stato d'animo.", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[0], "Perchè è importante?", "Come mai è importante riportare questa curiosità?", 3);
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[1], "Impressioni/Stato d'animo", "Inserire una breve descrizione delle impressioni o dello stato d'animo.", 3);
     }
 
     @Override

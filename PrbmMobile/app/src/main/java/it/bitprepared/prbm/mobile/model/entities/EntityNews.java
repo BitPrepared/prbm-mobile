@@ -29,11 +29,14 @@ import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent a news or a report
  * @author Nicola Corti
  */
 public class EntityNews extends PrbmEntity {
 
+    /** List of View IDs */
     private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
     /**
@@ -58,6 +61,7 @@ public class EntityNews extends PrbmEntity {
         return null;
     }
 
+    @Override
     public String getType() {
         return "Fatto di cronaca";
     }
@@ -84,14 +88,14 @@ public class EntityNews extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Luogo", "Inserire il luogo dove si è svolto il fatto di cronaca.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Persone coinvolte", "Inserire l'elenco delle persone coinvolte.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[2], "Cosa è successo?", "Inserire la descrizione del fatto di cronaca.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[3], "Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[4], "Se negativo, poteva essere evitato?", "Inserire se, ed in quali circostanze, il fatto di cronaca negativo poteva essere evitato.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[5], "Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[6], "Conseguenze", "Inserire le conseguenze del fatto di cronaca.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[7], "Cosa hai imparato?", "Inserire cosa hai imparato da questo fatto di cronaca.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Luogo", "Inserire il luogo dove si è svolto il fatto di cronaca.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Persone coinvolte", "Inserire l'elenco delle persone coinvolte.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Cosa è successo?", "Inserire la descrizione del fatto di cronaca.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[3], "Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Se negativo, poteva essere evitato?", "Inserire se, ed in quali circostanze, il fatto di cronaca negativo poteva essere evitato.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[6], "Conseguenze", "Inserire le conseguenze del fatto di cronaca.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Cosa hai imparato?", "Inserire cosa hai imparato da questo fatto di cronaca.");
     }
 
     @Override

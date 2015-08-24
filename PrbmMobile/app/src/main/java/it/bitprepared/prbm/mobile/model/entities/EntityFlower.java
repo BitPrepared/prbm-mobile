@@ -25,16 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityActivity;
 import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
+ * Entity used to represent a flower/grass observation
  * @author Nicola Corti
  */
 public class EntityFlower extends PrbmEntity {
 
-    private static final int[] id_fields = {1001,1002, 1003, 1004, 1005,1006, 1007, 1008, 1009};
+    /** List of View IDs */
+    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009};
+    /** List of Extra fields values */
     private List<String> extraFields = new ArrayList<>();
 
 
@@ -60,7 +62,8 @@ public class EntityFlower extends PrbmEntity {
         return null;
     }
 
-    public String getType(){
+    @Override
+    public String getType() {
         return "Fiore/Erba";
     }
 
@@ -86,15 +89,15 @@ public class EntityFlower extends PrbmEntity {
 
     @Override
     public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune del fiore.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico del fiore.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune del fiore.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico del fiore.");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[2], "Numero petali: ");
         EntityViewHelper.addNumericTextView(context, linFree, id_fields[3], "Altezza media (m): ");
-        EntityViewHelper.addLongTextView(context, linFree, id_fields[4], "Descrizione foglie", "Inserire una breve descrizione delle foglie del fiore.", 3);
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[5], "Habitat tipico", "Inserire la descrizione dell'habitat tipico della pianta.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[6], "Distribuzione", "Inserire la descrizione della distribuzione della pianta.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[7], "Proprietà", "Inserire eventuali proprietà di questa pianta.");
-        EntityViewHelper.addShortTextView(context, linFree, id_fields[8], "Curiosità", "Spazio per eventuali curiosità.");
+        EntityViewHelper.addLongEditText(context, linFree, id_fields[4], "Descrizione foglie", "Inserire una breve descrizione delle foglie del fiore.", 3);
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Habitat tipico", "Inserire la descrizione dell'habitat tipico della pianta.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[6], "Distribuzione", "Inserire la descrizione della distribuzione della pianta.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Proprietà", "Inserire eventuali proprietà di questa pianta.");
+        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Curiosità", "Spazio per eventuali curiosità.");
     }
 
     @Override
