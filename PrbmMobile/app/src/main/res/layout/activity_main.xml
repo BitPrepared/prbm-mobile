@@ -23,8 +23,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_information_white_48dp"
-            android:drawableStart="@drawable/ic_information_white_48dp"
+            android:drawableLeft="@drawable/ic_information_white_36dp"
+            android:drawableStart="@drawable/ic_information_white_36dp"
             android:padding="10dp"
             android:text="@string/about"
             android:textColor="@color/White"/>
@@ -37,12 +37,13 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_sync_white_48dp"
-            android:drawableStart="@drawable/ic_sync_white_48dp"
+            android:drawableLeft="@drawable/ic_sync_white_36dp"
+            android:drawableStart="@drawable/ic_sync_white_36dp"
             android:enabled="false"
+            android:focusable="false"
             android:padding="10dp"
             android:text="@string/sync"
-            android:textColor="@color/LightGray"/>
+            android:textColor="@color/DarkGray"/>
 
         <Button
             android:id="@+id/btnList"
@@ -52,8 +53,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_view_list_white_48dp"
-            android:drawableStart="@drawable/ic_view_list_white_48dp"
+            android:drawableLeft="@drawable/ic_view_list_white_36dp"
+            android:drawableStart="@drawable/ic_view_list_white_36dp"
             android:padding="10dp"
             android:text="@string/list_prbm"
             android:textColor="@color/White"/>
@@ -66,8 +67,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_file_document_white_48dp"
-            android:drawableStart="@drawable/ic_file_document_white_48dp"
+            android:drawableLeft="@drawable/ic_file_document_white_36dp"
+            android:drawableStart="@drawable/ic_file_document_white_36dp"
             android:padding="10dp"
             android:text="@string/new_prbm"
             android:textColor="@color/White"/>

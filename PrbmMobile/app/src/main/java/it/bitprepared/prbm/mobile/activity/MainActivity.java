@@ -74,9 +74,9 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(newprbm);
                 break;
             case R.id.btnList:
-//                Intent login = new Intent(getApplicationContext(),
-//                        ListPrbmActivity.class);
-//                startActivity(login);
+                Intent login = new Intent(getApplicationContext(),
+                        ListPrbmActivity.class);
+                startActivity(login);
                 break;
             case R.id.btnSyncro:
 //                Intent sync = new Intent(getApplicationContext(),

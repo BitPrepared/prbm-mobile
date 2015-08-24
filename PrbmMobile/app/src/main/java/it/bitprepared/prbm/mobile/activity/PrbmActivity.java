@@ -16,13 +16,11 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -31,11 +29,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
+import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 /**
  * Class responsible for visualizing a single Prbm
@@ -68,13 +68,19 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
 
     private PrbmUnitAdapter adtUnit = null;
 
+    private EditText edtMinutes;
+    private EditText edtMeters;
+    private EditText edtAzimut;
+
+    private AlertDialog valueDialog = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Setting up Home back button
-        ActionBar bar = getActionBar();
-        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
+//        ActionBar bar = getActionBar();
+//        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_prbm);
         lstUnits = (ListView) findViewById(R.id.lstUnits);
@@ -85,8 +91,36 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
                     R.layout.list_units, refPrbm.getUnits());
             lstUnits.setAdapter(adtUnit);
             registerForContextMenu(lstUnits);
-            Log.d(TAG, "Registred for context menu");
         }
+
+        AlertDialog.Builder alertValuesBuilder = new AlertDialog.Builder(PrbmActivity.this);
+        View viewValuesDialog = this.getLayoutInflater().inflate(
+                R.layout.modify_unit_values, null, false);
+        edtMinutes = (EditText) viewValuesDialog
+                .findViewById(R.id.minutes_input);
+        edtMeters = (EditText) viewValuesDialog.findViewById(R.id.meter_input);
+        edtAzimut = (EditText) viewValuesDialog.findViewById(R.id.azimut_input);
+
+        alertValuesBuilder.setMessage("Modifica valori riga");
+        alertValuesBuilder.setIcon(R.drawable.ic_compass_outline_black_48dp);
+        alertValuesBuilder.setView(viewValuesDialog);
+        alertValuesBuilder.setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertValuesBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PrbmUnit unit = UserData.getInstance().getUnit();
+                unit.setAzimut(edtAzimut.getText().toString());
+                unit.setMinutes(edtMinutes.getText().toString());
+                unit.setMeters(edtMeters.getText().toString());
+                dialog.dismiss();
+            }
+        });
+        valueDialog = alertValuesBuilder.create();
     }
 
     @Override
@@ -108,7 +142,12 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
                 .getMenuInfo();
 
         if (item.getItemId() == MENU_UNIT_EDIT) {
-            refPrbm.print();
+            PrbmUnit unit = refPrbm.getUnit(info.position);
+            UserData.getInstance().setUnit(unit);
+            edtMeters.setText(String.valueOf(unit.getMeter()));
+            edtAzimut.setText(String.valueOf(unit.getAzimut()));
+            edtMinutes.setText(String.valueOf(unit.getMinutes()));
+            valueDialog.show();
         } else if (item.getItemId() == MENU_UNIT_ADD_AFTER) {
             refPrbm.addNewUnits(info.position, false);
             adtUnit.notifyDataSetInvalidated();
@@ -134,28 +173,46 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-        if (id == R.id.discard || id == android.R.id.home) {
-
-            AlertDialog.Builder build = new AlertDialog.Builder(PrbmActivity.this);
-            build.setTitle(R.string.confirmation);
-            build.setMessage(R.string.are_you_sure);
-            build.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            build.setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-            build.show();
+        if (id == R.id.exit) {
+            confirmExit();
             return true;
+        } else if (id == R.id.save){
+            UserData.getInstance().savePrbm(PrbmActivity.this);
+            Toast.makeText(PrbmActivity.this, "Salvataggio del PRBM riuscito", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.parameters){
+            Intent parameters = new Intent(PrbmActivity.this, CreatePrbmActivity.class);
+            parameters.putExtra("edit", true);
+            startActivity(parameters);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void confirmExit() {
+        AlertDialog.Builder build = new AlertDialog.Builder(PrbmActivity.this);
+        build.setTitle(R.string.confirmation);
+        build.setIcon(R.drawable.ic_alert_black_48dp);
+        build.setMessage(R.string.are_you_sure);
+        build.setPositiveButton("Salva ed esci", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                UserData.getInstance().savePrbm(PrbmActivity.this);
+                Toast.makeText(PrbmActivity.this, "Salvataggio del PRBM riuscito", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+        build.setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        build.setNeutralButton("Esci senza salvare", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        build.show();
     }
 
     @Override
@@ -172,5 +229,10 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
         if (requestCode == ACTIVITY_ADD_ENTITY || requestCode == ACTIVITY_MODIFY_ENTITY) {
             adtUnit.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        confirmExit();
     }
 }

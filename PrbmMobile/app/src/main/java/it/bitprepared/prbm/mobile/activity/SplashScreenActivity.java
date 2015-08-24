@@ -20,9 +20,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.SparseLongArray;
 import android.widget.TextView;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
 
@@ -34,9 +43,6 @@ public class SplashScreenActivity extends Activity {
 
     /** Debug TAG */
     private final static String TAG = "SplashScreen";
-
-    /** Splash screen timer */
-    private final static int SPLASH_TIMER = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +63,61 @@ public class SplashScreenActivity extends Activity {
             e.printStackTrace();
         }
 
-        // Goto to MainActivity after SPLASH_TIMER seconds
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent main = new Intent(SplashScreenActivity.this, MainActivity.class);
-                startActivity(main);
-                finish();
+        new LoadTask(SplashScreenActivity.this).execute();
+    }
+
+
+    /**
+     * @author Nicola Corti
+     */
+    public class LoadTask extends AsyncTask<Void, Void, Void> {
+
+        /** Riferimento all'activity */
+        private Activity myActivity;
+
+        private HashMap<Integer, Bitmap> bitmaps;
+        private List<Integer> ids;
+
+        /**
+         * Costruttore che mantiene un riferimento all'activity
+         *
+         * @param me
+         *            Activity che invoca il task
+         */
+        public LoadTask(Activity me) {
+            this.myActivity = me;
+            this.bitmaps = new HashMap<>();
+            this.ids = new ArrayList<>();
+            this.ids.add(R.drawable.background_curiosity_list);
+            this.ids.add(R.drawable.background_fauna_list);
+            this.ids.add(R.drawable.background_flower_list);
+            this.ids.add(R.drawable.background_forecast_list);
+            this.ids.add(R.drawable.background_interview_list);
+            this.ids.add(R.drawable.background_monument_list);
+            this.ids.add(R.drawable.background_news_list);
+            this.ids.add(R.drawable.background_panorama_list);
+            this.ids.add(R.drawable.background_tree_list);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            UserData.getInstance().restorePrbms(SplashScreenActivity.this);
+            for(Integer id: ids){
+                InputStream is = myActivity.getResources().openRawResource(id);
+                bitmaps.put(id, BitmapFactory.decodeStream(is));
             }
-        }, SPLASH_TIMER);
+            UserData.getInstance().setBackBitmaps(bitmaps);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void ret) {
+            Intent main;
+            // Inserisco il parametro sullo stato del login
+            main = new Intent(myActivity, MainActivity.class);
+            myActivity.startActivity(main);
+            myActivity.finish();
+        }
 
     }
 }

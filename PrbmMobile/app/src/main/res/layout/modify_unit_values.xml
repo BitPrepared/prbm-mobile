@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+    <View
+        android:id="@+id/dummy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/azimut_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@id/dummy"
+        android:gravity="bottom"
+        android:text="@string/azimut"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/azimut_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="60dp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/dummy"
+        android:inputType="numberSigned"
+        android:text="0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText"
+        android:digits="0123456789," />
+
+    <TextView
+        android:id="@+id/discount_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/meter_input"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/azimut_input"
+        android:gravity="bottom"
+        android:text="@string/minutes"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/minutes_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="60dp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/discount_title"
+        android:inputType="numberSigned"
+        android:text="0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText"
+        android:digits="0123456789," />
+
+    <TextView
+        android:id="@+id/meter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@id/meter_input"
+        android:text="@string/meters"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/meter_input"
+        android:layout_width="wrap_content"
+        android:minWidth="60dp"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toLeftOf="@id/azimut_title"
+        android:digits="0123456789,"
+        android:inputType="numberSigned"
+        android:text="0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText"
+        android:focusableInTouchMode="true" />
+
+</RelativeLayout>

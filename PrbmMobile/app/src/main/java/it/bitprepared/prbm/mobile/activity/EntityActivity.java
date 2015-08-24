@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -30,7 +31,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -67,12 +67,12 @@ public class EntityActivity extends Activity {
         if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_entity);
-        linFree = (LinearLayout)findViewById(R.id.linearFreeEntity);
-        ImageView imgBack = (ImageView)findViewById(R.id.imgEntity);
-        TextView txtTitle = (TextView)findViewById(R.id.txtEntityTitleAdd);
-        datTime = (TimePicker)findViewById(R.id.datTimeEntity);
-        edtCaption = (EditText)findViewById(R.id.edtCaption);
-        edtDescription = (EditText)findViewById(R.id.edtDescription);
+        linFree = (LinearLayout) findViewById(R.id.linearFreeEntity);
+        ImageView imgBack = (ImageView) findViewById(R.id.imgEntity);
+        TextView txtTitle = (TextView) findViewById(R.id.txtEntityTitleAdd);
+        datTime = (TimePicker) findViewById(R.id.datTimeEntity);
+        edtCaption = (EditText) findViewById(R.id.edtCaption);
+        edtDescription = (EditText) findViewById(R.id.edtDescription);
 
         Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
         datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
@@ -80,7 +80,7 @@ public class EntityActivity extends Activity {
         datTime.setIs24HourView(true);
 
         PrbmEntity entity = UserData.getInstance().getEntity();
-        if (entity != null){
+        if (entity != null) {
             imgBack.setImageResource(entity.getIdBackImage());
             entity.drawYourSelf(EntityActivity.this, linFree);
             txtTitle.setText(entity.getType());
@@ -124,21 +124,39 @@ public class EntityActivity extends Activity {
             build.show();
             return true;
         } else if (id == R.id.save) {
-            PrbmEntity entity = UserData.getInstance().getEntity();
-            if (entity != null) {
-                entity.saveFields(EntityActivity.this, linFree);
-                entity.setCaption(edtCaption.getText().toString());
-                entity.setDescription(edtDescription.getText().toString());
-                // TODO Salvare il timestamp
-                Log.d(TAG, "Edit " + edit);
-                if (!edit) {
-                    PrbmUnit involved = UserData.getInstance().getUnit();
-                    involved.addEntity(entity, UserData.getInstance().getColumn());
+            if (edtCaption.getText().length() == 0) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(
+                        new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+                alert.setTitle(R.string.fields_incomplete);
+                alert.setMessage(getString(R.string.you_must_insert_caption));
+                alert.setIcon(R.drawable.ic_alert_black_48dp);
+                alert.setPositiveButton(R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                dialog.dismiss();
+                            }
+                        });
+                alert.show();
+            } else {
+                PrbmEntity entity = UserData.getInstance().getEntity();
+                if (entity != null) {
+                    entity.saveFields(EntityActivity.this, linFree);
+                    entity.setCaption(edtCaption.getText().toString());
+                    entity.setDescription(edtDescription.getText().toString());
+                    // TODO Salvare il timestamp
+                    Log.d(TAG, "Edit " + edit);
+                    if (!edit) {
+                        PrbmUnit involved = UserData.getInstance().getUnit();
+                        involved.addEntity(entity, UserData.getInstance().getColumn());
+                    }
+                    setResult(RESULT_OK);
+                    if (PrbmAddEntityActivity.self != null)
+                        PrbmAddEntityActivity.self.finish();
+                    finish();
                 }
-//                Toast.makeText(EntityActivity.this, "Entità aggiunta con successo", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK);
-                finish();
             }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -17,6 +17,8 @@
 package it.bitprepared.prbm.mobile.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.model.Prbm;
@@ -54,6 +57,7 @@ public class UserData {
 	private int entityColumn;
 
 	private List<Prbm> prbmList = null;
+	private HashMap<Integer, Bitmap> backBitmaps;
 
 	/**
 	 * Empty constructor
@@ -121,12 +125,22 @@ public class UserData {
 		this.entityColumn = entityColumn;
 	}
 
-    public void saveActualPrbm(Context context){
-        if (this.prbmList.contains(prbm)) this.prbmList.add(prbm);
-        saveActualPrbm(context);
+	public void savePrbm(Context context, Prbm prbm){
+		if (!this.prbmList.contains(prbm)) this.prbmList.add(prbm);
+		saveAllPrbm(context);
+	}
+    public void savePrbm(Context context){
+        savePrbm(context, this.prbm);
     }
+	public void deletePrbm(Context context, Prbm prbm) {
+		if (this.prbmList.contains(prbm)) this.prbmList.remove(prbm);
+		saveAllPrbm(context);
+	}
+	public void deletePrbm(Context context) {
+		deletePrbm(context, this.prbm);
+	}
 
-	public synchronized void savePrbms(Context c){
+	public synchronized void saveAllPrbm(Context c){
 		FileOutputStream fos;
 		try {
 			fos = c.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -150,5 +164,33 @@ public class UserData {
 
 		} catch (Exception e) { return false; }
 		return true;
+	}
+
+	public List<Prbm> getAllPrbm() {
+		return prbmList;
+	}
+
+	public void setBackBitmaps(HashMap<Integer, Bitmap> backBitmaps) {
+		this.backBitmaps = backBitmaps;
+	}
+
+	public Bitmap getBackBitmap(int idListImage) {
+		if (this.backBitmaps != null)
+			return this.backBitmaps.get(idListImage);
+		else
+			return null;
+	}
+
+	public boolean canMoveUnitUp() {
+		List<PrbmEntity> toCheck = unit.getEntitiesFromColumn(this.entityColumn);
+		if (toCheck.indexOf(entity) > 0)
+			return true;
+		return false;
+	}
+	public boolean canMoveUnitDown() {
+		List<PrbmEntity> toCheck = unit.getEntitiesFromColumn(this.entityColumn);
+		if (toCheck.indexOf(entity) < toCheck.size()-1)
+			return true;
+		return false;
 	}
 }

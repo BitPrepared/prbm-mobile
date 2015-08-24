@@ -17,10 +17,13 @@
 package it.bitprepared.prbm.mobile.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -32,6 +35,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
@@ -152,15 +156,68 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                 b.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         UserData.getInstance().setColumn(column);
                         UserData.getInstance().setUnit(unit);
                         UserData.getInstance().setEntity(entity);
-                        Intent addEntity = new Intent(c, EntityActivity.class);
-                        addEntity.putExtra("edit", true);
-                        ((Activity)c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_MODIFY_ENTITY);
+                        ArrayList<String> menuItems = new ArrayList<String>();
+                        menuItems.add("Modifica");
+                        menuItems.add("Cancella");
+                        if (UserData.getInstance().canMoveUnitUp()) {
+                            menuItems.add("Sposta in alto");
+                        }
+                        if (UserData.getInstance().canMoveUnitDown()) {
+                            menuItems.add("Sposta in basso");
+                        }
+                        final String[] items = menuItems.toArray(new String[menuItems.size()]);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+                        builder.setTitle("Menù osservazione");
+                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int item) {
+                                if (item == 0) {
+                                    Intent addEntity = new Intent(c, EntityActivity.class);
+                                    addEntity.putExtra("edit", true);
+                                    ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_MODIFY_ENTITY);
+                                    dialog.dismiss();
+                                } else if (item == 1) {
+                                    AlertDialog.Builder alert = new AlertDialog.Builder(c);
+                                    alert.setTitle("Conferma cancellazione");
+                                    alert.setMessage("Sei sicuro di voler cancellare questa osservazione?");
+                                    alert.setIcon(R.drawable.ic_alert_black_48dp);
+                                    alert.setPositiveButton(R.string.delete,
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog,
+                                                                    int whichButton) {
+                                                    unit.deleteEntity(entity, column);
+                                                    PrbmUnitAdapter.this.notifyDataSetChanged();
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    alert.setNegativeButton(R.string.abort,
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog,
+                                                                    int whichButton) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    dialog.dismiss();
+                                    alert.show();
+                                } else if (items[item].contains("alto")){
+                                    unit.moveEntity(entity, column, false);
+                                    PrbmUnitAdapter.this.notifyDataSetChanged();
+                                    dialog.dismiss();
+                                } else if (items[item].contains("basso")){
+                                    unit.moveEntity(entity, column, true);
+                                    PrbmUnitAdapter.this.notifyDataSetChanged();
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
                     }
                 });
-                arrayLin[i].addView(b);
+                    arrayLin[i].addView(b);
             }
             try {
                 arrayLin[i].removeViews(j + 1, arrayLin[i].getChildCount() - (j + 1));

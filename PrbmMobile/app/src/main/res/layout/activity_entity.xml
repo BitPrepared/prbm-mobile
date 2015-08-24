@@ -20,7 +20,7 @@
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="4">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:text="Didascalia"
@@ -50,17 +50,18 @@
                     android:id="@+id/edtCaption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:ems="10"
-                    android:hint="Inserisci la didascalia di questo elemento"
+                    android:hint="Inserisci una didascalia"
+                    android:textColorHint="@color/LightGray"
                     android:textColor="@color/White"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:text="Descrizione"
@@ -71,41 +72,31 @@
                     android:id="@+id/edtDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:ems="10"
-                    android:hint="Inserisci una breve descrizione di questo elemento"
+                    android:hint="Inserisci una breve descrizione"
+                    android:textColorHint="@color/LightGray"
                     android:textColor="@color/White"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:text="Orario"
                     android:textColor="@color/White"
                     android:textSize="18sp"/>
 
-                <LinearLayout
+                <TimePicker
+                    android:id="@+id/datTimeEntity"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <!--<DatePicker-->
-                    <!--android:id="@+id/datDateEntity"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0dp"-->
-                    <!--android:layout_weight="4"-->
-                    <!--android:calendarViewShown="false"-->
-                    <!--android:spinnersShown="false"/>-->
-                    <TimePicker
-                        android:id="@+id/datTimeEntity"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="4"
-                        />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    />
 
             </LinearLayout>
         </ScrollView>
@@ -113,7 +104,7 @@
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7">
+            android:layout_weight="6">
 
             <LinearLayout
                 android:id="@+id/linearFreeEntity"

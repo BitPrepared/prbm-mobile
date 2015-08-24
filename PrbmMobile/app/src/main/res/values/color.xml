@@ -8,6 +8,7 @@
     <color name="Blue">#1976D2</color>
     <color name="Black">#000000</color>
     <color name="White">#FFFFFF</color>
-    <color name="LightGray">#ffdedede</color>
+    <color name="LightGray">#ffb9b9b9</color>
+    <color name="DarkGray">#ff696969</color>
 
 </resources>

@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.model.entities.EntityFauna;
@@ -136,6 +137,16 @@ public class PrbmUnit implements Serializable {
         return minutes;
     }
 
+    public void setAzimut(String azimut) {
+        this.azimut = Float.parseFloat(azimut);
+    }
+    public void setMinutes(String minutes) {
+        this.minutes = Float.parseFloat(minutes);
+    }
+    public void setMeters(String meter) {
+        this.meter = Float.parseFloat(meter);
+    }
+
     public List<PrbmEntity> getFarLeft() {
         return entitiesFarLeft;
     }
@@ -147,8 +158,8 @@ public class PrbmUnit implements Serializable {
     }
     public List<PrbmEntity> getNearRight() { return entitiesNearRight; }
 
-    public void addEntity(PrbmEntity unit, int column){
-        if (unit == null) return;
+    public void addEntity(PrbmEntity entity, int column){
+        if (entity == null) return;
         List<PrbmEntity> toAdd = null;
         switch (column){
             case 0: toAdd = entitiesFarLeft; break;
@@ -156,6 +167,48 @@ public class PrbmUnit implements Serializable {
             case 2: toAdd = entitiesNearRight; break;
             case 3: toAdd = entitiesFarRight; break;
         }
-        if (toAdd != null) toAdd.add(unit);
+        if (toAdd != null) toAdd.add(entity);
+    }
+
+    public List<PrbmEntity> getEntitiesFromColumn(int column){
+        List<PrbmEntity> toReturn = null;
+        switch (column){
+            case 0: toReturn = entitiesFarLeft; break;
+            case 1: toReturn = entitiesNearLeft; break;
+            case 2: toReturn = entitiesNearRight; break;
+            case 3: toReturn = entitiesFarRight; break;
+        }
+        return toReturn;
+    }
+
+    public void deleteEntity(PrbmEntity entity, int column) {
+        if (entity == null) return;
+        List<PrbmEntity> toDelete = null;
+        switch (column){
+            case 0: toDelete = entitiesFarLeft; break;
+            case 1: toDelete = entitiesNearLeft; break;
+            case 2: toDelete = entitiesNearRight; break;
+            case 3: toDelete = entitiesFarRight; break;
+        }
+        if (toDelete != null) toDelete.remove(entity);
+    }
+
+    public void moveEntity(PrbmEntity entity, int column, boolean down) {
+        if (entity == null) return;
+        List<PrbmEntity> toMove = null;
+        switch (column){
+            case 0: toMove = entitiesFarLeft; break;
+            case 1: toMove = entitiesNearLeft; break;
+            case 2: toMove = entitiesNearRight; break;
+            case 3: toMove = entitiesFarRight; break;
+        }
+        if (toMove != null) {
+            int index = toMove.indexOf(entity);
+            if (down)
+                Collections.swap(toMove, index, index+1);
+            else
+                Collections.swap(toMove, index, index-1);
+        }
+
     }
 }

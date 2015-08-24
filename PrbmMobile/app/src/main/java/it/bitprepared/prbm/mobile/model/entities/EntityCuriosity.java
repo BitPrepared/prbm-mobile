@@ -60,7 +60,7 @@ public class EntityCuriosity extends PrbmEntity {
     }
 
     public String getType() {
-        return "Curiosità/Osservazione";
+        return "Curiosità";
     }
 
     @Override

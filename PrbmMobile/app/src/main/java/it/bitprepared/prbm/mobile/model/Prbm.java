@@ -207,6 +207,10 @@ public class Prbm implements Serializable {
         return units.size() > 1;
     }
 
+    public PrbmUnit getUnit(int pos){
+        return units.get(pos);
+    }
+
     public void deleteUnit(PrbmUnit u){
         units.remove(u);
     }

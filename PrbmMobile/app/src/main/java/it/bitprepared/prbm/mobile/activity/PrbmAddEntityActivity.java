@@ -4,14 +4,17 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,8 +51,12 @@ public class PrbmAddEntityActivity extends Activity {
 
     private List<PrbmEntity> availableEntities = null;
 
+    public static Activity self = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.self = this;
+
         super.onCreate(savedInstanceState);
 
         // Setting up Home back button
@@ -73,7 +80,6 @@ public class PrbmAddEntityActivity extends Activity {
         adtEntities = new PrbmAvailableEntitiesAdapter(PrbmAddEntityActivity.this,
                 R.layout.list_available_entities, availableEntities);
         lstAvailableEntities.setAdapter(adtEntities);
-
         lstAvailableEntities.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,23 +88,30 @@ public class PrbmAddEntityActivity extends Activity {
                 prbmEntityModify.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 startActivity(prbmEntityModify);
                 setResult(RESULT_OK);
-                finish();
+//                finish();
                 return true;
-            }
-        });
-
-        lstAvailableEntities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PrbmAddEntityActivity.this, "Premi a lungo per selezionare un elemento da aggiungere", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public class PrbmAvailableEntitiesAdapter extends ArrayAdapter<PrbmEntity> {
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return false;
+    }
+
+    public class PrbmAvailableEntitiesAdapter extends ArrayAdapter<PrbmEntity> implements View.OnClickListener {
 
         /** Execution context */
         private Context c;
+
+        private List<Bitmap> backBitmaps;
 
         /**
          * Base constructor
@@ -136,6 +149,7 @@ public class PrbmAddEntityActivity extends Activity {
                 convertView = inflater.inflate(R.layout.list_available_entities, parent, false);
 
                 viewHolder = new ViewHolder();
+                viewHolder.frmEntityList = (FrameLayout) convertView.findViewById(R.id.frmEntityList);
                 viewHolder.imgEntityBackground = (ImageView) convertView.findViewById(R.id.imgBackEntity);
                 viewHolder.txtEntityTitle = (TextView) convertView.findViewById(R.id.txtEntityTitle);
                 viewHolder.txtEntityDescription = (TextView) convertView.findViewById(R.id.txtEntityDescription);
@@ -143,19 +157,23 @@ public class PrbmAddEntityActivity extends Activity {
                 // Set the tag tag
                 convertView.setTag(viewHolder);
                 convertView.setLongClickable(true);
-                convertView.setClickable(true);
             } else {
                 // Restore tag
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            Log.d(TAG, "Viewholder " + viewHolder + " img " + viewHolder.imgEntityBackground + " unit " + unit + " id " + unit.getIdListImage());
-
-            viewHolder.imgEntityBackground.setImageResource(unit.getIdListImage());
+            viewHolder.frmEntityList.setOnClickListener(this);
+            viewHolder.imgEntityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            viewHolder.imgEntityBackground.setImageBitmap(UserData.getInstance().getBackBitmap(unit.getIdListImage()));
             viewHolder.txtEntityTitle.setText(unit.getType());
             viewHolder.txtEntityDescription.setText(unit.getTypeDescription());
 
             return convertView;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(PrbmAddEntityActivity.this, "Premi a lungo per selezionare un elemento da aggiungere", Toast.LENGTH_SHORT).show();
         }
 
         /**
@@ -163,6 +181,7 @@ public class PrbmAddEntityActivity extends Activity {
          * @author Nicola Corti
          */
         private class ViewHolder {
+            private FrameLayout frmEntityList;
             private TextView txtEntityTitle;
             private TextView txtEntityDescription;
             private ImageView imgEntityBackground;

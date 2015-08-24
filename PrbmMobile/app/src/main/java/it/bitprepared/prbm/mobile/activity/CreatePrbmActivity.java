@@ -28,10 +28,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import it.bitprepared.prbm.mobile.R;
@@ -48,9 +51,13 @@ public class CreatePrbmActivity extends Activity {
     private DatePicker datDate;
     private TimePicker datTime;
 
+    private boolean edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        edit = getIntent().getBooleanExtra("edit", false);
 
         // Setting actionbar home button
         ActionBar bar = getActionBar();
@@ -64,18 +71,43 @@ public class CreatePrbmActivity extends Activity {
         edtNote = (EditText) findViewById(R.id.edtNote);
         datDate = (DatePicker) findViewById(R.id.datDate);
         datTime = (TimePicker) findViewById(R.id.datTime);
-
-        Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
-        datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
-        datTime.setCurrentMinute(c.get(Calendar.MINUTE));
         datTime.setIs24HourView(true);
         datDate.setCalendarViewShown(false);
+
+        if (!edit) {
+            Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
+            datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
+            datTime.setCurrentMinute(c.get(Calendar.MINUTE));
+        } else {
+            TextView txtTitle = (TextView)findViewById(R.id.textView1);
+            txtTitle.setText("Modifica i parametri del PRBM");
+
+            Prbm thisPrbm = UserData.getInstance().getPrbm();
+            edtTitle.setText(thisPrbm.getTitle());
+            edtAuthors.setText(thisPrbm.getAuthors());
+            edtPlace.setText(thisPrbm.getPlace());
+            edtNote.setText(thisPrbm.getNote());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+            try {
+                Date date = dateFormat.parse(thisPrbm.getDate());
+                Calendar c = Calendar.getInstance(Locale.ITALY);
+                c.setTime(date);
+                datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
+                datTime.setCurrentMinute(c.get(Calendar.MINUTE));
+                setTitle("Modifica parametri PRBM");
+            } catch (ParseException e) { }
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.create_prbm, menu);
+        if (!edit)
+            getMenuInflater().inflate(R.menu.create_prbm, menu);
+        else
+            getMenuInflater().inflate(R.menu.create_prbm_edit_param, menu);
         return true;
     }
 
@@ -91,7 +123,7 @@ public class CreatePrbmActivity extends Activity {
                         new ContextThemeWrapper(this, R.style.AlertDialogCustom));
                 alert.setTitle(R.string.fields_incomplete);
                 alert.setMessage(getString(R.string.error_no_title_prbm));
-                alert.setIcon(R.drawable.error);
+                alert.setIcon(R.drawable.ic_alert_black_48dp);
 
                 alert.setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
@@ -103,37 +135,42 @@ public class CreatePrbmActivity extends Activity {
                 alert.show();
             } else {
 
-                // Retrieving version name
-                String version = "";
-                try {
-                    version = this.getPackageManager().getPackageInfo(
-                            this.getPackageName(), 0).versionName;
-                } catch (NameNotFoundException e) {
-                    // Impossibile
-                    e.printStackTrace();
+                // Checking if PRBM must be created or not
+                Prbm thisPrbm;
+                if (!edit){
+                    // Retrieving version name
+                    String version = "";
+                    try {
+                        version = this.getPackageManager().getPackageInfo(
+                                this.getPackageName(), 0).versionName;
+                    } catch (NameNotFoundException e) {
+                        // Impossibile
+                        e.printStackTrace();
+                    }
+                    thisPrbm = new Prbm(version);
+                } else {
+                    thisPrbm = UserData.getInstance().getPrbm();
                 }
 
-                // Creating a new PRBM
-                Prbm newPrbm = new Prbm(version);
-                newPrbm.setTitle(edtAuthors.getText().toString());
-                newPrbm.setAuthors(edtAuthors.getText().toString());
-                newPrbm.setPlace(edtPlace.getText().toString());
-                newPrbm.setNote(edtNote.getText().toString());
+                thisPrbm.setTitle(edtTitle.getText().toString());
+                thisPrbm.setAuthors(edtAuthors.getText().toString());
+                thisPrbm.setPlace(edtPlace.getText().toString());
+                thisPrbm.setNote(edtNote.getText().toString());
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat(
                         "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
                 Calendar c = Calendar.getInstance();
                 c.set(datDate.getYear(), datDate.getMonth(), datDate.getDayOfMonth(), datTime.getCurrentHour(), datTime.getCurrentMinute());
-                newPrbm.setDate(dateFormat.format(c.getTime()));
+                thisPrbm.setDate(dateFormat.format(c.getTime()));
 
-                newPrbm.addNewUnits();
-
-                // Setting global PRBM
-                UserData.getInstance().setPrbm(newPrbm);
-
-                Intent it = new Intent(CreatePrbmActivity.this,
-                        PrbmActivity.class);
-                startActivity(it);
+                if (!edit) {
+                    thisPrbm.addNewUnits();
+                    // Setting global PRBM
+                    UserData.getInstance().setPrbm(thisPrbm);
+                    Intent it = new Intent(CreatePrbmActivity.this,
+                            PrbmActivity.class);
+                    startActivity(it);
+                }
                 finish();
             }
             return true;

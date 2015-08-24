@@ -27,7 +27,7 @@
     <string name="back">Indietro</string>
     <string name="continue_">Continua</string>
     <string name="insert">Inserisci</string>
-    <string name="confirmation">Confermi?</string>
+    <string name="confirmation">Vuoi uscire?</string>
     <string name="are_you_sure">Se annulli perderai le modifiche non salvate, sei sicuro?</string>
     <string name="no_empty">Il campo di testo della descrizione non può essere vuoto</string>
     <string name="parse_error">Hai inserito dei caratteri invalidi</string>
@@ -64,5 +64,12 @@
     <string name="you_cant_delete_last_unit">Non puoi cancellare l\'ultima riga dal percorso rettificato</string>
     <string name="choose_entity">Scegli l\'entità da aggiungere</string>
     <string name="entity_details">Dettagli osservazione</string>
+    <string name="exit">Esci</string>
+    <string name="delete">Elimina</string>
+    <string name="prbm_icon">Icona PRBM</string>
+    <string name="list_of_prbms">Elenco dei PRBM</string>
+    <string name="parameters">Parametri</string>
+    <string name="modify">Modifica</string>
+    <string name="you_must_insert_caption">Devi inserire almeno la didascalia del\'elemento per poterlo salvare</string>
 
 </resources>
