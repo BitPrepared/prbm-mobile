@@ -4,30 +4,24 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
-import it.bitprepared.prbm.mobile.model.PrbmUnit;
 import it.bitprepared.prbm.mobile.model.entities.EntityCuriosity;
 import it.bitprepared.prbm.mobile.model.entities.EntityFauna;
 import it.bitprepared.prbm.mobile.model.entities.EntityFlower;
@@ -39,30 +33,37 @@ import it.bitprepared.prbm.mobile.model.entities.EntityTree;
 import it.bitprepared.prbm.mobile.model.entities.EntityWeather;
 
 /**
- * Created by nicola on 19/08/15.
+ * Class responsible for visualizing list of available entities
+ * @author Nicola Corti
  */
 public class PrbmAddEntityActivity extends Activity {
 
     /** Debug TAG */
     private final static String TAG = "PrbmAddEntityActivity";
 
+    /** Reference to listview of Available entities */
     private ListView lstAvailableEntities = null;
+    /** Reference to adapter of Available entities */
     private PrbmAvailableEntitiesAdapter adtEntities = null;
-
+    /** List of availabe entities instances */
     private List<PrbmEntity> availableEntities = null;
 
+    /** Reference to self, for activity delayed finalization */
     public static Activity self = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.self = this;
-
         super.onCreate(savedInstanceState);
 
         // Setting up Home back button
         ActionBar bar = getActionBar();
         if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
+        ////////////////////////////////////////////
+        //
+        //  List of available entries is here
+        //
         availableEntities = new ArrayList<>();
         availableEntities.add(new EntityFlower());
         availableEntities.add(new EntityTree());
@@ -73,22 +74,26 @@ public class PrbmAddEntityActivity extends Activity {
         availableEntities.add(new EntityInterview());
         availableEntities.add(new EntityNews());
         availableEntities.add(new EntityCuriosity());
+        //
+        ////////////////////////////////////////////
 
+
+        // Building listview and adapter
         setContentView(R.layout.activity_add_entity);
         lstAvailableEntities = (ListView) findViewById(R.id.lstAvailableEntities);
-
         adtEntities = new PrbmAvailableEntitiesAdapter(PrbmAddEntityActivity.this,
                 R.layout.list_available_entities, availableEntities);
         lstAvailableEntities.setAdapter(adtEntities);
         lstAvailableEntities.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // Item selection with long click
                 UserData.getInstance().setEntity(availableEntities.get(position));
                 Intent prbmEntityModify = new Intent(PrbmAddEntityActivity.this, EntityActivity.class);
                 prbmEntityModify.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 startActivity(prbmEntityModify);
                 setResult(RESULT_OK);
-//                finish();
                 return true;
             }
         });
@@ -106,12 +111,14 @@ public class PrbmAddEntityActivity extends Activity {
         return false;
     }
 
+    /**
+     * Adapter used to display available entities
+     * @author Nicola Corti
+     */
     public class PrbmAvailableEntitiesAdapter extends ArrayAdapter<PrbmEntity> implements View.OnClickListener {
 
         /** Execution context */
         private Context c;
-
-        private List<Bitmap> backBitmaps;
 
         /**
          * Base constructor
@@ -130,11 +137,11 @@ public class PrbmAddEntityActivity extends Activity {
         }
 
         /**
-         * Metoto per ottenere la view in modo ottimizzato
-         * @param position    Posizione nella lista
-         * @param convertView Vista che viene ritornata ad ogni invocazione
-         * @param parent      ViewGroup padre della vista
-         * @return La nuova vista disegnata
+         * Method to obtain current view in an optimized manner
+         * @param position    Position in list
+         * @param convertView ConvertView returned at each invocation
+         * @param parent      Parent viewgroup
+         * @return Just created/rendered view
          */
         public View getViewOptimize(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
@@ -143,7 +150,7 @@ public class PrbmAddEntityActivity extends Activity {
 
             if (convertView == null) {
 
-                // Se la convertView e' nulla la devo caricare la prima volta
+                // If convert view is null, I must inflate
                 LayoutInflater inflater = (LayoutInflater) getContext()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_available_entities, parent, false);
@@ -154,7 +161,7 @@ public class PrbmAddEntityActivity extends Activity {
                 viewHolder.txtEntityTitle = (TextView) convertView.findViewById(R.id.txtEntityTitle);
                 viewHolder.txtEntityDescription = (TextView) convertView.findViewById(R.id.txtEntityDescription);
 
-                // Set the tag tag
+                // Set the tag
                 convertView.setTag(viewHolder);
                 convertView.setLongClickable(true);
             } else {
@@ -181,9 +188,13 @@ public class PrbmAddEntityActivity extends Activity {
          * @author Nicola Corti
          */
         private class ViewHolder {
+            /** Reference to parent FrameLayout */
             private FrameLayout frmEntityList;
+            /** Reference to entity title textview */
             private TextView txtEntityTitle;
+            /** Reference to entity description textview */
             private TextView txtEntityDescription;
+            /** Reference to image background view */
             private ImageView imgEntityBackground;
         }
     }

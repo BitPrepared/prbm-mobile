@@ -22,7 +22,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +31,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
@@ -47,12 +49,17 @@ public class EntityActivity extends Activity {
     /** Debug TAG */
     private final static String TAG = "EntityActivity";
 
+    /** Linear layout left free to each Entity */
     private LinearLayout linFree = null;
 
+    /** Reference to Entity Caption textbox */
     private EditText edtCaption = null;
+    /** Reference to Entity Description textbox */
     private EditText edtDescription = null;
+    /** Reference to Entity Time textbox */
     private TimePicker datTime = null;
 
+    /** Boolean flag for edit functionalities */
     private boolean edit = false;
 
     @Override
@@ -66,6 +73,7 @@ public class EntityActivity extends Activity {
         ActionBar bar = getActionBar();
         if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
+        // Inflating views
         setContentView(R.layout.activity_entity);
         linFree = (LinearLayout) findViewById(R.id.linearFreeEntity);
         ImageView imgBack = (ImageView) findViewById(R.id.imgEntity);
@@ -74,20 +82,33 @@ public class EntityActivity extends Activity {
         edtCaption = (EditText) findViewById(R.id.edtCaption);
         edtDescription = (EditText) findViewById(R.id.edtDescription);
 
-        Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
-        datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
-        datTime.setCurrentMinute(c.get(Calendar.MINUTE));
-        datTime.setIs24HourView(true);
-
         PrbmEntity entity = UserData.getInstance().getEntity();
         if (entity != null) {
             imgBack.setImageResource(entity.getIdBackImage());
             entity.drawYourSelf(EntityActivity.this, linFree);
             txtTitle.setText(entity.getType());
 
-            if (edit) {
+            if (!edit) {
+                // Setting current hour
+                Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
+                datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
+                datTime.setCurrentMinute(c.get(Calendar.MINUTE));
+                datTime.setIs24HourView(true);
+            } else {
                 edtCaption.setText(entity.getCaption());
                 edtDescription.setText(entity.getDescription());
+
+                // Restoring timestamp to TimePicker
+                SimpleDateFormat dateFormat = new SimpleDateFormat(
+                        "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
+                try {
+                    Date date = dateFormat.parse(entity.getTimestamp());
+                    Calendar cal = Calendar.getInstance(getResources().getConfiguration().locale);
+                    cal.setTime(date);
+                    datTime.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
+                    datTime.setCurrentMinute(cal.get(Calendar.MINUTE));
+                } catch (ParseException e) {
+                }
                 entity.restoreFields(this, linFree);
             }
         }
@@ -123,6 +144,8 @@ public class EntityActivity extends Activity {
             build.show();
             return true;
         } else if (id == R.id.save) {
+
+            // Checking if caption is empty
             if (edtCaption.getText().length() == 0) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(
                         new ContextThemeWrapper(this, R.style.AlertDialogCustom));
@@ -143,6 +166,14 @@ public class EntityActivity extends Activity {
                     entity.saveFields(EntityActivity.this, linFree);
                     entity.setCaption(edtCaption.getText().toString());
                     entity.setDescription(edtDescription.getText().toString());
+                    Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
+
+                    // Saving timestamp. Date set at Unix epoch
+                    c.set(1970, 1, 1, datTime.getCurrentHour(), datTime.getCurrentMinute());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(
+                            "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
+                    entity.setTimestamp(dateFormat.format(c.getTime()));
+
                     if (!edit) {
                         PrbmUnit involved = UserData.getInstance().getUnit();
                         involved.addEntity(entity, UserData.getInstance().getColumn());

@@ -46,17 +46,28 @@ import it.bitprepared.prbm.mobile.model.Prbm;
  */
 public class CreatePrbmActivity extends Activity {
 
-    // Views references
-    private EditText edtTitle, edtAuthors, edtPlace, edtNote;
+    /** Reference to PRBM Title textbox */
+    private EditText edtTitle;
+    /** Reference to PRBM Authors textbox */
+    private EditText edtAuthors;
+    /** Reference to PRBM Place textbox */
+    private EditText edtPlace;
+    /** Reference to PRBM Note textbox */
+    private EditText edtNote;
+
+    /** Reference to PRBM Date picker */
     private DatePicker datDate;
+    /** Reference to PRBM Time picker */
     private TimePicker datTime;
 
-    private boolean edit;
+    /** Boolean flag for edit functionalities */
+    private boolean edit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Try to retrieve edit flag
         edit = getIntent().getBooleanExtra("edit", false);
 
         // Setting actionbar home button
@@ -75,12 +86,14 @@ public class CreatePrbmActivity extends Activity {
         datDate.setCalendarViewShown(false);
 
         if (!edit) {
+            // Setting actual date
             Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
             datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
             datTime.setCurrentMinute(c.get(Calendar.MINUTE));
         } else {
-            TextView txtTitle = (TextView)findViewById(R.id.textView1);
+            // Restoring date
+            TextView txtTitle = (TextView) findViewById(R.id.textView1);
             txtTitle.setText(getString(R.string.modify_prbm_parameters));
 
             Prbm thisPrbm = UserData.getInstance().getPrbm();
@@ -89,16 +102,17 @@ public class CreatePrbmActivity extends Activity {
             edtPlace.setText(thisPrbm.getPlace());
             edtNote.setText(thisPrbm.getNote());
             SimpleDateFormat dateFormat = new SimpleDateFormat(
-                    "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+                    "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
             try {
                 Date date = dateFormat.parse(thisPrbm.getDate());
-                Calendar c = Calendar.getInstance(Locale.ITALY);
+                Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
                 c.setTime(date);
                 datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
                 datTime.setCurrentMinute(c.get(Calendar.MINUTE));
                 setTitle(getString(R.string.modify_prbm_parameters));
-            } catch (ParseException e) { }
+            } catch (ParseException e) {
+            }
         }
     }
 
@@ -118,13 +132,16 @@ public class CreatePrbmActivity extends Activity {
             finish();
             return true;
         } else if (id == R.id.confirm) {
+
+            // Checking if Title is not empty
             if (edtTitle.getText().length() == 0) {
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(
                         new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+
                 alert.setTitle(R.string.fields_incomplete);
                 alert.setMessage(getString(R.string.error_no_title_prbm));
                 alert.setIcon(R.drawable.ic_alert_black_48dp);
-
                 alert.setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
@@ -134,10 +151,9 @@ public class CreatePrbmActivity extends Activity {
                         });
                 alert.show();
             } else {
-
                 // Checking if PRBM must be created or not
                 Prbm thisPrbm;
-                if (!edit){
+                if (!edit) {
                     // Retrieving version name
                     String version = "";
                     try {

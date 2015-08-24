@@ -86,25 +86,24 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
+    /**
+     * Private method used for about dialog creation and visualization
+     */
     private void showAboutDialog() {
 
-        ///////////////////////////////////////////////////////////////////////
-        // CREAZIONE DELLE DIALOG BOX
-
-        // Carico la view per il dialogbox e creo la dialogbox About
         LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.about_dialog, (ViewGroup) findViewById(R.id.layout_root));
-        // Questa textview ha un compound drawable
+
         TextView text = (TextView) layout.findViewById(R.id.text);
         TextView web = (TextView) layout.findViewById(R.id.webtext);
         Linkify.addLinks(text, Linkify.ALL);
         Linkify.addLinks(web, Linkify.ALL);
 
-
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(MainActivity.this);
         builder.setView(layout);
 
+        // Contact button
         builder.setPositiveButton(getString(R.string.contact), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -114,6 +113,8 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(Intent.createChooser(emailIntent, getResources().getString(R.string.sendmail)));
             }
         });
+
+        // Close button
         builder.setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -121,6 +122,7 @@ public class MainActivity extends Activity implements OnClickListener {
             }
         });
 
+        // Market button
         builder.setNeutralButton(getString(R.string.rate), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

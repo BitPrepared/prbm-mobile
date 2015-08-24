@@ -24,8 +24,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.SparseLongArray;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -50,7 +48,6 @@ public class SplashScreenActivity extends Activity {
 
         // Locking orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-
         setContentView(R.layout.activity_splash);
 
         // Showing version number
@@ -68,26 +65,30 @@ public class SplashScreenActivity extends Activity {
 
 
     /**
+     * Async task used to
+     * - Restore PRBM from serialized files
+     * - Pre-fetch big bitmaps, to enhance performance
      * @author Nicola Corti
      */
     public class LoadTask extends AsyncTask<Void, Void, Void> {
 
-        /** Riferimento all'activity */
+        /** Reference to Activity */
         private Activity myActivity;
 
+        /** Hashmap of Integers (IDs) and Bitmaps */
         private HashMap<Integer, Bitmap> bitmaps;
+        /** List of Resource ID (bitmaps) to be loaded */
         private List<Integer> ids;
 
         /**
-         * Costruttore che mantiene un riferimento all'activity
-         *
-         * @param me
-         *            Activity che invoca il task
+         * Basic constructor, mantains a reference to the activity
+         * @param me Activity that launched this AsyncTask
          */
         public LoadTask(Activity me) {
             this.myActivity = me;
             this.bitmaps = new HashMap<>();
             this.ids = new ArrayList<>();
+            // List of IDs to be loaded */
             this.ids.add(R.drawable.background_curiosity_list);
             this.ids.add(R.drawable.background_fauna_list);
             this.ids.add(R.drawable.background_flower_list);
@@ -101,8 +102,11 @@ public class SplashScreenActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            // Restore Serialized PRBMs
             UserData.getInstance().restorePrbms(SplashScreenActivity.this);
-            for(Integer id: ids){
+
+            // Load Bitmaps
+            for (Integer id : ids) {
                 InputStream is = myActivity.getResources().openRawResource(id);
                 bitmaps.put(id, BitmapFactory.decodeStream(is));
             }
@@ -113,7 +117,7 @@ public class SplashScreenActivity extends Activity {
         @Override
         protected void onPostExecute(Void ret) {
             Intent main;
-            // Inserisco il parametro sullo stato del login
+            // Launch main activity
             main = new Intent(myActivity, MainActivity.class);
             myActivity.startActivity(main);
             myActivity.finish();

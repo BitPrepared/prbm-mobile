@@ -21,25 +21,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.model.Prbm;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
@@ -69,11 +62,11 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
     }
 
     /**
-     * Metoto per ottenere la view in modo ottimizzato
-     * @param position    Posizione nella lista
-     * @param convertView Vista che viene ritornata ad ogni invocazione
-     * @param parent      ViewGroup padre della vista
-     * @return La nuova vista disegnata
+     * Method to obtain current view in an optimized manner
+     * @param position    Position in list
+     * @param convertView ConvertView returned at each invocation
+     * @param parent      Parent viewgroup
+     * @return Just created/rendered view
      */
     public View getViewOptimize(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
@@ -110,8 +103,9 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
         viewHolder.txtMeters.setText(c.getString(R.string.meters) + unit.getMeter());
         viewHolder.txtMinutes.setText(c.getString(R.string.minutes) + unit.getMinutes());
 
+        // Setting onclick listner for add buttons
         Button[] arrayBtn = {viewHolder.btnFarLeft, viewHolder.btnNearLeft, viewHolder.btnNearRight, viewHolder.btnFarRight};
-        for(int j = 0; j < arrayBtn.length; j++){
+        for (int j = 0; j < arrayBtn.length; j++) {
             final int column = j;
             arrayBtn[j].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,31 +113,34 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                     UserData.getInstance().setColumn(column);
                     UserData.getInstance().setUnit(unit);
                     Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
-                    ((Activity)c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
+                    ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
                 }
             });
         }
 
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         param.setMargins(5, 0, 5, 5);
 
+        // Array of entities and linear layouts
         List[] arrayEntity = {unit.getFarLeft(), unit.getNearLeft(), unit.getNearRight(), unit.getFarRight()};
         LinearLayout[] arrayLin = {viewHolder.lstFarLeft, viewHolder.lstNearLeft, viewHolder.lstNearRight, viewHolder.lstFarRight};
 
 
-        for(int i = 0; i < arrayLin.length; i++){
+        for (int i = 0; i < arrayLin.length; i++) {
             List<PrbmEntity> entities = arrayEntity[i];
             int j;
-            for (j = 0; j < entities.size(); j++){
+            for (j = 0; j < entities.size(); j++) {
                 final PrbmEntity entity = entities.get(j);
-                View v = arrayLin[i].getChildAt(j+1);
-                if (v != null && v instanceof Button){
-                    Button b = (Button)v;
+                View v = arrayLin[i].getChildAt(j + 1);
+                if (v != null && v instanceof Button) {
+                    Button b = (Button) v;
                     if (b.getText().toString().contentEquals(entity.getType()))
                         continue; // Button is already present...skip to next
                     else
-                        arrayLin[i].removeViewAt(j+1);
+                        arrayLin[i].removeViewAt(j + 1);
                 }
+
+                // If not present, create a new button
                 Button b = new Button(c);
                 b.setText(entity.getType());
                 b.setLayoutParams(param);
@@ -158,26 +155,34 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                         UserData.getInstance().setColumn(column);
                         UserData.getInstance().setUnit(unit);
                         UserData.getInstance().setEntity(entity);
+
+                        // Creating a contextual menu as Item Dialog
                         ArrayList<String> menuItems = new ArrayList<String>();
                         menuItems.add(c.getString(R.string.modify));
                         menuItems.add(c.getString(R.string.delete));
+
+                        // Check if entity can move up or down
                         if (UserData.getInstance().canMoveUnitUp()) {
                             menuItems.add(c.getString(R.string.move_up));
                         }
                         if (UserData.getInstance().canMoveUnitDown()) {
                             menuItems.add(c.getString(R.string.move_down));
                         }
+
                         final String[] items = menuItems.toArray(new String[menuItems.size()]);
                         AlertDialog.Builder builder = new AlertDialog.Builder(c);
                         builder.setTitle(c.getString(R.string.entity_menu));
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
+                                // Handling item selection
                                 if (item == 0) {
                                     Intent addEntity = new Intent(c, EntityActivity.class);
                                     addEntity.putExtra("edit", true);
                                     ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_MODIFY_ENTITY);
                                     dialog.dismiss();
                                 } else if (item == 1) {
+
+                                    // Alert dialog to check if sure to delete
                                     AlertDialog.Builder alert = new AlertDialog.Builder(c);
                                     alert.setTitle(c.getString(R.string.confirm_delete));
                                     alert.setMessage(c.getString(R.string.are_you_sure_delete_entity));
@@ -200,11 +205,13 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                                             });
                                     dialog.dismiss();
                                     alert.show();
-                                } else if (items[item].contentEquals(c.getString(R.string.move_up))){
+                                } else if (items[item].contentEquals(c.getString(R.string.move_up))) {
+                                    // Moving entity up
                                     unit.moveEntity(entity, column, false);
                                     PrbmUnitAdapter.this.notifyDataSetChanged();
                                     dialog.dismiss();
-                                } else if (items[item].contentEquals(c.getString(R.string.move_down))){
+                                } else if (items[item].contentEquals(c.getString(R.string.move_down))) {
+                                    // Moving entity down
                                     unit.moveEntity(entity, column, true);
                                     PrbmUnitAdapter.this.notifyDataSetChanged();
                                     dialog.dismiss();
@@ -215,11 +222,12 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                         alert.show();
                     }
                 });
-                    arrayLin[i].addView(b);
+                arrayLin[i].addView(b);
             }
             try {
+                // Remove remaining views (if exceed)
                 arrayLin[i].removeViews(j + 1, arrayLin[i].getChildCount() - (j + 1));
-            } catch (Exception e ) {
+            } catch (Exception e) {
             }
         }
 

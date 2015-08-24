@@ -93,5 +93,7 @@
     <string name="entity_menu">Menù osservazione</string>
     <string name="confirm_delete">Conferma cancellazione</string>
     <string name="are_you_sure_delete_entity">Sei sicuro di voler cancellare questa osservazione?</string>
+    <string name="modify_entity_values">Modifica valori riga</string>
+    <string name="prbm_save_successful">Salvataggio del PRBM riuscito</string>
 
 </resources>

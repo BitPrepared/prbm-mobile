@@ -1,5 +1,3 @@
-package it.bitprepared.prbm.mobile.activity;
-
 /*   This file is part of PrbmMobile
  *
  *   PrbmMobile is free software: you can redistribute it and/or modify
@@ -15,7 +13,7 @@ package it.bitprepared.prbm.mobile.activity;
  *   You should have received a copy of the GNU General Public License
  *   along with PrbmMobile.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+package it.bitprepared.prbm.mobile.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -25,7 +23,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -33,7 +30,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -47,6 +43,7 @@ import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
 
 /**
+ * Activity responsible of PRBM list visualization
  * @author Nicola Corti
  */
 public class ListPrbmActivity extends Activity implements OnItemClickListener {
@@ -57,25 +54,28 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
     /** Ref to PRBM Adapter */
     private PrbmAdapter adtPrbm;
 
+    /** Menu ID for edit operation */
     private static final int MENU_EDIT = 1;
+    /** Menu ID for delete operation */
     private static final int MENU_DELETE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Imposto il ritorno con ActionBar
+        // Setting action bar home button
         ActionBar bar = getActionBar();
         if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_list_prbm);
 
-        // Recupero i riferimenti alle views
+        // Inflating views
         lstPrbms = (ListView) findViewById(R.id.listPrbm);
 
         registerForContextMenu(lstPrbms);
         lstPrbms.setOnItemClickListener(this);
 
+        // Setting list empty view
         TextView empty = new TextView(ListPrbmActivity.this);
         empty.setText(getString(R.string.no_prbm_to_show));
         empty.setTypeface(null, Typeface.ITALIC);
@@ -83,11 +83,11 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
         ListView.LayoutParams params = new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         empty.setLayoutParams(params);
         empty.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        ((ViewGroup)lstPrbms.getParent()).addView(empty);
+        ((ViewGroup) lstPrbms.getParent()).addView(empty);
         lstPrbms.setEmptyView(empty);
 
+        // Crating prbm adapter
         List<Prbm> prbms = UserData.getInstance().getAllPrbm();
-
         adtPrbm = new PrbmAdapter(ListPrbmActivity.this, R.layout.list_prbm, prbms);
         lstPrbms.setAdapter(adtPrbm);
     }
@@ -127,6 +127,8 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
             return true;
 
         } else if (item.getItemId() == MENU_DELETE) {
+
+            // Delete PRBM alert dialog
             AlertDialog.Builder delete_dialog = new AlertDialog.Builder(ListPrbmActivity.this);
             delete_dialog.setTitle(getString(R.string.delete_prbm));
             delete_dialog.setMessage(getString(R.string.are_you_sure_to_delete_prbm));
@@ -156,6 +158,7 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
+        // Little tip for long click
         Toast.makeText(ListPrbmActivity.this, getString(R.string.long_press_a_prbm_to_open_menu), Toast.LENGTH_SHORT).show();
     }
 }
