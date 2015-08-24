@@ -2,6 +2,7 @@ package it.bitprepared.prbm.mobile.activity;
 
 import android.content.Context;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -122,11 +123,12 @@ public class EntityViewHelper {
         numericEditText.setLayoutParams(paramsSon);
 
         //Setting numeric input type
-        numericEditText.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        numericEditText.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         numericTextView.setTextSize(18);
         numericEditText.setEms(5);
         numericEditText.setText("0");
         numericTextView.setText(title);
+
 
         linNumeric.addView(numericTextView);
         linNumeric.addView(numericEditText);
