@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                 emailIntent.setType("plain/text");
-                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"nicola@ncorti.it"});
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"info@bitprepared.it"});
                 startActivity(Intent.createChooser(emailIntent, getResources().getString(R.string.sendmail)));
             }
         });
