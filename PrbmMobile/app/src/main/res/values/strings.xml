@@ -71,5 +71,27 @@
     <string name="parameters">Parametri</string>
     <string name="modify">Modifica</string>
     <string name="you_must_insert_caption">Devi inserire almeno la didascalia del\'elemento per poterlo salvare</string>
+    <string name="modify_prbm_parameters">Modifica i parametri del PRBM</string>
+    <string name="no_prbm_to_show">Nessun PRBM da mostrare.</string>
+    <string name="prbm_operations">Operazioni PRBM</string>
+    <string name="delete_prbm">Elimina PRBM</string>
+    <string name="are_you_sure_to_delete_prbm">Sei proprio sicuro di voler eliminare il PRBM? Questa cancellazione sarà definitiva.</string>
+    <string name="long_press_a_prbm_to_open_menu">Tieni premuto su un Prbm per modificare/eliminare</string>
+    <string name="modify_values">Modifica valori</string>
+    <string name="insert_unit_up">Inserisci riga sopra</string>
+    <string name="insert_unit_down">Inserisci riga sotto</string>
+    <string name="delete_row">Elimina riga</string>
+    <string name="save_prbm_successful">Salvataggio del PRBM riuscito</string>
+    <string name="save_and_exit">Salva ed esci</string>
+    <string name="exit_without_save">Esci senza salvare</string>
+    <string name="authors_colon">"Autori: "</string>
+    <string name="place_colon">"Luogo: "</string>
+    <string name="date_colon">"Data: "</string>
+    <string name="long_press_to_choose">Premi a lungo per selezionare un elemento da aggiungere</string>
+    <string name="move_up">Sposta in alto</string>
+    <string name="move_down">Sposta in basso</string>
+    <string name="entity_menu">Menù osservazione</string>
+    <string name="confirm_delete">Conferma cancellazione</string>
+    <string name="are_you_sure_delete_entity">Sei sicuro di voler cancellare questa osservazione?</string>
 
 </resources>

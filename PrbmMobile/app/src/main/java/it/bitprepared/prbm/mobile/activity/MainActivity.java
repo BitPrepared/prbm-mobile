@@ -78,11 +78,6 @@ public class MainActivity extends Activity implements OnClickListener {
                         ListPrbmActivity.class);
                 startActivity(login);
                 break;
-            case R.id.btnSyncro:
-//                Intent sync = new Intent(getApplicationContext(),
-//                        SyncroActivity.class);
-//                startActivity(sync);
-                break;
             case R.id.btnAbout:
                 showAboutDialog();
                 break;

@@ -77,7 +77,7 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
         lstPrbms.setOnItemClickListener(this);
 
         TextView empty = new TextView(ListPrbmActivity.this);
-        empty.setText("Nessun PRBM da mostrare.");
+        empty.setText(getString(R.string.no_prbm_to_show));
         empty.setTypeface(null, Typeface.ITALIC);
         empty.setTextSize(20);
         ListView.LayoutParams params = new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -87,7 +87,7 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
         lstPrbms.setEmptyView(empty);
 
         List<Prbm> prbms = UserData.getInstance().getAllPrbm();
-        Log.d("TAG", "#PRBMS: " + prbms.size());
+
         adtPrbm = new PrbmAdapter(ListPrbmActivity.this, R.layout.list_prbm, prbms);
         lstPrbms.setAdapter(adtPrbm);
     }
@@ -106,9 +106,9 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        menu.setHeaderTitle("Operazioni PRBM");
-        menu.add(Menu.NONE, MENU_EDIT, 0, "Modifica");
-        menu.add(Menu.NONE, MENU_DELETE, 0, "Elimina");
+        menu.setHeaderTitle(getString(R.string.prbm_operations));
+        menu.add(Menu.NONE, MENU_EDIT, 0, R.string.modify);
+        menu.add(Menu.NONE, MENU_DELETE, 0, R.string.delete);
     }
 
     @Override
@@ -128,8 +128,8 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
 
         } else if (item.getItemId() == MENU_DELETE) {
             AlertDialog.Builder delete_dialog = new AlertDialog.Builder(ListPrbmActivity.this);
-            delete_dialog.setTitle("Elimina PRBM");
-            delete_dialog.setMessage("Sei proprio sicuro di voler eliminare il PRBM? Questa cancellazione sarà definitiva.");
+            delete_dialog.setTitle(getString(R.string.delete_prbm));
+            delete_dialog.setMessage(getString(R.string.are_you_sure_to_delete_prbm));
             delete_dialog.setIcon(R.drawable.ic_alert_black_48dp);
 
             delete_dialog.setNegativeButton(R.string.abort, new OnClickListener() {
@@ -156,6 +156,6 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        Toast.makeText(ListPrbmActivity.this, "Tieni premuto su un Prbm per modificare/eliminare", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ListPrbmActivity.this, getString(R.string.long_press_a_prbm_to_open_menu), Toast.LENGTH_SHORT).show();
     }
 }

@@ -88,7 +88,6 @@ public class EntityActivity extends Activity {
             if (edit) {
                 edtCaption.setText(entity.getCaption());
                 edtDescription.setText(entity.getDescription());
-                // TODO Restore date
                 entity.restoreFields(this, linFree);
             }
         }
@@ -144,8 +143,6 @@ public class EntityActivity extends Activity {
                     entity.saveFields(EntityActivity.this, linFree);
                     entity.setCaption(edtCaption.getText().toString());
                     entity.setDescription(edtDescription.getText().toString());
-                    // TODO Salvare il timestamp
-                    Log.d(TAG, "Edit " + edit);
                     if (!edit) {
                         PrbmUnit involved = UserData.getInstance().getUnit();
                         involved.addEntity(entity, UserData.getInstance().getColumn());

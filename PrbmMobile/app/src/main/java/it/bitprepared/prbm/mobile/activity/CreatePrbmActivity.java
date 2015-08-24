@@ -81,7 +81,7 @@ public class CreatePrbmActivity extends Activity {
             datTime.setCurrentMinute(c.get(Calendar.MINUTE));
         } else {
             TextView txtTitle = (TextView)findViewById(R.id.textView1);
-            txtTitle.setText("Modifica i parametri del PRBM");
+            txtTitle.setText(getString(R.string.modify_prbm_parameters));
 
             Prbm thisPrbm = UserData.getInstance().getPrbm();
             edtTitle.setText(thisPrbm.getTitle());
@@ -97,7 +97,7 @@ public class CreatePrbmActivity extends Activity {
                 datDate.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 datTime.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
                 datTime.setCurrentMinute(c.get(Calendar.MINUTE));
-                setTitle("Modifica parametri PRBM");
+                setTitle(getString(R.string.modify_prbm_parameters));
             } catch (ParseException e) { }
         }
     }

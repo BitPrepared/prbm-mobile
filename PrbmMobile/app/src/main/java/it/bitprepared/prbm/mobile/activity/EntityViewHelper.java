@@ -121,13 +121,6 @@ public class EntityViewHelper {
 
         shortTextView.setTextSize(18);
         shortTextView.setText(title);
-//        datePickerView.setCalendarViewShown(false);
-//        datePickerView.setSpinnersShown(false);
-//
-//        Date date = new Date();
-//        Calendar cal = Calendar.getInstance(Locale.ITALY);
-//        cal.setTime(date);
-//        datePickerView.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
         lin.addView(shortTextView);
         lin.addView(datePickerView);

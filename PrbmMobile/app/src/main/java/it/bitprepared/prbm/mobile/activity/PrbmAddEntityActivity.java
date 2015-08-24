@@ -173,7 +173,7 @@ public class PrbmAddEntityActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(PrbmAddEntityActivity.this, "Premi a lungo per selezionare un elemento da aggiungere", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PrbmAddEntityActivity.this, getString(R.string.long_press_to_choose), Toast.LENGTH_SHORT).show();
         }
 
         /**

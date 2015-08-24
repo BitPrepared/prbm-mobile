@@ -78,10 +78,6 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Setting up Home back button
-//        ActionBar bar = getActionBar();
-//        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_prbm);
         lstUnits = (ListView) findViewById(R.id.lstUnits);
 
@@ -129,10 +125,10 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId() == R.id.lstUnits) {
             menu.setHeaderTitle(getString(R.string.menu_prbm_unit));
-            menu.add(Menu.NONE, MENU_UNIT_EDIT, 0, "Modifica valori");
-            menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, "Inserisci riga sopra");
-            menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, "Inserisci riga sotto");
-            menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, "Elimina riga");
+            menu.add(Menu.NONE, MENU_UNIT_EDIT, 0, getString(R.string.modify_values));
+            menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, getString(R.string.insert_unit_up));
+            menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, getString(R.string.insert_unit_down));
+            menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, getString(R.string.delete_row));
         }
     }
 
@@ -179,7 +175,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
             return true;
         } else if (id == R.id.save){
             UserData.getInstance().savePrbm(PrbmActivity.this);
-            Toast.makeText(PrbmActivity.this, "Salvataggio del PRBM riuscito", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PrbmActivity.this, getString(R.string.save_prbm_successful), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.parameters){
             Intent parameters = new Intent(PrbmActivity.this, CreatePrbmActivity.class);
             parameters.putExtra("edit", true);
@@ -193,7 +189,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
         build.setTitle(R.string.confirmation);
         build.setIcon(R.drawable.ic_alert_black_48dp);
         build.setMessage(R.string.are_you_sure);
-        build.setPositiveButton("Salva ed esci", new DialogInterface.OnClickListener() {
+        build.setPositiveButton(getString(R.string.save_and_exit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 UserData.getInstance().savePrbm(PrbmActivity.this);
@@ -206,7 +202,7 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        build.setNeutralButton("Esci senza salvare", new DialogInterface.OnClickListener() {
+        build.setNeutralButton(getString(R.string.exit_without_save), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();

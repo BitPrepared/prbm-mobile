@@ -95,7 +95,7 @@ public class PrbmAdapter extends ArrayAdapter<Prbm> {
         if (authors == null || authors.contentEquals("")){
             viewHolder.txtAuthors.setVisibility(View.GONE);
         } else {
-            viewHolder.txtAuthors.setText("Autori: " + authors);
+            viewHolder.txtAuthors.setText(c.getString(R.string.authors_colon) + authors);
         }
 
         if (place == null && date == null ||
@@ -104,10 +104,10 @@ public class PrbmAdapter extends ArrayAdapter<Prbm> {
         } else {
             String toView = "";
             if (place != null && !place.contentEquals("")){
-                toView += "Luogo: " + place + " ";
+                toView += c.getString(R.string.place_colon) + place + " ";
             }
             if (date != null && !date.contentEquals("")){
-                toView += "Data: " + date;
+                toView += c.getString(R.string.date_colon) + date;
             }
             viewHolder.txtPlaceDate.setText(toView);
         }

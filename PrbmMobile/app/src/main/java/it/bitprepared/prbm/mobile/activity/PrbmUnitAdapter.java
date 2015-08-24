@@ -137,10 +137,8 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
             for (j = 0; j < entities.size(); j++){
                 final PrbmEntity entity = entities.get(j);
                 View v = arrayLin[i].getChildAt(j+1);
-//                Log.d("ADAPTER", "Lin " + i + " " + arrayLin[i].getChildCount());
                 if (v != null && v instanceof Button){
                     Button b = (Button)v;
-//                    Log.d("ADAPTER", "Running " + position + " Column " + i + " Entity " + j + " " +b.getText().toString() + " " + entity.getType());
                     if (b.getText().toString().contentEquals(entity.getType()))
                         continue; // Button is already present...skip to next
                     else
@@ -161,17 +159,17 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                         UserData.getInstance().setUnit(unit);
                         UserData.getInstance().setEntity(entity);
                         ArrayList<String> menuItems = new ArrayList<String>();
-                        menuItems.add("Modifica");
-                        menuItems.add("Cancella");
+                        menuItems.add(c.getString(R.string.modify));
+                        menuItems.add(c.getString(R.string.delete));
                         if (UserData.getInstance().canMoveUnitUp()) {
-                            menuItems.add("Sposta in alto");
+                            menuItems.add(c.getString(R.string.move_up));
                         }
                         if (UserData.getInstance().canMoveUnitDown()) {
-                            menuItems.add("Sposta in basso");
+                            menuItems.add(c.getString(R.string.move_down));
                         }
                         final String[] items = menuItems.toArray(new String[menuItems.size()]);
                         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                        builder.setTitle("Menù osservazione");
+                        builder.setTitle(c.getString(R.string.entity_menu));
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
                                 if (item == 0) {
@@ -181,8 +179,8 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                                     dialog.dismiss();
                                 } else if (item == 1) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(c);
-                                    alert.setTitle("Conferma cancellazione");
-                                    alert.setMessage("Sei sicuro di voler cancellare questa osservazione?");
+                                    alert.setTitle(c.getString(R.string.confirm_delete));
+                                    alert.setMessage(c.getString(R.string.are_you_sure_delete_entity));
                                     alert.setIcon(R.drawable.ic_alert_black_48dp);
                                     alert.setPositiveButton(R.string.delete,
                                             new DialogInterface.OnClickListener() {
@@ -202,11 +200,11 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                                             });
                                     dialog.dismiss();
                                     alert.show();
-                                } else if (items[item].contains("alto")){
+                                } else if (items[item].contentEquals(c.getString(R.string.move_up))){
                                     unit.moveEntity(entity, column, false);
                                     PrbmUnitAdapter.this.notifyDataSetChanged();
                                     dialog.dismiss();
-                                } else if (items[item].contains("basso")){
+                                } else if (items[item].contentEquals(c.getString(R.string.move_down))){
                                     unit.moveEntity(entity, column, true);
                                     PrbmUnitAdapter.this.notifyDataSetChanged();
                                     dialog.dismiss();
@@ -222,7 +220,6 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
             try {
                 arrayLin[i].removeViews(j + 1, arrayLin[i].getChildCount() - (j + 1));
             } catch (Exception e ) {
-//                Log.d("ADAPTER", "Lin: " + i + " j+1 " + (j+1) + " " + arrayLin[i].getChildCount());
             }
         }
 
