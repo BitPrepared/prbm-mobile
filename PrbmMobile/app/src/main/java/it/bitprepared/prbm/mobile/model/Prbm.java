@@ -230,7 +230,7 @@ public class Prbm implements Serializable {
     /**
      * Getter for a single PRBM Unit
      * @param pos Position of PRBM unit
-     * @return
+     * @return Unit at specified position
      */
     public PrbmUnit getUnit(int pos) {
         return units.get(pos);
@@ -269,7 +269,7 @@ public class Prbm implements Serializable {
 
     /**
      * Public method to check if Unit can be deleted. At least one unit must be present
-     * @return
+     * @return True if Unit can be deleted, false otherwise.
      */
     public boolean canDelete() {
         return units.size() > 1;
