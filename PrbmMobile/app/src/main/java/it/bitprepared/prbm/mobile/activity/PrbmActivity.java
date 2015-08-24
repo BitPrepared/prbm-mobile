@@ -202,12 +202,6 @@ public class PrbmActivity extends Activity implements OnLongClickListener,
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        build.setNeutralButton(getString(R.string.exit_without_save), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
         build.show();
     }
 
