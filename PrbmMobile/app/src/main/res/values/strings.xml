@@ -95,5 +95,7 @@
     <string name="are_you_sure_delete_entity">Sei sicuro di voler cancellare questa osservazione?</string>
     <string name="modify_entity_values">Modifica valori riga</string>
     <string name="prbm_save_successful">Salvataggio del PRBM riuscito</string>
+    <string name="save_on_disk">Salvataggio su disco</string>
+    <string name="saving_all_prbms">Salvataggio di tutti i PRBM su disco</string>
 
 </resources>

@@ -39,11 +39,9 @@
             android:layout_margin="5dp"
             android:drawableLeft="@drawable/ic_sync_white_36dp"
             android:drawableStart="@drawable/ic_sync_white_36dp"
-            android:enabled="false"
-            android:focusable="false"
             android:padding="10dp"
             android:text="@string/sync"
-            android:textColor="@color/DarkGray"/>
+            android:textColor="@color/White"/>
 
         <Button
             android:id="@+id/btnList"

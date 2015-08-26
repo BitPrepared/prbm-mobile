@@ -18,20 +18,33 @@ package it.bitprepared.prbm.mobile.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
+import it.bitprepared.prbm.mobile.model.Prbm;
 
 /**
  * Activity responsible for main menu visualization
@@ -59,9 +72,7 @@ public class MainActivity extends Activity implements OnClickListener {
         btnList.setOnClickListener(this);
         btnSync.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -77,6 +88,11 @@ public class MainActivity extends Activity implements OnClickListener {
                 Intent login = new Intent(getApplicationContext(),
                         ListPrbmActivity.class);
                 startActivity(login);
+                break;
+            case R.id.btnSyncro:
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", getResources().getConfiguration().locale);
+                String currentDateandTime = sdf.format(new Date());
+                showJSONDialog(currentDateandTime);
                 break;
             case R.id.btnAbout:
                 showAboutDialog();
@@ -132,5 +148,65 @@ public class MainActivity extends Activity implements OnClickListener {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void showJSONDialog(final String prefix) {
+        new SaveTask(prefix).execute();
+    }
+
+    /**
+     * Async task used to save all PRBMs to disk
+     */
+    public class SaveTask extends AsyncTask<Void, Void, Void> {
+
+        private String prefix;
+        private String fileName;
+        private ProgressDialog barProgressDialog;
+
+        /**
+         * Basic constructor to create a new SaveTask
+         * @param prefix Prefix used for filename
+         */
+        public SaveTask(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            barProgressDialog = new ProgressDialog(MainActivity.this);
+            barProgressDialog.setTitle(getString(R.string.save_on_disk));
+            barProgressDialog.setMessage(getString(R.string.saving_all_prbms));
+            barProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            barProgressDialog.setIndeterminate(true);
+            barProgressDialog.show();
+            return;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            final List<Prbm> prbms = UserData.getInstance().getAllPrbm();
+            String prbmsToPrint = Prbm.toJSONArray((ArrayList) prbms);
+
+            // Null for default external dir
+            String path = getExternalFilesDir(null).getAbsolutePath();
+            File file = new File(path + "/prbmms-" + prefix + ".json");
+            fileName = file.getName();
+            try {
+                FileOutputStream stream = new FileOutputStream(file);
+                stream.write(prbmsToPrint.getBytes());
+                stream.close();
+            } catch (IOException e) {
+                Log.e("Exception", "File write failed: " + e.toString());
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void ret) {
+            barProgressDialog.dismiss();
+            Toast.makeText(MainActivity.this, "Salvato file " + fileName, Toast.LENGTH_SHORT).show();
+        }
     }
 }
