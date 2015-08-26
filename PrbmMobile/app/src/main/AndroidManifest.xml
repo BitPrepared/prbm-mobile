@@ -7,16 +7,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-
     <uses-feature android:name="android.hardware.screen.landscape"
                   android:required="true" />
 
     <supports-screens android:smallScreens="false"
                       android:normalScreens="false"
-                      android:largeScreens="false"
+                      android:largeScreens="true"
                       android:xlargeScreens="true"
                       android:anyDensity="true"
                       android:requiresSmallestWidthDp="600"/>
@@ -63,7 +59,6 @@
         <activity
             android:name=".activity.PrbmAddEntityActivity"
             android:screenOrientation="landscape"
-
             android:label="@string/choose_entity"
             android:theme="@style/MyAppThemeLight">
         </activity>
@@ -73,13 +68,5 @@
             android:label="@string/entity_details"
             android:theme="@style/MyAppTheme">
         </activity>
-
-        <!--<activity-->
-            <!--android:name=".activity.SyncroActivity"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:label="@string/title_activity_syncro" >-->
-        <!--</activity>-->
-
     </application>
-
 </manifest>
