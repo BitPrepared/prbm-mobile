@@ -97,9 +97,12 @@ public class Prbm implements Serializable {
 
         try {
             // Primitive fields
-            jsonObject.put("time", time);
+            jsonObject.put("creation-timestamp", time);
             jsonObject.put("version", version);
-
+            jsonObject.put("title", title);
+            jsonObject.put("authors", authors);
+            jsonObject.put("date", date);
+            jsonObject.put("place", place);
             jsonObject.put("note", note);
 
             // List of units

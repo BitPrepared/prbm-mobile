@@ -19,6 +19,7 @@ package it.bitprepared.prbm.mobile.model.entities;
 import android.content.Context;
 import android.widget.LinearLayout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -58,11 +59,24 @@ public class EntityMonument extends PrbmEntity {
         this("", "", "");
     }
 
+
     @Override
     public JSONObject toJSONObject() {
-        return null;
-    }
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("entity-type", "monument");
+            jsonObject.put("description", super.getDescription());
+            jsonObject.put("caption", super.getCaption());
+            jsonObject.put("minutes", super.getTimestamp());
 
+            for(int i = 0; i < extraFields.size(); i++)
+                jsonObject.put("monument-" + i,extraFields);
+            return jsonObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @Override
     public String getType() {
         return "Monumento";
