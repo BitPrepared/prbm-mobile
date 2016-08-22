@@ -26,12 +26,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import it.bitprepared.prbm.mobile.R;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import it.bitprepared.prbm.mobile.R;
 
 /**
  * Activity responsible for showing an initial splash screen.
@@ -98,6 +98,8 @@ public class SplashScreenActivity extends Activity {
             this.ids.add(R.drawable.background_news_list);
             this.ids.add(R.drawable.background_panorama_list);
             this.ids.add(R.drawable.background_tree_list);
+            this.ids.add(R.drawable.background_other_list);
+            this.ids.add(R.drawable.background_building_list);
         }
 
         @Override

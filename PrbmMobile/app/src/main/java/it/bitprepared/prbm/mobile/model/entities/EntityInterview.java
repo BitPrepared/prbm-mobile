@@ -16,17 +16,9 @@
 
 package it.bitprepared.prbm.mobile.model.entities;
 
-import android.content.Context;
-import android.widget.LinearLayout;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
+import it.bitprepared.prbm.mobile.model.EntityField;
+import it.bitprepared.prbm.mobile.model.EntityFieldType;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
@@ -35,11 +27,37 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
  */
 public class EntityInterview extends PrbmEntity {
 
-    /** List of View IDs */
-    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008,
-            1009, 1010, 1011, 1012};
-    /** List of Extra fields values */
-    private List<String> extraFields = new ArrayList<>();
+    /** Base View IDs */
+    private int ID_FIELD_BASE = 1000;
+
+    private static final String type = "Intervista";
+    private static final String description = "Utilizza questa classe per inserire report o interviste alle persone incontrate.";
+
+    /** Array of Extra fields values */
+    private EntityField[] extraFields = {
+        new EntityField("Età: ", "Eta",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Professione", "Inserire la professione dell'intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Stato civile", "Inserire lo stato civile dell'intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Ruolo", "Indicare in quale veste il soggetto è stato intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Scopo dell'intervista", "Indicare quale è il motivo/scopo di questa intervista.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Come si è arrivati a lui", "Indicare attraverso quali contatti si è arrivati al soggetto intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Stato d'animo", "Indicare lo stato d'animo dell'intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Gradimento", "Indicare il grado di gradimento dell'intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Affidabilità", "Indicare il grado di affidabilità dell'intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Rapporto con l'intervistato", "Indicare che genere di rapporto si è avuto con l'intervistato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Trascrizione dell'intervista", "Riportare la trascrizione integrale dell'intervista.",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+    };
 
 
     /**
@@ -60,32 +78,19 @@ public class EntityInterview extends PrbmEntity {
     }
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("entity-type", "interview");
-            jsonObject.put("description", super.getDescription());
-            jsonObject.put("caption", super.getCaption());
-            jsonObject.put("minutes", super.getTimestamp());
-
-            for(int i = 0; i < extraFields.size(); i++)
-                jsonObject.put("interview-" + i,extraFields);
-            return jsonObject;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    @Override
     public String getType() {
-        return "Intervista";
+        return type;
     }
 
     @Override
     public String getTypeDescription() {
-        return "Utilizza questa classe per inserire report o interviste alle persone incontrate.";
+        return description;
     }
 
+    @Override
+    public EntityField[] getExtraFields() {
+        return this.extraFields;
+    }
     @Override
     public int getIdListImage() {
         return R.drawable.background_interview_list;
@@ -101,29 +106,4 @@ public class EntityInterview extends PrbmEntity {
         return R.drawable.background_interview;
     }
 
-    @Override
-    public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[0], "Età: ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Professione", "Inserire la professione dell'intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Stato civile", "Inserire lo stato civile dell'intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[3], "Provenienza", "Indicare se l'intervistato è un abitante del luogo oppure è un forestiero.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Ruolo", "Indicare in quale veste il soggetto è stato intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Scopo dell'intervista", "Indicare quale è il motivo/scopo di questa intervista.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[6], "Come si è arrivati a lui", "Indicare attraverso quali contatti si è arrivati al soggetto intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Stato d'animo", "Indicare lo stato d'animo dell'intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Gradimento", "Indicare il grado di gradimento dell'intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[9], "Affidabilità", "Indicare lo stato civile dell'intervistato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[10], "Rapporto con l'intervistato", "Indicare che genere di rapporto si è avuto con l'intervistato.");
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[11], "Trascrizione dell'intervista", "Riportare la trascrizione integrale dell'intervista.", 5);
-    }
-
-    @Override
-    public void saveFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
-    }
-
-    @Override
-    public void restoreFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
-    }
 }

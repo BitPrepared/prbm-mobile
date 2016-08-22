@@ -16,18 +16,9 @@
 
 package it.bitprepared.prbm.mobile.model.entities;
 
-import android.content.Context;
-import android.widget.LinearLayout;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
+import it.bitprepared.prbm.mobile.model.EntityField;
+import it.bitprepared.prbm.mobile.model.EntityFieldType;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
@@ -36,10 +27,20 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
  */
 public class EntityCuriosity extends PrbmEntity {
 
-    /** List of View IDs */
-    private static final int[] id_fields = {1001, 1002};
-    /** List of Extra fields values */
-    private List<String> extraFields = new ArrayList<>();
+    /** Base View IDs */
+    private int ID_FIELD_BASE = 1000;
+
+    private static final String type = "Curiosità";
+    private static final String description = "Utilizza questa classe per inserire ulteriori curiosità oppure osservazioni che non rientrano nelle altre classi.";
+
+    /** Array of Extra fields values */
+    private EntityField[] extraFields = {
+        new EntityField("Perchè è importante?", "Come mai è importante riportare questa curiosità?",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+        new EntityField("Impressioni/Stato d'animo",
+                        "Inserire una breve descrizione delle impressioni o dello stato d'animo.",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT)
+    };
 
     /**
      * Base constructor for a new PRBM Entity
@@ -59,31 +60,18 @@ public class EntityCuriosity extends PrbmEntity {
     }
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("entity-type", "curiosity");
-            jsonObject.put("description", super.getDescription());
-            jsonObject.put("caption", super.getCaption());
-            jsonObject.put("minutes", super.getTimestamp());
-
-            for(int i = 0; i < extraFields.size(); i++)
-                jsonObject.put("curiosity-" + i,extraFields);
-            return jsonObject;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
     public String getType() {
-        return "Curiosità";
+        return type;
     }
 
     @Override
     public String getTypeDescription() {
-        return "Utilizza questa classe per inserire ulteriori curiosità oppure osservazioni che non rientrano nelle altre classi.";
+        return description;
+    }
+
+    @Override
+    public EntityField[] getExtraFields() {
+        return this.extraFields;
     }
 
     @Override
@@ -99,21 +87,5 @@ public class EntityCuriosity extends PrbmEntity {
     @Override
     public int getIdBackImage() {
         return R.drawable.background_curiosity;
-    }
-
-    @Override
-    public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[0], "Perchè è importante?", "Come mai è importante riportare questa curiosità?", 3);
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[1], "Impressioni/Stato d'animo", "Inserire una breve descrizione delle impressioni o dello stato d'animo.", 3);
-    }
-
-    @Override
-    public void saveFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
-    }
-
-    @Override
-    public void restoreFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
     }
 }

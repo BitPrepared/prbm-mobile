@@ -21,24 +21,34 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import com.squareup.picasso.Picasso;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Class responsible for visualizing and modifying a single PrbmEntity
@@ -48,6 +58,7 @@ public class EntityActivity extends Activity {
 
     /** Debug TAG */
     private final static String TAG = "EntityActivity";
+    private static final int CAMERA_RESULT = 1005;
 
     /** Linear layout left free to each Entity */
     private LinearLayout linFree = null;
@@ -58,9 +69,14 @@ public class EntityActivity extends Activity {
     private EditText edtDescription = null;
     /** Reference to Entity Time textbox */
     private TimePicker datTime = null;
+    /** Reference to the ImageView */
+    private ImageView imgCamera = null;
 
     /** Boolean flag for edit functionalities */
     private boolean edit = false;
+
+    /** Image URI */
+    private static Uri capturedImageUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +97,7 @@ public class EntityActivity extends Activity {
         datTime = (TimePicker) findViewById(R.id.datTimeEntity);
         edtCaption = (EditText) findViewById(R.id.edtCaption);
         edtDescription = (EditText) findViewById(R.id.edtDescription);
+        imgCamera = (ImageView) findViewById(R.id.imgCamera);
 
         PrbmEntity entity = UserData.getInstance().getEntity();
         if (entity != null) {
@@ -97,6 +114,12 @@ public class EntityActivity extends Activity {
             } else {
                 edtCaption.setText(entity.getCaption());
                 edtDescription.setText(entity.getDescription());
+
+                if (entity.getPictureURI() != null){
+                    capturedImageUri = entity.getPictureURI();
+                    imgCamera.setVisibility(View.VISIBLE);
+                    Picasso.with(this).load(capturedImageUri).resize(600,300).centerInside().into(imgCamera);
+                }
 
                 // Restoring timestamp to TimePicker
                 SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -178,6 +201,7 @@ public class EntityActivity extends Activity {
                         PrbmUnit involved = UserData.getInstance().getUnit();
                         involved.addEntity(entity, UserData.getInstance().getColumn());
                     }
+                    entity.setPictureURI(capturedImageUri, getFilenameFromURI(capturedImageUri));
                     setResult(RESULT_OK);
                     if (PrbmAddEntityActivity.self != null)
                         PrbmAddEntityActivity.self.finish();
@@ -185,7 +209,78 @@ public class EntityActivity extends Activity {
                 }
             }
             return true;
+        } else if (id == R.id.pic) {
+            PrbmEntity entity = UserData.getInstance().getEntity();
+            if (entity != null && entity.getPictureURI() != null){
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Modificare la foto?");
+                alert.setMessage("È già presente una foto, cosa vuoi fare?");
+                alert.setNegativeButton("Cestinala", (dialog, which) -> {
+                    entity.setPictureURI(null, "");
+                    imgCamera.setVisibility(View.GONE);
+                });
+                alert.setNeutralButton("Annulla", (dialog, which) -> dialog.dismiss());
+                alert.setPositiveButton("Riscatta", (dialog, which) -> takePicture());
+                alert.show();
+            } else {
+                takePicture();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private String getFilenameFromURI(Uri uri) {
+        if (uri == null)
+            return "";
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    private void takePicture() {
+        Calendar cal = Calendar.getInstance();
+        File
+            file = new File(Environment.getExternalStorageDirectory(), (cal.getTimeInMillis() + ".jpg"));
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            file.delete();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        capturedImageUri = Uri.fromFile(file);
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        i.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri);
+        startActivityForResult(i, CAMERA_RESULT);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_RESULT) {
+            imgCamera.setVisibility(View.VISIBLE);
+            Picasso.with(this).load(capturedImageUri).resize(600,300).centerInside().into(imgCamera);
+        }
     }
 }

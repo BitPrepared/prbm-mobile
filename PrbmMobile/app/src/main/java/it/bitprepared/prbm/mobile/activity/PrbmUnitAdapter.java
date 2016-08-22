@@ -29,12 +29,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter used to render list of Units
@@ -54,6 +54,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
     public PrbmUnitAdapter(Context context, int resource, List<PrbmUnit> objects) {
         super(context, resource, objects);
         this.c = context;
+
     }
 
     @Override
@@ -77,17 +78,21 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
 
             // Se la convertView e' nulla la devo caricare la prima volta
             LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_units, parent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.txtAzimut = (TextView) convertView.findViewById(R.id.txtAzimut);
             viewHolder.txtMeters = (TextView) convertView.findViewById(R.id.txtMeters);
             viewHolder.txtMinutes = (TextView) convertView.findViewById(R.id.txtMinutes);
+            viewHolder.txtGPS = (TextView) convertView.findViewById(R.id.txtGPS);
             viewHolder.lstFarLeft = (LinearLayout) convertView.findViewById(R.id.lstEntityFarLeft);
-            viewHolder.lstFarRight = (LinearLayout) convertView.findViewById(R.id.lstEntityFarRight);
-            viewHolder.lstNearLeft = (LinearLayout) convertView.findViewById(R.id.lstEntityNearLeft);
-            viewHolder.lstNearRight = (LinearLayout) convertView.findViewById(R.id.lstEntityNearRight);
+            viewHolder.lstFarRight =
+                (LinearLayout) convertView.findViewById(R.id.lstEntityFarRight);
+            viewHolder.lstNearLeft =
+                (LinearLayout) convertView.findViewById(R.id.lstEntityNearLeft);
+            viewHolder.lstNearRight =
+                (LinearLayout) convertView.findViewById(R.id.lstEntityNearRight);
             viewHolder.btnFarLeft = (Button) convertView.findViewById(R.id.btnAddFarLeft);
             viewHolder.btnFarRight = (Button) convertView.findViewById(R.id.btnAddFarRight);
             viewHolder.btnNearLeft = (Button) convertView.findViewById(R.id.btnAddNearLeft);
@@ -103,20 +108,55 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
         viewHolder.txtMeters.setText(c.getString(R.string.meters) + unit.getMeter());
         viewHolder.txtMinutes.setText(c.getString(R.string.minutes) + unit.getMinutes());
 
+        if (unit.isFlagAcquiringGPS()){
+            viewHolder.txtGPS.setText("Coordinate: Acquisizione...");
+            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.Black));
+        } else if (unit.getLatitude() == 0 && unit.getLongitude() == 0 ){
+            viewHolder.txtGPS.setText("Coordinate: Assenti");
+            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.Red));
+        } else {
+            viewHolder.txtGPS.setText("Coordinate: "  + unit.getLatitude() + " - " + unit.getLongitude());
+            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.IconGreen));
+        }
         // Setting onclick listner for add buttons
-        Button[] arrayBtn = {viewHolder.btnFarLeft, viewHolder.btnNearLeft, viewHolder.btnNearRight, viewHolder.btnFarRight};
+        Button[]
+            arrayBtn =
+            {viewHolder.btnFarLeft, viewHolder.btnNearLeft, viewHolder.btnNearRight,
+             viewHolder.btnFarRight};
         for (int j = 0; j < arrayBtn.length; j++) {
             final int column = j;
-            arrayBtn[j].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UserData.getInstance().setColumn(column);
-                    UserData.getInstance().setUnit(unit);
-                    Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
-                    ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
-                }
+            arrayBtn[j].setOnClickListener(v -> {
+                UserData.getInstance().setColumn(column);
+                UserData.getInstance().setUnit(unit);
+                Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
+                ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
             });
         }
+//        viewHolder.btnGPS.setBackgroundColor(c.getResources().getColor((unit.getLatitude() == 0) ? R.color.Red : R.color.LightGreen));
+//        viewHolder.btnGPS.setOnClickListener(v -> {
+//            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//            try {
+//                ((Activity) c).startActivityForResult(builder.build((Activity) c), PrbmActivity.ACTIVITY_PLACE_PICKER);
+//            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+//                e.printStackTrace();
+//            }
+//            if (unit.getLatitude() != 0 && unit.getLongitude() != 0) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(c);
+//                builder.setTitle("Aggiornare coordinate GPS?");
+//                builder.setMessage(
+//                    "I dati GPS sono già stati acquisiti per questa osservazione, vuoi sovrascrivere?");
+//                builder.setNegativeButton("No", (dialog, which) -> {
+//                    dialog.dismiss();
+//                });
+//                builder.setPositiveButton("Si", (dialog, which) -> {
+//                    requestGPSCoordinates(unit, v);
+//                });
+//                AlertDialog alert = builder.create();
+//                alert.show();
+//            } else {
+//                requestGPSCoordinates(unit, v);
+//            }
+//        });
 
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         param.setMargins(5, 0, 5, 5);
@@ -261,5 +301,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
         public Button btnNearRight;
         /** Reference to far right button */
         public Button btnFarRight;
+        /** Reference to Coordinates */
+        public TextView txtGPS;
     }
 }

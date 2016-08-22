@@ -23,24 +23,19 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
+
+import java.util.List;
 
 /**
  * Activity responsible of PRBM list visualization
@@ -72,7 +67,6 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
         // Inflating views
         lstPrbms = (ListView) findViewById(R.id.listPrbm);
 
-        registerForContextMenu(lstPrbms);
         lstPrbms.setOnItemClickListener(this);
 
         // Setting list empty view
@@ -103,37 +97,21 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
 
-        menu.setHeaderTitle(getString(R.string.prbm_operations));
-        menu.add(Menu.NONE, MENU_EDIT, 0, R.string.modify);
-        menu.add(Menu.NONE, MENU_DELETE, 0, R.string.delete);
-    }
+        final Prbm pressed = (Prbm) lstPrbms.getAdapter().getItem(position);
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        final Prbm pressed = (Prbm) lstPrbms.getAdapter().getItem(info.position);
-
-
-        if (item.getItemId() == MENU_EDIT) {
-
-            UserData.getInstance().setPrbm(pressed);
-            Intent i = new Intent(ListPrbmActivity.this, PrbmActivity.class);
-            startActivity(i);
-            finish();
-            return true;
-
-        } else if (item.getItemId() == MENU_DELETE) {
-
+        AlertDialog.Builder whatToDoDialog = new AlertDialog.Builder(ListPrbmActivity.this);
+        whatToDoDialog.setTitle("Cosa vuoi fare con questo PRBM?");
+        whatToDoDialog.setMessage("Vuoi cancellare o modificare il PRBM?");
+        whatToDoDialog.setNegativeButton("Cancellare", (dialog, which) -> {
             // Delete PRBM alert dialog
+            dialog.dismiss();
             AlertDialog.Builder delete_dialog = new AlertDialog.Builder(ListPrbmActivity.this);
             delete_dialog.setTitle(getString(R.string.delete_prbm));
             delete_dialog.setMessage(getString(R.string.are_you_sure_to_delete_prbm));
             delete_dialog.setIcon(R.drawable.ic_alert_black_48dp);
-
             delete_dialog.setNegativeButton(R.string.abort, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -150,15 +128,13 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
                 }
             });
             delete_dialog.show();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        // Little tip for long click
-        Toast.makeText(ListPrbmActivity.this, getString(R.string.long_press_a_prbm_to_open_menu), Toast.LENGTH_SHORT).show();
+        });
+        whatToDoDialog.setPositiveButton("Modificare", (dialog, which) -> {
+            UserData.getInstance().setPrbm(pressed);
+            Intent i = new Intent(ListPrbmActivity.this, PrbmActivity.class);
+            startActivity(i);
+            finish();
+        });
+        whatToDoDialog.show();
     }
 }

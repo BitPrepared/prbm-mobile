@@ -16,17 +16,9 @@
 
 package it.bitprepared.prbm.mobile.model.entities;
 
-import android.content.Context;
-import android.widget.LinearLayout;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
+import it.bitprepared.prbm.mobile.model.EntityField;
+import it.bitprepared.prbm.mobile.model.EntityFieldType;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
@@ -35,10 +27,30 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
  */
 public class EntityNews extends PrbmEntity {
 
-    /** List of View IDs */
-    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008};
-    /** List of Extra fields values */
-    private List<String> extraFields = new ArrayList<>();
+    /** Base View IDs */
+    private int ID_FIELD_BASE = 1000;
+
+    private static final String type = "Fatto di Cronaca";
+    private static final String description = "Utilizza questa classe per riportare notizie o fatti di cronaca del posto.";
+
+    /** Array of Extra fields values */
+    private EntityField[] extraFields = {
+        new EntityField("Luogo", "Inserire il luogo dove si è svolto il fatto di cronaca.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Persone coinvolte", "Inserire l'elenco delle persone coinvolte.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Cosa è successo?", "Inserire la descrizione del fatto di cronaca.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Se negativo, poteva essere evitato?", "Inserire se, ed in quali circostanze, il fatto di cronaca negativo poteva essere evitato.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Conseguenze", "Inserire le conseguenze del fatto di cronaca.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Cosa hai imparato?", "Inserire cosa hai imparato da questo fatto di cronaca.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT)
+    };
+
 
     /**
      * Base constructor for a new PRBM Entity
@@ -51,7 +63,7 @@ public class EntityNews extends PrbmEntity {
     }
 
     /**
-     * Base constructor for an empty EntityFauna
+     * Base constructor for an empty EntityNews
      */
     public EntityNews() {
         this("", "", "");
@@ -59,30 +71,18 @@ public class EntityNews extends PrbmEntity {
 
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("entity-type", "news");
-            jsonObject.put("description", super.getDescription());
-            jsonObject.put("caption", super.getCaption());
-            jsonObject.put("minutes", super.getTimestamp());
-
-            for(int i = 0; i < extraFields.size(); i++)
-                jsonObject.put("news-" + i,extraFields);
-            return jsonObject;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    @Override
     public String getType() {
-        return "Fatto di cronaca";
+        return type;
     }
 
     @Override
     public String getTypeDescription() {
-        return "Utilizza questa classe per riportare notizie o fatti di cronaca del posto.";
+        return description;
+    }
+
+    @Override
+    public EntityField[] getExtraFields() {
+        return this.extraFields;
     }
 
     @Override
@@ -98,27 +98,5 @@ public class EntityNews extends PrbmEntity {
     @Override
     public int getIdBackImage() {
         return R.drawable.background_news;
-    }
-
-    @Override
-    public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Luogo", "Inserire il luogo dove si è svolto il fatto di cronaca.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Persone coinvolte", "Inserire l'elenco delle persone coinvolte.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[2], "Cosa è successo?", "Inserire la descrizione del fatto di cronaca.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[3], "Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Se negativo, poteva essere evitato?", "Inserire se, ed in quali circostanze, il fatto di cronaca negativo poteva essere evitato.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[6], "Conseguenze", "Inserire le conseguenze del fatto di cronaca.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Cosa hai imparato?", "Inserire cosa hai imparato da questo fatto di cronaca.");
-    }
-
-    @Override
-    public void saveFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
-    }
-
-    @Override
-    public void restoreFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
     }
 }

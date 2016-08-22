@@ -16,8 +16,15 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import android.content.Context;
 import android.graphics.Bitmap;
+
+import it.bitprepared.prbm.mobile.model.Prbm;
+import it.bitprepared.prbm.mobile.model.PrbmEntity;
+import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -27,9 +34,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import it.bitprepared.prbm.mobile.model.Prbm;
-import it.bitprepared.prbm.mobile.model.PrbmEntity;
-import it.bitprepared.prbm.mobile.model.PrbmUnit;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Class used to collect global data related to user/application
@@ -40,6 +47,9 @@ public class UserData {
 
     /** Singleton instance */
     private static UserData instance = null;
+
+    /** Base URL for HTTP Calls */
+    private static final String API_BASE_URL = "http://app-alessandro308.c9users.io/";
 
     /** Reference to actual prbm */
     private Prbm prbm = null;
@@ -59,11 +69,24 @@ public class UserData {
     /** HashMap of bitmpas (for fast access) */
     private HashMap<Integer, Bitmap> backBitmaps;
 
+    /** Reference to remote Retrofit instance */
+    private RemoteInterface restInterface;
+
     /**
      * Empty constructor
      */
     private UserData() {
         prbmList = new ArrayList<>();
+        Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .build();
+        restInterface = retrofit.create(RemoteInterface.class);
     }
 
     /**
@@ -263,5 +286,9 @@ public class UserData {
             return false;
         }
         return true;
+    }
+
+    public RemoteInterface getRestInterface() {
+        return restInterface;
     }
 }

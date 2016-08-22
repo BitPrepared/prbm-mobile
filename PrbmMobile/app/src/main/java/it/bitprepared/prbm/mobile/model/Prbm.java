@@ -18,10 +18,6 @@ package it.bitprepared.prbm.mobile.model;
 
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,59 +84,59 @@ public class Prbm implements Serializable {
         this.time = dateFormat.format(new Date());
     }
 
-    /**
-     * Return JSON representation of a single Prbm
-     * @return A JSONObject from a Prbm
-     */
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
+//    /**
+//     * Return JSON representation of a single Prbm
+//     * @return A JSONObject from a Prbm
+//     */
+//    public JSONObject toJSONObject() {
+//        JSONObject jsonObject = new JSONObject();
+//
+//        try {
+//            // Primitive fields
+//            jsonObject.put("creation-timestamp", time);
+//            jsonObject.put("version", version);
+//            jsonObject.put("title", title);
+//            jsonObject.put("authors", authors);
+//            jsonObject.put("date", date);
+//            jsonObject.put("place", place);
+//            jsonObject.put("note", note);
+//
+//            // List of units
+//            JSONArray jsonArray = new JSONArray();
+//            for (PrbmUnit u : units) {
+//                jsonArray.put(u.toJSONObject());
+//            }
+//            jsonObject.put("units", jsonArray);
+//
+//            return jsonObject;
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
-        try {
-            // Primitive fields
-            jsonObject.put("creation-timestamp", time);
-            jsonObject.put("version", version);
-            jsonObject.put("title", title);
-            jsonObject.put("authors", authors);
-            jsonObject.put("date", date);
-            jsonObject.put("place", place);
-            jsonObject.put("note", note);
-
-            // List of units
-            JSONArray jsonArray = new JSONArray();
-            for (PrbmUnit u : units) {
-                jsonArray.put(u.toJSONObject());
-            }
-            jsonObject.put("units", jsonArray);
-
-            return jsonObject;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * Static - Returns a JSON representation from a List of Prbms
-     * @param list A list of Prbm
-     * @return JSON Representation
-     */
-    public static String toJSONArray(ArrayList<Prbm> list) {
-
-        // Creating JSON Array
-        JSONArray jsonArray = new JSONArray();
-        for (Prbm s : list) {
-            jsonArray.put(s.toJSONObject());
-        }
-
-        // Inserting into global 'prbms' objects
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("prbms", jsonArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.toString();
-    }
+//    /**
+//     * Static - Returns a JSON representation from a List of Prbms
+//     * @param list A list of Prbm
+//     * @return JSON Representation
+//     */
+//    public static String toJSONArray(ArrayList<Prbm> list) {
+//
+//        // Creating JSON Array
+//        JSONArray jsonArray = new JSONArray();
+//        for (Prbm s : list) {
+//            jsonArray.put(s.toJSONObject());
+//        }
+//
+//        // Inserting into global 'prbms' objects
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("prbms", jsonArray);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return jsonObject.toString();
+//    }
 
     /**
      * Getter for PRBM Title
@@ -295,7 +291,7 @@ public class Prbm implements Serializable {
     }
 
     /**
-     * Public method to print a DUBUG dump of PRBM
+     * Public method to print a DEBUG dump of PRBM
      */
     public void print() {
         Log.d(TAG, "--- Printing PRBM ---");

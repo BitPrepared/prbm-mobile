@@ -17,10 +17,13 @@
 package it.bitprepared.prbm.mobile.model;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.widget.LinearLayout;
 
-import org.json.JSONObject;
+import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
 
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -36,6 +39,10 @@ public abstract class PrbmEntity implements Serializable {
     private String caption;
     /** Entity timestamp */
     private String timestamp;
+    /** Image URI */
+    private transient Uri pictureURI;
+    private String pictureName;
+    private String picturePath;
 
     // //////////////////////////////////////
     //
@@ -61,12 +68,6 @@ public abstract class PrbmEntity implements Serializable {
     public PrbmEntity() {
         this("", "", "");
     }
-
-    /**
-     * Returns JSON representation of a PrbmUnit instance.
-     * @return A JSONObject from PrbmUnit
-     */
-    public abstract JSONObject toJSONObject();
 
     /**
      * Getter for Entity description
@@ -147,24 +148,55 @@ public abstract class PrbmEntity implements Serializable {
     public abstract int getIdBackImage();
 
     /**
+     * Abstract method for returning the list of Extra Fields to be drawn by this PrbmEntity
+     * @return An array of EntityField
+     */
+    public abstract EntityField[] getExtraFields();
+
+    /**
      * Abstract method invoked when each entity must render itself.
      * Each entity can use a LinearLayout to draw its own fields
      * @param context Execution Context
      * @param linFree Linear Layout that can be used to draw views
      */
-    public abstract void drawYourSelf(Context context, LinearLayout linFree);
+    public void drawYourSelf(Context context, LinearLayout linFree){
+        for(EntityField field : getExtraFields()){
+            EntityViewHelper.addExtraField(context, linFree, field);
+        }
+    }
 
     /**
      * Abstract method invoked when each entity must save its own fields.
      * @param context Execution Context
      * @param linFree Linear Layout that must be used to save view values
      */
-    public abstract void saveFields(Context context, LinearLayout linFree);
+    public void saveFields(Context context, LinearLayout linFree){
+        EntityViewHelper.saveLinearLayoutFields(getExtraFields(), linFree);
+    }
 
     /**
      * Abstract method invoked when each entity must restore its own fields.
      * @param context Execution Context
      * @param linFree Linear Layout that must be used to restore view values
      */
-    public abstract void restoreFields(Context context, LinearLayout linFree);
+    public void restoreFields(Context context, LinearLayout linFree){
+        EntityViewHelper.restoreLinearLayoutFields(getExtraFields(), linFree);
+    }
+
+    public void setPictureURI(Uri pictureURI, String pictureName) {
+        this.pictureURI = pictureURI;
+        this.pictureName = pictureName;
+        this.picturePath = ((pictureURI == null) ? null : pictureURI.getPath());
+    }
+
+    public Uri getPictureURI() {
+        // Rebuild the URI if missing
+        if (picturePath != null && pictureURI == null){
+            pictureURI = Uri.fromFile(new File(picturePath));
+        }
+        Log.e("TAG", "URI " + pictureURI);
+        Log.e("TAG", "PATH " + picturePath);
+        Log.e("TAG", "NAME " + pictureName);
+        return pictureURI;
+    }
 }

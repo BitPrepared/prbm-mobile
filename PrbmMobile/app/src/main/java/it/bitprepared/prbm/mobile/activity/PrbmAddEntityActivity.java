@@ -9,34 +9,34 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
+import it.bitprepared.prbm.mobile.model.entities.EntityBuilding;
 import it.bitprepared.prbm.mobile.model.entities.EntityCuriosity;
 import it.bitprepared.prbm.mobile.model.entities.EntityFauna;
 import it.bitprepared.prbm.mobile.model.entities.EntityFlower;
 import it.bitprepared.prbm.mobile.model.entities.EntityInterview;
 import it.bitprepared.prbm.mobile.model.entities.EntityMonument;
 import it.bitprepared.prbm.mobile.model.entities.EntityNews;
+import it.bitprepared.prbm.mobile.model.entities.EntityOther;
 import it.bitprepared.prbm.mobile.model.entities.EntityPanorama;
 import it.bitprepared.prbm.mobile.model.entities.EntityTree;
 import it.bitprepared.prbm.mobile.model.entities.EntityWeather;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for visualizing list of available entities
  * @author Nicola Corti
  */
-public class PrbmAddEntityActivity extends Activity {
+public class PrbmAddEntityActivity extends Activity  {
 
     /** Debug TAG */
     private final static String TAG = "PrbmAddEntityActivity";
@@ -68,12 +68,14 @@ public class PrbmAddEntityActivity extends Activity {
         availableEntities.add(new EntityFlower());
         availableEntities.add(new EntityTree());
         availableEntities.add(new EntityFauna());
+        availableEntities.add(new EntityBuilding());
         availableEntities.add(new EntityPanorama());
         availableEntities.add(new EntityWeather());
         availableEntities.add(new EntityMonument());
         availableEntities.add(new EntityInterview());
         availableEntities.add(new EntityNews());
         availableEntities.add(new EntityCuriosity());
+        availableEntities.add(new EntityOther());
         //
         ////////////////////////////////////////////
 
@@ -84,19 +86,6 @@ public class PrbmAddEntityActivity extends Activity {
         adtEntities = new PrbmAvailableEntitiesAdapter(PrbmAddEntityActivity.this,
                 R.layout.list_available_entities, availableEntities);
         lstAvailableEntities.setAdapter(adtEntities);
-        lstAvailableEntities.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // Item selection with long click
-                UserData.getInstance().setEntity(availableEntities.get(position));
-                Intent prbmEntityModify = new Intent(PrbmAddEntityActivity.this, EntityActivity.class);
-                prbmEntityModify.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                startActivity(prbmEntityModify);
-                setResult(RESULT_OK);
-                return true;
-            }
-        });
     }
 
 
@@ -115,7 +104,7 @@ public class PrbmAddEntityActivity extends Activity {
      * Adapter used to display available entities
      * @author Nicola Corti
      */
-    public class PrbmAvailableEntitiesAdapter extends ArrayAdapter<PrbmEntity> implements View.OnClickListener {
+    public class PrbmAvailableEntitiesAdapter extends ArrayAdapter<PrbmEntity> {
 
         /** Execution context */
         private Context c;
@@ -169,18 +158,19 @@ public class PrbmAddEntityActivity extends Activity {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            viewHolder.frmEntityList.setOnClickListener(this);
+            viewHolder.frmEntityList.setOnClickListener(v -> {
+                UserData.getInstance().setEntity(availableEntities.get(position));
+                Intent prbmEntityModify = new Intent(PrbmAddEntityActivity.this, EntityActivity.class);
+                prbmEntityModify.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                startActivity(prbmEntityModify);
+                setResult(RESULT_OK);
+            });
             viewHolder.imgEntityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
             viewHolder.imgEntityBackground.setImageBitmap(UserData.getInstance().getBackBitmap(unit.getIdListImage()));
             viewHolder.txtEntityTitle.setText(unit.getType());
             viewHolder.txtEntityDescription.setText(unit.getTypeDescription());
 
             return convertView;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(PrbmAddEntityActivity.this, getString(R.string.long_press_to_choose), Toast.LENGTH_SHORT).show();
         }
 
         /**

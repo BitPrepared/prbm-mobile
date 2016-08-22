@@ -16,10 +16,6 @@
 
 package it.bitprepared.prbm.mobile.model;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +43,10 @@ public class PrbmUnit implements Serializable {
     private List<PrbmEntity> entitiesNearLeft;
     /** List of Entities near Left */
     private List<PrbmEntity> entitiesNearRight;
+    private double longitude = 0;
+    private double latitude = 0;
 
+    private transient boolean flagAcquiringGPS;
 
     // //////////////////////////////////////
     //
@@ -69,6 +68,7 @@ public class PrbmUnit implements Serializable {
         this.entitiesFarRight = new ArrayList<>();
         this.entitiesNearLeft = new ArrayList<>();
         this.entitiesNearRight = new ArrayList<>();
+        this.flagAcquiringGPS = false;
     }
 
     /**
@@ -79,47 +79,47 @@ public class PrbmUnit implements Serializable {
         this(0, 0, 0);
     }
 
-    /**
-     * Return JSON representation of a single PrbmUnit
-     * @return A JSONObject from a PrbmUnit
-     */
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-
-            jsonObject.put("azimut", azimut);
-            jsonObject.put("meter", meter);
-            jsonObject.put("minutes", minutes);
-
-            JSONArray jsonArray = new JSONArray();
-            for (PrbmEntity e : entitiesFarLeft) {
-                jsonArray.put(e.toJSONObject());
-            }
-            jsonObject.put("entities-far-left", jsonArray);
-            jsonArray = new JSONArray();
-            for (PrbmEntity e : entitiesNearLeft) {
-                jsonArray.put(e.toJSONObject());
-            }
-            jsonObject.put("entities-near-left", jsonArray);
-            jsonArray = new JSONArray();
-            for (PrbmEntity e : entitiesNearRight) {
-                jsonArray.put(e.toJSONObject());
-            }
-            jsonObject.put("entities-near-right", jsonArray);
-            jsonArray = new JSONArray();
-            for (PrbmEntity e : entitiesFarRight) {
-                jsonArray.put(e.toJSONObject());
-            }
-            jsonObject.put("entities-far-right", jsonArray);
-
-            return jsonObject;
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    /**
+//     * Return JSON representation of a single PrbmUnit
+//     * @return A JSONObject from a PrbmUnit
+//     */
+//    public JSONObject toJSONObject() {
+//        JSONObject jsonObject = new JSONObject();
+//
+//        try {
+//
+//            jsonObject.put("azimut", azimut);
+//            jsonObject.put("meter", meter);
+//            jsonObject.put("minutes", minutes);
+//
+//            JSONArray jsonArray = new JSONArray();
+//            for (PrbmEntity e : entitiesFarLeft) {
+//                jsonArray.put(e.toJSONObject());
+//            }
+//            jsonObject.put("entities-far-left", jsonArray);
+//            jsonArray = new JSONArray();
+//            for (PrbmEntity e : entitiesNearLeft) {
+//                jsonArray.put(e.toJSONObject());
+//            }
+//            jsonObject.put("entities-near-left", jsonArray);
+//            jsonArray = new JSONArray();
+//            for (PrbmEntity e : entitiesNearRight) {
+//                jsonArray.put(e.toJSONObject());
+//            }
+//            jsonObject.put("entities-near-right", jsonArray);
+//            jsonArray = new JSONArray();
+//            for (PrbmEntity e : entitiesFarRight) {
+//                jsonArray.put(e.toJSONObject());
+//            }
+//            jsonObject.put("entities-far-right", jsonArray);
+//
+//            return jsonObject;
+//        } catch (JSONException e) {
+//
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     /**
      * Getter for Unit Azimut
@@ -281,7 +281,9 @@ public class PrbmUnit implements Serializable {
      * @param down   Boolean flag to specify if movement must be downside or upside
      */
     public void moveEntity(PrbmEntity entity, int column, boolean down) {
-        if (entity == null) return;
+        if (entity == null) {
+            return;
+        }
         List<PrbmEntity> toMove = null;
         switch (column) {
             case 0:
@@ -299,10 +301,35 @@ public class PrbmUnit implements Serializable {
         }
         if (toMove != null) {
             int index = toMove.indexOf(entity);
-            if (down)
+            if (down) {
                 Collections.swap(toMove, index, index + 1);
-            else
+            } else {
                 Collections.swap(toMove, index, index - 1);
+            }
         }
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public boolean isFlagAcquiringGPS() {
+        return flagAcquiringGPS;
+    }
+
+    public void setFlagAcquiringGPS(boolean flagAcquiringGPS) {
+        this.flagAcquiringGPS = flagAcquiringGPS;
     }
 }

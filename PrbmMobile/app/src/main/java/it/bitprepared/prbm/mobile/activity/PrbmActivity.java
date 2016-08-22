@@ -16,17 +16,23 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -52,11 +58,15 @@ public class PrbmActivity extends Activity {
     private final static int MENU_UNIT_ADD_AFTER = 3;
     /** Flag used for context menu - Delete Unit */
     private final static int MENU_UNIT_DELETE = 4;
+    /** Flag used for context menu - Obtain GPS */
+    private final static int MENU_UNIT_GPS = 5;
 
     /** Flag used for activity add Entity */
     public final static int ACTIVITY_ADD_ENTITY = 101;
     /** Flag used for activity modify Entity */
     public static final int ACTIVITY_MODIFY_ENTITY = 102;
+    /** Flag used for Place Picker */
+    public static final int ACTIVITY_PLACE_PICKER = 103;
 
     /** Reference to Prbm object */
     private Prbm refPrbm = null;
@@ -75,6 +85,9 @@ public class PrbmActivity extends Activity {
 
     /** Reference to value edit dialog */
     private AlertDialog valueDialog = null;
+
+    /** Reference to Location Manager */
+    private LocationManager lm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,18 +127,19 @@ public class PrbmActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 // Update Unit values
                 PrbmUnit unit = UserData.getInstance().getUnit();
-                unit.setAzimut(edtAzimut.getText().toString());
-                unit.setMinutes(edtMinutes.getText().toString());
-                unit.setMeters(edtMeters.getText().toString());
+                unit.setAzimut(edtAzimut.getText().toString().replace(',','.'));
+                unit.setMinutes(edtMinutes.getText().toString().replace(',','.'));
+                unit.setMeters(edtMeters.getText().toString().replace(',','.'));
                 dialog.dismiss();
             }
         });
         valueDialog = alertValuesBuilder.create();
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenuInfo menuInfo) {
+                                    ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId() == R.id.lstUnits) {
             menu.setHeaderTitle(getString(R.string.menu_prbm_unit));
@@ -133,12 +147,13 @@ public class PrbmActivity extends Activity {
             menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, getString(R.string.insert_unit_up));
             menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, getString(R.string.insert_unit_down));
             menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, getString(R.string.delete_row));
+            menu.add(Menu.NONE, MENU_UNIT_GPS, 0, R.string.get_gps_coord);
         }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
                 .getMenuInfo();
 
         if (item.getItemId() == MENU_UNIT_EDIT) {
@@ -166,9 +181,60 @@ public class PrbmActivity extends Activity {
                 // Tip to don't delete last unit
                 Toast.makeText(this, getString(R.string.you_cant_delete_last_unit), Toast.LENGTH_SHORT).show();
             }
+        } else if (item.getItemId() == MENU_UNIT_GPS) {
+            PrbmUnit unit = refPrbm.getUnit(info.position);
+            if (unit.getLatitude() != 0 && unit.getLongitude() != 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Aggiornare coordinate GPS?");
+                builder.setMessage(
+                    "I dati GPS sono già stati acquisiti per questa osservazione, vuoi sovrascrivere?");
+                builder.setNegativeButton("No", (dialog, which) -> {
+                    dialog.dismiss();
+                });
+                builder.setPositiveButton("Si", (dialog, which) -> {
+                    requestGPSCoordinates(unit);
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else {
+                requestGPSCoordinates(unit);
+            }
         }
         return true;
     }
+
+    private void requestGPSCoordinates(final PrbmUnit unit) {
+
+        Toast.makeText(this, "Acquisizione GPS in corso...", Toast.LENGTH_LONG).show();
+        unit.setFlagAcquiringGPS(true);
+        adtUnit.notifyDataSetInvalidated();
+
+        //noinspection MissingPermission // FIXME Permission check
+        lm.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                unit.setLongitude(location.getLongitude());
+                unit.setLatitude(location.getLatitude());
+                unit.setFlagAcquiringGPS(false);
+                adtUnit.notifyDataSetInvalidated();
+                Toast.makeText(PrbmActivity.this, "Coordinate acquisite!", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        }, null);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -226,6 +292,12 @@ public class PrbmActivity extends Activity {
         if (requestCode == ACTIVITY_ADD_ENTITY || requestCode == ACTIVITY_MODIFY_ENTITY) {
             // Update adapter on activity result
             adtUnit.notifyDataSetChanged();
+        } else if (requestCode == ACTIVITY_PLACE_PICKER) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
         }
     }
 

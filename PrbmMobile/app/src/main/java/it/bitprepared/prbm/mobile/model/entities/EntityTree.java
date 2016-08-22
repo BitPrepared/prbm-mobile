@@ -16,17 +16,9 @@
 
 package it.bitprepared.prbm.mobile.model.entities;
 
-import android.content.Context;
-import android.widget.LinearLayout;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
+import it.bitprepared.prbm.mobile.model.EntityField;
+import it.bitprepared.prbm.mobile.model.EntityFieldType;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
@@ -35,10 +27,37 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
  */
 public class EntityTree extends PrbmEntity {
 
-    /** List of View IDs */
-    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011};
-    /** List of Extra fields values */
-    private List<String> extraFields = new ArrayList<>();
+    /** Base View IDs */
+    private int ID_FIELD_BASE = 1000;
+
+    private static final String type = "Albero/Arbusto";
+    private static final String description = "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione";
+
+    /** Array of Extra fields values */
+    private EntityField[] extraFields = {
+        new EntityField("Nome comune", "Inserire il nome comune della pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Nome scientifico", "Inserire il nome scientifico della pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Altezza media (m): ", "Altezza Media",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Portamento", "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+        new EntityField("Corteccia", "Inserire informazioni sulla corteccia della pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+        new EntityField("Foglie", "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+        new EntityField("Fiori e frutti", "Inserire informazioni sui fiori e sui frutti della pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+        new EntityField("Habitat tipico", "Inserire la descrizione dell'habitat tipico della pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Habitat tipico", "Inserire la descrizione dell'habitat tipico della pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Proprietà", "Inserire eventuali proprietà di questa pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Proprietà", "Inserire eventuali proprietà di questa pianta.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT)
+    };
 
     /**
      * Base constructor for a new PRBM Entity
@@ -58,31 +77,20 @@ public class EntityTree extends PrbmEntity {
     }
 
 
-    @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("entity-type", "tree");
-            jsonObject.put("description", super.getDescription());
-            jsonObject.put("caption", super.getCaption());
-            jsonObject.put("minutes", super.getTimestamp());
 
-            for(int i = 0; i < extraFields.size(); i++)
-                jsonObject.put("tree-" + i,extraFields);
-            return jsonObject;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     @Override
     public String getType() {
-        return "Albero/Arbusto";
+        return type;
     }
 
     @Override
     public String getTypeDescription() {
-        return "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione";
+        return description;
+    }
+
+    @Override
+    public EntityField[] getExtraFields() {
+        return this.extraFields;
     }
 
     @Override
@@ -98,31 +106,5 @@ public class EntityTree extends PrbmEntity {
     @Override
     public int getIdBackImage() {
         return R.drawable.background_tree;
-    }
-
-    @Override
-    public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[0], "Nome comune", "Inserire il nome comune della pianta.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[1], "Nome scientifico", "Inserire il nome scientifico della pianta.");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[2], "Altezza media (m): ");
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[3], "Portamento", "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare," +
-                " ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ", 3);
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[4], "Corteccia", "Inserire informazioni sulla corteccia della pianta.", 3);
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[5], "Foglie", "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).", 3);
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[6], "Fiori e frutti", "Inserire informazioni sui fiori e sui frutti della pianta.", 3);
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[7], "Habitat tipico", "Inserire la descrizione dell'habitat tipico della pianta.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Distribuzione", "Inserire la descrizione della distribuzione della pianta.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[9], "Proprietà", "Inserire eventuali proprietà di questa pianta.");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[10], "Curiosità", "Spazio per eventuali curiosità.");
-    }
-
-    @Override
-    public void saveFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
-    }
-
-    @Override
-    public void restoreFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
     }
 }

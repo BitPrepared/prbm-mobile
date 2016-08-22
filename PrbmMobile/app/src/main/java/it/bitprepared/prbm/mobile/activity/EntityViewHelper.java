@@ -2,7 +2,6 @@ package it.bitprepared.prbm.mobile.activity;
 
 import android.content.Context;
 import android.text.InputType;
-import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -10,20 +9,37 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import it.bitprepared.prbm.mobile.R;
+import it.bitprepared.prbm.mobile.model.EntityField;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-
-import it.bitprepared.prbm.mobile.R;
 
 /**
  * Support class used to delegate view creation and management for Entities objects
  * @author Nicola Corti
  */
 public class EntityViewHelper {
+
+    public static void addExtraField(Context c, LinearLayout lin, EntityField field) {
+        switch (field.getType()){
+            case LONG_TEXT:
+                addLongEditText(c, lin, field.getID(), field.getTitle(), field.getHint(), 3);
+                break;
+            case SHORT_TEXT:
+                addShortEditText(c, lin, field.getID(), field.getTitle(), field.getHint());
+                break;
+            case NUMERIC:
+                addNumericTextView(c, lin, field.getID(), field.getTitle());
+                break;
+            case DATE:
+                addDatePicker(c, lin, field.getID(), field.getTitle());
+                break;
+        }
+    }
 
     /**
      * Static method used to append a short editText to a linear layout
@@ -33,7 +49,7 @@ public class EntityViewHelper {
      * @param title Descriptive title
      * @param hint  Text hint for textbox
      */
-    public static void addShortEditText(Context c, LinearLayout lin, int ID, String title, String hint) {
+    private static void addShortEditText(Context c, LinearLayout lin, int ID, String title, String hint) {
         TextView descText = new TextView(c);
         EditText shortEdt = new EditText(c);
         shortEdt.setId(ID);
@@ -67,7 +83,7 @@ public class EntityViewHelper {
      * @param hint  Text hint for textbox
      * @param lines Number of lines to be set in edit text
      */
-    public static void addLongEditText(Context c, LinearLayout lin, int ID, String title, String hint, int lines) {
+    private static void addLongEditText(Context c, LinearLayout lin, int ID, String title, String hint, int lines) {
         TextView descText = new TextView(c);
         EditText longEdt = new EditText(c);
         longEdt.setId(ID);
@@ -101,7 +117,7 @@ public class EntityViewHelper {
      * @param ID    View ID
      * @param title Descriptive title
      */
-    public static void addNumericTextView(Context c, LinearLayout lin, int ID, String title) {
+    private static void addNumericTextView(Context c, LinearLayout lin, int ID, String title) {
 
         // Views are organized with an horizontal linearlayout
         LinearLayout linNumeric = new LinearLayout(c);
@@ -143,7 +159,7 @@ public class EntityViewHelper {
      * @param ID    View ID
      * @param title Descriptive title
      */
-    public static void addDatePicker(Context c, LinearLayout lin, int ID, String title) {
+    private static void addDatePicker(Context c, LinearLayout lin, int ID, String title) {
 
         // Date is set to actual
         TextView shortTextView = new TextView(c);
@@ -170,13 +186,12 @@ public class EntityViewHelper {
      * Static method used to save a set of Fields to a String array
      * @param extraFields Array of String. If string are present they will be override,
      *                    otherwise new strings will be create
-     * @param id_fields   Array of View ID, used to retrieve views
      * @param linFree     Linear Layout containing fields
      */
-    public static void saveLinearLayoutFields(List<String> extraFields, int[] id_fields, LinearLayout linFree) {
-        boolean empty = (extraFields.size() == 0);
-        for (int i = 0; i < id_fields.length; i++) {
-            View v = linFree.findViewById(id_fields[i]);
+    public static void saveLinearLayoutFields(EntityField[] extraFields, LinearLayout linFree) {
+        boolean empty = (extraFields.length == 0);
+        for (EntityField extraField : extraFields) {
+            View v = linFree.findViewById(extraField.getID());
             String field = null;
             if (v instanceof EditText) {
                 EditText edt = (EditText) v;
@@ -186,45 +201,39 @@ public class EntityViewHelper {
                 Calendar c = Calendar.getInstance(Locale.ITALY);
                 c.set(dat.getYear(), dat.getMonth(), dat.getDayOfMonth());
                 SimpleDateFormat dateFormat = new SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+                    "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
                 field = dateFormat.format(c.getTime());
             }
-
-            // Check if must be added or not
-            if (empty)
-                extraFields.add(field);
-            else
-                extraFields.set(i, field);
+            extraField.setValue(field);
         }
     }
 
     /**
      * Static method used to populate a set of fields with values from String array
-     * @param extraFields Array of string, values that will be displayed in views.
-     * @param id_fields   Array of View ID, used to retrieve views
+     * @param extraFields Array of string, values that will be displayed in views
      * @param linFree     Linear Layout containing fields
      */
-    public static void restoreLinearLayoutFields(List<String> extraFields, int[] id_fields, LinearLayout linFree) {
-        boolean empty = (extraFields.size() == 0);
-        if (empty) return;
+    public static void restoreLinearLayoutFields(EntityField[] extraFields, LinearLayout linFree) {
+        if (extraFields.length == 0) return;
 
-        for (int i = 0; i < id_fields.length; i++) {
-            View v = linFree.findViewById(id_fields[i]);
+        for (EntityField extraField : extraFields) {
+            View v = linFree.findViewById(extraField.getID());
             String field = null;
             if (v instanceof EditText) {
                 EditText edt = (EditText) v;
-                edt.setText(extraFields.get(i));
+                edt.setText(extraField.getValue());
             } else if (v instanceof DatePicker) {
                 DatePicker dat = (DatePicker) v;
                 SimpleDateFormat dateFormat = new SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+                    "yyyy-MM-dd HH:mm:ss", Locale.ITALY);
                 Calendar c = Calendar.getInstance(Locale.ITALY);
                 try {
-                    c.setTime(dateFormat.parse(extraFields.get(i)));
+                    c.setTime(dateFormat.parse(extraField.getValue()));
                 } catch (ParseException e) {
                     c.setTime(new Date());
                 }
-                dat.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                dat.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+                               c.get(Calendar.DAY_OF_MONTH));
             }
         }
     }

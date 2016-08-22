@@ -16,17 +16,9 @@
 
 package it.bitprepared.prbm.mobile.model.entities;
 
-import android.content.Context;
-import android.widget.LinearLayout;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import it.bitprepared.prbm.mobile.R;
-import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
+import it.bitprepared.prbm.mobile.model.EntityField;
+import it.bitprepared.prbm.mobile.model.EntityFieldType;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
@@ -35,12 +27,55 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
  */
 public class EntityWeather extends PrbmEntity {
 
-    /** List of View IDs */
-    private static final int[] id_fields = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008,
-            1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020};
-    /** List of Extra fields values */
-    private List<String> extraFields = new ArrayList<>();
+    /** Base View IDs */
+    private int ID_FIELD_BASE = 1000;
 
+    private static final String type = "Meteo";
+    private static final String description = "Utilizza questa classe per inserire informazioni sulle condizioni atmosferiche osservate.";
+
+    /** Array of Extra fields values */
+    private EntityField[] extraFields = {
+        new EntityField("Temperatura (C°): ", "Temperatura (C°): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Umidità (%): ", "Umidità (%): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Pressione (mBar): ", "Pressione (mBar): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Velocità del vento (Km/h): ", "Velocità del vento (Km/h): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Direzione del vento", "Inserire la direzione del vento (Nord, Sud, Est, Ovest).",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Precipitazioni", "Inserire una breve descrizione delle precipitazioni attuali.",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Quantità di pioggia (mm): ", "Quantità di pioggia (mm): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Acidità dell'acqua (Ph): ", "Acidità dell'acqua (Ph): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Neve", "Inserire una breve descrizione della neve (intensità, tipo di fiocco, torbidità dell'acqua)",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Neve, acidità dell'acqua distillata (Ph): ", "Neve, acidità dell'acqua distillata (Ph): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Grandine", "Inserire una breve descrizione della grandine (intensità, tipo di fiocco, torbidità dell'acqua)",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Grandine, diametro (cm): ", "Grandine, diametro (cm): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Grandine, Acidità dell'acqua (Ph): ", "Grandine, Acidità dell'acqua (Ph): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Eventi particolari", "Inserire eventuali eventi particolari (trombe d'aria, tornadi, cicloni, tempeste)",
+                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+        new EntityField("Sole, angolazione (°): ", "Sole, angolazione (°): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Sole, eventuali anomalie", "Inserire eventuali anomalie solari quali eclissi parziali o totali",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Nebbia, visibilità (m): ", "Nebbia, visibilità (m): ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Nebbia, tipo di formazione", "Inserire il tipo di formazione della nebbia (nebbia, nuvole, evaporazione)",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        new EntityField("Nubi, velocità di spostamento: ", "Nubi, velocità di spostamento: ",
+                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+        new EntityField("Nubi, tipologia", "Inserire la tipologia delle nubi osservate (nembi, cumoli, cirri, etc.)",
+                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+        };
 
     /**
      * Base constructor for a new PRBM Entity
@@ -61,30 +96,18 @@ public class EntityWeather extends PrbmEntity {
 
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("entity-type", "weather");
-            jsonObject.put("description", super.getDescription());
-            jsonObject.put("caption", super.getCaption());
-            jsonObject.put("minutes", super.getTimestamp());
-
-            for(int i = 0; i < extraFields.size(); i++)
-                jsonObject.put("weather-" + i,extraFields);
-            return jsonObject;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    @Override
     public String getType() {
-        return "Meteo";
+        return type;
     }
 
     @Override
     public String getTypeDescription() {
-        return "Utilizza questa classe per inserire informazioni sulle condizioni atmosferiche osservate.";
+        return description;
+    }
+
+    @Override
+    public EntityField[] getExtraFields() {
+        return this.extraFields;
     }
 
     @Override
@@ -102,37 +125,4 @@ public class EntityWeather extends PrbmEntity {
         return R.drawable.background_forecast;
     }
 
-    @Override
-    public void drawYourSelf(Context context, LinearLayout linFree) {
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[0], "Temperatura (C°): ");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[1], "Umidità (%): ");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[2], "Pressione (mBar): ");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[3], "Velocità del vento (Km/h): ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[4], "Direzione del vento", "Inserire la direzione del vento (Nord, Sud, Est, Ovest).");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[5], "Precipitazioni", "Inserire una breve descrizione delle precipitazioni attuali.");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[6], "Quantità di pioggia (mm): ");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[7], "Acidità dell'acqua (Ph): ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[8], "Neve", "Inserire una breve descrizione della neve (intensità, tipo di fiocco, torbidità dell'acqua)");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[9], "Neve, acidità dell'acqua distillata (Ph): ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[10], "Grandine", "Inserire una breve descrizione della grandine (intensità, tipo di fiocco, torbidità dell'acqua)");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[11], "Grandine, diametro (cm): ");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[12], "Grandine, acidità dell'acqua (Ph): ");
-        EntityViewHelper.addLongEditText(context, linFree, id_fields[13], "Eventi particolari", "Inserire eventuali eventi particolari (trombe d'aria, tornadi, cicloni, tempeste)", 3);
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[14], "Sole, angolazione (°): ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[15], "Sole, eventuali anomalie", "Inserire eventuali anomalie solari quali eclissi parziali o totali");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[16], "Nebbia, visibilità (m): ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[17], "Nebbia, tipo di formazione", "Inserire il tipo di formazione della nebbia (nebbia, nuvole, evaporazione)");
-        EntityViewHelper.addNumericTextView(context, linFree, id_fields[18], "Nubi, velocità di spostamento: ");
-        EntityViewHelper.addShortEditText(context, linFree, id_fields[19], "Nubi, tipologia", "Inserire la tipologia delle nubi osservate (nembi, cumoli, cirri, etc.)");
-    }
-
-    @Override
-    public void saveFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.saveLinearLayoutFields(extraFields, id_fields, linFree);
-    }
-
-    @Override
-    public void restoreFields(Context context, LinearLayout linFree) {
-        EntityViewHelper.restoreLinearLayoutFields(extraFields, id_fields, linFree);
-    }
 }

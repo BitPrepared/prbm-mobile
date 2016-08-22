@@ -37,7 +37,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText"
-        android:digits="0123456789," />
+        android:digits="0123456789,." />
 
     <TextView
         android:id="@+id/discount_title"
@@ -64,7 +64,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText"
-        android:digits="0123456789," />
+        android:digits="0123456789,." />
 
     <TextView
         android:id="@+id/meter_title"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_toLeftOf="@id/azimut_title"
-        android:digits="0123456789,"
+        android:digits="0123456789,."
         android:inputType="numberSigned"
         android:text="0"
         android:textSize="20sp"
