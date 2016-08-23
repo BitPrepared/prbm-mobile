@@ -28,23 +28,23 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityBuilding extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Edificio";
-    private static final String description = "Utilizza questa classe per inserire informazioni su edifici o costruzioni.";
+    private String type = "Edificio";
+    private String typeDesc = "Utilizza questa classe per inserire informazioni su edifici o costruzioni.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Descrizione", "Inserisci una breve descrizione dell'edificio/struttura",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Materiale", "Di quali materiali è composta la struttura (mattoni, legno, pietra, etc...)",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Scopo", "Quale è lo scopo della struttura?",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Stato di conservazione", "In quale stato verte attualmente la struttura?",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Proprietà", "Indicare se si tratta di una proprietà privata o pubblica e l'eventuale proprietario",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT)
+                        id++, EntityFieldType.SHORT_TEXT)
         };
 
     /**
@@ -65,6 +65,17 @@ public class EntityBuilding extends PrbmEntity {
     }
 
 
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityBuilding(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
     @Override
     public String getType() {
         return type;
@@ -72,7 +83,7 @@ public class EntityBuilding extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

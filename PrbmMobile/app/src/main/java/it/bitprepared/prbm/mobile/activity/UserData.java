@@ -18,6 +18,7 @@ package it.bitprepared.prbm.mobile.activity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,10 +27,12 @@ import it.bitprepared.prbm.mobile.model.Prbm;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +52,7 @@ public class UserData {
     private static UserData instance = null;
 
     /** Base URL for HTTP Calls */
-    private static final String API_BASE_URL = "http://app-alessandro308.c9users.io/";
+    private static final String API_BASE_URL = "http://www.alessandro308.com/bitprep/";
 
     /** Reference to actual prbm */
     private Prbm prbm = null;
@@ -64,7 +67,7 @@ public class UserData {
     /** Reference to actual unit */
     private PrbmUnit unit;
     /** Serilize filename */
-    private static final String FILENAME = "prbms.bin";
+    private static final String FILENAME = "prbms.json";
 
     /** HashMap of bitmpas (for fast access) */
     private HashMap<Integer, Bitmap> backBitmaps;
@@ -258,12 +261,18 @@ public class UserData {
     protected synchronized void saveAllPrbm(Context c) {
         FileOutputStream fos;
         try {
-            fos = c.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(this.prbmList);
-            oos.close();
-            if (fos != null) fos.close();
-
+            Gson g = new Gson();
+            File root = android.os.Environment.getExternalStorageDirectory();
+            File dir = new File (root.getAbsolutePath() + "/PRBM");
+            dir.mkdirs();
+            String json;
+            for (Prbm p : this.prbmList){
+                json = g.toJson(p);
+                File file = new File(dir, p.getTitle() + "-" + p.getAuthors() + "-" + p.getDate() + ".json");
+                fos = new FileOutputStream(file);
+                fos.write(json.getBytes());
+                fos.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -274,16 +283,36 @@ public class UserData {
      * @param c Execution context
      */
     protected synchronized boolean restorePrbms(Context c) {
-        FileInputStream fis;
-        try {
-            fis = c.openFileInput(FILENAME);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            this.prbmList = (ArrayList) ois.readObject();
-            ois.close();
-            if (fis != null) fis.close();
-
-        } catch (Exception e) {
-            return false;
+        File root = android.os.Environment.getExternalStorageDirectory();
+        File dir = new File (root.getAbsolutePath() + "/PRBM");
+        String[] prbms = dir.list();
+        if (prbms == null || prbms.length == 0){
+            // Nothing to restore
+            return true;
+        }
+        this.prbmList = new ArrayList<>();
+        for (String file : prbms){
+            if (!file.endsWith(".json")) continue;
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(new File(dir, file));
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader bufferedReader = new BufferedReader(isr);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                String json = sb.toString();
+                Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(PrbmEntity.class, new PrbmEntityDecoder())
+                    .create();
+                Type prbmType = new TypeToken<Prbm>(){}.getType();
+                Prbm decoded = gson.fromJson(json, prbmType);
+                this.prbmList.add(decoded);
+            } catch (Exception e) {
+                return false;
+            }
         }
         return true;
     }

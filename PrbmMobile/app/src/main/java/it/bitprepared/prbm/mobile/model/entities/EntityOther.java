@@ -28,15 +28,16 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityOther extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Altro";
-    private static final String description = "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.";
+    private String type = "Altro";
+    private String
+        typeDesc = "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Descrizione", "Inserisci la descrizione dell'osservazione",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         };
 
     /**
@@ -57,6 +58,17 @@ public class EntityOther extends PrbmEntity {
     }
 
 
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityOther(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
     @Override
     public String getType() {
         return type;
@@ -64,7 +76,7 @@ public class EntityOther extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

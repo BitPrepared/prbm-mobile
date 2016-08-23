@@ -28,35 +28,36 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityInterview extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Intervista";
-    private static final String description = "Utilizza questa classe per inserire report o interviste alle persone incontrate.";
+    private String type = "Intervista";
+    private String
+        typeDesc = "Utilizza questa classe per inserire report o interviste alle persone incontrate.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Età: ", "Eta",
-                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+                        id++, EntityFieldType.NUMERIC),
         new EntityField("Professione", "Inserire la professione dell'intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Stato civile", "Inserire lo stato civile dell'intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Ruolo", "Indicare in quale veste il soggetto è stato intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Scopo dell'intervista", "Indicare quale è il motivo/scopo di questa intervista.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Come si è arrivati a lui", "Indicare attraverso quali contatti si è arrivati al soggetto intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Stato d'animo", "Indicare lo stato d'animo dell'intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Gradimento", "Indicare il grado di gradimento dell'intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Affidabilità", "Indicare il grado di affidabilità dell'intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Rapporto con l'intervistato", "Indicare che genere di rapporto si è avuto con l'intervistato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Trascrizione dell'intervista", "Riportare la trascrizione integrale dell'intervista.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
     };
 
 
@@ -77,6 +78,18 @@ public class EntityInterview extends PrbmEntity {
         this("", "", "");
     }
 
+
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityInterview(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
     @Override
     public String getType() {
         return type;
@@ -84,7 +97,7 @@ public class EntityInterview extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

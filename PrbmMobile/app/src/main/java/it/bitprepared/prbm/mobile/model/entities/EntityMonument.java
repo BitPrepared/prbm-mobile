@@ -28,39 +28,40 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityMonument extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Monumento";
-    private static final String description = "Utilizza questa classe per inserire informazioni su monumenti o luoghi di rilevanza storica.";
+    private String type = "Monumento";
+    private String
+        typeDesc = "Utilizza questa classe per inserire informazioni su monumenti o luoghi di rilevanza storica.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Denominazione", "Inserisci la denominazione del luogo storico.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Comune e Provincia", "Inserisci il comune e la provicina del monumento/luogo.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Proprietà attuali", "Inserisci una breve descrizione dello stato attuale del monumento/luogo.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Monumento - Fatto costruire da", "Inserisci il nome di chi ha commissionato la costruzione del monumento.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Monumento - Perchè lo fece costruire", "Inserisci il motivo che ha portato alla costruzione del monumento.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Monumento - Materiali", "Inserisci quali sono i materiali utilizzati nella costruzione.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Monumento - Opere d'arte", "Inserisci la descrizione di eventuali opere d'arte presenti nelle vicinanze.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Monumento - Data Costruzione", "Data Costruzione",
-                        ID_FIELD_BASE++, EntityFieldType.DATE),
+                        id++, EntityFieldType.DATE),
         new EntityField("Luogo - Da cosa è scaturito", "Inserisci come mai questo luogo storico è importante.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Luogo - Racconto dell'avvenimento", "Inserisci la descrizione dell'avvennimento legato a questo luogo storico.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Luogo - Uso attuale", "Inserisci la descrizione di quale utilizzo se ne fa oggi di questo luogo.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Luogo - Stato di manutenzione", "Inserisci lo stato di conservazione/manutenzione in cui si trova adesso questo luogo.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Luogo - Data Avvenimento", "Data Avvenimento",
-                        ID_FIELD_BASE++, EntityFieldType.DATE)
+                        id++, EntityFieldType.DATE)
         };
 
 
@@ -83,6 +84,17 @@ public class EntityMonument extends PrbmEntity {
     }
 
 
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityMonument(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
     @Override
     public String getType() {
         return type;
@@ -90,7 +102,7 @@ public class EntityMonument extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.view.ContextThemeWrapper;
@@ -115,7 +114,7 @@ public class EntityActivity extends Activity {
                 edtCaption.setText(entity.getCaption());
                 edtDescription.setText(entity.getDescription());
 
-                if (entity.getPictureURI() != null){
+                if (!entity.getPictureName().isEmpty()){
                     capturedImageUri = entity.getPictureURI();
                     imgCamera.setVisibility(View.VISIBLE);
                     Picasso.with(this).load(capturedImageUri).resize(600,300).centerInside().into(imgCamera);
@@ -201,7 +200,7 @@ public class EntityActivity extends Activity {
                         PrbmUnit involved = UserData.getInstance().getUnit();
                         involved.addEntity(entity, UserData.getInstance().getColumn());
                     }
-                    entity.setPictureURI(capturedImageUri, getFilenameFromURI(capturedImageUri));
+                    entity.setPictureName(getFilenameFromURI(capturedImageUri));
                     setResult(RESULT_OK);
                     if (PrbmAddEntityActivity.self != null)
                         PrbmAddEntityActivity.self.finish();
@@ -211,12 +210,12 @@ public class EntityActivity extends Activity {
             return true;
         } else if (id == R.id.pic) {
             PrbmEntity entity = UserData.getInstance().getEntity();
-            if (entity != null && entity.getPictureURI() != null){
+            if (entity != null && !entity.getPictureName().isEmpty()){
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setTitle("Modificare la foto?");
                 alert.setMessage("È già presente una foto, cosa vuoi fare?");
                 alert.setNegativeButton("Cestinala", (dialog, which) -> {
-                    entity.setPictureURI(null, "");
+                    entity.setPictureName("");
                     imgCamera.setVisibility(View.GONE);
                 });
                 alert.setNeutralButton("Annulla", (dialog, which) -> dialog.dismiss());
@@ -255,8 +254,11 @@ public class EntityActivity extends Activity {
 
     private void takePicture() {
         Calendar cal = Calendar.getInstance();
-        File
-            file = new File(Environment.getExternalStorageDirectory(), (cal.getTimeInMillis() + ".jpg"));
+
+        File root = android.os.Environment.getExternalStorageDirectory();
+        File dir = new File (root.getAbsolutePath() + "/PRBM");
+        dir.mkdirs();
+        File file = new File(dir, (cal.getTimeInMillis() + ".jpg"));
         if (!file.exists()) {
             try {
                 file.createNewFile();

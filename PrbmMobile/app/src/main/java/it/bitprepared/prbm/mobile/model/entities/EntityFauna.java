@@ -28,43 +28,43 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityFauna extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Fauna";
-    private static final String description = "Utilizza questa classe per inserire avvistamente di animali, nidi, insetti o altri avvistamenti relativi alla fauna.";
+    private String type = "Fauna";
+    private String typeDesc = "Utilizza questa classe per inserire avvistamente di animali, nidi, insetti o altri avvistamenti relativi alla fauna.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Nome comune", "Inserire il nome comune dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Nome scientifico", "Inserire il nome scientifico dall'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Dimensione", "Inserire la dimensione tipica dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Corteggiamento e riproduzione", "Inserire dettagli sulle abitudini di corteggiamento e riproduzione della specie.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Tracce/Segni di presenza", "Inserire eventuali ritrovamenti di tracce o di segni di presenza dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Escrementi", "Inserire dettagli sugli escrementi dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("I piccoli e la prole", "Inserire dettagli sull'accudimento della prole da parte dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Alimentazione", "Informazioni sulle abitudini alimentari dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Posizione nella catena alimentare", "Inserire la posizione che l'animale ricopre all'interno della catena alimentare.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Tane/Nidi/Rifugi", "Inserire eventuali dettagli su avvistamenti di tane, nidi o rifugi dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Attacco/Difesa/Mimetismo", "Inserire dettagli sulle tecniche di attacco, difesa o mimetismo utilizzate dall'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Habitat tipico", "Inserire la descrizione dell'habitat tipico dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Distribuzione", "Inserire la descrizione della distribuzione dell'animale.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Territorialità", "Inserire eventuali informazioni sulla territorialità della specie.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Curiosità", "Spazio per eventuali curiosità.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT)
+                        id++, EntityFieldType.SHORT_TEXT)
     };
 
     /**
@@ -75,6 +75,18 @@ public class EntityFauna extends PrbmEntity {
      */
     public EntityFauna(String description, String caption, String timestamp) {
         super(description, caption, timestamp);
+    }
+
+
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityFauna(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
     }
 
     /**
@@ -91,7 +103,7 @@ public class EntityFauna extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

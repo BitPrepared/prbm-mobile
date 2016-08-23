@@ -28,31 +28,31 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityFlower extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Fiore/Erba";
-    private static final String description = "Utilizza questa classe per inserire avvistamente di fiori o erba.";
+    private String type = "Fiore/Erba";
+    private String typeDesc = "Utilizza questa classe per inserire avvistamente di fiori o erba.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Nome comune", "Inserire il nome comune del fiore.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Nome scientifico", "Inserire il nome scientifico dal fiore.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Numero petali: ", "Numero petali",
-                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+                        id++, EntityFieldType.NUMERIC),
         new EntityField("Altezza media (m): ", "Altezza media",
-                        ID_FIELD_BASE++, EntityFieldType.NUMERIC),
+                        id++, EntityFieldType.NUMERIC),
         new EntityField("Descrizione foglie", "Inserire una breve descrizione delle foglie del fiore.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Habitat tipico", "Inserire la descrizione dell'habitat tipico della pianta.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Distribuzione", "Inserire la descrizione della distribuzione della pianta.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Proprietà", "Inserire eventuali proprietà di questa pianta.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Curiosità", "Spazio per eventuali curiosità.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT)
+                        id++, EntityFieldType.SHORT_TEXT)
         };
 
     /**
@@ -72,6 +72,17 @@ public class EntityFlower extends PrbmEntity {
         this("", "", "");
     }
 
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityFlower(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
 
     @Override
     public String getType() {
@@ -80,7 +91,7 @@ public class EntityFlower extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

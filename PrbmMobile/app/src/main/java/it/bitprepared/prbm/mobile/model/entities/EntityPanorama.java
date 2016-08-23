@@ -28,29 +28,30 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityPanorama extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Ambiente Naturale";
-    private static final String description = "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.";
+    private String type = "Ambiente Naturale";
+    private String
+        typeDesc = "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Località", "Inserire il nome della località dell'ambiente osservato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Tipo Ambiente", "Inserire la tipologia di ambiente osservato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Descrizione della flora", "Inserire una breve descrizione della flora circostante.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Impatto dell'uomo", "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Cosa ti è piaciuto di più?", "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Cosa ti è piaciuto di meno?", "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Senzazioni personali positive", "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Senzazioni personali nevative", "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT)
+                        id++, EntityFieldType.LONG_TEXT)
     };
 
     /**
@@ -70,6 +71,18 @@ public class EntityPanorama extends PrbmEntity {
         this("", "", "");
     }
 
+
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityPanorama(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
     @Override
     public String getType() {
         return type;
@@ -77,7 +90,7 @@ public class EntityPanorama extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

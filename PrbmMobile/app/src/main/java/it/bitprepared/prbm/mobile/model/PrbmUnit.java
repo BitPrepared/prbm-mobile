@@ -79,48 +79,6 @@ public class PrbmUnit implements Serializable {
         this(0, 0, 0);
     }
 
-//    /**
-//     * Return JSON representation of a single PrbmUnit
-//     * @return A JSONObject from a PrbmUnit
-//     */
-//    public JSONObject toJSONObject() {
-//        JSONObject jsonObject = new JSONObject();
-//
-//        try {
-//
-//            jsonObject.put("azimut", azimut);
-//            jsonObject.put("meter", meter);
-//            jsonObject.put("minutes", minutes);
-//
-//            JSONArray jsonArray = new JSONArray();
-//            for (PrbmEntity e : entitiesFarLeft) {
-//                jsonArray.put(e.toJSONObject());
-//            }
-//            jsonObject.put("entities-far-left", jsonArray);
-//            jsonArray = new JSONArray();
-//            for (PrbmEntity e : entitiesNearLeft) {
-//                jsonArray.put(e.toJSONObject());
-//            }
-//            jsonObject.put("entities-near-left", jsonArray);
-//            jsonArray = new JSONArray();
-//            for (PrbmEntity e : entitiesNearRight) {
-//                jsonArray.put(e.toJSONObject());
-//            }
-//            jsonObject.put("entities-near-right", jsonArray);
-//            jsonArray = new JSONArray();
-//            for (PrbmEntity e : entitiesFarRight) {
-//                jsonArray.put(e.toJSONObject());
-//            }
-//            jsonObject.put("entities-far-right", jsonArray);
-//
-//            return jsonObject;
-//        } catch (JSONException e) {
-//
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     /**
      * Getter for Unit Azimut
      * @return The unit azimut

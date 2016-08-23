@@ -28,27 +28,28 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityNews extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Fatto di Cronaca";
-    private static final String description = "Utilizza questa classe per riportare notizie o fatti di cronaca del posto.";
+    private String type = "Fatto di Cronaca";
+    private String
+        typeDesc = "Utilizza questa classe per riportare notizie o fatti di cronaca del posto.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Luogo", "Inserire il luogo dove si è svolto il fatto di cronaca.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Persone coinvolte", "Inserire l'elenco delle persone coinvolte.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Cosa è successo?", "Inserire la descrizione del fatto di cronaca.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Perchè?", "Inserire le motivazioni o ciò che ha provocato il fatto.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Se negativo, poteva essere evitato?", "Inserire se, ed in quali circostanze, il fatto di cronaca negativo poteva essere evitato.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Conseguenze", "Inserire le conseguenze del fatto di cronaca.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT),
+                        id++, EntityFieldType.SHORT_TEXT),
         new EntityField("Cosa hai imparato?", "Inserire cosa hai imparato da questo fatto di cronaca.",
-                        ID_FIELD_BASE++, EntityFieldType.SHORT_TEXT)
+                        id++, EntityFieldType.SHORT_TEXT)
     };
 
 
@@ -70,6 +71,17 @@ public class EntityNews extends PrbmEntity {
     }
 
 
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityNews(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
+    }
+
     @Override
     public String getType() {
         return type;
@@ -77,7 +89,7 @@ public class EntityNews extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

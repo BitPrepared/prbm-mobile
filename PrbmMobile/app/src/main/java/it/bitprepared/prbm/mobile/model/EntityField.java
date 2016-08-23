@@ -12,7 +12,7 @@ public class EntityField implements Serializable {
     private String title;
     private String hint;
     private String value;
-    private int ID;
+    private transient int ID;
     private EntityFieldType type;
 
     public EntityField(String title, String hint, int ID,

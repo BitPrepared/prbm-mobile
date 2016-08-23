@@ -28,18 +28,18 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 public class EntityCuriosity extends PrbmEntity {
 
     /** Base View IDs */
-    private int ID_FIELD_BASE = 1000;
+    private int id = 1;
 
-    private static final String type = "Curiosità";
-    private static final String description = "Utilizza questa classe per inserire ulteriori curiosità oppure osservazioni che non rientrano nelle altre classi.";
+    private String type = "Curiosità";
+    private String typeDesc = "Utilizza questa classe per inserire ulteriori curiosità oppure osservazioni che non rientrano nelle altre classi.";
 
     /** Array of Extra fields values */
     private EntityField[] extraFields = {
         new EntityField("Perchè è importante?", "Come mai è importante riportare questa curiosità?",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT),
+                        id++, EntityFieldType.LONG_TEXT),
         new EntityField("Impressioni/Stato d'animo",
                         "Inserire una breve descrizione delle impressioni o dello stato d'animo.",
-                        ID_FIELD_BASE++, EntityFieldType.LONG_TEXT)
+                        id++, EntityFieldType.LONG_TEXT)
     };
 
     /**
@@ -50,6 +50,18 @@ public class EntityCuriosity extends PrbmEntity {
      */
     public EntityCuriosity(String description, String caption, String timestamp) {
         super(description, caption, timestamp);
+    }
+
+
+    /**
+     * Base constructor for a new PRBM Entity
+     * @param description Entity description
+     * @param caption     Entity caption
+     * @param timestamp   Entity timestamp
+     */
+    public EntityCuriosity(String description, String caption, String timestamp, EntityField[] extraFields) {
+        this(description, caption, timestamp);
+        this.extraFields = extraFields;
     }
 
     /**
@@ -66,7 +78,7 @@ public class EntityCuriosity extends PrbmEntity {
 
     @Override
     public String getTypeDescription() {
-        return description;
+        return typeDesc;
     }
 
     @Override

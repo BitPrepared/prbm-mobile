@@ -18,7 +18,6 @@ package it.bitprepared.prbm.mobile.model;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import it.bitprepared.prbm.mobile.activity.EntityViewHelper;
@@ -39,10 +38,8 @@ public abstract class PrbmEntity implements Serializable {
     private String caption;
     /** Entity timestamp */
     private String timestamp;
-    /** Image URI */
-    private transient Uri pictureURI;
-    private String pictureName;
-    private String picturePath;
+    /** Image Name */
+    private String pictureName = "";
 
     // //////////////////////////////////////
     //
@@ -183,20 +180,25 @@ public abstract class PrbmEntity implements Serializable {
         EntityViewHelper.restoreLinearLayoutFields(getExtraFields(), linFree);
     }
 
-    public void setPictureURI(Uri pictureURI, String pictureName) {
-        this.pictureURI = pictureURI;
-        this.pictureName = pictureName;
-        this.picturePath = ((pictureURI == null) ? null : pictureURI.getPath());
+    public String getPictureName() {
+        return pictureName;
+    }
+
+    public void setPictureName(String pictureName){
+        if (pictureName == null)
+            this.pictureName = "";
+        else
+            this.pictureName = pictureName;
     }
 
     public Uri getPictureURI() {
         // Rebuild the URI if missing
-        if (picturePath != null && pictureURI == null){
-            pictureURI = Uri.fromFile(new File(picturePath));
+        if (pictureName != null && !pictureName.isEmpty()){
+            File root = android.os.Environment.getExternalStorageDirectory();
+            File dir = new File (root.getAbsolutePath() + "/PRBM");
+            dir.mkdirs();
+            return Uri.fromFile(new File(dir, pictureName));
         }
-        Log.e("TAG", "URI " + pictureURI);
-        Log.e("TAG", "PATH " + picturePath);
-        Log.e("TAG", "NAME " + pictureName);
-        return pictureURI;
+        return null;
     }
 }
