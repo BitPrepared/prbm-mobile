@@ -15,4 +15,5 @@ Tell us what happens instead / Spiega che cosa succede realmente
  * ***Device Android***: Es. Samsung Slate
  * ***Android Version***: Es. 4.4.4 
  * ***Stock or customized system***: Es: cyanogen 
+ * ***APK version***: Es: 0.4
 
