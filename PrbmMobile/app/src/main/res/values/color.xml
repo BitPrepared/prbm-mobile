@@ -11,4 +11,16 @@
     <color name="LightGray">#ffb9b9b9</color>
     <color name="DarkGray">#ff696969</color>
 
+    <color name="FlowerBack">#1C3A7A</color>
+    <color name="BuildingBack">#504F4B</color>
+    <color name="CuriosityBack">#506159</color>
+    <color name="FaunaBack">#6A6A6A</color>
+    <color name="ForecastBack">#86594A</color>
+    <color name="InterviewBack">#4A4A4A</color>
+    <color name="MonumentBack">#783725</color>
+    <color name="NewsBack">#1C1C1A</color>
+    <color name="OtherBack">#3F5457</color>
+    <color name="PanoramaBack">#253B50</color>
+    <color name="TreeBack">#31431B</color>
+
 </resources>

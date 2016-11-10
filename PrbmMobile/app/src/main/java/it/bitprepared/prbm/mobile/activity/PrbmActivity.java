@@ -131,6 +131,7 @@ public class PrbmActivity extends Activity {
                 unit.setMinutes(edtMinutes.getText().toString().replace(',','.'));
                 unit.setMeters(edtMeters.getText().toString().replace(',','.'));
                 dialog.dismiss();
+                adtUnit.notifyDataSetInvalidated();
             }
         });
         valueDialog = alertValuesBuilder.create();
@@ -210,7 +211,7 @@ public class PrbmActivity extends Activity {
         adtUnit.notifyDataSetInvalidated();
 
         //noinspection MissingPermission // FIXME Permission check
-        lm.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
+        lm.requestSingleUpdate(LocationManager.GPS_PROVIDER, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 unit.setLongitude(location.getLongitude());

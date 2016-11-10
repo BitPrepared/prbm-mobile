@@ -16,9 +16,12 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import com.google.gson.Gson;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,6 +29,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +48,11 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,6 +67,7 @@ public class EntityActivity extends Activity {
     /** Debug TAG */
     private final static String TAG = "EntityActivity";
     private static final int CAMERA_RESULT = 1005;
+    private static final int GALLERY_RESULT = 1006;
 
     /** Linear layout left free to each Entity */
     private LinearLayout linFree = null;
@@ -75,7 +85,7 @@ public class EntityActivity extends Activity {
     private boolean edit = false;
 
     /** Image URI */
-    private static Uri capturedImageUri = null;
+    private transient Uri capturedImageUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +96,9 @@ public class EntityActivity extends Activity {
 
         // Setting up Home back button
         ActionBar bar = getActionBar();
-        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
+        if (bar != null) {
+            bar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Inflating views
         setContentView(R.layout.activity_entity);
@@ -104,6 +116,9 @@ public class EntityActivity extends Activity {
             entity.drawYourSelf(EntityActivity.this, linFree);
             txtTitle.setText(entity.getType());
 
+            Gson gson = new Gson();
+            Log.e("TAG", gson.toJson(entity));
+
             if (!edit) {
                 // Setting current hour
                 Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
@@ -113,16 +128,16 @@ public class EntityActivity extends Activity {
             } else {
                 edtCaption.setText(entity.getCaption());
                 edtDescription.setText(entity.getDescription());
-
-                if (!entity.getPictureName().isEmpty()){
+                if (!entity.getPictureName().isEmpty()) {
                     capturedImageUri = entity.getPictureURI();
                     imgCamera.setVisibility(View.VISIBLE);
-                    Picasso.with(this).load(capturedImageUri).resize(600,300).centerInside().into(imgCamera);
+                    Picasso.with(this).load(capturedImageUri).resize(600, 300).centerInside()
+                        .into(imgCamera);
                 }
 
                 // Restoring timestamp to TimePicker
                 SimpleDateFormat dateFormat = new SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
+                    "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
                 try {
                     Date date = dateFormat.parse(entity.getTimestamp());
                     Calendar cal = Calendar.getInstance(getResources().getConfiguration().locale);
@@ -155,6 +170,8 @@ public class EntityActivity extends Activity {
             build.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    PrbmEntity entity = UserData.getInstance().getEntity();
+                    entity.setPictureName("");
                     finish();
                 }
             });
@@ -170,17 +187,17 @@ public class EntityActivity extends Activity {
             // Checking if caption is empty
             if (edtCaption.getText().length() == 0) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(
-                        new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+                    new ContextThemeWrapper(this, R.style.AlertDialogCustom));
                 alert.setTitle(R.string.fields_incomplete);
                 alert.setMessage(getString(R.string.you_must_insert_caption));
                 alert.setIcon(R.drawable.ic_alert_black_48dp);
                 alert.setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                dialog.dismiss();
-                            }
-                        });
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,
+                                                                int whichButton) {
+                                                dialog.dismiss();
+                                            }
+                                        });
                 alert.show();
             } else {
                 PrbmEntity entity = UserData.getInstance().getEntity();
@@ -193,44 +210,62 @@ public class EntityActivity extends Activity {
                     // Saving timestamp. Date set at Unix epoch
                     c.set(1970, 1, 1, datTime.getCurrentHour(), datTime.getCurrentMinute());
                     SimpleDateFormat dateFormat = new SimpleDateFormat(
-                            "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
+                        "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
                     entity.setTimestamp(dateFormat.format(c.getTime()));
 
                     if (!edit) {
                         PrbmUnit involved = UserData.getInstance().getUnit();
                         involved.addEntity(entity, UserData.getInstance().getColumn());
                     }
-                    entity.setPictureName(getFilenameFromURI(capturedImageUri));
                     setResult(RESULT_OK);
-                    if (PrbmAddEntityActivity.self != null)
+                    if (PrbmAddEntityActivity.self != null) {
                         PrbmAddEntityActivity.self.finish();
+                    }
                     finish();
                 }
             }
             return true;
         } else if (id == R.id.pic) {
             PrbmEntity entity = UserData.getInstance().getEntity();
-            if (entity != null && !entity.getPictureName().isEmpty()){
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle("Modificare la foto?");
-                alert.setMessage("È già presente una foto, cosa vuoi fare?");
-                alert.setNegativeButton("Cestinala", (dialog, which) -> {
-                    entity.setPictureName("");
-                    imgCamera.setVisibility(View.GONE);
-                });
-                alert.setNeutralButton("Annulla", (dialog, which) -> dialog.dismiss());
-                alert.setPositiveButton("Riscatta", (dialog, which) -> takePicture());
-                alert.show();
-            } else {
-                takePicture();
-            }
+            CharSequence[] itemadd = {"Scatta una foto",
+                                      "Scegli dalla Galleria"};
+            CharSequence[] itemadddelete = {"Scatta una foto",
+                                            "Scegli dalla Galleria", "Rimuovi foto"};
+            boolean deleteflag = (entity != null && !entity.getPictureName().isEmpty());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.ic_camera_iris_black_36dp);
+            builder.setTitle("Fotografia");
+            builder.setItems((deleteflag ? itemadddelete : itemadd),
+                             (dialog, which) -> {
+                                 switch (which) {
+                                     case 0:
+                                         takePicture();
+                                         dialog.dismiss();
+                                         break;
+                                     case 1:
+                                         chooseFromGallery();
+                                         dialog.dismiss();
+                                         break;
+                                     case 2:
+                                         entity.setPictureName("");
+                                         imgCamera.setVisibility(View.GONE);
+                                         dialog.dismiss();
+                                         break;
+                                     default:
+                                         break;
+                                 }
+                             });
+            AlertDialog alert = builder.create();
+            alert.setCancelable(true);
+            alert.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private String getFilenameFromURI(Uri uri) {
-        if (uri == null)
+        if (uri == null) {
             return "";
+        }
         String result = null;
         if (uri.getScheme().equals("content")) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
@@ -252,37 +287,118 @@ public class EntityActivity extends Activity {
         return result;
     }
 
-    private void takePicture() {
-        Calendar cal = Calendar.getInstance();
+    private void chooseFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, GALLERY_RESULT);
+    }
 
+    private void takePicture() {
+
+        Calendar cal = Calendar.getInstance();
         File root = android.os.Environment.getExternalStorageDirectory();
-        File dir = new File (root.getAbsolutePath() + "/PRBM");
+        File dir = new File(root.getAbsolutePath() + "/PRBM");
         dir.mkdirs();
-        File file = new File(dir, (cal.getTimeInMillis() + ".jpg"));
-        if (!file.exists()) {
+        String picname = cal.getTimeInMillis() + ".jpg";
+        File destfile = new File(dir, (cal.getTimeInMillis() + ".jpg"));
+
+        if (!destfile.exists()) {
             try {
-                file.createNewFile();
+                destfile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            file.delete();
+            destfile.delete();
             try {
-                file.createNewFile();
+                destfile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        capturedImageUri = Uri.fromFile(file);
+        capturedImageUri = Uri.fromFile(destfile);
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         i.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri);
         startActivityForResult(i, CAMERA_RESULT);
     }
 
+    public void copy(File src, File dst) throws IOException {
+        InputStream in = new FileInputStream(src);
+        OutputStream out = new FileOutputStream(dst);
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+    }
+
+    public static String getRealPathFromUri(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        PrbmEntity entity = UserData.getInstance().getEntity();
+
         if (requestCode == CAMERA_RESULT) {
             imgCamera.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(capturedImageUri).resize(600,300).centerInside().into(imgCamera);
+            Picasso.with(this).load(capturedImageUri).resize(600, 300).centerInside()
+                .into(imgCamera);
+            entity.setPictureName(getFilenameFromURI(capturedImageUri));
+            Log.d(TAG, "capturedImage " + capturedImageUri.getPath());
+        } else if (requestCode == GALLERY_RESULT) {
+            if (resultCode != RESULT_OK) {
+                return;
+            }
+            if (data == null) {
+                Toast.makeText(this, "Impossibile caricare l'immagine", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            capturedImageUri = data.getData();
+            imgCamera.setVisibility(View.VISIBLE);
+            Picasso.with(this).load(data.getData()).resize(600, 300).centerInside()
+                .into(imgCamera);
+
+            Calendar cal = Calendar.getInstance();
+            File root = android.os.Environment.getExternalStorageDirectory();
+            File dir = new File(root.getAbsolutePath() + "/PRBM");
+            dir.mkdirs();
+            String picname = cal.getTimeInMillis() + ".jpg";
+            File destfile = new File(dir, (cal.getTimeInMillis() + ".jpg"));
+
+            if (!destfile.exists()) {
+                try {
+                    destfile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                destfile.delete();
+                try {
+                    destfile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                copy(new File(getRealPathFromUri(this, capturedImageUri)), destfile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            entity.setPictureName(picname);
         }
     }
 }

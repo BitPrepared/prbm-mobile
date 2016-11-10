@@ -123,6 +123,6 @@ public class EntityFauna extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.drawable.background_fauna;
+        return R.color.FaunaBack;
     }
 }
