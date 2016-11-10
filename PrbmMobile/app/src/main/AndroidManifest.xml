@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.bitprepared.prbm.mobile"
-    android:versionCode="5"
-    android:versionName="v0.4" >
-
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyBW9-K7cZza8OzxqVTOcrfjdAwjfvD2zoE" />
-    <meta-data android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
+    android:versionCode="6"
+    android:versionName="v0.4.1-experimental" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,13 +12,6 @@
 
     <uses-feature android:name="android.hardware.screen.landscape"
                   android:required="true" />
-
-    <supports-screens android:smallScreens="false"
-                      android:normalScreens="false"
-                      android:largeScreens="true"
-                      android:xlargeScreens="true"
-                      android:anyDensity="true"
-                      android:requiresSmallestWidthDp="600"/>
 
     <application
         android:allowBackup="true"
