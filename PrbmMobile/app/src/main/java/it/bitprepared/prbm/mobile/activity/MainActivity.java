@@ -99,12 +99,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(login);
                 break;
             case R.id.btnSyncro:
-                SimpleDateFormat
-                    sdf =
-                    new SimpleDateFormat("yyyyMMdd_HHmmss",
-                                         getResources().getConfiguration().locale);
-                String currentDateandTime = sdf.format(new Date());
-                uploadPrbmJSONs(currentDateandTime);
+
                 break;
             case R.id.btnAbout:
                 showAboutDialog();

@@ -52,7 +52,7 @@ public class UserData {
     private static UserData instance = null;
 
     /** Base URL for HTTP Calls */
-    private static final String API_BASE_URL = "http://www.example.com/";
+    private static final String API_BASE_URL = "http://www.alessandro308.com/bitprep/";
 
     /** Reference to actual prbm */
     private Prbm prbm = null;

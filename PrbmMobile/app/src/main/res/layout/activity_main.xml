@@ -40,7 +40,7 @@
             android:drawableLeft="@drawable/ic_sync_white_36dp"
             android:drawableStart="@drawable/ic_sync_white_36dp"
             android:padding="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="@string/sync"
             android:textColor="@color/White"/>
 
@@ -82,7 +82,7 @@
             android:layout_margin="10dp"
             android:text="@string/welcome"
             android:textColor="@color/Blue"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textSize="24sp"/>
 
         <TextView
