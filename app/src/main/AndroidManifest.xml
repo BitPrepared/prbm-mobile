@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it.bitprepared.prbm.mobile"
-    android:versionCode="7"
-    android:versionName="v0.4.2" >
+    package="it.bitprepared.prbm.mobile">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-feature android:name="android.hardware.screen.landscape"
-                  android:required="true" />
+    <uses-feature
+        android:name="android.hardware.screen.landscape"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MyAppTheme" >
+        android:theme="@style/MyAppTheme">
         <activity
             android:name=".activity.SplashScreenActivity"
             android:label="@string/app_name"
-            android:theme="@style/MySplashTheme"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/MySplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,38 +30,32 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="landscape"
-            android:label="@string/title_activity_main" >
-        </activity>
+            android:label="@string/title_activity_main"
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.CreatePrbmActivity"
-            android:screenOrientation="landscape"
             android:label="@string/title_create_prbm_activity"
-            android:theme="@style/MyAppThemeLight">
-        </activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/MyAppThemeLight"></activity>
         <activity
             android:name=".activity.PrbmActivity"
-            android:screenOrientation="landscape"
             android:label="@string/title_prbm_activity"
-            android:theme="@style/MyAppThemeLight">
-        </activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/MyAppThemeLight"></activity>
         <activity
             android:name=".activity.ListPrbmActivity"
-            android:screenOrientation="landscape"
             android:label="@string/list_of_prbms"
-            android:theme="@style/MyAppThemeLight">
-        </activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/MyAppThemeLight"></activity>
         <activity
             android:name=".activity.PrbmAddEntityActivity"
-            android:screenOrientation="landscape"
             android:label="@string/choose_entity"
-            android:theme="@style/MyAppThemeLight">
-        </activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/MyAppThemeLight"></activity>
         <activity
             android:name=".activity.EntityActivity"
-            android:screenOrientation="landscape"
             android:label="@string/entity_details"
-            android:theme="@style/MyAppTheme">
-        </activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/MyAppTheme"></activity>
     </application>
 </manifest>

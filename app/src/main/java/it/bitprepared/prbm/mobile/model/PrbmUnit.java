@@ -108,7 +108,7 @@ public class PrbmUnit implements Serializable {
      * @param azimut The new unit azimut
      */
     public void setAzimut(String azimut) {
-        this.azimut = Float.parseFloat(azimut);
+        this.azimut = parseStringToFloat(azimut);
     }
 
     /**
@@ -116,7 +116,7 @@ public class PrbmUnit implements Serializable {
      * @param minutes The new unit minutes
      */
     public void setMinutes(String minutes) {
-        this.minutes = Float.parseFloat(minutes);
+        this.minutes = parseStringToFloat(minutes);
     }
 
     /**
@@ -124,7 +124,7 @@ public class PrbmUnit implements Serializable {
      * @param meter The new unit meters
      */
     public void setMeters(String meter) {
-        this.meter = Float.parseFloat(meter);
+        this.meter = parseStringToFloat(meter);
     }
 
     /**
@@ -289,5 +289,13 @@ public class PrbmUnit implements Serializable {
 
     public void setFlagAcquiringGPS(boolean flagAcquiringGPS) {
         this.flagAcquiringGPS = flagAcquiringGPS;
+    }
+
+    private float parseStringToFloat(String azimut) {
+        try {
+            return Float.valueOf(azimut);
+        } catch (NumberFormatException e) {
+            return 0f;
+        }
     }
 }

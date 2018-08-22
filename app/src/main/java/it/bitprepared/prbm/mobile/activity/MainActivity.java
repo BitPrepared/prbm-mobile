@@ -99,7 +99,12 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(login);
                 break;
             case R.id.btnSyncro:
-
+                SimpleDateFormat
+                        sdf =
+                        new SimpleDateFormat("yyyyMMdd_HHmmss",
+                                getResources().getConfiguration().locale);
+                String currentDateandTime = sdf.format(new Date());
+                uploadPrbmJSONs(currentDateandTime);
                 break;
             case R.id.btnAbout:
                 showAboutDialog();
@@ -172,6 +177,8 @@ public class MainActivity extends Activity implements OnClickListener {
         barProgressDialog.setMessage(getString(R.string.saving_all_prbms));
         barProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         barProgressDialog.setIndeterminate(true);
+        barProgressDialog.setCancelable(false);
+        barProgressDialog.setCancelable(false);
         barProgressDialog.show();
         Gson gson = new GsonBuilder()
             .create();
@@ -179,7 +186,9 @@ public class MainActivity extends Activity implements OnClickListener {
         Observable.defer(() -> {
             List<Prbm> list = UserData.getInstance().getAllPrbm();
             for (Prbm prbm : list) {
-                String filename = prbm.getTitle() + "-" + prbm.getAuthors() + ".json";
+                String title = escape(prbm.getTitle());
+                String authors = escape(prbm.getAuthors());
+                String filename = title + "-" + authors + ".json";
                 String json = gson.toJson(prbm);
                 try {
                     remoteInterface.uploadPrbm(filename, json).execute();
@@ -216,6 +225,10 @@ public class MainActivity extends Activity implements OnClickListener {
                 t.printStackTrace();
                 Toast.makeText(MainActivity.this, "Errore durante la Sincronizzazione!", Toast.LENGTH_SHORT).show();
             });
+    }
+
+    private String escape(String value) {
+        return value.replaceAll("\\W+", "-");
     }
 
     private String base64Encode(Uri pictureURI) {
