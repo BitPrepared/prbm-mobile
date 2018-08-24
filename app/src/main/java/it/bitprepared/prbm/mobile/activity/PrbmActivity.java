@@ -16,9 +16,6 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -65,8 +62,6 @@ public class PrbmActivity extends Activity {
     public final static int ACTIVITY_ADD_ENTITY = 101;
     /** Flag used for activity modify Entity */
     public static final int ACTIVITY_MODIFY_ENTITY = 102;
-    /** Flag used for Place Picker */
-    public static final int ACTIVITY_PLACE_PICKER = 103;
 
     /** Reference to Prbm object */
     private Prbm refPrbm = null;
@@ -293,12 +288,6 @@ public class PrbmActivity extends Activity {
         if (requestCode == ACTIVITY_ADD_ENTITY || requestCode == ACTIVITY_MODIFY_ENTITY) {
             // Update adapter on activity result
             adtUnit.notifyDataSetChanged();
-        } else if (requestCode == ACTIVITY_PLACE_PICKER) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, this);
-                String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
-            }
         }
     }
 
