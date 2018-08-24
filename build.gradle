@@ -7,7 +7,6 @@ buildscript {
     dependencies {
         classpath Libs.androidGradlePlugin
         classpath Libs.kotlinGradlePlugin
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
 
