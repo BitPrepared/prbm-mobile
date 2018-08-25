@@ -39,6 +39,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
@@ -50,10 +53,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Activity responsible for main menu visualization
@@ -206,8 +205,6 @@ public class MainActivity extends Activity implements OnClickListener {
                     if (!entity.getPictureName().isEmpty()) {
                         String picname = entity.getPictureName();
                         String picencoded = base64Encode(entity.getPictureURI());
-//                        Log.d("TAG", "ENCODED");
-//                        Log.d("TAG", picencoded);
                         try {
                             remoteInterface.uploadImage(picname, picencoded).execute();
                         } catch (IOException e) {

@@ -1,7 +1,8 @@
 object Versions {
-    const val androidGradle = "3.2.0-beta05"
+    const val androidGradle = "3.2.0-rc01"
     const val androidx = "28.0.0-rc01"
     const val constraintlayout = "1.1.2"
+    const val glide = "4.8.0"
     const val junit = "4.12"
     const val kotlin = "1.2.60"
     const val materialcomponents = "1.0.0-rc01"
@@ -25,6 +26,9 @@ object Libs {
     const val mockitoCore = "org.mockito:mockito-core:${Versions.mockito}"
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
 
-    const val rxjava2 = "io.reactivex.rxjava2:rxjava:${Versions.rxjava2}"
+    const val rxJava2 = "io.reactivex.rxjava2:rxjava:${Versions.rxjava2}"
     const val rxAndroid2 = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid2}"
+
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 }

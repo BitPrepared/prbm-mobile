@@ -38,7 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -87,7 +86,6 @@ public class UserData {
         Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build();
         restInterface = retrofit.create(RemoteInterface.class);
     }

@@ -16,6 +16,8 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 
 import android.app.ActionBar;
@@ -40,8 +42,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
@@ -131,8 +131,12 @@ public class EntityActivity extends Activity {
                 if (!entity.getPictureName().isEmpty()) {
                     capturedImageUri = entity.getPictureURI();
                     imgCamera.setVisibility(View.VISIBLE);
-                    Picasso.with(this).load(capturedImageUri).resize(600, 300).centerInside()
-                        .into(imgCamera);
+
+                    Glide
+                            .with(this)
+                            .load(capturedImageUri)
+                            .apply(new RequestOptions().override(600, 300).centerCrop())
+                            .into(imgCamera);
                 }
 
                 // Restoring timestamp to TimePicker
@@ -355,8 +359,12 @@ public class EntityActivity extends Activity {
 
         if (requestCode == CAMERA_RESULT) {
             imgCamera.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(capturedImageUri).resize(600, 300).centerInside()
-                .into(imgCamera);
+            Glide
+                    .with(this)
+                    .load(capturedImageUri)
+                    .apply(new RequestOptions().override(600, 300).centerCrop())
+                    .into(imgCamera);
+
             entity.setPictureName(getFilenameFromURI(capturedImageUri));
             Log.d(TAG, "capturedImage " + capturedImageUri.getPath());
         } else if (requestCode == GALLERY_RESULT) {
@@ -369,8 +377,11 @@ public class EntityActivity extends Activity {
             }
             capturedImageUri = data.getData();
             imgCamera.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(data.getData()).resize(600, 300).centerInside()
-                .into(imgCamera);
+            Glide
+                    .with(this)
+                    .load(data.getData())
+                    .apply(new RequestOptions().override(600, 300).centerCrop())
+                    .into(imgCamera);
 
             Calendar cal = Calendar.getInstance();
             File root = android.os.Environment.getExternalStorageDirectory();
