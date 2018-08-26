@@ -65,7 +65,7 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
         setContentView(R.layout.activity_list_prbm);
 
         // Inflating views
-        lstPrbms = (ListView) findViewById(R.id.listPrbm);
+        lstPrbms = findViewById(R.id.listPrbm);
 
         lstPrbms.setOnItemClickListener(this);
 
@@ -112,20 +112,12 @@ public class ListPrbmActivity extends Activity implements OnItemClickListener {
             delete_dialog.setTitle(getString(R.string.delete_prbm));
             delete_dialog.setMessage(getString(R.string.are_you_sure_to_delete_prbm));
             delete_dialog.setIcon(R.drawable.ic_alert_black_48dp);
-            delete_dialog.setNegativeButton(R.string.abort, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+            delete_dialog.setNegativeButton(R.string.abort, (dialog1, which1) -> dialog1.dismiss());
 
-            delete_dialog.setPositiveButton(R.string.delete, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    UserData.getInstance().deletePrbm(ListPrbmActivity.this, pressed);
-                    adtPrbm.notifyDataSetChanged();
-                    dialog.dismiss();
-                }
+            delete_dialog.setPositiveButton(R.string.delete, (dialog12, which12) -> {
+                UserData.getInstance().deletePrbm(ListPrbmActivity.this, pressed);
+                adtPrbm.notifyDataSetChanged();
+                dialog12.dismiss();
             });
             delete_dialog.show();
         });

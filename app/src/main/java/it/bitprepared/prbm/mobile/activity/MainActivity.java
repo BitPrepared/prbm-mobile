@@ -16,9 +16,6 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -34,34 +31,33 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * Activity responsible for main menu visualization
+ *
  * @author Nicola Corti
  */
 public class MainActivity extends Activity implements OnClickListener {
-
-    /** Dubug TAG */
-    private final static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +67,10 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         // Setting up button event listeners
-        Button btnNew = (Button) findViewById(R.id.btnNew);
-        Button btnList = (Button) findViewById(R.id.btnList);
-        Button btnSync = (Button) findViewById(R.id.btnSyncro);
-        Button btnAbout = (Button) findViewById(R.id.btnAbout);
+        Button btnNew = findViewById(R.id.btnNew);
+        Button btnList = findViewById(R.id.btnList);
+        Button btnSync = findViewById(R.id.btnSyncro);
+        Button btnAbout = findViewById(R.id.btnAbout);
 
         btnNew.setOnClickListener(this);
         btnList.setOnClickListener(this);
@@ -89,21 +85,16 @@ public class MainActivity extends Activity implements OnClickListener {
             // Handling button clicks
             case R.id.btnNew:
                 Intent newprbm = new Intent(getApplicationContext(),
-                                            CreatePrbmActivity.class);
+                        CreatePrbmActivity.class);
                 startActivity(newprbm);
                 break;
             case R.id.btnList:
                 Intent login = new Intent(getApplicationContext(),
-                                          ListPrbmActivity.class);
+                        ListPrbmActivity.class);
                 startActivity(login);
                 break;
             case R.id.btnSyncro:
-                SimpleDateFormat
-                        sdf =
-                        new SimpleDateFormat("yyyyMMdd_HHmmss",
-                                getResources().getConfiguration().locale);
-                String currentDateandTime = sdf.format(new Date());
-                uploadPrbmJSONs(currentDateandTime);
+                uploadPrbmJSONs();
                 break;
             case R.id.btnAbout:
                 showAboutDialog();
@@ -118,15 +109,13 @@ public class MainActivity extends Activity implements OnClickListener {
      */
     private void showAboutDialog() {
 
-        LayoutInflater
-            inflater =
-            (LayoutInflater) MainActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View
-            layout =
-            inflater.inflate(R.layout.about_dialog, (ViewGroup) findViewById(R.id.layout_root));
+        LayoutInflater inflater =
+                (LayoutInflater) MainActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout =
+                inflater.inflate(R.layout.about_dialog, findViewById(R.id.layout_root));
 
-        TextView text = (TextView) layout.findViewById(R.id.text);
-        TextView web = (TextView) layout.findViewById(R.id.webtext);
+        TextView text = layout.findViewById(R.id.text);
+        TextView web = layout.findViewById(R.id.webtext);
         Linkify.addLinks(text, Linkify.ALL);
         Linkify.addLinks(web, Linkify.ALL);
 
@@ -136,40 +125,29 @@ public class MainActivity extends Activity implements OnClickListener {
 
         // Contact button
         builder
-            .setPositiveButton(getString(R.string.contact), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                .setPositiveButton(getString(R.string.contact), (dialog, which) -> {
+                    final Intent emailIntent = new Intent(Intent.ACTION_SEND);
                     emailIntent.setType("plain/text");
-                    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-                                         new String[]{"info@bitprepared.it"});
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL,
+                            new String[]{"info@bitprepared.it"});
                     startActivity(Intent.createChooser(emailIntent, getResources()
-                        .getString(R.string.sendmail)));
-                }
-            });
+                            .getString(R.string.sendmail)));
+                });
 
         // Close button
-        builder.setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton(getString(R.string.close), (dialog, which) -> dialog.dismiss());
 
         // Market button
-        builder.setNeutralButton(getString(R.string.rate), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+        builder.setNeutralButton(getString(R.string.rate), (dialog, which) -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
                     "market://details?id=it.bitprepared.prbm.mobile")));
-                dialog.dismiss();
-            }
+            dialog.dismiss();
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
-    private void uploadPrbmJSONs(final String prefix) {
+    private void uploadPrbmJSONs() {
         RemoteInterface remoteInterface = UserData.getInstance().getRestInterface();
         ProgressDialog barProgressDialog = new ProgressDialog(MainActivity.this);
         barProgressDialog.setTitle(getString(R.string.save_on_disk));
@@ -180,9 +158,9 @@ public class MainActivity extends Activity implements OnClickListener {
         barProgressDialog.setCancelable(false);
         barProgressDialog.show();
         Gson gson = new GsonBuilder()
-            .create();
+                .create();
 
-        Observable.defer(() -> {
+        Disposable disposable = Observable.defer(() -> {
             List<Prbm> list = UserData.getInstance().getAllPrbm();
             for (Prbm prbm : list) {
                 String title = escape(prbm.getTitle());
@@ -194,7 +172,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                List<PrbmEntity> entityList = new ArrayList<PrbmEntity>();
+                List<PrbmEntity> entityList = new ArrayList<>();
                 for (PrbmUnit unit : prbm.getUnits()) {
                     entityList.addAll(unit.getFarLeft());
                     entityList.addAll(unit.getFarRight());
@@ -214,14 +192,16 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             }
             return Observable.just(list);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(l -> {
-                barProgressDialog.dismiss();
-                Toast.makeText(MainActivity.this, l.size() + " PRBM Sincronizzati", Toast.LENGTH_SHORT).show();
-            }, t -> {
-                t.printStackTrace();
-                Toast.makeText(MainActivity.this, "Errore durante la Sincronizzazione!", Toast.LENGTH_SHORT).show();
-            });
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(l -> {
+                    barProgressDialog.dismiss();
+                    Toast.makeText(MainActivity.this, l.size() + " PRBM Sincronizzati", Toast.LENGTH_SHORT).show();
+                }, t -> {
+                    t.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Errore durante la Sincronizzazione!", Toast.LENGTH_SHORT).show();
+                });
     }
 
     private String escape(String value) {
@@ -229,14 +209,12 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private String base64Encode(Uri pictureURI) {
-        Bitmap image = null;
+        Bitmap image;
         try {
             image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), pictureURI);
             ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
             image.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS);
-            String encoded = Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
-//            Log.e("TAG", "Encoded: " + encoded);
-            return encoded;
+            return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -218,7 +218,6 @@ public class EntityViewHelper {
 
         for (EntityField extraField : extraFields) {
             View v = linFree.findViewById(extraField.getID());
-            String field = null;
             if (v instanceof EditText) {
                 EditText edt = (EditText) v;
                 edt.setText(extraField.getValue());

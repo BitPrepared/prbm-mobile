@@ -102,13 +102,13 @@ public class EntityActivity extends Activity {
 
         // Inflating views
         setContentView(R.layout.activity_entity);
-        linFree = (LinearLayout) findViewById(R.id.linearFreeEntity);
-        ImageView imgBack = (ImageView) findViewById(R.id.imgEntity);
-        TextView txtTitle = (TextView) findViewById(R.id.txtEntityTitleAdd);
-        datTime = (TimePicker) findViewById(R.id.datTimeEntity);
-        edtCaption = (EditText) findViewById(R.id.edtCaption);
-        edtDescription = (EditText) findViewById(R.id.edtDescription);
-        imgCamera = (ImageView) findViewById(R.id.imgCamera);
+        linFree = findViewById(R.id.linearFreeEntity);
+        ImageView imgBack = findViewById(R.id.imgEntity);
+        TextView txtTitle = findViewById(R.id.txtEntityTitleAdd);
+        datTime = findViewById(R.id.datTimeEntity);
+        edtCaption = findViewById(R.id.edtCaption);
+        edtDescription = findViewById(R.id.edtDescription);
+        imgCamera = findViewById(R.id.imgCamera);
 
         PrbmEntity entity = UserData.getInstance().getEntity();
         if (entity != null) {
@@ -171,18 +171,12 @@ public class EntityActivity extends Activity {
             AlertDialog.Builder build = new AlertDialog.Builder(EntityActivity.this);
             build.setTitle(R.string.confirmation);
             build.setMessage(R.string.are_you_sure);
-            build.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    PrbmEntity entity = UserData.getInstance().getEntity();
-                    entity.setPictureName("");
-                    finish();
-                }
+            build.setPositiveButton(R.string.ok, (dialog, which) -> {
+                PrbmEntity entity = UserData.getInstance().getEntity();
+                entity.setPictureName("");
+                finish();
             });
-            build.setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
+            build.setNegativeButton(R.string.abort, (dialog, which) -> {
             });
             build.show();
             return true;
@@ -196,12 +190,7 @@ public class EntityActivity extends Activity {
                 alert.setMessage(getString(R.string.you_must_insert_caption));
                 alert.setIcon(R.drawable.ic_alert_black_48dp);
                 alert.setPositiveButton(R.string.ok,
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog,
-                                                                int whichButton) {
-                                                dialog.dismiss();
-                                            }
-                                        });
+                        (dialog, whichButton) -> dialog.dismiss());
                 alert.show();
             } else {
                 PrbmEntity entity = UserData.getInstance().getEntity();

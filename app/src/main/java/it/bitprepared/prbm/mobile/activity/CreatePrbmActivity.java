@@ -76,12 +76,12 @@ public class CreatePrbmActivity extends Activity {
         setContentView(R.layout.activity_create_prbm);
 
         // Inflating views
-        edtTitle = (EditText) findViewById(R.id.edtTitle);
-        edtAuthors = (EditText) findViewById(R.id.edtAuthors);
-        edtPlace = (EditText) findViewById(R.id.edtPlace);
-        edtNote = (EditText) findViewById(R.id.edtNote);
-        datDate = (DatePicker) findViewById(R.id.datDate);
-        datTime = (TimePicker) findViewById(R.id.datTime);
+        edtTitle = findViewById(R.id.edtTitle);
+        edtAuthors = findViewById(R.id.edtAuthors);
+        edtPlace = findViewById(R.id.edtPlace);
+        edtNote = findViewById(R.id.edtNote);
+        datDate = findViewById(R.id.datDate);
+        datTime = findViewById(R.id.datTime);
         datTime.setIs24HourView(true);
         datDate.setCalendarViewShown(false);
 
@@ -93,7 +93,7 @@ public class CreatePrbmActivity extends Activity {
             datTime.setCurrentMinute(c.get(Calendar.MINUTE));
         } else {
             // Restoring date
-            TextView txtTitle = (TextView) findViewById(R.id.textView1);
+            TextView txtTitle = findViewById(R.id.textView1);
             txtTitle.setText(getString(R.string.modify_prbm_parameters));
 
             Prbm thisPrbm = UserData.getInstance().getPrbm();
@@ -143,12 +143,7 @@ public class CreatePrbmActivity extends Activity {
                 alert.setMessage(getString(R.string.error_no_title_prbm));
                 alert.setIcon(R.drawable.ic_alert_black_48dp);
                 alert.setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                dialog.dismiss();
-                            }
-                        });
+                        (dialog, whichButton) -> dialog.dismiss());
                 alert.show();
             } else {
                 // Checking if PRBM must be created or not
