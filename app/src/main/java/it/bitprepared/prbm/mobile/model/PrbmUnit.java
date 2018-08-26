@@ -24,7 +24,6 @@ import java.util.List;
 /**
  * Class related to model. PrbmUnit represent a single row of
  * Prbm that is composed by several PrbmEntity
- * @author Nicola Corti
  */
 public class PrbmUnit implements Serializable {
 

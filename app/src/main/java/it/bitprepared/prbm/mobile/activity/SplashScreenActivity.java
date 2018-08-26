@@ -35,7 +35,6 @@ import java.util.List;
 
 /**
  * Activity responsible for showing an initial splash screen.
- * @author Nicola Corti
  */
 public class SplashScreenActivity extends Activity {
 
@@ -68,7 +67,6 @@ public class SplashScreenActivity extends Activity {
      * Async task used to
      * - Restore PRBM from serialized files
      * - Pre-fetch big bitmaps, to enhance performance
-     * @author Nicola Corti
      */
     public class LoadTask extends AsyncTask<Void, Void, Void> {
 

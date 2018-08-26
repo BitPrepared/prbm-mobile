@@ -28,7 +28,6 @@ import java.io.Serializable;
 /**
  * Class related to model. PrbmEntity represent a single observation
  * that must be inserted in a column of a Prbm.
- * @author Nicola Corti
  */
 public abstract class PrbmEntity implements Serializable {
 

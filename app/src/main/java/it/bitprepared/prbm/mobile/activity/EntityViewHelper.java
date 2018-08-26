@@ -20,7 +20,6 @@ import java.util.Locale;
 
 /**
  * Support class used to delegate view creation and management for Entities objects
- * @author Nicola Corti
  */
 public class EntityViewHelper {
 

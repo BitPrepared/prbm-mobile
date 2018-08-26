@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent a weather/forecast observation
- * @author Nicola Corti
  */
 public class EntityWeather extends PrbmEntity {
 

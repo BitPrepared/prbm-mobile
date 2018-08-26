@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent a flower/grass observation
- * @author Nicola Corti
  */
 public class EntityFlower extends PrbmEntity {
 

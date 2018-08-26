@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent an observation of a panorama
- * @author Nicola Corti
  */
 public class EntityPanorama extends PrbmEntity {
 

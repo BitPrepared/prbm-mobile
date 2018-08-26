@@ -54,8 +54,6 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 /**
  * Activity responsible for main menu visualization
- *
- * @author Nicola Corti
  */
 public class MainActivity extends Activity implements OnClickListener {
 

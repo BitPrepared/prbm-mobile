@@ -60,7 +60,6 @@ import java.util.Date;
 
 /**
  * Class responsible for visualizing and modifying a single PrbmEntity
- * @author Nicola Corti
  */
 public class EntityActivity extends Activity {
 

@@ -38,7 +38,6 @@ import java.util.List;
 
 /**
  * Adapter used to render list of Units
- * @author Nicola Corti
  */
 public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
 
@@ -276,7 +275,6 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
 
     /**
      * Viewholder class used to improve performance
-     * @author Nicola Corti
      */
     private class ViewHolder {
         /** Reference to Azimut label */

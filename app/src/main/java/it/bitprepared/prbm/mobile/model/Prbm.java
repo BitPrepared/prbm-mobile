@@ -28,7 +28,6 @@ import java.util.Locale;
 /**
  * Class related to model. It represent a single Prbm, stored in local DB, composed
  * by several PrbmUnit.
- * @author Nicola Corti
  */
 public class Prbm implements Serializable {
 

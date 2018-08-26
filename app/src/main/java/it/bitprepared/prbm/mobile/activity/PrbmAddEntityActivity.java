@@ -34,7 +34,6 @@ import java.util.List;
 
 /**
  * Class responsible for visualizing list of available entities
- * @author Nicola Corti
  */
 public class PrbmAddEntityActivity extends Activity  {
 
@@ -102,7 +101,6 @@ public class PrbmAddEntityActivity extends Activity  {
 
     /**
      * Adapter used to display available entities
-     * @author Nicola Corti
      */
     public class PrbmAvailableEntitiesAdapter extends ArrayAdapter<PrbmEntity> {
 
@@ -175,7 +173,6 @@ public class PrbmAddEntityActivity extends Activity  {
 
         /**
          * Viewholder class used to improve performance
-         * @author Nicola Corti
          */
         private class ViewHolder {
             /** Reference to parent FrameLayout */

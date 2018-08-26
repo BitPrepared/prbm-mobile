@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent an interview to a specific person
- * @author Nicola Corti
  */
 public class EntityInterview extends PrbmEntity {
 

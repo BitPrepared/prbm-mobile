@@ -40,7 +40,6 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit;
 
 /**
  * Class responsible for visualizing a single Prbm
- * @author Nicola Corti
  */
 public class PrbmActivity extends Activity {
 

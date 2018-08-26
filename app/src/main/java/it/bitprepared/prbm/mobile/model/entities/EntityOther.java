@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent a building
- * @author Nicola Corti
  */
 public class EntityOther extends PrbmEntity {
 

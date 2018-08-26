@@ -30,7 +30,6 @@ import it.bitprepared.prbm.mobile.model.Prbm;
 
 /**
  * Adapter used to render list of Prbms
- * @author Nicola Corti
  */
 public class PrbmAdapter extends ArrayAdapter<Prbm> {
 
@@ -115,7 +114,6 @@ public class PrbmAdapter extends ArrayAdapter<Prbm> {
 
     /**
      * Viewholder class used to improve performance
-     * @author Nicola Corti
      */
     private class ViewHolder {
         /** Reference to Title label */

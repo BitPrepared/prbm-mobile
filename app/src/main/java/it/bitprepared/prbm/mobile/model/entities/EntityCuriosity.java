@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent a generic observation or a curiosity
- * @author Nicola Corti
  */
 public class EntityCuriosity extends PrbmEntity {
 

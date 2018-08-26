@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent a news or a report
- * @author Nicola Corti
  */
 public class EntityNews extends PrbmEntity {
 

@@ -39,7 +39,6 @@ import java.util.List;
 
 /**
  * Activity responsible of PRBM list visualization
- * @author Nicola Corti
  */
 public class ListPrbmActivity extends Activity implements OnItemClickListener {
 

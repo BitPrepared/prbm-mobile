@@ -43,7 +43,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Class used to collect global data related to user/application
  * Realized with singleton pattern
- * @author Nicola Corti
  */
 public class UserData {
 

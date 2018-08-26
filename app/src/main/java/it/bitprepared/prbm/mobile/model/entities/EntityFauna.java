@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent an animal observation
- * @author Nicola Corti
  */
 public class EntityFauna extends PrbmEntity {
 

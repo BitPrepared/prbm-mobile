@@ -23,7 +23,6 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity;
 
 /**
  * Entity used to represent a monument or an interesting place
- * @author Nicola Corti
  */
 public class EntityMonument extends PrbmEntity {
 

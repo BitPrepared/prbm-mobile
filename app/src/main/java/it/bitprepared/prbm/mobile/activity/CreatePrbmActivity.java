@@ -42,7 +42,6 @@ import it.bitprepared.prbm.mobile.model.Prbm;
 
 /**
  * Activity responsible for new PRBM Creation
- * @author Nicola Corti
  */
 public class CreatePrbmActivity extends Activity {
 
