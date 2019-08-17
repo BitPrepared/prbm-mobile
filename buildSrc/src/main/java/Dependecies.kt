@@ -1,10 +1,10 @@
 object Versions {
-    const val androidGradle = "3.2.0-rc01"
+    const val androidGradle = "3.4.1"
     const val androidx = "28.0.0-rc01"
     const val constraintlayout = "1.1.2"
     const val glide = "4.8.0"
     const val junit = "4.12"
-    const val kotlin = "1.2.60"
+    const val kotlin = "1.3.40"
     const val materialcomponents = "1.0.0-rc01"
     const val mockito = "2.21.0"
     const val mockitoKotlin = "2.0.0-RC1"
