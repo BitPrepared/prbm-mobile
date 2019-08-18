@@ -8,8 +8,8 @@ object Versions {
     const val materialcomponents = "1.0.0-rc01"
     const val mockito = "2.21.0"
     const val mockitoKotlin = "2.0.0-RC1"
-    const val rxjava2 = "2.2.0"
-    const val rxandroid2 = "2.0.2"
+    const val rxjava2 = "2.2.11"
+    const val rxandroid2 = "2.1.1"
 }
 
 object Libs {
