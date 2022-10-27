@@ -262,8 +262,9 @@ public class EntityActivity extends Activity {
         if (uri.getScheme().equals("content")) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
             try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (cursor.moveToFirst() && columnIndex != -1) {
+                    result = cursor.getString(columnIndex);
                 }
             } finally {
                 cursor.close();
