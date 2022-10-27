@@ -1,10 +1,10 @@
 object Versions {
-    const val androidGradle = "3.4.1"
+    const val androidGradle = "7.3.1"
     const val androidx = "28.0.0-rc01"
     const val constraintlayout = "1.1.2"
     const val glide = "4.8.0"
     const val junit = "4.12"
-    const val kotlin = "1.3.40"
+    const val kotlin = "1.7.10"
     const val materialcomponents = "1.0.0-rc01"
     const val mockito = "2.21.0"
     const val mockitoKotlin = "2.0.0-RC1"
@@ -15,7 +15,6 @@ object Versions {
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradle}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-    const val kotlinJdk = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 
     const val androidXAppCompat = "com.android.support:appcompat-v7:${Versions.androidx}"
     const val materialComponents = "com.google.android.material:material:${Versions.materialcomponents}"
