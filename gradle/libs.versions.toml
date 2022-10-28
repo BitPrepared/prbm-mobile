@@ -1,0 +1,19 @@
+[versions]
+agp = "7.3.1"
+glide = "4.8.0"
+gson = "2.6.1"
+kotlin = "1.7.10"
+retrofit = "2.1.0"
+rxjava2 = "2.2.11"
+rxandroid2 = "2.1.1"
+
+[libraries]
+agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit_gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+rxjava2 = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2" }
+rxandroid2 = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxandroid2" }
+kgp = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glideCompiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }

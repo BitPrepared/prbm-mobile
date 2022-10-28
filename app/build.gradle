@@ -21,15 +21,15 @@ android {
     }
 }
 dependencies {
-    implementation 'com.google.code.gson:gson:2.6.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
 
     // RxJava
-    implementation Libs.rxJava2
-    implementation Libs.rxAndroid2
+    implementation(libs.rxjava2)
+    implementation(libs.rxandroid2)
 
     // Glide
-    implementation Libs.glide
-    annotationProcessor Libs.glideCompiler
+    implementation(libs.glide)
+    annotationProcessor(libs.glideCompiler)
 }

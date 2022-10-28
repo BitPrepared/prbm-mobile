@@ -4,8 +4,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath Libs.androidGradlePlugin
-        classpath Libs.kotlinGradlePlugin
+        classpath(libs.agp)
+        classpath(libs.kgp)
     }
 }
 
