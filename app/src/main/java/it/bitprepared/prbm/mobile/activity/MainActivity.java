@@ -16,18 +16,23 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.text.util.Linkify;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,6 +62,8 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit;
  */
 public class MainActivity extends Activity implements OnClickListener {
 
+    private final static int REQUEST_PERMISSIONS_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +89,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
             // Handling button clicks
             case R.id.btnNew:
-                Intent newprbm = new Intent(getApplicationContext(),
-                        CreatePrbmActivity.class);
-                startActivity(newprbm);
+                checkIfPermissionsAreGranted();
                 break;
             case R.id.btnList:
                 Intent login = new Intent(getApplicationContext(),
@@ -100,6 +105,44 @@ public class MainActivity extends Activity implements OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void checkIfPermissionsAreGranted() {
+        List<String> permissionsToRequest = new ArrayList<>();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(Manifest.permission.CAMERA);
+            }
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+            if (!permissionsToRequest.isEmpty()) {
+                requestPermissions(permissionsToRequest.toArray(new String[0]), REQUEST_PERMISSIONS_CODE);
+            } else {
+                startNewPrbm();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSIONS_CODE) {
+            startNewPrbm();
+        }
+    }
+
+    private void startNewPrbm() {
+        Intent newprbm = new Intent(getApplicationContext(),
+                    CreatePrbmActivity.class);
+        startActivity(newprbm);
     }
 
     /**
@@ -159,38 +202,38 @@ public class MainActivity extends Activity implements OnClickListener {
                 .create();
 
         Disposable disposable = Observable.defer(() -> {
-            List<Prbm> list = UserData.getInstance().getAllPrbm();
-            for (Prbm prbm : list) {
-                String title = escape(prbm.getTitle());
-                String authors = escape(prbm.getAuthors());
-                String filename = title + "-" + authors + ".json";
-                String json = gson.toJson(prbm);
-                try {
-                    remoteInterface.uploadPrbm(filename, json).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                List<PrbmEntity> entityList = new ArrayList<>();
-                for (PrbmUnit unit : prbm.getUnits()) {
-                    entityList.addAll(unit.getFarLeft());
-                    entityList.addAll(unit.getFarRight());
-                    entityList.addAll(unit.getNearLeft());
-                    entityList.addAll(unit.getNearRight());
-                }
-                for (PrbmEntity entity : entityList) {
-                    if (!entity.getPictureName().isEmpty()) {
-                        String picname = entity.getPictureName();
-                        String picencoded = base64Encode(entity.getPictureURI());
+                    List<Prbm> list = UserData.getInstance().getAllPrbm();
+                    for (Prbm prbm : list) {
+                        String title = escape(prbm.getTitle());
+                        String authors = escape(prbm.getAuthors());
+                        String filename = title + "-" + authors + ".json";
+                        String json = gson.toJson(prbm);
                         try {
-                            remoteInterface.uploadImage(picname, picencoded).execute();
+                            remoteInterface.uploadPrbm(filename, json).execute();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        List<PrbmEntity> entityList = new ArrayList<>();
+                        for (PrbmUnit unit : prbm.getUnits()) {
+                            entityList.addAll(unit.getFarLeft());
+                            entityList.addAll(unit.getFarRight());
+                            entityList.addAll(unit.getNearLeft());
+                            entityList.addAll(unit.getNearRight());
+                        }
+                        for (PrbmEntity entity : entityList) {
+                            if (!entity.getPictureName().isEmpty()) {
+                                String picname = entity.getPictureName();
+                                String picencoded = base64Encode(entity.getPictureURI());
+                                try {
+                                    remoteInterface.uploadImage(picname, picencoded).execute();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     }
-                }
-            }
-            return Observable.just(list);
-        })
+                    return Observable.just(list);
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(l -> {
