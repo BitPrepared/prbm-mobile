@@ -17,13 +17,11 @@
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:theme="@style/MyAppTheme">
+            android:label="@string/app_name">
         <activity
                 android:name=".activity.SplashScreenActivity"
                 android:exported="true"
-                android:screenOrientation="landscape"
-                android:theme="@style/MySplashTheme">
+                android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -36,27 +34,22 @@
         <activity
                 android:name=".activity.CreatePrbmActivity"
                 android:label="@string/title_create_prbm_activity"
-                android:screenOrientation="landscape"
-                android:theme="@style/MyAppThemeLight"/>
+                android:screenOrientation="landscape"/>
         <activity
                 android:name=".activity.PrbmActivity"
                 android:label="@string/title_prbm_activity"
-                android:screenOrientation="landscape"
-                android:theme="@style/MyAppThemeLight"/>
+                android:screenOrientation="landscape"/>
         <activity
                 android:name=".activity.ListPrbmActivity"
                 android:label="@string/list_of_prbms"
-                android:screenOrientation="landscape"
-                android:theme="@style/MyAppThemeLight"/>
+                android:screenOrientation="landscape"/>
         <activity
                 android:name=".activity.PrbmAddEntityActivity"
                 android:label="@string/choose_entity"
-                android:screenOrientation="landscape"
-                android:theme="@style/MyAppThemeLight"/>
+                android:screenOrientation="landscape"/>
         <activity
                 android:name=".activity.EntityActivity"
                 android:label="@string/entity_details"
-                android:screenOrientation="landscape"
-                android:theme="@style/MyAppTheme"/>
+                android:screenOrientation="landscape"/>
     </application>
 </manifest>

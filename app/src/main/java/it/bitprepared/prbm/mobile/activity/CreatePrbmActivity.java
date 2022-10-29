@@ -136,7 +136,7 @@ public class CreatePrbmActivity extends Activity {
             if (edtTitle.getText().length() == 0) {
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(
-                        new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+                        new ContextThemeWrapper());
 
                 alert.setTitle(R.string.fields_incomplete);
                 alert.setMessage(getString(R.string.error_no_title_prbm));
