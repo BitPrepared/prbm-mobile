@@ -1,0 +1,2316 @@
+{
+    "authors": "",
+    "date": "2022-08-24 15:33:10",
+    "note": "",
+    "place": "",
+    "time": "2022-08-24 15:34:10",
+    "title": "Squadriglia Oro",
+    "units": [
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome della località dell'ambiente osservato.",
+                "title": "Località",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la tipologia di ambiente osservato.",
+                "title": "Tipo Ambiente",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire una breve descrizione della flora circostante.",
+                "title": "Descrizione della flora",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
+                "title": "Impatto dell'uomo",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di più?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di meno?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
+                "title": "Senzazioni personali positive",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
+                "title": "Senzazioni personali nevative",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.",
+            "type": "Ambiente Naturale",
+            "id": 9,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:41:11"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "rovi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:37:17"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome della località dell'ambiente osservato.",
+                "title": "Località",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la tipologia di ambiente osservato.",
+                "title": "Tipo Ambiente",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire una breve descrizione della flora circostante.",
+                "title": "Descrizione della flora",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
+                "title": "Impatto dell'uomo",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di più?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di meno?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
+                "title": "Senzazioni personali positive",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
+                "title": "Senzazioni personali nevative",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.",
+            "type": "Ambiente Naturale",
+            "id": 9,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:41:24"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "biforcazione sentiero",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:38:32"
+          }
+        ],
+        "longitude": 11.47991,
+        "latitude": 45.549694,
+        "azimut": 10,
+        "meter": 12.78,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "6/8",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "piante non identificabili da noi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:43:32"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "sentiero ",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:42:32"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:42:56"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "riva con edera",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:42:14"
+          }
+        ],
+        "longitude": 11.479964,
+        "latitude": 45.549312,
+        "azimut": 350,
+        "meter": 24.85,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "10/12",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "carpino",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:45:56"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco con sentiero",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:43:05"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco e sottobosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:46:30"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome della località dell'ambiente osservato.",
+                "title": "Località",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la tipologia di ambiente osservato.",
+                "title": "Tipo Ambiente",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire una breve descrizione della flora circostante.",
+                "title": "Descrizione della flora",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
+                "title": "Impatto dell'uomo",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di più?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di meno?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
+                "title": "Senzazioni personali positive",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
+                "title": "Senzazioni personali nevative",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.",
+            "type": "Ambiente Naturale",
+            "id": 9,
+            "caption": "riva con arbrusti",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:44:35"
+          }
+        ],
+        "longitude": 11.479629,
+        "latitude": 45.549635,
+        "azimut": 355,
+        "meter": 43.31,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "alloro e altri alber",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:49:52"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome della località dell'ambiente osservato.",
+                "title": "Località",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la tipologia di ambiente osservato.",
+                "title": "Tipo Ambiente",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire una breve descrizione della flora circostante.",
+                "title": "Descrizione della flora",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
+                "title": "Impatto dell'uomo",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di più?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di meno?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
+                "title": "Senzazioni personali positive",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
+                "title": "Senzazioni personali nevative",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.",
+            "type": "Ambiente Naturale",
+            "id": 9,
+            "caption": "bosco selvaggio",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:48:45"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "campi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:50:11"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "rovi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:49:28"
+          }
+        ],
+        "longitude": 11.479683,
+        "latitude": 45.549484,
+        "azimut": 317,
+        "meter": 30.53,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "riva boscosa",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:51:07"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome della località dell'ambiente osservato.",
+                "title": "Località",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la tipologia di ambiente osservato.",
+                "title": "Tipo Ambiente",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire una breve descrizione della flora circostante.",
+                "title": "Descrizione della flora",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
+                "title": "Impatto dell'uomo",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di più?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di meno?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
+                "title": "Senzazioni personali positive",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
+                "title": "Senzazioni personali nevative",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.",
+            "type": "Ambiente Naturale",
+            "id": 9,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:50:19"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "Campi di granturco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:52:38"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "faggio e altri alberi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:51:46"
+          }
+        ],
+        "longitude": 11.47987,
+        "latitude": 45.548623,
+        "azimut": 338,
+        "meter": 22.01,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "acero e rovi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:58:35"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:58:19"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco e campi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:58:47"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "aceri",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 15:57:58"
+          }
+        ],
+        "longitude": 11.48058,
+        "latitude": 45.547038,
+        "azimut": 343,
+        "meter": 61.06,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "castagi e cespugli",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:05:55"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome della località dell'ambiente osservato.",
+                "title": "Località",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la tipologia di ambiente osservato.",
+                "title": "Tipo Ambiente",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire una breve descrizione della flora circostante.",
+                "title": "Descrizione della flora",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Descrivere quale è stato l'impatto dell'uomo sull'ambiente osservato.",
+                "title": "Impatto dell'uomo",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di più in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di più?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica ciò che ti è piaciuto di meno in questo ambiente naturale.",
+                "title": "Cosa ti è piaciuto di meno?",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni positive.",
+                "title": "Senzazioni personali positive",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Indica se la visione di questo ambiente di ha suscitato senzazioni negative.",
+                "title": "Senzazioni personali nevative",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati.",
+            "type": "Ambiente Naturale",
+            "id": 9,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:06:40"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "campi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:06:02"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "castagni",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:05:18"
+          }
+        ],
+        "longitude": 11.47991,
+        "latitude": 45.547698,
+        "azimut": 346,
+        "meter": 42.6,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "robinia",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:11:53"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "cespugli ",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:09:56"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:12:08"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "alloro e castagni",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:10:41"
+          }
+        ],
+        "longitude": 11.478594,
+        "latitude": 45.54945,
+        "azimut": 348,
+        "meter": 51.12,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "aceri ed altro",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:16:00"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "noccioli",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:15:44"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:17:18"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "riva con massi e cespugli",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:15:21"
+          }
+        ],
+        "longitude": 11.476406,
+        "latitude": 45.55209,
+        "azimut": 340,
+        "meter": 19.17,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "noccioli e sambuco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:23:34"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "osco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:22:05"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "sentiero",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:25:20"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "noccioli e rovi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:23:25"
+          }
+        ],
+        "longitude": 11.474421,
+        "latitude": 45.553191,
+        "azimut": 130,
+        "meter": 38.34,
+        "minutes": 0
+      },
+      {
+        "entitiesNearRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "noccioli",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:29:35"
+          }
+        ],
+        "entitiesFarLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "sentiero",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:28:47"
+          }
+        ],
+        "entitiesFarRight": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserisci la descrizione dell'osservazione",
+                "title": "Descrizione",
+                "type": "LONG_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti.",
+            "type": "Altro",
+            "id": 2,
+            "caption": "bosco",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:29:52"
+          }
+        ],
+        "entitiesNearLeft": [
+          {
+            "extraFields": [
+              {
+                "value": "",
+                "hint": "Inserire il nome comune della pianta.",
+                "title": "Nome comune",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il nome scientifico della pianta.",
+                "title": "Nome scientifico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "0",
+                "hint": "Altezza Media",
+                "title": "Altezza media (m): ",
+                "type": "NUMERIC"
+              },
+              {
+                "value": "",
+                "hint": "Inserire il portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.) ",
+                "title": "Portamento",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulla corteccia della pianta.",
+                "title": "Corteccia",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+                "title": "Foglie",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire informazioni sui fiori e sui frutti della pianta.",
+                "title": "Fiori e frutti",
+                "type": "LONG_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+                "title": "Habitat tipico",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              },
+              {
+                "value": "",
+                "hint": "Inserire eventuali proprietà di questa pianta.",
+                "title": "Proprietà",
+                "type": "SHORT_TEXT"
+              }
+            ],
+            "typeDesc": "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione",
+            "type": "Albero/Arbusto",
+            "id": 12,
+            "caption": "Robinia e rovi",
+            "description": "",
+            "pictureName": null,
+            "timestamp": "1970-02-01 16:28:10"
+          }
+        ],
+        "longitude": 11.474014,
+        "latitude": 45.550982,
+        "azimut": 344,
+        "meter": 27.69,
+        "minutes": 0
+      }
+    ],
+    "version": "v0.4.4"
+  }
