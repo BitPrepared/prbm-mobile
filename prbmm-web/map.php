@@ -22,7 +22,7 @@
 jQuery(function($) {
     // Asynchronously Load the map API 
     var script = document.createElement('script');
-    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBAbXLeTIxk4zPmiA7qmiWWg4HbZr4_Vvc&sensor=false&callback=initialize";
+    script.src = "http://maps.googleapis.com/maps/api/js?key=<TODO_REPLACE_WITH_YOUR_KEY>&sensor=false&callback=initialize";
     document.body.appendChild(script);
 });
 
