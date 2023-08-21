@@ -1,17 +1,16 @@
-buildscript {
+pluginManagement {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-    }
-    dependencies {
-        classpath(libs.agp)
-        classpath(libs.kgp)
     }
 }
 
-allprojects {
+dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
     }
 }
+
+include(":app")

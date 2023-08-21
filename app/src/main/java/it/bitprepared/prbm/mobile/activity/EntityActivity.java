@@ -312,6 +312,7 @@ public class EntityActivity extends Activity {
         capturedImageUri = Uri.fromFile(destfile);
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         i.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri);
+        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(i, CAMERA_RESULT);
     }
 

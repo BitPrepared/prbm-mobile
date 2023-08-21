@@ -135,8 +135,7 @@ public class CreatePrbmActivity extends Activity {
             // Checking if Title is not empty
             if (edtTitle.getText().length() == 0) {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(
-                        new ContextThemeWrapper());
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
                 alert.setTitle(R.string.fields_incomplete);
                 alert.setMessage(getString(R.string.error_no_title_prbm));
