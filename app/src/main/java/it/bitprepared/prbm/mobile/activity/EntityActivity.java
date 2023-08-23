@@ -183,8 +183,7 @@ public class EntityActivity extends Activity {
 
             // Checking if caption is empty
             if (edtCaption.getText().length() == 0) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(
-                    new ContextThemeWrapper());
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setTitle(R.string.fields_incomplete);
                 alert.setMessage(getString(R.string.you_must_insert_caption));
                 alert.setIcon(R.drawable.ic_alert_black_48dp);
