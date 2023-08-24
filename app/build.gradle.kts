@@ -1,6 +1,8 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    alias(libs.plugins.application)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics)
+    alias(libs.plugins.kotlin)
 }
 
 android {
@@ -35,4 +37,8 @@ dependencies {
     // Glide
     implementation(libs.glide)
     annotationProcessor(libs.glideCompiler)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 }
