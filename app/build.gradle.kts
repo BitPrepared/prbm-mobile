@@ -9,10 +9,10 @@ android {
 
     defaultConfig {
         applicationId = "it.bitprepared.prbm.mobile"
-        minSdk = 15
+        minSdk = 19
         targetSdk = 34
-        versionCode = 13
-        versionName = "v0.6.2"
+        versionCode = 14
+        versionName = "v0.7.0"
     }
 
     buildTypes {
