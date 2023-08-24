@@ -25,7 +25,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:text="@string/create_new_prbm"
-            android:textColor="@color/Blue"
+            android:textColor="@color/blue"
             android:textSize="28sp"/>
 
 
@@ -87,7 +87,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toLeftOf="@id/datParent"
             android:text="@string/insert_data_description"
-            android:textColor="@color/Blue"
+            android:textColor="@color/blue"
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone"/>
@@ -102,7 +102,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toLeftOf="@id/datParent"
             android:text="@string/title"
-            android:textColor="@color/Blue"
+            android:textColor="@color/blue"
             android:textSize="18sp"/>
 
         <EditText
@@ -127,7 +127,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toLeftOf="@id/datParent"
             android:text="@string/authors"
-            android:textColor="@color/Blue"
+            android:textColor="@color/blue"
             android:textSize="18sp"/>
 
         <EditText
@@ -152,7 +152,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toLeftOf="@id/datParent"
             android:text="@string/place"
-            android:textColor="@color/Blue"
+            android:textColor="@color/blue"
             android:textSize="18sp"/>
 
         <EditText
@@ -177,7 +177,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toLeftOf="@id/datParent"
             android:text="@string/note"
-            android:textColor="@color/Blue"
+            android:textColor="@color/blue"
             android:textSize="18sp"/>
 
         <EditText

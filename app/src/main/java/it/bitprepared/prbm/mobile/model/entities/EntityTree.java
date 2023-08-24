@@ -115,6 +115,6 @@ public class EntityTree extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.TreeBack;
+        return R.color.tree_back;
     }
 }

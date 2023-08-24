@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
-                    android:textColor="@color/White"
+                    android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold|italic"/>
 
@@ -43,7 +43,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:text="Didascalia"
-                    android:textColor="@color/White"
+                    android:textColor="@color/white"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -55,8 +55,8 @@
                     android:layout_marginStart="15dp"
                     android:ems="10"
                     android:hint="Inserisci una didascalia"
-                    android:textColorHint="@color/LightGray"
-                    android:textColor="@color/White"/>
+                    android:textColorHint="@color/light_gray"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:text="Descrizione"
-                    android:textColor="@color/White"
+                    android:textColor="@color/white"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -77,8 +77,8 @@
                     android:layout_marginStart="15dp"
                     android:ems="10"
                     android:hint="Inserisci una breve descrizione"
-                    android:textColorHint="@color/LightGray"
-                    android:textColor="@color/White"/>
+                    android:textColorHint="@color/light_gray"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
                     android:text="Orario"
-                    android:textColor="@color/White"
+                    android:textColor="@color/white"
                     android:textSize="18sp"/>
 
                 <TimePicker

@@ -110,6 +110,6 @@ public class EntityFlower extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.FlowerBack;
+        return R.color.flower_black;
     }
 }

@@ -102,7 +102,7 @@ public class EntityBuilding extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.BuildingBack;
+        return R.color.building_back;
     }
 
 }

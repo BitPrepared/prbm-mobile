@@ -115,7 +115,7 @@ public class EntityInterview extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.InterviewBack;
+        return R.color.interview_back;
     }
 
 }

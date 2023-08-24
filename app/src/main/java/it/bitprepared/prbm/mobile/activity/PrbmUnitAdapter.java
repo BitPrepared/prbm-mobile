@@ -109,13 +109,13 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
 
         if (unit.isFlagAcquiringGPS()){
             viewHolder.txtGPS.setText("Coordinate: Acquisizione...");
-            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.Black));
+            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.black));
         } else if (unit.getLatitude() == 0 && unit.getLongitude() == 0 ){
             viewHolder.txtGPS.setText("Coordinate: Assenti");
-            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.Red));
+            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.red));
         } else {
             viewHolder.txtGPS.setText("Coordinate: "  + unit.getLatitude() + " - " + unit.getLongitude());
-            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.IconGreen));
+            viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.green));
         }
         // Setting onclick listner for add buttons
         Button[]
@@ -185,7 +185,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                 b.setLayoutParams(param);
                 b.setFocusable(false);
                 b.setBackgroundResource(entity.getIdButtonImage());
-                b.setTextColor(c.getResources().getColor(R.color.White));
+                b.setTextColor(c.getResources().getColor(R.color.white));
                 final int column = i;
                 b.setOnClickListener(new View.OnClickListener() {
                     @Override

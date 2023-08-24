@@ -53,9 +53,9 @@ public class EntityViewHelper {
         EditText shortEdt = new EditText(c);
         shortEdt.setId(ID);
 
-        descText.setTextColor(c.getResources().getColor(R.color.White));
-        shortEdt.setTextColor(c.getResources().getColor(R.color.White));
-        shortEdt.setHintTextColor(c.getResources().getColor(R.color.LightGray));
+        descText.setTextColor(c.getResources().getColor(R.color.white));
+        shortEdt.setTextColor(c.getResources().getColor(R.color.white));
+        shortEdt.setHintTextColor(c.getResources().getColor(R.color.light_gray));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 0);
@@ -87,9 +87,9 @@ public class EntityViewHelper {
         EditText longEdt = new EditText(c);
         longEdt.setId(ID);
 
-        descText.setTextColor(c.getResources().getColor(R.color.White));
-        longEdt.setTextColor(c.getResources().getColor(R.color.White));
-        longEdt.setHintTextColor(c.getResources().getColor(R.color.LightGray));
+        descText.setTextColor(c.getResources().getColor(R.color.white));
+        longEdt.setTextColor(c.getResources().getColor(R.color.white));
+        longEdt.setHintTextColor(c.getResources().getColor(R.color.light_gray));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 0);
@@ -129,8 +129,8 @@ public class EntityViewHelper {
         EditText numericEditText = new EditText(c);
         numericEditText.setId(ID);
 
-        numericTextView.setTextColor(c.getResources().getColor(R.color.White));
-        numericEditText.setTextColor(c.getResources().getColor(R.color.White));
+        numericTextView.setTextColor(c.getResources().getColor(R.color.white));
+        numericEditText.setTextColor(c.getResources().getColor(R.color.white));
 
         LinearLayout.LayoutParams paramsSon = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 0, 0, 0);
@@ -165,7 +165,7 @@ public class EntityViewHelper {
         DatePicker datePickerView = new DatePicker(c);
         datePickerView.setId(ID);
 
-        shortTextView.setTextColor(c.getResources().getColor(R.color.White));
+        shortTextView.setTextColor(c.getResources().getColor(R.color.white));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 0);
         shortTextView.setLayoutParams(params);

@@ -133,7 +133,7 @@ public class EntityWeather extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.ForecastBack;
+        return R.color.forecast_back;
     }
 
 }

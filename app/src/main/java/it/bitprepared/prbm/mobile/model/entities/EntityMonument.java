@@ -121,7 +121,7 @@ public class EntityMonument extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.MonumentBack;
+        return R.color.monument_back;
     }
 
 }

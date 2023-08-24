@@ -108,6 +108,6 @@ public class EntityNews extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.NewsBack;
+        return R.color.news_back;
     }
 }

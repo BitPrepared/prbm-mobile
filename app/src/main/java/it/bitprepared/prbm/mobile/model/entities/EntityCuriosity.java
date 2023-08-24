@@ -97,6 +97,6 @@ public class EntityCuriosity extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.CuriosityBack;
+        return R.color.curiosity_back;
     }
 }

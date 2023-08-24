@@ -109,6 +109,6 @@ public class EntityPanorama extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.PanoramaBack;
+        return R.color.panorama_back;
     }
 }

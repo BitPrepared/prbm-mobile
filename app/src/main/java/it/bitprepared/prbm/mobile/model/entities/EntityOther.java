@@ -95,7 +95,7 @@ public class EntityOther extends PrbmEntity {
 
     @Override
     public int getIdBackImage() {
-        return R.color.OtherBack;
+        return R.color.other_back;
     }
 
 }
