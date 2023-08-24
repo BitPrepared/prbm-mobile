@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="it.bitprepared.prbm.mobile.activity.PrbmActivity" >
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.PrbmActivity">
 
     <item
         android:id="@+id/parameters"
         android:title="@string/parameters"
         android:icon="@drawable/ic_routes_white_36dp"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         />
 
     <item
         android:id="@+id/save"
         android:title="@string/save"
         android:icon="@drawable/ic_content_save_white_36dp"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         />
 
     <item
         android:id="@+id/exit"
         android:title="@string/exit"
         android:icon="@drawable/ic_exit_to_app_white_36dp"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         />
 
 </menu>
