@@ -34,6 +34,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
@@ -41,7 +43,7 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit;
 /**
  * Class responsible for visualizing a single Prbm
  */
-public class PrbmActivity extends Activity {
+public class PrbmActivity extends AppCompatActivity {
 
     /** Debug TAG */
     private final static String TAG = "PrbmActivity";

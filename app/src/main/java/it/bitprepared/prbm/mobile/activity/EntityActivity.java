@@ -43,6 +43,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.PrbmUnit;
@@ -61,7 +63,7 @@ import java.util.Date;
 /**
  * Class responsible for visualizing and modifying a single PrbmEntity
  */
-public class EntityActivity extends Activity {
+public class EntityActivity extends AppCompatActivity {
 
     /** Debug TAG */
     private final static String TAG = "EntityActivity";

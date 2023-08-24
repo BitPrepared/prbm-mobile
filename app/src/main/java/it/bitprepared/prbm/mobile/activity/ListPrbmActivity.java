@@ -32,6 +32,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.Prbm;
 
@@ -40,7 +42,7 @@ import java.util.List;
 /**
  * Activity responsible of PRBM list visualization
  */
-public class ListPrbmActivity extends Activity implements OnItemClickListener {
+public class ListPrbmActivity extends AppCompatActivity implements OnItemClickListener {
 
     /** Rif to Listview of Prbms */
     private ListView lstPrbms;

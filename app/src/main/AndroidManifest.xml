@@ -28,9 +28,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="m">
         <activity
             android:name=".activity.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -40,10 +42,12 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_main"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.CreatePrbmActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_create_prbm_activity"
             android:screenOrientation="landscape" />
         <activity

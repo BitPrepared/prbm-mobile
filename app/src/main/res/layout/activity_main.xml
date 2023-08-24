@@ -1,98 +1,68 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             tools:context="it.bitprepared.prbm.mobile.activity.MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:padding="@dimen/grid_doub"
+    app:flow_verticalGap="@dimen/grid_doub"
+    tools:context="it.bitprepared.prbm.mobile.activity.MainActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/main_splash_image"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_main"/>
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:textColor="@color/md_theme_light_primary"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/md_theme_light_primary"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welcome" />
 
-        <Button
-            android:id="@+id/btnAbout"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_information_white_36dp"
-            android:drawableStart="@drawable/ic_information_white_36dp"
-            android:padding="10dp"
-            android:text="@string/about"/>
+    <Button
+        android:id="@+id/btn_new"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_prbm"
+        app:icon="@drawable/ic_file_document_white_36dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_list"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/btnSyncro"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_above="@id/btnAbout"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_sync_white_36dp"
-            android:drawableStart="@drawable/ic_sync_white_36dp"
-            android:padding="10dp"
-            android:visibility="visible"
-            android:text="@string/sync"/>
+    <Button
+        android:id="@+id/btn_list"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="@string/list_prbm"
+        app:icon="@drawable/ic_view_list_white_36dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_syncro"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/btnList"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_above="@id/btnSyncro"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_view_list_white_36dp"
-            android:drawableStart="@drawable/ic_view_list_white_36dp"
-            android:padding="10dp"
-            android:text="@string/list_prbm" />
+    <Button
+        android:id="@+id/btn_syncro"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sync"
+        app:icon="@drawable/ic_sync_white_36dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_about"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/btnNew"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_above="@id/btnList"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_file_document_white_36dp"
-            android:drawableStart="@drawable/ic_file_document_white_36dp"
-            android:padding="10dp"
-            android:text="@string/new_prbm" />
+    <Button
+        android:id="@+id/btn_about"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="@string/list_prbm"
+        app:icon="@drawable/ic_information_white_36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="10dp"
-            android:text="@string/welcome"
-            android:textColor="@color/blue"
-            android:visibility="visible"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/welcome"
-            android:layout_margin="10dp"
-            android:text="@string/app_name"
-            android:textColor="@color/blue"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
-
-    </RelativeLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,6 @@
 package it.bitprepared.prbm.mobile.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -39,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,7 +60,7 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit;
 /**
  * Activity responsible for main menu visualization
  */
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
   private final static int REQUEST_PERMISSIONS_CODE = 1;
   private final static String TAG = "MainActivity";
@@ -73,10 +73,10 @@ public class MainActivity extends Activity implements OnClickListener {
     setContentView(R.layout.activity_main);
 
     // Setting up button event listeners
-    Button btnNew = findViewById(R.id.btnNew);
-    Button btnList = findViewById(R.id.btnList);
-    Button btnSync = findViewById(R.id.btnSyncro);
-    Button btnAbout = findViewById(R.id.btnAbout);
+    Button btnNew = findViewById(R.id.btn_new);
+    Button btnList = findViewById(R.id.btn_list);
+    Button btnSync = findViewById(R.id.btn_syncro);
+    Button btnAbout = findViewById(R.id.btn_about);
 
     btnNew.setOnClickListener(this);
     btnList.setOnClickListener(this);
@@ -86,15 +86,15 @@ public class MainActivity extends Activity implements OnClickListener {
 
   @Override
   public void onClick(View v) {
-    if (v.getId() == R.id.btnNew) {
+    if (v.getId() == R.id.btn_new) {
       checkIfPermissionsAreGranted();
-    } else if (v.getId() == R.id.btnList) {
+    } else if (v.getId() == R.id.btn_list) {
       Intent login = new Intent(getApplicationContext(),
               ListPrbmActivity.class);
       startActivity(login);
-    } else if (v.getId() == R.id.btnSyncro) {
+    } else if (v.getId() == R.id.btn_syncro) {
       uploadPrbmJSONs();
-    } else if (v.getId() == R.id.btnAbout) {
+    } else if (v.getId() == R.id.btn_about) {
       showAboutDialog();
     }
   }

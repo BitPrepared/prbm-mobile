@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
 import it.bitprepared.prbm.mobile.model.entities.EntityBuilding;
@@ -35,7 +37,7 @@ import java.util.List;
 /**
  * Class responsible for visualizing list of available entities
  */
-public class PrbmAddEntityActivity extends Activity  {
+public class PrbmAddEntityActivity extends AppCompatActivity {
 
     /** Debug TAG */
     private final static String TAG = "PrbmAddEntityActivity";

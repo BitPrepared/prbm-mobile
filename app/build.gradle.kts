@@ -25,6 +25,7 @@ android {
 }
 dependencies {
     implementation(libs.androidx.annotations)
+    implementation(libs.mdc)
 
     implementation(libs.gson)
     implementation(libs.retrofit)

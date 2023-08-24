@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import it.bitprepared.prbm.mobile.R;
 
 import java.io.InputStream;
@@ -40,7 +42,7 @@ import java.util.List;
 /**
  * Activity responsible for showing an initial splash screen.
  */
-public class SplashScreenActivity extends Activity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     /** Debug TAG */
     private final static String TAG = "SplashScreen";

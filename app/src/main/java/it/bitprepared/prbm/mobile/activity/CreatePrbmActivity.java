@@ -16,6 +16,8 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
+import static android.content.Intent.getIntent;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,6 +33,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,7 +47,7 @@ import it.bitprepared.prbm.mobile.model.Prbm;
 /**
  * Activity responsible for new PRBM Creation
  */
-public class CreatePrbmActivity extends Activity {
+public class CreatePrbmActivity extends AppCompatActivity {
 
     /** Reference to PRBM Title textbox */
     private EditText edtTitle;
