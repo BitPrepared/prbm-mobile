@@ -7,7 +7,8 @@
     <dimen name="grid_sing">8dp</dimen>
     <dimen name="grid_doub">16dp</dimen>
 
-    <dimen name="text_title">26sp</dimen>
+    <dimen name="text_title">28sp</dimen>
+    <dimen name="text_subtitle">16sp</dimen>
 
 
 </resources>

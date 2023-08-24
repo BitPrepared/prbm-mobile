@@ -16,18 +16,14 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,7 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         // Showing version number
-        TextView vers = (TextView) findViewById(R.id.versionNameSplash);
+        TextView vers = (TextView) findViewById(R.id.text_version_name);
         try {
             vers.setText(this.getPackageManager().getPackageInfo(
                     this.getPackageName(), 0).versionName);
