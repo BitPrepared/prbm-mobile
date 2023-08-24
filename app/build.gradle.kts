@@ -11,8 +11,8 @@ android {
         applicationId = "it.bitprepared.prbm.mobile"
         minSdk = 15
         targetSdk = 34
-        versionCode = 11
-        versionName = "v0.6.1"
+        versionCode = 13
+        versionName = "v0.6.2"
     }
 
     buildTypes {

@@ -282,7 +282,7 @@ public class EntityActivity extends Activity {
     private void chooseFromGallery() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent, GALLERY_RESULT);
+        startActivityForResult(Intent.createChooser(intent, "Choose from Gallery"), GALLERY_RESULT);
     }
 
     private void takePicture() {
@@ -358,6 +358,7 @@ public class EntityActivity extends Activity {
             Log.d(TAG, "capturedImage " + capturedImageUri.getPath());
         } else if (requestCode == GALLERY_RESULT) {
             if (resultCode != RESULT_OK) {
+                Toast.makeText(this, "Impossibile caricare l'immagine dalla galleria", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (data == null) {

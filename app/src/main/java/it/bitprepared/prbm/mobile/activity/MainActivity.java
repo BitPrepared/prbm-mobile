@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.util.Linkify;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,6 +63,7 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit;
 public class MainActivity extends Activity implements OnClickListener {
 
   private final static int REQUEST_PERMISSIONS_CODE = 1;
+  private final static String TAG = "MainActivity";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +203,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 String filename = title + "-" + authors + ".json";
                 String json = gson.toJson(prbm);
                 try {
+                  Log.d(TAG, "Uploading JSON to remote server: " + filename);
                   remoteInterface.uploadPrbm(filename, json).execute();
                 } catch (IOException e) {
                   e.printStackTrace();
@@ -212,11 +215,22 @@ public class MainActivity extends Activity implements OnClickListener {
                   entityList.addAll(unit.getNearLeft());
                   entityList.addAll(unit.getNearRight());
                 }
+                int imagesToUpload = 0;
                 for (PrbmEntity entity : entityList) {
                   if (!entity.getPictureName().isEmpty()) {
+                    imagesToUpload++;
+                  }
+                }
+                Log.d(TAG, "Images to upload for this PRBM: " + imagesToUpload);
+                int index = 0;
+
+                for (PrbmEntity entity : entityList) {
+                  if (!entity.getPictureName().isEmpty()) {
+                    index++;
                     String picname = entity.getPictureName();
                     String picencoded = base64Encode(entity.getPictureURI());
                     try {
+                      Log.d(TAG, "Uploading image " + index + "/" + imagesToUpload + " to remote server: " + picname);
                       remoteInterface.uploadImage(picname, picencoded).execute();
                     } catch (IOException e) {
                       e.printStackTrace();
@@ -232,6 +246,7 @@ public class MainActivity extends Activity implements OnClickListener {
               barProgressDialog.dismiss();
               Toast.makeText(MainActivity.this, l.size() + " PRBM Sincronizzati", Toast.LENGTH_SHORT).show();
             }, t -> {
+              barProgressDialog.dismiss();
               t.printStackTrace();
               Toast.makeText(MainActivity.this, "Errore durante la Sincronizzazione!", Toast.LENGTH_SHORT).show();
             });
@@ -249,6 +264,8 @@ public class MainActivity extends Activity implements OnClickListener {
       image.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS);
       return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     } catch (IOException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
       e.printStackTrace();
     }
     return "";

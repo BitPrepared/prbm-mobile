@@ -262,6 +262,11 @@ public class UserData {
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File (root.getAbsolutePath() + "/PRBM");
             dir.mkdirs();
+            for (File existingFile : dir.listFiles()) {
+                if (existingFile.getName().endsWith(".json")) {
+                    existingFile.delete();
+                }
+            }
             String json;
             for (Prbm p : this.prbmList){
                 json = g.toJson(p);
