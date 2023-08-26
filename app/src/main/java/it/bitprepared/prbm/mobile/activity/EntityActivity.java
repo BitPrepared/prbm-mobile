@@ -346,6 +346,7 @@ public class EntityActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         PrbmEntity entity = UserData.getInstance().getEntity();
 
         if (requestCode == CAMERA_RESULT) {
