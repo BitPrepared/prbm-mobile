@@ -15,12 +15,17 @@ android {
         targetSdk = 34
         versionCode = 14
         versionName = "v0.7.0"
+        multiDexEnabled = true
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
         }
+    }
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
     }
 }
 dependencies {
@@ -42,4 +47,7 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
+    implementation(libs.androidx.multidex)
+    coreLibraryDesugaring(libs.desugarjdklibs)
 }

@@ -50,7 +50,10 @@
     <string name="place">Località</string>
     <string name="place_hint">Inserisci il nome della località relativa al percorso rettificato</string>
     <string name="date">Data</string>
-    <string name="note_hint">Insirisci eventuali note sul percorso rettificato</string>
+    <string name="date_hint">Inserisci la data del percorso rettificato</string>
+    <string name="time">Ora</string>
+    <string name="time_hint">Inserisci l\'ora del percorso rettificato</string>
+    <string name="note_hint">Inserisci eventuali note sul percorso rettificato</string>
     <string name="title_create_prbm_activity">Creazione nuovo PRBM</string>
     <string name="title_prbm_activity">Modifica il PRBM</string>
     <string name="error_no_title_prbm">Per poter continuare è necessario inserire almeno il titolo del percorso rettificato</string>
@@ -101,5 +104,7 @@
     <string name="get_gps_coord">Ottieni coordinate GPS</string>
     <string name="coordiante_assenti">Coordiante: Assenti</string>
     <string name="foto">Foto</string>
+    <string name="pick_prbm_date">Scegli la data del PRBM</string>
+    <string name="pick_prbm_time">Scegli l\'ora del PRBM</string>
 
 </resources>

@@ -1,199 +1,124 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".activity.CreatePrbmActivity">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/background_splash_image"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_prbm"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusableInTouchMode="true">
+        android:padding="@dimen/grid_doub"
+        tools:context=".activity.CreatePrbmActivity">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/text_create_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
             android:text="@string/create_new_prbm"
-            android:textColor="@color/blue"
-            android:textSize="28sp"/>
+            android:textSize="@dimen/text_title" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinput_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            app:helperText="@string/title_hint"
+            app:helperTextEnabled="true">
 
-        <LinearLayout
-            android:id="@+id/datParent"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/textView1"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <!--<TextView-->
-                <!--android:id="@+id/textView8"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginBottom="10dp"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:text="@string/prbm_date"-->
-                <!--android:textColor="@color/Blue"-->
-                <!--android:textSize="18sp"/>-->
-
-            <DatePicker
-                android:id="@+id/datDate"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_title"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                android:calendarViewShown="false"
-                android:spinnersShown="false"/>
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView9"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginBottom="10dp"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:text="@string/prbm_time"-->
-                <!--android:textColor="@color/Blue"-->
-                <!--android:textSize="18sp"/>-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinput_authors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/authors"
+            app:helperText="@string/authors_hint"
+            app:helperTextEnabled="true">
 
-            <TimePicker
-                android:id="@+id/datTime"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_authors"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                />
-        </LinearLayout>
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textView1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:text="@string/insert_data_description"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textView3"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:text="@string/title"
-            android:textColor="@color/blue"
-            android:textSize="18sp"/>
-
-        <EditText
-            android:id="@+id/edtTitle"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinput_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textView4"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:ems="10"
-            android:hint="@string/title_hint"/>
+            android:hint="@string/place"
+            app:helperText="@string/place_hint"
+            app:helperTextEnabled="true">
 
-        <TextView
-            android:id="@+id/textView5"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinput_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/edtTitle"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:text="@string/authors"
-            android:textColor="@color/blue"
-            android:textSize="18sp"/>
+            android:hint="@string/date"
+            android:inputType="date"
+            app:helperText="@string/date_hint"
+            app:helperTextEnabled="true">
 
-        <EditText
-            android:id="@+id/edtAuthors"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textView5"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:ems="10"
-            android:hint="@string/authors_hint"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView6"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinput_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/edtAuthors"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:text="@string/place"
-            android:textColor="@color/blue"
-            android:textSize="18sp"/>
+            android:hint="@string/time"
+            app:helperText="@string/time_hint"
+            app:helperTextEnabled="true">
 
-        <EditText
-            android:id="@+id/edtPlace"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinput_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textView6"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:ems="10"
-            android:hint="@string/place_hint"/>
+            android:hint="@string/note"
+            app:helperText="@string/note_hint"
+            app:helperTextEnabled="true">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow_create"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/edtPlace"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:text="@string/note"
-            android:textColor="@color/blue"
-            android:textSize="18sp"/>
+            app:constraint_referenced_ids="text_create_title,textinput_title,textinput_authors,textinput_place,textinput_date,textinput_time,textinput_notes"
+            app:flow_verticalBias="0"
+            app:flow_verticalGap="@dimen/grid_doub"
+            app:flow_verticalStyle="packed"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edtNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textView7"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/datParent"
-            android:hint="@string/note_hint"
-            android:lines="3"
-            android:maxLines="3"
-            android:minLines="3"
-            android:singleLine="false"/>
 
-    </RelativeLayout>
-</FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
