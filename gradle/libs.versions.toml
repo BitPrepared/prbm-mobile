@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.1"
+agp = "8.1.2"
 gms = "4.4.0"
 annotations = "1.7.0"
 appcompat = "1.6.1"
