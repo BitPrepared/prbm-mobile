@@ -295,6 +295,7 @@ public class PrbmActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         // Inhibits back button press, and ask if user is sure to back
         confirmExit();
     }
