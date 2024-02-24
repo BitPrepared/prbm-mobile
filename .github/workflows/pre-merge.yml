@@ -28,7 +28,7 @@ jobs:
           echo $GOOGLE_SERVICES_JSON > app/google-services.json
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
 
       - name: Run Gradle
         run: ./gradlew build
