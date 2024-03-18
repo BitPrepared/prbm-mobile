@@ -17,7 +17,7 @@ rxjava = "2.2.21"
 desugaring = "2.0.4"
 # Do not bump Retrofit to avoid OkHTTP 4.x which needs Android 5.0+
 #noinspection GradleDependency
-retrofit = "2.1.0"
+retrofit = "2.9.0"
 
 [libraries]
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
