@@ -2,7 +2,7 @@
 agp = "8.4.1"
 gms = "4.4.1"
 annotations = "1.8.0"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 constraintlayout = "2.2.0-alpha13"
 firebase = "32.8.1"
 crashlytics = "2.9.9"
