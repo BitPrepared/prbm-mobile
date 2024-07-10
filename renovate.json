@@ -2,5 +2,17 @@
   "extends": [
     "config:base",
     ":automergeMinor"
+  ],
+  "packageRules": [
+    {
+      "description": "Exclude Gradle dependencies that can't be updated due to minSdkVersion limits",
+      "matchManagers": [
+        "gradle"
+      ],
+      "ignoreDeps": [
+        "com.squareup.retrofit2:retrofit",
+        "com.squareup.retrofit2:converter-gson"
+      ]
+    }
   ]
 }
