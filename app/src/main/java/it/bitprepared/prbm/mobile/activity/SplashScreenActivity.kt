@@ -1,0 +1,67 @@
+/*   This file is part of PrbmMobile
+ *
+ *   PrbmMobile is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   PrbmMobile is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with PrbmMobile.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package it.bitprepared.prbm.mobile.activity
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.os.Bundle
+import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import it.bitprepared.prbm.mobile.R
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+
+/**
+ * Activity responsible for showing an initial splash screen.
+ */
+// We cannot use the new SplashScreen API, as the androidx.splashscreen has minSdk 23
+@SuppressLint("CustomSplashScreen")
+class SplashScreenActivity : AppCompatActivity() {
+
+    private val viewModel: SplashScreenViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Locking orientation to landscape
+        // TODO Remove orientation lock
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        setContentView(R.layout.activity_splash)
+
+        // Showing version number
+        findViewById<TextView>(R.id.text_version_name).text =
+            this.packageManager.getPackageInfo(this.packageName, 0).versionName
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.load(this@SplashScreenActivity)
+                viewModel.appLoadedState.collect {
+                    if (it) {
+                        val main = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                        startActivity(main)
+                        finish()
+                    }
+                }
+            }
+        }
+    }
+}
+

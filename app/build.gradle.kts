@@ -28,8 +28,17 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
 }
+
+kotlin {
+    jvmToolchain(17)
+}
+
 dependencies {
     implementation(libs.androidx.annotations)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.mdc)
 
     implementation(libs.gson)
