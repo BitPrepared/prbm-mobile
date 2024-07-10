@@ -1,44 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_splash"
-    android:orientation="vertical">
+    android:background="@android:color/white"
+    android:layout_gravity="center"
+    >
 
-    <TextView
-        android:id="@+id/text_version_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end" />
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal"
-        android:text="@string/app_name_short"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_title" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:gravity="center_horizontal"
-        android:text="@string/app_name_description"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_subtitle"
-        android:textStyle="italic" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressSplash"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/grid_doub"
-        android:layout_marginHorizontal="@dimen/grid_doub"
-        android:indeterminate="true" />
-
-</LinearLayout>
+</FrameLayout>

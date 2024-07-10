@@ -18,15 +18,14 @@ package it.bitprepared.prbm.mobile.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import it.bitprepared.prbm.mobile.R
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 /**
@@ -46,10 +45,6 @@ class SplashScreenActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
         setContentView(R.layout.activity_splash)
 
-        // Showing version number
-        findViewById<TextView>(R.id.text_version_name).text =
-            this.packageManager.getPackageInfo(this.packageName, 0).versionName
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.load(this@SplashScreenActivity)
@@ -57,6 +52,12 @@ class SplashScreenActivity : AppCompatActivity() {
                     if (it) {
                         val main = Intent(this@SplashScreenActivity, MainActivity::class.java)
                         startActivity(main)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                        }
                         finish()
                     }
                 }
