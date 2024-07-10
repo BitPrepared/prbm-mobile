@@ -4,6 +4,8 @@ gms = "4.4.2"
 annotations = "1.8.0"
 appcompat = "1.7.0"
 constraintlayout = "2.2.0-alpha13"
+# Do not bump Firebase which needs Android 5.0+
+#noinspection GradleDependency
 firebase = "32.8.1"
 crashlytics = "3.0.2"
 glide = "4.16.0"

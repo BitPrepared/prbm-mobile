@@ -11,7 +11,8 @@
       ],
       "ignoreDeps": [
         "com.squareup.retrofit2:retrofit",
-        "com.squareup.retrofit2:converter-gson"
+        "com.squareup.retrofit2:converter-gson",
+        "com.google.firebase:firebase-bom"
       ]
     }
   ]
