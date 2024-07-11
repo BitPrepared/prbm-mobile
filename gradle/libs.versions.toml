@@ -8,7 +8,7 @@ coroutines = "1.8.1"
 # Do not bump Firebase which needs Android 5.0+
 #noinspection GradleDependency
 firebase = "32.8.1"
-fragment_ktx = "1.7.1"
+fragment_ktx = "1.8.1"
 crashlytics = "3.0.2"
 glide = "4.16.0"
 gson = "2.11.0"
