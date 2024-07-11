@@ -1,25 +1,25 @@
-<LinearLayout android:id="@+id/layout_root"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
-              android:padding="10dp"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/grid_sing">
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@mipmap/ic_launcher"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawablePadding="@dimen/grid_sing"
         android:text="@string/app_description"
-        android:textColor="#FFF"
-        />
+        app:drawableLeftCompat="@mipmap/ic_launcher"
+        app:drawableStartCompat="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/webtext"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:text="@string/about_text"
-        android:textColor="#FFF"/>
+        android:layout_marginTop="@dimen/grid_sing"
+        android:text="@string/about_text" />
+
 </LinearLayout>

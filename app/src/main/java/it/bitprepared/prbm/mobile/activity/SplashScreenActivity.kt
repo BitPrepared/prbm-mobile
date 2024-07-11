@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import it.bitprepared.prbm.mobile.R
+import it.bitprepared.prbm.mobile.databinding.ActivitySplashBinding
 import kotlinx.coroutines.launch
 
 /**
@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySplashBinding
     private val viewModel: SplashScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +44,10 @@ class SplashScreenActivity : AppCompatActivity() {
         // Locking orientation to landscape
         // TODO Remove orientation lock
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-        setContentView(R.layout.activity_splash)
+
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

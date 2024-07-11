@@ -106,5 +106,6 @@
     <string name="foto">Foto</string>
     <string name="pick_prbm_date">Scegli la data del PRBM</string>
     <string name="pick_prbm_time">Scegli l\'ora del PRBM</string>
+    <string name="contact_email">info@bitprepared.it</string>
 
 </resources>

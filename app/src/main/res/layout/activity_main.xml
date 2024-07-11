@@ -60,7 +60,7 @@
         android:id="@+id/btn_about"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:text="@string/list_prbm"
+        android:text="@string/about"
         app:icon="@drawable/ic_information_white_36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
