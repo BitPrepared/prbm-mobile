@@ -22,13 +22,18 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.text.util.Linkify
-import android.view.View
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.databinding.AboutDialogBinding
 import it.bitprepared.prbm.mobile.databinding.ActivityMainBinding
+import it.bitprepared.prbm.mobile.databinding.ProgressDialogBinding
+import kotlinx.coroutines.launch
 
 /**
  * Activity responsible for main menu visualization
@@ -47,6 +52,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                val dialogBinding = ProgressDialogBinding.inflate(layoutInflater)
+                val dialog = AlertDialog.Builder(this@MainActivity)
+                    .setView(dialogBinding.root)
+                    .create()
+                viewModel.modelState.collect { (isUploading, progress, error) ->
+                    Log.d("NCOR", "isUploading: $isUploading, progress: $progress, error: $error")
+                    if (isUploading && !dialog.isShowing) {
+                        dialogBinding.progressBar.setProgressCompat(0, false)
+                        dialog.show()
+                    } else if (isUploading && dialog.isShowing) {
+                        val progressPerc = (progress * 100).toInt()
+                        dialogBinding.progressBar.setProgressCompat(progressPerc, false)
+                        dialogBinding.progressText.text = "Caricamento in corso: $progressPerc%"
+                    } else if (!isUploading) {
+                        dialog.dismiss()
+                    } else if (error != null) {
+                        dialogBinding.progressText.text = "Errore nel caricamento: $error"
+                    }
+                }
+            }
+        }
+
         binding.btnNew.setOnClickListener {
             permissionsRequest.launch(necessaryPermissions)
         }
@@ -54,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             navigateToPrbmList()
         }
         binding.btnSyncro.setOnClickListener {
-            viewModel.uploadPrbmJSONs(this)
+            viewModel.uploadPrbmJSONs(this@MainActivity)
         }
         binding.btnAbout.setOnClickListener {
             showAboutDialog()

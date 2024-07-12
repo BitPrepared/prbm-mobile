@@ -1,126 +1,90 @@
 package it.bitprepared.prbm.mobile.activity
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.graphics.ImageDecoder.createSource
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import com.google.gson.GsonBuilder
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import it.bitprepared.prbm.mobile.R
-import it.bitprepared.prbm.mobile.model.Prbm
-import it.bitprepared.prbm.mobile.model.PrbmEntity
+import androidx.lifecycle.viewModelScope
+import it.bitprepared.prbm.mobile.activity.UserData.gson
+import it.bitprepared.prbm.mobile.activity.UserData.restInterface
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
-import java.io.IOException
+
 
 class MainViewModel : ViewModel() {
 
+    private val _modelState = MutableStateFlow(MainViewModelState(false, 0f))
+    val modelState: StateFlow<MainViewModelState> = _modelState.asStateFlow()
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, error ->
+        Log.e(TAG, "Error during PRBM upload", error)
+        _modelState.tryEmit(MainViewModelState(false, 0f, error.message ?: "Unknown error"))
+    }
+
     fun uploadPrbmJSONs(context: Context) {
-        TODO("Port me to use Coroutines")
-        val remoteInterface = UserData.getInstance().restInterface
-        val barProgressDialog = ProgressDialog(context)
-        barProgressDialog.setTitle(context.getString(R.string.save_on_disk))
-        barProgressDialog.setMessage(context.getString(R.string.saving_all_prbms))
-        barProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        barProgressDialog.isIndeterminate = true
-        barProgressDialog.setCancelable(false)
-        barProgressDialog.setCancelable(false)
-        barProgressDialog.show()
-        val gson = GsonBuilder()
-            .create()
+        viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+            val totalToUpload = UserData.prbmList.map { prbm ->
+                prbm.units.map {
+                    it.farLeft + it.farRight + it.nearLeft + it.nearRight
+                }.flatten().map { entity ->
+                    entity.pictureName
+                }.filter { it.isNotEmpty() }
+            }.flatten().size + UserData.prbmList.size
+            var uploadedSoFar = 0
 
-        val disposable = Observable.defer<List<Prbm>> {
-            val list = UserData.getInstance().allPrbm
-            for (prbm in list) {
-                val title = escape(prbm.title)
-                val authors = escape(prbm.authors)
-                val filename = "$title-$authors.json"
+            _modelState.tryEmit(MainViewModelState(true, 0f))
+
+            // TODO Move to a single network request.
+            UserData.prbmList.forEach { prbm ->
+                val fileName = "${escape(prbm.title)}-${escape(prbm.authors)}.json"
                 val json = gson.toJson(prbm)
-                try {
-                    Log.d(TAG, "Uploading JSON to remote server: $filename")
-                    remoteInterface.uploadPrbm(filename, json).execute()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-                val entityList: MutableList<PrbmEntity> = ArrayList()
-                for (unit in prbm.units) {
-                    entityList.addAll(unit.farLeft)
-                    entityList.addAll(unit.farRight)
-                    entityList.addAll(unit.nearLeft)
-                    entityList.addAll(unit.nearRight)
-                }
-                var imagesToUpload = 0
-                for (entity in entityList) {
-                    if (!entity.pictureName.isEmpty()) {
-                        imagesToUpload++
-                    }
-                }
-                Log.d(TAG, "Images to upload for this PRBM: $imagesToUpload")
-                var index = 0
 
-                for (entity in entityList) {
-                    if (!entity.pictureName.isEmpty()) {
-                        index++
-                        val picname = entity.pictureName
-                        val picencoded = base64Encode(context, entity.pictureURI)
-                        try {
-                            Log.d(
-                                TAG,
-                                "Uploading image $index/$imagesToUpload to remote server: $picname"
-                            )
-                            remoteInterface.uploadImage(picname, picencoded).execute()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
+                Log.d(TAG, "Uploading JSON to remote server: $fileName")
+                restInterface.uploadPrbm(fileName, json)
+                uploadedSoFar++
+                _modelState.emit(MainViewModelState(true, uploadedSoFar.toFloat() / totalToUpload))
+
+                prbm.units.map {
+                    it.farLeft + it.farRight + it.nearLeft + it.nearRight
+                }.flatten().forEach { entity ->
+                    if (entity.pictureName.isNotEmpty()) {
+                        val pictureName = entity.pictureName
+                        val pictureEncoded = base64Encode(context, entity.pictureURI)
+                        Log.d(TAG, "Uploading image to remote server: $pictureName")
+                        restInterface.uploadImage(pictureName, pictureEncoded)
+                        uploadedSoFar++
+                        _modelState.emit(MainViewModelState(true, uploadedSoFar.toFloat() / totalToUpload))
                     }
                 }
             }
-            Observable.just<List<Prbm>>(list)
+            _modelState.emit(MainViewModelState(false, 1f))
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ l: List<Prbm> ->
-                barProgressDialog.dismiss()
-                Toast.makeText(
-                    context,
-                    l.size.toString() + " PRBM Sincronizzati",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }, { t: Throwable ->
-                barProgressDialog.dismiss()
-                t.printStackTrace()
-                Toast.makeText(
-                    context,
-                    "Errore durante la Sincronizzazione!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            })
     }
 
-
-    private fun escape(value: String): String {
-        return value.replace("\\W+".toRegex(), "-")
-    }
+    private fun escape(value: String): String =
+        value.replace("\\W+".toRegex(), "-").substring(0, 20)
 
     private fun base64Encode(context: Context, pictureURI: Uri): String {
-        val image: Bitmap
-        try {
-            image = MediaStore.Images.Media.getBitmap(context.contentResolver, pictureURI)
-            val byteArrayOS = ByteArrayOutputStream()
-            image.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS)
-            return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: NullPointerException) {
-            e.printStackTrace()
+        val image: Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ImageDecoder.decodeBitmap(createSource(context.contentResolver, pictureURI))
+        } else {
+            @Suppress("DEPRECATION")
+            MediaStore.Images.Media.getBitmap(context.contentResolver, pictureURI)
         }
-        return ""
+        val byteArrayOS = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS)
+        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT)
     }
 
     companion object {

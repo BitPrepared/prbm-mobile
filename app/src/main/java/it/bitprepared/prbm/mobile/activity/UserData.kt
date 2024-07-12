@@ -18,6 +18,7 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Environment
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
 import it.bitprepared.prbm.mobile.model.Prbm
@@ -71,7 +72,7 @@ object UserData {
     /** Base URL for HTTP Calls  */
     private const val API_BASE_URL = "http://prbmm.bitprepared.it/"
 
-    private val gson = GsonBuilder()
+    val gson: Gson = GsonBuilder()
         .setStrictness(Strictness.LENIENT)
         .registerTypeAdapter(PrbmEntity::class.java, PrbmEntityDecoder())
         .create()
