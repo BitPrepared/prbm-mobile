@@ -34,14 +34,12 @@ class SplashScreenViewModel : ViewModel() {
 
     fun load(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val bitmaps = HashMap<Int, Bitmap>()
-            UserData.getInstance().restorePrbms(context)
+            UserData.restorePrbms(context)
             // TODO remove me (probably unnecessary)
             ids.forEach {
                 val resource = context.resources.openRawResource(it)
-                bitmaps[it] = BitmapFactory.decodeStream(resource)
+                UserData.backBitmaps[it] = BitmapFactory.decodeStream(resource)
             }
-            UserData.getInstance().setBackBitmaps(bitmaps)
             _appLoadedState.emit(true)
         }
     }

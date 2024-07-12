@@ -111,7 +111,7 @@ public class EntityActivity extends AppCompatActivity {
         edtDescription = findViewById(R.id.edtDescription);
         imgCamera = findViewById(R.id.imgCamera);
 
-        PrbmEntity entity = UserData.getInstance().getEntity();
+        PrbmEntity entity = UserData.getEntity();
         if (entity != null) {
             imgBack.setImageResource(entity.getIdBackImage());
             entity.drawYourSelf(EntityActivity.this, linFree);
@@ -173,7 +173,7 @@ public class EntityActivity extends AppCompatActivity {
             build.setTitle(R.string.confirmation);
             build.setMessage(R.string.are_you_sure);
             build.setPositiveButton(R.string.ok, (dialog, which) -> {
-                PrbmEntity entity = UserData.getInstance().getEntity();
+                PrbmEntity entity = UserData.getEntity();
                 entity.setPictureName("");
                 finish();
             });
@@ -193,7 +193,7 @@ public class EntityActivity extends AppCompatActivity {
                         (dialog, whichButton) -> dialog.dismiss());
                 alert.show();
             } else {
-                PrbmEntity entity = UserData.getInstance().getEntity();
+                PrbmEntity entity = UserData.getEntity();
                 if (entity != null) {
                     entity.saveFields(EntityActivity.this, linFree);
                     entity.setCaption(edtCaption.getText().toString());
@@ -207,8 +207,8 @@ public class EntityActivity extends AppCompatActivity {
                     entity.setTimestamp(dateFormat.format(c.getTime()));
 
                     if (!edit) {
-                        PrbmUnit involved = UserData.getInstance().getUnit();
-                        involved.addEntity(entity, UserData.getInstance().getColumn());
+                        PrbmUnit involved = UserData.getUnit();
+                        involved.addEntity(entity, UserData.getColumn());
                     }
                     setResult(RESULT_OK);
                     if (PrbmAddEntityActivity.self != null) {
@@ -219,7 +219,7 @@ public class EntityActivity extends AppCompatActivity {
             }
             return true;
         } else if (id == R.id.pic) {
-            PrbmEntity entity = UserData.getInstance().getEntity();
+            PrbmEntity entity = UserData.getEntity();
             CharSequence[] itemadd = {"Scatta una foto",
                                       "Scegli dalla Galleria"};
             CharSequence[] itemadddelete = {"Scatta una foto",
@@ -347,7 +347,7 @@ public class EntityActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PrbmEntity entity = UserData.getInstance().getEntity();
+        PrbmEntity entity = UserData.getEntity();
 
         if (requestCode == CAMERA_RESULT) {
             imgCamera.setVisibility(View.VISIBLE);

@@ -159,14 +159,14 @@ public class PrbmAddEntityActivity extends AppCompatActivity {
             }
 
             viewHolder.frmEntityList.setOnClickListener(v -> {
-                UserData.getInstance().setEntity(availableEntities.get(position));
+                UserData.setEntity(availableEntities.get(position));
                 Intent prbmEntityModify = new Intent(PrbmAddEntityActivity.this, EntityActivity.class);
                 prbmEntityModify.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 startActivity(prbmEntityModify);
                 setResult(RESULT_OK);
             });
             viewHolder.imgEntityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            viewHolder.imgEntityBackground.setImageBitmap(UserData.getInstance().getBackBitmap(unit.getIdListImage()));
+            viewHolder.imgEntityBackground.setImageBitmap(UserData.getBackBitmaps().get(unit.getIdListImage()));
             viewHolder.txtEntityTitle.setText(unit.getType());
             viewHolder.txtEntityDescription.setText(unit.getTypeDescription());
 

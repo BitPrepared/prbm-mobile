@@ -125,8 +125,8 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
         for (int j = 0; j < arrayBtn.length; j++) {
             final int column = j;
             arrayBtn[j].setOnClickListener(v -> {
-                UserData.getInstance().setColumn(column);
-                UserData.getInstance().setUnit(unit);
+                UserData.setColumn(column);
+                UserData.setUnit(unit);
                 Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
                 ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
             });
@@ -191,9 +191,9 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                     @Override
                     public void onClick(View v) {
 
-                        UserData.getInstance().setColumn(column);
-                        UserData.getInstance().setUnit(unit);
-                        UserData.getInstance().setEntity(entity);
+                        UserData.setColumn(column);
+                        UserData.setUnit(unit);
+                        UserData.setEntity(entity);
 
                         // Creating a contextual menu as Item Dialog
                         ArrayList<String> menuItems = new ArrayList<String>();
@@ -201,10 +201,10 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                         menuItems.add(c.getString(R.string.delete));
 
                         // Check if entity can move up or down
-                        if (UserData.getInstance().canMoveUnitUp()) {
+                        if (UserData.canMoveUnitUp()) {
                             menuItems.add(c.getString(R.string.move_up));
                         }
-                        if (UserData.getInstance().canMoveUnitDown()) {
+                        if (UserData.canMoveUnitDown()) {
                             menuItems.add(c.getString(R.string.move_down));
                         }
 

@@ -92,7 +92,7 @@ public class PrbmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prbm);
         lstUnits = (ListView) findViewById(R.id.lstUnits);
 
-        refPrbm = UserData.getInstance().getPrbm();
+        refPrbm = UserData.getPrbm();
         if (refPrbm != null) {
             adtUnit = new PrbmUnitAdapter(PrbmActivity.this,
                     R.layout.list_units, refPrbm.getUnits());
@@ -122,7 +122,7 @@ public class PrbmActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Update Unit values
-                PrbmUnit unit = UserData.getInstance().getUnit();
+                PrbmUnit unit = UserData.getUnit();
                 unit.setAzimut(edtAzimut.getText().toString().replace(',','.'));
                 unit.setMinutes(edtMinutes.getText().toString().replace(',','.'));
                 unit.setMeters(edtMeters.getText().toString().replace(',','.'));
@@ -156,7 +156,7 @@ public class PrbmActivity extends AppCompatActivity {
         if (item.getItemId() == MENU_UNIT_EDIT) {
             // Show value dialog
             PrbmUnit unit = refPrbm.getUnit(info.position);
-            UserData.getInstance().setUnit(unit);
+            UserData.setUnit(unit);
             edtMeters.setText(String.valueOf(unit.getMeter()));
             edtAzimut.setText(String.valueOf(unit.getAzimut()));
             edtMinutes.setText(String.valueOf(unit.getMinutes()));
@@ -248,7 +248,7 @@ public class PrbmActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.save) {
             // Save on disk (serialize)
-            UserData.getInstance().savePrbm(PrbmActivity.this);
+            UserData.savePrbm(PrbmActivity.this, UserData.getPrbm());
             Toast.makeText(PrbmActivity.this, getString(R.string.save_prbm_successful), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.parameters) {
             // Button for accessing PRBM parameters
@@ -271,7 +271,7 @@ public class PrbmActivity extends AppCompatActivity {
         build.setPositiveButton(getString(R.string.save_and_exit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                UserData.getInstance().savePrbm(PrbmActivity.this);
+                UserData.savePrbm(PrbmActivity.this, UserData.getPrbm());
                 Toast.makeText(PrbmActivity.this, getString(R.string.prbm_save_successful), Toast.LENGTH_SHORT).show();
                 finish();
             }

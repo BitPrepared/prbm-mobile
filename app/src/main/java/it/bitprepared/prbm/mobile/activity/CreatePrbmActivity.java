@@ -129,7 +129,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
       TextView txtTitle = findViewById(R.id.text_create_title);
       txtTitle.setText(getString(R.string.modify_prbm_parameters));
 
-      Prbm thisPrbm = UserData.getInstance().getPrbm();
+      Prbm thisPrbm = UserData.getPrbm();
       edtTitle.setText(thisPrbm.getTitle());
       edtAuthors.setText(thisPrbm.getAuthors());
       edtPlace.setText(thisPrbm.getPlace());
@@ -183,7 +183,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
           }
           thisPrbm = new Prbm(version);
         } else {
-          thisPrbm = UserData.getInstance().getPrbm();
+          thisPrbm = UserData.getPrbm();
         }
 
         thisPrbm.setTitle(edtTitle.getText().toString());
@@ -199,7 +199,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
         if (!edit) {
           thisPrbm.addNewUnits();
           // Setting global PRBM
-          UserData.getInstance().setPrbm(thisPrbm);
+          UserData.setPrbm(thisPrbm);
           Intent it = new Intent(CreatePrbmActivity.this, PrbmActivity.class);
           startActivity(it);
         }

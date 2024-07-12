@@ -82,7 +82,7 @@ public class ListPrbmActivity extends AppCompatActivity implements OnItemClickLi
         lstPrbms.setEmptyView(empty);
 
         // Crating prbm adapter
-        List<Prbm> prbms = UserData.getInstance().getAllPrbm();
+        List<Prbm> prbms = UserData.getPrbmList();
         adtPrbm = new PrbmAdapter(ListPrbmActivity.this, R.layout.list_prbm, prbms);
         lstPrbms.setAdapter(adtPrbm);
     }
@@ -116,14 +116,14 @@ public class ListPrbmActivity extends AppCompatActivity implements OnItemClickLi
             delete_dialog.setNegativeButton(R.string.abort, (dialog1, which1) -> dialog1.dismiss());
 
             delete_dialog.setPositiveButton(R.string.delete, (dialog12, which12) -> {
-                UserData.getInstance().deletePrbm(ListPrbmActivity.this, pressed);
+                UserData.deletePrbm(ListPrbmActivity.this, pressed);
                 adtPrbm.notifyDataSetChanged();
                 dialog12.dismiss();
             });
             delete_dialog.show();
         });
         whatToDoDialog.setPositiveButton("Modificare", (dialog, which) -> {
-            UserData.getInstance().setPrbm(pressed);
+            UserData.setPrbm(pressed);
             Intent i = new Intent(ListPrbmActivity.this, PrbmActivity.class);
             startActivity(i);
             finish();
