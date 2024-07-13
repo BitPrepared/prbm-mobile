@@ -30,41 +30,37 @@
 
     <Button
         android:id="@+id/btn_new"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/new_prbm"
-        app:layout_constraintStart_toStartOf="parent"
         app:icon="@drawable/ic_file_document_white_36dp"
         app:layout_constraintBottom_toTopOf="@id/btn_list"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btn_list"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/list_prbm"
         app:icon="@drawable/ic_view_list_white_36dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_syncro"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btn_syncro"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/sync"
         app:icon="@drawable/ic_sync_white_36dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_about"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btn_about"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/about"
         app:icon="@drawable/ic_information_white_36dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
