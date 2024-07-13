@@ -39,6 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
+        style="@style/Widget.Material3.Button.TonalButton"
         android:id="@+id/btn_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
+        style="@style/Widget.Material3.Button.TonalButton"
         android:id="@+id/btn_syncro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
+        style="@style/Widget.Material3.Button.TonalButton"
         android:id="@+id/btn_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
