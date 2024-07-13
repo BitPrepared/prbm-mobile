@@ -24,18 +24,18 @@ import java.util.Locale;
 public class EntityViewHelper {
 
     public static void addExtraField(Context c, LinearLayout lin, EntityField field) {
-        switch (field.getType()){
+        switch (field.type){
             case LONG_TEXT:
-                addLongEditText(c, lin, field.getID(), field.getTitle(), field.getHint(), 3);
+                addLongEditText(c, lin, field.getID(), field.title, field.hint, 3);
                 break;
             case SHORT_TEXT:
-                addShortEditText(c, lin, field.getID(), field.getTitle(), field.getHint());
+                addShortEditText(c, lin, field.getID(), field.title, field.hint);
                 break;
             case NUMERIC:
-                addNumericTextView(c, lin, field.getID(), field.getTitle());
+                addNumericTextView(c, lin, field.getID(), field.title);
                 break;
             case DATE:
-                addDatePicker(c, lin, field.getID(), field.getTitle());
+                addDatePicker(c, lin, field.getID(), field.title);
                 break;
         }
     }

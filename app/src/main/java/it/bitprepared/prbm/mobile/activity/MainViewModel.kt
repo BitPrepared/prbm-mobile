@@ -47,7 +47,8 @@ class MainViewModel : ViewModel() {
 
             // TODO Move to a single network request.
             UserData.prbmList.forEach { prbm ->
-                val fileName = "${escape(prbm.title)}-${escape(prbm.authors)}.json"
+                // TODO Move me into PRBM class to remove !!
+                val fileName = "${escape(prbm.title!!)}-${escape(prbm.authors!!)}.json"
                 val json = gson.toJson(prbm)
 
                 Log.d(TAG, "Uploading JSON to remote server: $fileName")

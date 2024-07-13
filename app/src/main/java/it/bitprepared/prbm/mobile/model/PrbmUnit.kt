@@ -1,0 +1,141 @@
+/*   This file is part of PrbmMobile
+ *
+ *   PrbmMobile is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   PrbmMobile is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with PrbmMobile.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package it.bitprepared.prbm.mobile.model
+
+import java.util.Collections
+
+/**
+ * [PrbmUnit] represent a single row of a [Prbm] that is composed by several [PrbmEntity]
+ * on 4 columns.
+ */
+data class PrbmUnit(
+    /** Azimuth angle of this PrbmUnit  */
+    var azimuth: Float = 0f,
+    /** Meters of this PrbmUnit  */
+    var meter: Float = 0f,
+    /** Minutes elapsed of this PrbmUnit  */
+    var minutes: Float = 0f,
+    /** List of Entities far Left  */
+    private val entitiesFarLeft: MutableList<PrbmEntity> = mutableListOf(),
+    /** List of Entities far Right  */
+    private val entitiesFarRight: MutableList<PrbmEntity> = mutableListOf(),
+    /** List of Entities near Left  */
+    private val entitiesNearLeft: MutableList<PrbmEntity> = mutableListOf(),
+    /** List of Entities near Left  */
+    private val entitiesNearRight: MutableList<PrbmEntity> = mutableListOf(),
+) {
+
+    @JvmField
+    var longitude: Double = 0.0
+
+    @JvmField
+    var latitude: Double = 0.0
+
+    @Transient
+    var isFlagAcquiringGPS: Boolean = false
+
+    fun setAzimuth(azimuth: String) {
+        this.azimuth = parseStringToFloat(azimuth)
+    }
+
+    /**
+     * Setter for Unit Minutes
+     * @param minutes The new unit minutes
+     */
+    fun setMinutes(minutes: String) {
+        this.minutes = parseStringToFloat(minutes)
+    }
+
+    /**
+     * Setter for Unit Meters
+     * @param meter The new unit meters
+     */
+    fun setMeters(meter: String) {
+        this.meter = parseStringToFloat(meter)
+    }
+
+    val farLeft: List<PrbmEntity>
+        get() = entitiesFarLeft
+
+    val farRight: List<PrbmEntity>
+        get() = entitiesFarRight
+
+    val nearLeft: List<PrbmEntity>
+        get() = entitiesNearLeft
+
+    val nearRight: List<PrbmEntity>
+        get() = entitiesNearRight
+
+    /** Add an entity in a specified column */
+    fun addEntity(entity: PrbmEntity, column: Int) = when (column) {
+        0 -> entitiesFarLeft
+        1 -> entitiesNearLeft
+        2 -> entitiesNearRight
+        3 -> entitiesFarRight
+        else -> error("Column must be between 0 and 3")
+    }.add(entity)
+
+    /** Getter for entity list from a specified column */
+    fun getEntitiesFromColumn(column: Int): List<PrbmEntity> = when (column) {
+        0 -> entitiesFarLeft
+        1 -> entitiesNearLeft
+        2 -> entitiesNearRight
+        3 -> entitiesFarRight
+        else -> error("Column must be between 0 and 3")
+    }
+
+    /**
+     * Delete an entity from a specified column
+     */
+    fun deleteEntity(entity: PrbmEntity, column: Int) {
+        when (column) {
+            0 -> entitiesFarLeft
+            1 -> entitiesNearLeft
+            2 -> entitiesNearRight
+            3 -> entitiesFarRight
+            else -> error("Column must be between 0 and 3")
+        }.remove(entity)
+    }
+
+    /**
+     * Move an entity within a specified column
+     * @param entity Entity to add
+     * @param column Involved column (0-3)
+     * @param down   Boolean flag to specify if movement must be downside or upside
+     */
+    fun moveEntity(entity: PrbmEntity, column: Int, down: Boolean) {
+        val toMove = when (column) {
+            0 -> entitiesFarLeft
+            1 -> entitiesNearLeft
+            2 -> entitiesNearRight
+            3 -> entitiesFarRight
+            else -> error("Column must be between 0 and 3")
+        }
+        val index = toMove.indexOf(entity)
+        if (down) {
+            Collections.swap(toMove, index, index + 1)
+        } else {
+            Collections.swap(toMove, index, index - 1)
+        }
+    }
+
+    private fun parseStringToFloat(azimut: String): Float =
+        try {
+            azimut.toFloat()
+        } catch (e: NumberFormatException) {
+            0f
+        }
+}

@@ -172,16 +172,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
         // Checking if PRBM must be created or not
         Prbm thisPrbm;
         if (!edit) {
-          // Retrieving version name
-          String version = "";
-          try {
-            version = this.getPackageManager().getPackageInfo(
-                    this.getPackageName(), 0).versionName;
-          } catch (NameNotFoundException e) {
-            // Impossibile
-            e.printStackTrace();
-          }
-          thisPrbm = new Prbm(version);
+          thisPrbm = new Prbm();
         } else {
           thisPrbm = UserData.getPrbm();
         }

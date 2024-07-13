@@ -16,7 +16,6 @@
 
 package it.bitprepared.prbm.mobile.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -123,7 +122,7 @@ public class PrbmActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // Update Unit values
                 PrbmUnit unit = UserData.getUnit();
-                unit.setAzimut(edtAzimut.getText().toString().replace(',','.'));
+                unit.setAzimuth(edtAzimut.getText().toString().replace(',','.'));
                 unit.setMinutes(edtMinutes.getText().toString().replace(',','.'));
                 unit.setMeters(edtMeters.getText().toString().replace(',','.'));
                 dialog.dismiss();
@@ -158,7 +157,7 @@ public class PrbmActivity extends AppCompatActivity {
             PrbmUnit unit = refPrbm.getUnit(info.position);
             UserData.setUnit(unit);
             edtMeters.setText(String.valueOf(unit.getMeter()));
-            edtAzimut.setText(String.valueOf(unit.getAzimut()));
+            edtAzimut.setText(String.valueOf(unit.getAzimuth()));
             edtMinutes.setText(String.valueOf(unit.getMinutes()));
             valueDialog.show();
         } else if (item.getItemId() == MENU_UNIT_ADD_AFTER) {
@@ -180,7 +179,7 @@ public class PrbmActivity extends AppCompatActivity {
             }
         } else if (item.getItemId() == MENU_UNIT_GPS) {
             PrbmUnit unit = refPrbm.getUnit(info.position);
-            if (unit.getLatitude() != 0 && unit.getLongitude() != 0) {
+            if (unit.latitude != 0 && unit.longitude != 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Aggiornare coordinate GPS?");
                 builder.setMessage(
@@ -210,8 +209,8 @@ public class PrbmActivity extends AppCompatActivity {
         lm.requestSingleUpdate(LocationManager.GPS_PROVIDER, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                unit.setLongitude(location.getLongitude());
-                unit.setLatitude(location.getLatitude());
+                unit.longitude = location.getLongitude();
+                unit.latitude = location.getLatitude();
                 unit.setFlagAcquiringGPS(false);
                 adtUnit.notifyDataSetInvalidated();
                 Toast.makeText(PrbmActivity.this, "Coordinate acquisite!", Toast.LENGTH_SHORT).show();

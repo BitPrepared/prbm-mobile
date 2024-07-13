@@ -103,18 +103,18 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
             // Restore tag
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.txtAzimut.setText(c.getString(R.string.azimut) + unit.getAzimut());
+        viewHolder.txtAzimut.setText(c.getString(R.string.azimut) + unit.getAzimuth());
         viewHolder.txtMeters.setText(c.getString(R.string.meters) + unit.getMeter());
         viewHolder.txtMinutes.setText(c.getString(R.string.minutes) + unit.getMinutes());
 
         if (unit.isFlagAcquiringGPS()){
             viewHolder.txtGPS.setText("Coordinate: Acquisizione...");
             viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.black));
-        } else if (unit.getLatitude() == 0 && unit.getLongitude() == 0 ){
+        } else if (unit.latitude == 0 && unit.longitude == 0 ){
             viewHolder.txtGPS.setText("Coordinate: Assenti");
             viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.red));
         } else {
-            viewHolder.txtGPS.setText("Coordinate: "  + unit.getLatitude() + " - " + unit.getLongitude());
+            viewHolder.txtGPS.setText("Coordinate: "  + unit.latitude + " - " + unit.longitude);
             viewHolder.txtGPS.setTextColor(c.getResources().getColor(R.color.green));
         }
         // Setting onclick listner for add buttons

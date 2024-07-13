@@ -127,8 +127,8 @@ public class EntityActivity extends AppCompatActivity {
                 datTime.setCurrentMinute(c.get(Calendar.MINUTE));
                 datTime.setIs24HourView(true);
             } else {
-                edtCaption.setText(entity.getCaption());
-                edtDescription.setText(entity.getDescription());
+                edtCaption.setText(entity.caption);
+                edtDescription.setText(entity.description);
                 if (!entity.getPictureName().isEmpty()) {
                     capturedImageUri = entity.getPictureURI();
                     imgCamera.setVisibility(View.VISIBLE);
@@ -144,7 +144,7 @@ public class EntityActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(
                     "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
                 try {
-                    Date date = dateFormat.parse(entity.getTimestamp());
+                    Date date = dateFormat.parse(entity.timestamp);
                     Calendar cal = Calendar.getInstance(getResources().getConfiguration().locale);
                     cal.setTime(date);
                     datTime.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
@@ -196,15 +196,15 @@ public class EntityActivity extends AppCompatActivity {
                 PrbmEntity entity = UserData.getEntity();
                 if (entity != null) {
                     entity.saveFields(EntityActivity.this, linFree);
-                    entity.setCaption(edtCaption.getText().toString());
-                    entity.setDescription(edtDescription.getText().toString());
+                    entity.caption = edtCaption.getText().toString();
+                    entity.description = edtDescription.getText().toString();
                     Calendar c = Calendar.getInstance(getResources().getConfiguration().locale);
 
                     // Saving timestamp. Date set at Unix epoch
                     c.set(1970, 1, 1, datTime.getCurrentHour(), datTime.getCurrentMinute());
                     SimpleDateFormat dateFormat = new SimpleDateFormat(
                         "yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
-                    entity.setTimestamp(dateFormat.format(c.getTime()));
+                    entity.timestamp = dateFormat.format(c.getTime());
 
                     if (!edit) {
                         PrbmUnit involved = UserData.getUnit();
