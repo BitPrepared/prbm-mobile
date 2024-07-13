@@ -1,19 +1,3 @@
-/*   This file is part of PrbmMobile
- *
- *   PrbmMobile is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   PrbmMobile is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with PrbmMobile.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package it.bitprepared.prbm.mobile.activity;
 
 import android.app.ActionBar;
@@ -87,11 +71,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
     edtTime.setKeyListener(null);
 
     edtDate.setOnClickListener(view -> {
-      MaterialDatePicker<Long> datePicker =
-              MaterialDatePicker.Builder.datePicker()
-                      .setTitleText(R.string.pick_prbm_date)
-                      .setSelection(fromDateToTimestamp(edtDate.getText().toString()))
-                      .build();
+      MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().setTitleText(R.string.pick_prbm_date).setSelection(fromDateToTimestamp(edtDate.getText().toString())).build();
       datePicker.addOnPositiveButtonClickListener(view1 -> {
         ZonedDateTime time = ZonedDateTime.ofInstant(Instant.ofEpochMilli(datePicker.getSelection()), ZoneId.of("UTC"));
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -102,13 +82,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
 
     edtTime.setOnClickListener(view -> {
       LocalTime time = LocalTime.parse(edtTime.getText().toString());
-      MaterialTimePicker timePicker =
-              new MaterialTimePicker.Builder()
-                      .setTimeFormat(TimeFormat.CLOCK_24H)
-                      .setHour(time.getHour())
-                      .setMinute(time.getMinute())
-                      .setTitleText(R.string.pick_prbm_time)
-                      .build();
+      MaterialTimePicker timePicker = new MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(time.getHour()).setMinute(time.getMinute()).setTitleText(R.string.pick_prbm_time).build();
       timePicker.addOnPositiveButtonClickListener(view1 -> {
         LocalTime newTime = LocalTime.of(timePicker.getHour(), timePicker.getMinute());
         edtTime.setText(newTime.toString());
@@ -142,10 +116,8 @@ public class CreatePrbmActivity extends AppCompatActivity {
 
   @Override
   public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-    if (!edit)
-      getMenuInflater().inflate(R.menu.create_prbm, menu);
-    else
-      getMenuInflater().inflate(R.menu.create_prbm_edit_param, menu);
+    if (!edit) getMenuInflater().inflate(R.menu.create_prbm, menu);
+    else getMenuInflater().inflate(R.menu.create_prbm_edit_param, menu);
     return true;
   }
 
@@ -165,8 +137,7 @@ public class CreatePrbmActivity extends AppCompatActivity {
         alert.setTitle(R.string.fields_incomplete);
         alert.setMessage(getString(R.string.error_no_title_prbm));
         alert.setIcon(R.drawable.ic_alert_black_48dp);
-        alert.setPositiveButton(R.string.ok,
-                (dialog, whichButton) -> dialog.dismiss());
+        alert.setPositiveButton(R.string.ok, (dialog, whichButton) -> dialog.dismiss());
         alert.show();
       } else {
         // Checking if PRBM must be created or not
