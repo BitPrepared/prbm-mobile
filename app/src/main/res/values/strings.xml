@@ -107,7 +107,7 @@
     <string name="pick_prbm_date">Scegli la data del PRBM</string>
     <string name="pick_prbm_time">Scegli l\'ora del PRBM</string>
     <string name="contact_email">info@bitprepared.it</string>
-    <string name="loading_in_progress">Caricamento in corso: %1$d \%</string>
+    <string name="loading_in_progress">Caricamento in corso: %1$d %%</string>
     <string name="loading_error">Errore nel caricamento: %1$s</string>
 
 </resources>
