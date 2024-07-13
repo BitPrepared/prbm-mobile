@@ -59,18 +59,18 @@ class MainActivity : AppCompatActivity() {
                     .setView(dialogBinding.root)
                     .create()
                 viewModel.modelState.collect { (isUploading, progress, error) ->
-                    Log.d("NCOR", "isUploading: $isUploading, progress: $progress, error: $error")
                     if (isUploading && !dialog.isShowing) {
                         dialogBinding.progressBar.setProgressCompat(0, false)
                         dialog.show()
                     } else if (isUploading && dialog.isShowing) {
                         val progressPerc = (progress * 100).toInt()
                         dialogBinding.progressBar.setProgressCompat(progressPerc, false)
-                        dialogBinding.progressText.text = "Caricamento in corso: $progressPerc%"
+                        dialogBinding.progressText.text =
+                            getString(R.string.loading_in_progress, progressPerc)
                     } else if (!isUploading) {
                         dialog.dismiss()
                     } else if (error != null) {
-                        dialogBinding.progressText.text = "Errore nel caricamento: $error"
+                        dialogBinding.progressText.text = getString(R.string.loading_error, error)
                     }
                 }
             }
