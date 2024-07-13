@@ -41,10 +41,6 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Locking orientation to landscape
-        // TODO Remove orientation lock
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

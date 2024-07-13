@@ -16,26 +16,22 @@
         android:maxSdkVersion="32" />
 
     <uses-feature
-        android:name="android.hardware.screen.landscape"
-        android:required="true" />
-    <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:name="androidx.multidex.MultiDexApplication"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
             android:name=".activity.SplashScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
-            android:screenOrientation="landscape">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -43,29 +39,23 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_main"
-            android:screenOrientation="landscape" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CreatePrbmActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_create_prbm_activity"
-            android:screenOrientation="landscape" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.PrbmActivity"
-            android:label="@string/title_prbm_activity"
-            android:screenOrientation="landscape" />
+            android:label="@string/title_prbm_activity" />
         <activity
             android:name=".activity.ListPrbmActivity"
-            android:label="@string/list_of_prbms"
-            android:screenOrientation="landscape" />
+            android:label="@string/list_of_prbms" />
         <activity
             android:name=".activity.PrbmAddEntityActivity"
-            android:label="@string/choose_entity"
-            android:screenOrientation="landscape" />
+            android:label="@string/choose_entity" />
         <activity
             android:name=".activity.EntityActivity"
-            android:label="@string/entity_details"
-            android:screenOrientation="landscape" />
+            android:label="@string/entity_details" />
     </application>
 </manifest>
