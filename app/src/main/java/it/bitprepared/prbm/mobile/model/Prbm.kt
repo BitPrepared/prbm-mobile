@@ -18,21 +18,17 @@ fun getCurrentTimeInIsoFormat(): String {
  */
 data class Prbm(
     private val version: String = BuildConfig.VERSION_NAME,
-    private var time: String = getCurrentTimeInIsoFormat(),
-    var title: String? = null,
-    var authors: String? = null,
-    var note: String? = null,
+    val timestamp: String = getCurrentTimeInIsoFormat(),
+    val title: String,
+    val authors: String? = null,
+    val place: String? = null,
+    val note: String? = null,
     /** Date of Prbm (different from timestamp)  */
-    var date: String? = null,
-    var place: String? = null,
-    val units: MutableList<PrbmUnit> = mutableListOf()
+    val date: String? = null,
+    val units: MutableList<PrbmUnit> = mutableListOf(PrbmUnit())
 ) {
 
     fun getUnit(pos: Int): PrbmUnit = units[pos]
-
-    fun addNewUnits() {
-        units.add(PrbmUnit())
-    }
 
     /**
      * Public method to add a new empty unit at a specific position.

@@ -1,7 +1,6 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

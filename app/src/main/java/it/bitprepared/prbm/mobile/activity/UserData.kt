@@ -3,6 +3,7 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Environment
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
@@ -112,7 +113,7 @@ object UserData {
 
     private fun getPrbmDirectory(context: Context) : File {
         if (!isExternalStorageWritable()) error("External storage not writable")
-        val rootDirectory = context.applicationContext.getExternalFilesDir("");
+        val rootDirectory = context.applicationContext.getExternalFilesDir("")
         return File(rootDirectory, "prbms")
     }
 
@@ -127,7 +128,9 @@ object UserData {
             mkdirs()
         }
         _prbmList.onEach {
-            File(prbmDirectory, "${it.title}-${it.authors}-${it.date}.json").apply {
+            // TODO Move me to PRBM class and unify filename
+            File(prbmDirectory, "${it.title}-${it.timestamp}.json").apply {
+                createNewFile()
                 writeText(gson.toJson(it))
             }
         }

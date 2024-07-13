@@ -40,7 +40,7 @@
     <string name="sendmail">Invia mail</string>
     <string name="close">Chiudi</string>
     <string name="rate">Valuta</string>
-    <string name="create_new_prbm">Creazione nuovo PRBM</string>
+    <string name="create_new_prbm">Nuovo PRBM</string>
     <string name="choose_place">Seleziona il luogo del percorso</string>
     <string name="insert_data_description">Inserisci i dati del nuovo percorso rettificato</string>
     <string name="title">Titolo</string>
@@ -49,10 +49,8 @@
     <string name="authors_hint">Inserisci l\'elenco degli autori</string>
     <string name="place">Località</string>
     <string name="place_hint">Inserisci il nome della località relativa al percorso rettificato</string>
-    <string name="date">Data</string>
-    <string name="date_hint">Inserisci la data del percorso rettificato</string>
-    <string name="time">Ora</string>
-    <string name="time_hint">Inserisci l\'ora del percorso rettificato</string>
+    <string name="date">Data e ora</string>
+    <string name="date_hint">Inserisci la data e ora del percorso rettificato</string>
     <string name="note_hint">Inserisci eventuali note sul percorso rettificato</string>
     <string name="title_create_prbm_activity">Creazione nuovo PRBM</string>
     <string name="title_prbm_activity">Modifica il PRBM</string>
