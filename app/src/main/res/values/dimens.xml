@@ -9,6 +9,7 @@
 
     <dimen name="text_title">28sp</dimen>
     <dimen name="text_subtitle">16sp</dimen>
+    <dimen name="text_default">14sp</dimen>
 
 
 </resources>

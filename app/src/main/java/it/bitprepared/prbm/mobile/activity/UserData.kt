@@ -146,7 +146,7 @@ object UserData {
             return
         }
         _prbmList.clear()
-        prbmDirectory.walk().onEach { file ->
+        prbmDirectory.walk().forEach { file ->
             if (file.isFile && file.extension == "json") {
                 val prbm = gson.fromJson(file.readText(), Prbm::class.java)
                 _prbmList.add(prbm)
