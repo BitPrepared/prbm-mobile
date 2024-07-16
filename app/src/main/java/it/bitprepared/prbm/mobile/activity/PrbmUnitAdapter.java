@@ -112,7 +112,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                 UserData.setColumn(column);
                 UserData.setUnit(unit);
                 Intent addEntity = new Intent(c, PrbmAddEntityActivity.class);
-                ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_ADD_ENTITY);
+                ((Activity) c).startActivityForResult(addEntity, PrbmDetailActivity.ACTIVITY_ADD_ENTITY);
             });
         }
 //        viewHolder.btnGPS.setBackgroundColor(c.getResources().getColor((unit.getLatitude() == 0) ? R.color.Red : R.color.LightGreen));
@@ -201,7 +201,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                                 if (item == 0) {
                                     Intent addEntity = new Intent(c, EntityActivity.class);
                                     addEntity.putExtra("edit", true);
-                                    ((Activity) c).startActivityForResult(addEntity, PrbmActivity.ACTIVITY_MODIFY_ENTITY);
+                                    ((Activity) c).startActivityForResult(addEntity, PrbmDetailActivity.ACTIVITY_MODIFY_ENTITY);
                                     dialog.dismiss();
                                 } else if (item == 1) {
 

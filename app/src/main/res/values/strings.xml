@@ -108,5 +108,7 @@
     <string name="loading_in_progress">Caricamento in corso: %1$d %%</string>
     <string name="loading_error">Errore nel caricamento: %1$s</string>
     <string name="are_you_sure_to_delete">Sei sicuro di voler eliminare questo PRBM?</string>
+    <string name="update_gps_coordinates">Aggiornare coordinate GPS?</string>
+    <string name="do_you_want_to_override_gps">I dati GPS sono già stati acquisiti per questa osservazione, vuoi sovrascrivere?</string>
 
 </resources>

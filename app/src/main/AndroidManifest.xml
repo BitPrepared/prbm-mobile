@@ -43,7 +43,7 @@
             android:name=".activity.CreatePrbmActivity"
             android:label="@string/title_create_prbm_activity" />
         <activity
-            android:name=".activity.PrbmActivity"
+            android:name=".activity.PrbmDetailActivity"
             android:label="@string/title_prbm_activity" />
         <activity
             android:name=".activity.ListPrbmActivity"

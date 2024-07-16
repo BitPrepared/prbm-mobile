@@ -51,7 +51,7 @@ class ListPrbmActivity : AppCompatActivity(), OnPrbmClickListener {
                         showEmptyState()
                     }
                     if (state.prbmToEdit != null) {
-                        startActivity(Intent(this@ListPrbmActivity, PrbmActivity::class.java))
+                        startActivity(Intent(this@ListPrbmActivity, PrbmDetailActivity::class.java))
                         finish()
                     }
                 }

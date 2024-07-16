@@ -49,7 +49,7 @@ class CreatePrbmActivity : AppCompatActivity() {
                             .show()
                     }
                     if (state.saveReady) {
-                        startActivity(Intent(this@CreatePrbmActivity, PrbmActivity::class.java))
+                        startActivity(Intent(this@CreatePrbmActivity, PrbmDetailActivity::class.java))
                         finish()
                     }
                 }
