@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -57,6 +58,12 @@ class PrbmDetailActivity : AppCompatActivity() {
 
             }
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                confirmExit()
+            }
+        })
 
         val refPrbm = UserData.prbm
         if (refPrbm != null) {
@@ -203,40 +210,26 @@ class PrbmDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    /**
-     * Private method used to display an Alert Dialog asking if user
-     * is sure to exit Prbm modify
-     */
-    private fun confirmExit() {
-        val build = AlertDialog.Builder(this@PrbmDetailActivity)
-        build.setTitle(R.string.confirmation)
-        build.setIcon(R.drawable.ic_alert_black_48dp)
-        build.setMessage(R.string.are_you_sure)
-        build.setPositiveButton(getString(R.string.save_and_exit)) { _, _ ->
-            savePrbm(this@PrbmDetailActivity, prbm!!)
-            Toast.makeText(
-                this@PrbmDetailActivity,
-                getString(R.string.prbm_save_successful),
-                Toast.LENGTH_SHORT
-            ).show()
-            finish()
-        }
-        build.setNegativeButton(R.string.abort) { _, _ -> }
-        build.show()
-    }
+    private fun confirmExit() =
+        AlertDialog.Builder(this@PrbmDetailActivity).setTitle(R.string.confirmation)
+            .setIcon(R.drawable.ic_alert).setMessage(R.string.are_you_sure)
+            .setPositiveButton(getString(R.string.save_and_exit)) { _, _ ->
+                savePrbm(this@PrbmDetailActivity, prbm!!)
+                Toast.makeText(
+                    this@PrbmDetailActivity,
+                    getString(R.string.prbm_save_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }.setNegativeButton(R.string.abort) { _, _ -> }.create().show()
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ACTIVITY_ADD_ENTITY || requestCode == ACTIVITY_MODIFY_ENTITY) {
             // Update adapter on activity result
             adtUnit.notifyDataSetChanged()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        // Inhibits back button press, and ask if user is sure to back
-        confirmExit()
     }
 
     companion object {
