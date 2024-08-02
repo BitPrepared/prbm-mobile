@@ -58,7 +58,6 @@
     <string name="app_description">PRBMM - Percorso Rettificato Belga Multimediale Mobile</string>
     <string name="prbm_date">Data percorso</string>
     <string name="prbm_time">Orario percorso</string>
-    <string name="menu_prbm_unit">Menù riga percorso rettificato</string>
     <string name="minutes">"Minuti: "</string>
     <string name="meters">"Metri: "</string>
     <string name="azimut">"Azimut: "</string>

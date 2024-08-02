@@ -80,10 +80,12 @@ class PrbmDetailActivity : AppCompatActivity() {
                     viewModel.savePrbm(this@PrbmDetailActivity)
                     true
                 }
+
                 R.id.parameters -> {
                     viewModel.editPrbm()
                     true
                 }
+
                 else -> false
             }
         }
@@ -123,7 +125,6 @@ class PrbmDetailActivity : AppCompatActivity() {
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         if (v.id == R.id.lstUnits) {
-            menu.setHeaderTitle(getString(R.string.menu_prbm_unit))
             menu.add(Menu.NONE, MENU_UNIT_EDIT, 0, getString(R.string.modify_values))
             menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, getString(R.string.insert_unit_up))
             menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, getString(R.string.insert_unit_down))
@@ -210,9 +211,10 @@ class PrbmDetailActivity : AppCompatActivity() {
         viewModel.showSavedDone()
     }
 
-    private fun confirmExit() =
-        MaterialAlertDialogBuilder(this@PrbmDetailActivity).setTitle(R.string.confirmation)
-            .setIcon(R.drawable.ic_alert).setMessage(R.string.are_you_sure)
+    private fun confirmExit() = MaterialAlertDialogBuilder(this@PrbmDetailActivity)
+            .setTitle(R.string.confirmation)
+            .setIcon(R.drawable.ic_alert)
+            .setMessage(R.string.are_you_sure)
             .setPositiveButton(getString(R.string.save_and_exit)) { _, _ ->
                 savePrbm(this@PrbmDetailActivity, prbm!!)
                 finish()
