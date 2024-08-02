@@ -1,6 +1,5 @@
 package it.bitprepared.prbm.mobile.activity
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.location.LocationManager
 import android.os.Bundle
@@ -14,10 +13,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.prbm
@@ -95,7 +96,7 @@ class PrbmDetailActivity : AppCompatActivity() {
         }
 
         // Building dialog for unit value edit
-        val alertValuesBuilder = AlertDialog.Builder(this@PrbmDetailActivity)
+        val alertValuesBuilder = MaterialAlertDialogBuilder(this@PrbmDetailActivity)
         val dialogBinding = ModifyUnitValuesBinding.inflate(layoutInflater)
         azimuthInput = dialogBinding.azimuthInput
         metersInput = dialogBinding.meterInput
@@ -165,7 +166,7 @@ class PrbmDetailActivity : AppCompatActivity() {
         } else if (item.itemId == MENU_UNIT_GPS) {
             val unit = refPrbm!!.getUnit(info!!.position)
             if (unit.latitude != 0.0 && unit.longitude != 0.0) {
-                AlertDialog.Builder(this).setTitle(getString(R.string.update_gps_coordinates))
+                MaterialAlertDialogBuilder(this).setTitle(getString(R.string.update_gps_coordinates))
                     .setMessage(getString(R.string.do_you_want_to_override_gps))
                     .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
                     .setPositiveButton("Si") { _, _ -> requestGPSCoordinates(unit) }.create().show()
@@ -210,7 +211,7 @@ class PrbmDetailActivity : AppCompatActivity() {
     }
 
     private fun confirmExit() =
-        AlertDialog.Builder(this@PrbmDetailActivity).setTitle(R.string.confirmation)
+        MaterialAlertDialogBuilder(this@PrbmDetailActivity).setTitle(R.string.confirmation)
             .setIcon(R.drawable.ic_alert).setMessage(R.string.are_you_sure)
             .setPositiveButton(getString(R.string.save_and_exit)) { _, _ ->
                 savePrbm(this@PrbmDetailActivity, prbm!!)

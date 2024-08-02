@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.ListPrbmAdapter.OnPrbmClickListener
@@ -73,7 +74,7 @@ class ListPrbmActivity : AppCompatActivity(), OnPrbmClickListener {
     }
 
     override fun onDeletePrbm(prbm: Prbm) {
-        AlertDialog.Builder(this).setTitle(getString(R.string.are_you_sure_to_delete))
+        MaterialAlertDialogBuilder(this).setTitle(getString(R.string.are_you_sure_to_delete))
             .setPositiveButton(R.string.delete) { _, _ ->
                 viewModel.deletePrbm(
                     this@ListPrbmActivity, prbm

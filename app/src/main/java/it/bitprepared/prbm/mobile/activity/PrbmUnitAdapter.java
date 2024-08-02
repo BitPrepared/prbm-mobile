@@ -1,7 +1,6 @@
 package it.bitprepared.prbm.mobile.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import it.bitprepared.prbm.mobile.R;
 import it.bitprepared.prbm.mobile.model.PrbmEntity;
@@ -124,7 +127,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
 //                e.printStackTrace();
 //            }
 //            if (unit.getLatitude() != 0 && unit.getLongitude() != 0) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(c);
+//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(c);
 //                builder.setTitle("Aggiornare coordinate GPS?");
 //                builder.setMessage(
 //                    "I dati GPS sono già stati acquisiti per questa osservazione, vuoi sovrascrivere?");
@@ -193,7 +196,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                         }
 
                         final String[] items = menuItems.toArray(new String[menuItems.size()]);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(c);
                         builder.setTitle(c.getString(R.string.entity_menu));
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
@@ -206,7 +209,7 @@ public class PrbmUnitAdapter extends ArrayAdapter<PrbmUnit> {
                                 } else if (item == 1) {
 
                                     // Alert dialog to check if sure to delete
-                                    AlertDialog.Builder alert = new AlertDialog.Builder(c);
+                                    MaterialAlertDialogBuilder alert = new MaterialAlertDialogBuilder(c);
                                     alert.setTitle(c.getString(R.string.confirm_delete));
                                     alert.setMessage(c.getString(R.string.are_you_sure_delete_entity));
                                     alert.setIcon(R.drawable.ic_alert_black_48dp);

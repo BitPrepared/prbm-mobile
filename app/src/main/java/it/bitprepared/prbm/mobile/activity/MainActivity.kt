@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.databinding.AboutDialogBinding
 import it.bitprepared.prbm.mobile.databinding.ActivityMainBinding
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 val dialogBinding = ProgressDialogBinding.inflate(layoutInflater)
-                val dialog = AlertDialog.Builder(this@MainActivity)
+                val dialog = MaterialAlertDialogBuilder(this@MainActivity)
                     .setView(dialogBinding.root)
                     .create()
                 viewModel.modelState.collect { (isUploading, progress, error) ->
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun showMissingPermissionDialog() =
-        AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder(this)
             .setTitle("Permessi mancanti")
             .setMessage("Per poter creare un nuovo PRBM è prima necessario accettare tutti i permessi richiesti.")
             .setPositiveButton(R.string.ok) { _, _ -> }
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         val dialogBinding = AboutDialogBinding.inflate(layoutInflater)
         Linkify.addLinks(dialogBinding.text, Linkify.WEB_URLS)
         Linkify.addLinks(dialogBinding.webtext, Linkify.WEB_URLS)
-        AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .setPositiveButton(R.string.contact) { _, _ -> sendContactEmail() }
             .setNegativeButton(R.string.close) { dialog, _ -> dialog.dismiss() }
