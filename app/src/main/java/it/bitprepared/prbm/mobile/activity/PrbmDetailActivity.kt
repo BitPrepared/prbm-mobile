@@ -202,9 +202,12 @@ class PrbmDetailActivity : AppCompatActivity() {
 //        }, null)
     }
 
-    private fun showSavedSuccessfully() = Snackbar.make(
-        binding.root, getString(R.string.save_prbm_successful), Snackbar.LENGTH_SHORT
-    ).show()
+    private fun showSavedSuccessfully() {
+        Snackbar.make(
+            binding.root, getString(R.string.save_prbm_successful), Snackbar.LENGTH_SHORT
+        ).show()
+        viewModel.showSavedDone()
+    }
 
     private fun confirmExit() =
         AlertDialog.Builder(this@PrbmDetailActivity).setTitle(R.string.confirmation)

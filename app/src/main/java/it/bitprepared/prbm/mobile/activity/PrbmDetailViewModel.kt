@@ -29,4 +29,8 @@ class PrbmDetailViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(editReady = false))
     }
 
+    fun showSavedDone() = viewModelScope.launch {
+        _modelState.emit(_modelState.value.copy(saveSuccessful = false))
+    }
+
 }
