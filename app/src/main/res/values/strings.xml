@@ -58,9 +58,9 @@
     <string name="app_description">PRBMM - Percorso Rettificato Belga Multimediale Mobile</string>
     <string name="prbm_date">Data percorso</string>
     <string name="prbm_time">Orario percorso</string>
-    <string name="minutes">"Minuti: "</string>
-    <string name="meters">"Metri: "</string>
-    <string name="azimut">"Azimut: "</string>
+    <string name="minutes">"Minuti: %1$f min"</string>
+    <string name="meters">"Metri: %1$f m"</string>
+    <string name="azimut">"Azimut: %1$f"</string>
     <string name="you_cant_delete_last_unit">Non puoi cancellare l\'ultima riga dal percorso rettificato</string>
     <string name="choose_entity">Scegli l\'entità da aggiungere</string>
     <string name="entity_details">Dettagli osservazione</string>
@@ -108,5 +108,8 @@
     <string name="are_you_sure_to_delete">Sei sicuro di voler eliminare questo PRBM?</string>
     <string name="update_gps_coordinates">Aggiornare coordinate GPS?</string>
     <string name="do_you_want_to_override_gps">I dati GPS sono già stati acquisiti per questa osservazione, vuoi sovrascrivere?</string>
+    <string name="coordinates_acquiring">Coordinate: Acquisizione…</string>
+    <string name="coordinates_missing">Coordinate: Assenti</string>
+    <string name="coordinates">"Coordinate: %1$d %2$d"</string>
 
 </resources>
