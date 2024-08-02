@@ -7,22 +7,15 @@
     <item
         android:id="@+id/parameters"
         android:title="@string/parameters"
-        android:icon="@drawable/ic_routes_white_36dp"
-        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="ifRoom"
         />
 
     <item
         android:id="@+id/save"
         android:title="@string/save"
-        android:icon="@drawable/ic_content_save_white_36dp"
-        app:showAsAction="ifRoom|withText"
-        />
-
-    <item
-        android:id="@+id/exit"
-        android:title="@string/exit"
-        android:icon="@drawable/ic_exit_to_app_white_36dp"
-        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom"
         />
 
 </menu>

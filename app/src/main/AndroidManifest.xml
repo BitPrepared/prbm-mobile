@@ -40,11 +40,11 @@
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main" />
         <activity
-            android:name=".activity.CreatePrbmActivity"
+            android:name=".activity.CreateEditPrbmActivity"
             android:label="@string/title_create_prbm_activity" />
         <activity
             android:name=".activity.PrbmDetailActivity"
-            android:label="@string/title_prbm_activity" />
+            android:label="@string/edit_prbm" />
         <activity
             android:name=".activity.ListPrbmActivity"
             android:label="@string/list_of_prbms" />

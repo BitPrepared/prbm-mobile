@@ -7,6 +7,7 @@
     <string name="welcome">Benvenuto!</string>
     <string name="title_activity_main">PRBMM - Prbm Mobile</string>
     <string name="new_prbm">Nuovo PRBM</string>
+    <string name="edit_prbm">Modifica PRBM</string>
     <string name="list_prbm">Elenco PRBM</string>
     <string name="note">Note</string>
     <string name="benvenuto">Benvenuto</string>
@@ -53,7 +54,6 @@
     <string name="date_hint">Inserisci la data e ora del percorso rettificato</string>
     <string name="note_hint">Inserisci eventuali note sul percorso rettificato</string>
     <string name="title_create_prbm_activity">Creazione nuovo PRBM</string>
-    <string name="title_prbm_activity">Modifica il PRBM</string>
     <string name="error_no_title_prbm">Per poter continuare è necessario inserire almeno il titolo del percorso rettificato</string>
     <string name="app_description">PRBMM - Percorso Rettificato Belga Multimediale Mobile</string>
     <string name="prbm_date">Data percorso</string>
@@ -95,7 +95,6 @@
     <string name="confirm_delete">Conferma cancellazione</string>
     <string name="are_you_sure_delete_entity">Sei sicuro di voler cancellare questa osservazione?</string>
     <string name="modify_entity_values">Modifica valori riga</string>
-    <string name="prbm_save_successful">Salvataggio del PRBM riuscito</string>
     <string name="save_on_disk">Sincronizzazione dei PRBM</string>
     <string name="saving_all_prbms">Salvataggio di tutti i PRBM online</string>
     <string name="gps">GPS</string>

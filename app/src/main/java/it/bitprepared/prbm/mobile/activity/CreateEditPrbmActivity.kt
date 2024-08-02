@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import it.bitprepared.prbm.mobile.R
-import it.bitprepared.prbm.mobile.databinding.ActivityCreatePrbmBinding
+import it.bitprepared.prbm.mobile.databinding.ActivityCreateEditPrbmBinding
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
@@ -22,22 +22,27 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 /**
- * Activity responsible for new PRBM Creation
+ * Activity responsible for new PRBM Creation and edit
  */
-class CreatePrbmActivity : AppCompatActivity() {
+class CreateEditPrbmActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCreatePrbmBinding
-    private val viewModel: CreatePrbmViewModel by viewModels()
+    private lateinit var binding: ActivityCreateEditPrbmBinding
+    private val viewModel: CreateEditPrbmViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityCreatePrbmBinding.inflate(layoutInflater)
+        binding = ActivityCreateEditPrbmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.modelState.collect { state ->
+                    if (state.isEditing) {
+                        binding.topAppBar.title = getString(R.string.edit_prbm)
+                    } else {
+                        binding.topAppBar.title = getString(R.string.new_prbm)
+                    }
                     binding.editTitle.setTextIfDifferent(state.title)
                     binding.editAuthors.setTextIfDifferent(state.authors)
                     binding.editPlace.setTextIfDifferent(state.place)
@@ -49,7 +54,9 @@ class CreatePrbmActivity : AppCompatActivity() {
                             .show()
                     }
                     if (state.saveReady) {
-                        startActivity(Intent(this@CreatePrbmActivity, PrbmDetailActivity::class.java))
+                        if (!state.isEditing) {
+                            startActivity(Intent(this@CreateEditPrbmActivity, PrbmDetailActivity::class.java))
+                        }
                         finish()
                     }
                 }
@@ -84,7 +91,7 @@ class CreatePrbmActivity : AppCompatActivity() {
             }
         })
         binding.btnCreatePrbm.setOnClickListener {
-            viewModel.savePrbm(this@CreatePrbmActivity)
+            viewModel.savePrbm(this@CreateEditPrbmActivity)
         }
         binding.editDate.setOnClickListener { _ ->
             val datePicker = MaterialDatePicker.Builder
@@ -114,29 +121,12 @@ class CreatePrbmActivity : AppCompatActivity() {
         binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
-
-
-        // TODO Handling editing data
-//            val txtTitle = findViewById<TextView>(R.id.text_create_title)
-//            txtTitle.text = getString(R.string.modify_prbm_parameters)
-//            val thisPrbm = prbm
-//            edtTitle.setText(thisPrbm!!.title)
-//            edtAuthors.setText(thisPrbm.authors)
-//            edtPlace.setText(thisPrbm.place)
-//            edtNote.setText(thisPrbm.note)
-//            val date = ZonedDateTime.parse(thisPrbm.date)
-//            edtDate.setText(date.toLocalDate().toString())
-//            edtTime.setText(date.toLocalTime().toString())
-    }
-
-    fun createPrbm() {
-
     }
 
     private fun fromDateToTimestamp(date: String): Long {
         val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val ldate = LocalDate.parse(date, dateFormatter)
-        return ldate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
+        val localDate = LocalDate.parse(date, dateFormatter)
+        return localDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
     }
 }
 

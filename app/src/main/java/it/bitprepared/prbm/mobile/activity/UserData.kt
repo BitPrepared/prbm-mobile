@@ -32,6 +32,9 @@ object UserData {
     @JvmStatic
     var prbm: Prbm? = null
 
+    /** Flag to check if user is editing a PRBM */
+    var editPrbm: Boolean = false
+
     /** Reference to the [PrbmEntity] user is editing  */
     // TODO: Move me to ViewModel
     @JvmStatic
@@ -129,7 +132,7 @@ object UserData {
         }
         _prbmList.onEach {
             // TODO Move me to PRBM class and unify filename
-            File(prbmDirectory, "${it.title}-${it.timestamp}.json").apply {
+            File(prbmDirectory, "${it.uuid}.json").apply {
                 createNewFile()
                 writeText(gson.toJson(it))
             }

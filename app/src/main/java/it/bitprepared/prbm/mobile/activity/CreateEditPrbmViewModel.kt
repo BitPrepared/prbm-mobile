@@ -15,10 +15,10 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class CreatePrbmViewModel : ViewModel() {
+class CreateEditPrbmViewModel : ViewModel() {
 
     private val _modelState = MutableStateFlow(getInitialState())
-    val modelState: StateFlow<CreatePrbmViewModelState> = _modelState.asStateFlow()
+    val modelState: StateFlow<CreateEditPrbmViewModelState> = _modelState.asStateFlow()
 
     fun updateTitle(newTitle: String) = viewModelScope.launch {
         if (newTitle != _modelState.value.title) {
@@ -58,14 +58,28 @@ class CreatePrbmViewModel : ViewModel() {
         _modelState.value = _modelState.value.copy(time = newTime.toString())
     }
 
-    private fun getInitialState(): CreatePrbmViewModelState {
-        val now = ZonedDateTime.now()
+    private fun getInitialState(): CreateEditPrbmViewModelState {
         val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-        return CreatePrbmViewModelState(
-            date = now.toLocalDate().format(dateFormatter),
-            time = now.toLocalTime().format(timeFormatter)
-        )
+        if (UserData.editPrbm) {
+            val prbm = requireNotNull(UserData.prbm)
+            return CreateEditPrbmViewModelState(
+                date = prbm.date ?: "",
+                time = prbm.time ?: "",
+                title = prbm.title,
+                authors = prbm.authors ?: "",
+                place = prbm.place ?: "",
+                notes = prbm.note ?: "",
+                isEditing = true
+            )
+        } else {
+            val now = ZonedDateTime.now()
+            return CreateEditPrbmViewModelState(
+                date = now.toLocalDate().format(dateFormatter),
+                time = now.toLocalTime().format(timeFormatter),
+                isEditing = false
+            )
+        }
     }
 
     fun savePrbm(context: Context) = viewModelScope.launch {
@@ -73,14 +87,27 @@ class CreatePrbmViewModel : ViewModel() {
             _modelState.value =
                 _modelState.value.copy(errorMessageResId = R.string.error_no_title_prbm)
         } else {
-            val newPrbm = Prbm(
-                title = _modelState.value.title,
-                authors = _modelState.value.authors,
-                place = _modelState.value.place,
-                note = _modelState.value.notes,
-                date = "${_modelState.value.date}T${_modelState.value.time}:00Z"
-            )
+            val newPrbm = if (UserData.editPrbm) {
+                requireNotNull(UserData.prbm).copy(
+                    title = _modelState.value.title,
+                    authors = _modelState.value.authors,
+                    place = _modelState.value.place,
+                    note = _modelState.value.notes,
+                    date = _modelState.value.date,
+                    time = _modelState.value.time
+                )
+            } else {
+                Prbm(
+                    title = _modelState.value.title,
+                    authors = _modelState.value.authors,
+                    place = _modelState.value.place,
+                    note = _modelState.value.notes,
+                    date = _modelState.value.date,
+                    time = _modelState.value.time,
+                )
+            }
             UserData.prbm = newPrbm
+            UserData.editPrbm = false
             UserData.savePrbm(context, newPrbm)
             _modelState.value = _modelState.value.copy(saveReady = true)
         }

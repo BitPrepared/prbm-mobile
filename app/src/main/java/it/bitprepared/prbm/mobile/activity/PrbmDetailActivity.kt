@@ -1,7 +1,6 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.location.LocationManager
 import android.os.Bundle
@@ -19,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.snackbar.Snackbar
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.prbm
 import it.bitprepared.prbm.mobile.activity.UserData.savePrbm
@@ -43,7 +43,7 @@ class PrbmDetailActivity : AppCompatActivity() {
     /** Reference to Location Manager  */
     private lateinit var locationManager: LocationManager
 
-    private lateinit var azimutInput: EditText
+    private lateinit var azimuthInput: EditText
     private lateinit var metersInput: EditText
     private lateinit var minutesInput: EditText
 
@@ -55,7 +55,13 @@ class PrbmDetailActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
+                viewModel.modelState.collect { state ->
+                    if (state.saveSuccessful == true) {
+                        showSavedSuccessfully()
+                    } else if (state.editReady == true) {
+                        openPrbmEditActivity()
+                    }
+                }
             }
         }
 
@@ -64,6 +70,22 @@ class PrbmDetailActivity : AppCompatActivity() {
                 confirmExit()
             }
         })
+        binding.prbmAppBar.setNavigationOnClickListener {
+            confirmExit()
+        }
+        binding.prbmAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.save -> {
+                    viewModel.savePrbm(this@PrbmDetailActivity)
+                    true
+                }
+                R.id.parameters -> {
+                    viewModel.editPrbm()
+                    true
+                }
+                else -> false
+            }
+        }
 
         val refPrbm = UserData.prbm
         if (refPrbm != null) {
@@ -75,7 +97,7 @@ class PrbmDetailActivity : AppCompatActivity() {
         // Building dialog for unit value edit
         val alertValuesBuilder = AlertDialog.Builder(this@PrbmDetailActivity)
         val dialogBinding = ModifyUnitValuesBinding.inflate(layoutInflater)
-        azimutInput = dialogBinding.azimutInput
+        azimuthInput = dialogBinding.azimuthInput
         metersInput = dialogBinding.meterInput
         minutesInput = dialogBinding.minutesInput
 
@@ -85,7 +107,7 @@ class PrbmDetailActivity : AppCompatActivity() {
         alertValuesBuilder.setNegativeButton(R.string.abort) { dialog, _ -> dialog.dismiss() }
         alertValuesBuilder.setPositiveButton(R.string.ok) { dialog, _ -> // Update Unit values
             val unit = UserData.unit ?: error("Unit is null - App should crash")
-            unit.setAzimuth(dialogBinding.azimutInput.text.toString().replace(',', '.'))
+            unit.setAzimuth(dialogBinding.azimuthInput.text.toString().replace(',', '.'))
             unit.setMinutes(dialogBinding.minutesInput.text.toString().replace(',', '.'))
             unit.setMeters(dialogBinding.meterInput.text.toString().replace(',', '.'))
             dialog.dismiss()
@@ -118,7 +140,7 @@ class PrbmDetailActivity : AppCompatActivity() {
             val unit = refPrbm!!.getUnit(info!!.position)
             UserData.unit = unit
             metersInput.setText(unit.meter.toString())
-            azimutInput.setText(unit.azimuth.toString())
+            azimuthInput.setText(unit.azimuth.toString())
             minutesInput.setText(unit.minutes.toString())
             valueDialog.show()
         } else if (item.itemId == MENU_UNIT_ADD_AFTER) {
@@ -180,48 +202,23 @@ class PrbmDetailActivity : AppCompatActivity() {
 //        }, null)
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.prbm_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        when (id) {
-            R.id.exit -> confirmExit()
-            R.id.save -> {
-                // Save on disk (serialize)
-                savePrbm(this@PrbmDetailActivity, prbm!!)
-                Toast.makeText(
-                    this@PrbmDetailActivity,
-                    getString(R.string.save_prbm_successful),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            R.id.parameters -> {
-                // Button for accessing PRBM parameters
-                val parameters = Intent(this@PrbmDetailActivity, CreatePrbmActivity::class.java)
-                parameters.putExtra("edit", true)
-                startActivity(parameters)
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    private fun showSavedSuccessfully() = Snackbar.make(
+        binding.root, getString(R.string.save_prbm_successful), Snackbar.LENGTH_SHORT
+    ).show()
 
     private fun confirmExit() =
         AlertDialog.Builder(this@PrbmDetailActivity).setTitle(R.string.confirmation)
             .setIcon(R.drawable.ic_alert).setMessage(R.string.are_you_sure)
             .setPositiveButton(getString(R.string.save_and_exit)) { _, _ ->
                 savePrbm(this@PrbmDetailActivity, prbm!!)
-                Toast.makeText(
-                    this@PrbmDetailActivity,
-                    getString(R.string.prbm_save_successful),
-                    Toast.LENGTH_SHORT
-                ).show()
                 finish()
             }.setNegativeButton(R.string.abort) { _, _ -> }.create().show()
+
+    private fun openPrbmEditActivity() {
+        startActivity(Intent(this@PrbmDetailActivity, CreateEditPrbmActivity::class.java))
+        viewModel.editPrbmStarted()
+    }
+
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -233,9 +230,6 @@ class PrbmDetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        /** Debug TAG  */
-        private const val TAG = "PrbmActivity"
-
         /** Flag used for context menu - Edit unit  */
         private const val MENU_UNIT_EDIT = 1
 
