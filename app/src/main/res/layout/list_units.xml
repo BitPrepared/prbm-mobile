@@ -1,116 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:divider="@drawable/linear_divider"
-              android:orientation="horizontal"
-              android:showDividers="middle">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/txtMeters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="120 m" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/txtAzimuth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="14.0°" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/txtMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="120" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/txtGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="120" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <LinearLayout
         android:id="@+id/lstEntityFarLeft"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/lstEntityNearLeft"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_group">
 
         <Button
             android:id="@+id/btnAddFarLeft"
-            android:layout_width="match_parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:focusable="false"
-            android:background="@drawable/button_add"
-            android:text="Aggiungi"/>
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/add"
+            app:icon="@drawable/ic_add" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lstEntityNearLeft"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/lstEntityNearRight"
+        app:layout_constraintStart_toEndOf="@id/lstEntityFarLeft"
+        app:layout_constraintTop_toBottomOf="@id/chip_group">
 
         <Button
             android:id="@+id/btnAddNearLeft"
-            android:layout_width="match_parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:focusable="false"
-            android:background="@drawable/button_add"
-            android:text="Aggiungi"/>
-    </LinearLayout>
-
-
-    <LinearLayout android:id="@+id/linearUnitcenter"
-                  android:layout_width="0dp"
-                  android:layout_height="match_parent"
-                  android:layout_margin="5dp"
-                  android:layout_weight="2"
-                  android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtMeters"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            />
-
-        <TextView
-            android:id="@+id/txtAzimuth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            />
-
-        <TextView
-            android:id="@+id/txtMinutes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            />
-
-        <TextView
-            android:id="@+id/txtGPS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            />
-
-
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/add"
+            app:icon="@drawable/ic_add" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lstEntityNearRight"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/lstEntityFarRight"
+        app:layout_constraintStart_toEndOf="@id/lstEntityNearLeft"
+        app:layout_constraintTop_toBottomOf="@id/chip_group">
 
         <Button
             android:id="@+id/btnAddNearRight"
-            android:layout_width="match_parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:focusable="false"
-            android:background="@drawable/button_add"
-            android:text="Aggiungi"/>
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/add"
+            app:icon="@drawable/ic_add" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lstEntityFarRight"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lstEntityNearRight"
+        app:layout_constraintTop_toBottomOf="@id/chip_group"
+
+        >
+
 
         <Button
             android:id="@+id/btnAddFarRight"
-            android:layout_width="match_parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:focusable="false"
-            android:background="@drawable/button_add"
-            android:text="Aggiungi"/>
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/add"
+            app:icon="@drawable/ic_add" />
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
