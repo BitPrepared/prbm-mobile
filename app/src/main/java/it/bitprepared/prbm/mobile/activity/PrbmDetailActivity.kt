@@ -61,13 +61,8 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                         showSavedSuccessfully()
                     } else if (state.editReady == true) {
                         openPrbmEditActivity()
-                    } else if (state.editedRow != null) {
-                        adtPrbmUnit.notifyItemChanged(adtPrbmUnit.fromDataPositionToAdapterPosition(state.editedRow))
-                        viewModel.listUpdateDone()
-                    } else if (state.addedRow != null) {
-                        adtPrbmUnit.notifyDataSetChanged()
-                        viewModel.listUpdateDone()
                     }
+                    adtPrbmUnit.setNewData(state.prbm.units)
                 }
             }
         }
@@ -97,14 +92,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             }
         }
 
-        val refPrbm = UserData.prbm
-        if (refPrbm != null) {
-            adtPrbmUnit = PrbmUnitAdapter(refPrbm.units, LayoutInflater.from(this), this)
-            binding.lstUnits.setLayoutManager(LinearLayoutManager(this))
-            val divider = MaterialDividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-            binding.lstUnits.addItemDecoration(divider)
-            binding.lstUnits.setAdapter(adtPrbmUnit)
-        }
+        adtPrbmUnit = PrbmUnitAdapter(LayoutInflater.from(this), this)
+        binding.lstUnits.setLayoutManager(LinearLayoutManager(this))
+        val divider = MaterialDividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+        binding.lstUnits.addItemDecoration(divider)
+        binding.lstUnits.setAdapter(adtPrbmUnit)
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
     }
 
@@ -113,8 +105,6 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         if (v.id == R.id.lstUnits) {
-            menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, getString(R.string.insert_unit_up))
-            menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, getString(R.string.insert_unit_down))
             menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, getString(R.string.delete_row))
             menu.add(Menu.NONE, MENU_UNIT_GPS, 0, R.string.get_gps_coord)
         }
@@ -124,15 +114,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         val info = item.menuInfo as AdapterContextMenuInfo?
 
         val refPrbm = UserData.prbm
-        if (item.itemId == MENU_UNIT_ADD_AFTER) {
-            // Add a unit after
-            refPrbm!!.addNewUnits(info!!.position, false)
-            adtUnit.notifyDataSetChanged()
-        } else if (item.itemId == MENU_UNIT_ADD_BEFORE) {
-            // Add a unit before
-            refPrbm!!.addNewUnits(info!!.position, true)
-            adtUnit.notifyDataSetChanged()
-        } else if (item.itemId == MENU_UNIT_DELETE) {
+        if (item.itemId == MENU_UNIT_DELETE) {
             // Delete a unit
             if (refPrbm!!.canDelete()) {
                 refPrbm.deleteUnit(info!!.position)
@@ -214,9 +196,9 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         }
     }
 
-    override fun onClickMeters(prbmUnit: PrbmUnit) {
+    override fun onClickMeters(value: Int, position: Int) {
         val binding = EditNumericFieldBinding.inflate(layoutInflater)
-        binding.editField.setText(prbmUnit.meters.toString())
+        binding.editField.setText(value.toString())
         binding.textFieldTitle.hint = getString(R.string.meters_label)
 
         MaterialAlertDialogBuilder(this)
@@ -225,14 +207,14 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
                 val newValue = binding.editField.text.toString()
-                viewModel.updateMeters(prbmUnit, newValue)
+                viewModel.updateMeters(adtPrbmUnit.fromAdapterPositionToDataPosition(position), newValue)
             }
             .show()
     }
 
-    override fun onClickAzimuth(prbmUnit: PrbmUnit) {
+    override fun onClickAzimuth(value: Int, position: Int) {
         val binding = EditNumericFieldBinding.inflate(layoutInflater)
-        binding.editField.setText(prbmUnit.azimuth.toString())
+        binding.editField.setText(value.toString())
         binding.textFieldTitle.hint = getString(R.string.azimuth_label)
 
         MaterialAlertDialogBuilder(this)
@@ -241,14 +223,14 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
                 val newValue = binding.editField.text.toString()
-                viewModel.updateAzimuth(prbmUnit, newValue)
+                viewModel.updateAzimuth(adtPrbmUnit.fromAdapterPositionToDataPosition(position), newValue)
             }
             .show()
     }
 
-    override fun onClickMinutes(prbmUnit: PrbmUnit) {
+    override fun onClickMinutes(value: Int, position: Int) {
         val binding = EditNumericFieldBinding.inflate(layoutInflater)
-        binding.editField.setText(prbmUnit.minutes.toString())
+        binding.editField.setText(value.toString())
         binding.textFieldTitle.hint = getString(R.string.minutes_label)
 
         MaterialAlertDialogBuilder(this)
@@ -257,12 +239,12 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
                 val newValue = binding.editField.text.toString()
-                viewModel.updateMinutes(prbmUnit, newValue)
+                viewModel.updateMinutes(adtPrbmUnit.fromAdapterPositionToDataPosition(position), newValue)
             }
             .show()
     }
 
-    override fun onClickGps(prbmUnit: PrbmUnit) {
+    override fun onClickGps(position: Int) {
         TODO("Not yet implemented")
     }
 
@@ -271,12 +253,6 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     }
 
     companion object {
-        /** Flag used for context menu - Add unit before  */
-        private const val MENU_UNIT_ADD_BEFORE = 2
-
-        /** Flag used for context menu - Add unit after  */
-        private const val MENU_UNIT_ADD_AFTER = 3
-
         /** Flag used for context menu - Delete Unit  */
         private const val MENU_UNIT_DELETE = 4
 

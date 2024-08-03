@@ -10,10 +10,10 @@ data class PrbmUnit(
     var azimuth: Int = 0,
     var meters: Int = 0,
     var minutes: Int = 0,
-    private val entitiesFarLeft: MutableList<PrbmEntity> = mutableListOf(),
-    private val entitiesFarRight: MutableList<PrbmEntity> = mutableListOf(),
-    private val entitiesNearLeft: MutableList<PrbmEntity> = mutableListOf(),
-    private val entitiesNearRight: MutableList<PrbmEntity> = mutableListOf(),
+    val entitiesFarLeft: MutableList<PrbmEntity> = mutableListOf(),
+    val entitiesFarRight: MutableList<PrbmEntity> = mutableListOf(),
+    val entitiesNearLeft: MutableList<PrbmEntity> = mutableListOf(),
+    val entitiesNearRight: MutableList<PrbmEntity> = mutableListOf(),
 ) {
 
     @JvmField

@@ -34,36 +34,29 @@ class PrbmDetailViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(saveSuccessful = false))
     }
 
-    fun updateMeters(prbmUnit: PrbmUnit, newValue: String) = viewModelScope.launch {
+    fun updateMeters(position: Int, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
-            prbmUnit.meters = newValue.toInt()
-            val editedPrbm = requireNotNull(UserData.prbm).units.indexOf(prbmUnit)
-            _modelState.emit(_modelState.value.copy(editedRow = editedPrbm))
+            UserData.prbm!!.units[position].meters = newValue.toInt()
+            _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun updateAzimuth(prbmUnit: PrbmUnit, newValue: String) = viewModelScope.launch {
+    fun updateAzimuth(position: Int, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
-            prbmUnit.azimuth = newValue.toInt()
-            val editedPrbm = requireNotNull(UserData.prbm).units.indexOf(prbmUnit)
-            _modelState.emit(_modelState.value.copy(editedRow = editedPrbm))
+            UserData.prbm!!.units[position].azimuth = newValue.toInt()
+            _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun updateMinutes(prbmUnit: PrbmUnit, newValue: String) = viewModelScope.launch {
+    fun updateMinutes(position: Int, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
-            prbmUnit.minutes = newValue.toInt()
-            val editedPrbm = requireNotNull(UserData.prbm).units.indexOf(prbmUnit)
-            _modelState.emit(_modelState.value.copy(editedRow = editedPrbm))
+            UserData.prbm!!.units[position].minutes = newValue.toInt()
+            _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
-    }
-
-    fun listUpdateDone() = viewModelScope.launch {
-        _modelState.emit(_modelState.value.copy(editedRow = null, addedRow = null))
     }
 
     fun addUnitFromPlusPosition(position: Int) = viewModelScope.launch {
         requireNotNull(UserData.prbm).units.add(position, PrbmUnit())
-        _modelState.emit(_modelState.value.copy(addedRow = position))
+        _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
 }

@@ -22,17 +22,15 @@ class PrbmUnitAdapterUnitViewHolder(
 
     var selectedEntityOptions = 0
 
-    fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener) {
+    fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener, position: Int) {
         val context = b.root.context
         b.chipMeters.text = context.getString(R.string.meters, unit.meters)
         b.chipAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
         b.chipMinutes.text = context.getString(R.string.minutes, unit.minutes)
-        b.chipMeters.setOnClickListener {
-            listener.onClickMeters(unit)
-        }
-        b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit) }
-        b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit) }
-        b.chipGps.setOnClickListener { listener.onClickGps(unit) }
+        b.chipMeters.setOnClickListener { listener.onClickMeters(unit.meters, position) }
+        b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit.azimuth, position) }
+        b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit.minutes, position) }
+        b.chipGps.setOnClickListener { listener.onClickGps(position) }
 
         val color = when {
             unit.isFlagAcquiringGPS -> R.color.black
