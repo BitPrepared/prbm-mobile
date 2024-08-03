@@ -5,6 +5,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.ContextMenu.ContextMenuInfo
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.prbm
@@ -34,6 +37,8 @@ import kotlinx.coroutines.launch
 class PrbmDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailPrbmBinding
+    private lateinit var adtPrbmUnit: PrbmUnitAdapter
+
     private val viewModel: PrbmDetailViewModel by viewModels()
 
     private lateinit var adtUnit: PrbmUnitAdapter
@@ -92,9 +97,11 @@ class PrbmDetailActivity : AppCompatActivity() {
 
         val refPrbm = UserData.prbm
         if (refPrbm != null) {
-            adtUnit = PrbmUnitAdapter(this@PrbmDetailActivity, R.layout.list_units, refPrbm.units)
-            binding.lstUnits.adapter = adtUnit
-            registerForContextMenu(binding.lstUnits)
+            adtPrbmUnit = PrbmUnitAdapter(refPrbm.units, LayoutInflater.from(this))
+            binding.lstUnits.setLayoutManager(LinearLayoutManager(this))
+            val divider = MaterialDividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+            binding.lstUnits.addItemDecoration(divider)
+            binding.lstUnits.setAdapter(adtPrbmUnit)
         }
 
         // Building dialog for unit value edit
@@ -114,7 +121,7 @@ class PrbmDetailActivity : AppCompatActivity() {
             unit.setMinutes(dialogBinding.minutesInput.text.toString().replace(',', '.'))
             unit.setMeters(dialogBinding.meterInput.text.toString().replace(',', '.'))
             dialog.dismiss()
-            adtUnit.notifyDataSetInvalidated()
+            adtUnit.notifyDataSetChanged()
         }
         valueDialog = alertValuesBuilder.create()
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
@@ -148,16 +155,16 @@ class PrbmDetailActivity : AppCompatActivity() {
         } else if (item.itemId == MENU_UNIT_ADD_AFTER) {
             // Add a unit after
             refPrbm!!.addNewUnits(info!!.position, false)
-            adtUnit.notifyDataSetInvalidated()
+            adtUnit.notifyDataSetChanged()
         } else if (item.itemId == MENU_UNIT_ADD_BEFORE) {
             // Add a unit before
             refPrbm!!.addNewUnits(info!!.position, true)
-            adtUnit.notifyDataSetInvalidated()
+            adtUnit.notifyDataSetChanged()
         } else if (item.itemId == MENU_UNIT_DELETE) {
             // Delete a unit
             if (refPrbm!!.canDelete()) {
                 refPrbm.deleteUnit(info!!.position)
-                adtUnit.notifyDataSetInvalidated()
+                adtUnit.notifyDataSetChanged()
             } else {
                 // Tip to don't delete last unit
                 Toast.makeText(
