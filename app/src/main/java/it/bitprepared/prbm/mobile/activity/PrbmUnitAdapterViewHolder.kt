@@ -6,7 +6,6 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -28,16 +27,13 @@ class PrbmUnitAdapterViewHolder(
         b.txtMeters.text = context.getString(R.string.meters, unit.meter)
         b.txtMinutes.text = context.getString(R.string.minutes, unit.minutes)
 
-        if (unit.isFlagAcquiringGPS) {
-            b.txtGPS.text = context.getString(R.string.coordinates_acquiring)
-            b.txtGPS.setTextColor(ContextCompat.getColor(context, R.color.black))
-        } else if (unit.latitude == 0.0 && unit.longitude == 0.0) {
-            b.txtGPS.text = b.txtMinutes.context.getString(R.string.coordinates_missing)
-            b.txtGPS.setTextColor(ContextCompat.getColor(context, R.color.red))
-        } else {
-            b.txtGPS.text = context.getString(R.string.coordinates, unit.latitude, unit.longitude)
-            b.txtGPS.setTextColor(ContextCompat.getColor(context, R.color.green))
+        val color = when {
+            unit.isFlagAcquiringGPS -> R.color.black
+            unit.latitude == 0.0 && unit.longitude == 0.0 -> R.color.red
+            else -> R.color.green
         }
+        b.txtGPS.setTextColor(ContextCompat.getColor(context, color))
+
         listOf(
             b.btnAddFarLeft, b.btnAddNearLeft, b.btnAddNearRight, b.btnAddFarRight
         ).forEachIndexed { index, button ->

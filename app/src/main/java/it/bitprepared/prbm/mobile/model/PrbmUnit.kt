@@ -8,11 +8,11 @@ import java.util.Collections
  */
 data class PrbmUnit(
     /** Azimuth angle of this PrbmUnit  */
-    var azimuth: Float = 0f,
+    var azimuth: Int = 0,
     /** Meters of this PrbmUnit  */
-    var meter: Float = 0f,
+    var meter: Int = 0,
     /** Minutes elapsed of this PrbmUnit  */
-    var minutes: Float = 0f,
+    var minutes: Int = 0,
     /** List of Entities far Left  */
     private val entitiesFarLeft: MutableList<PrbmEntity> = mutableListOf(),
     /** List of Entities far Right  */
@@ -33,7 +33,7 @@ data class PrbmUnit(
     var isFlagAcquiringGPS: Boolean = false
 
     fun setAzimuth(azimuth: String) {
-        this.azimuth = parseStringToFloat(azimuth)
+        this.azimuth = azimuth.toIntOrNull() ?: 0
     }
 
     /**
@@ -41,7 +41,7 @@ data class PrbmUnit(
      * @param minutes The new unit minutes
      */
     fun setMinutes(minutes: String) {
-        this.minutes = parseStringToFloat(minutes)
+        this.minutes = minutes.toIntOrNull() ?: 0
     }
 
     /**
@@ -49,7 +49,7 @@ data class PrbmUnit(
      * @param meter The new unit meters
      */
     fun setMeters(meter: String) {
-        this.meter = parseStringToFloat(meter)
+        this.meter = meter.toIntOrNull() ?: 0
     }
 
     val farLeft: List<PrbmEntity>
@@ -116,11 +116,4 @@ data class PrbmUnit(
             Collections.swap(toMove, index, index - 1)
         }
     }
-
-    private fun parseStringToFloat(azimut: String): Float =
-        try {
-            azimut.toFloat()
-        } catch (e: NumberFormatException) {
-            0f
-        }
 }
