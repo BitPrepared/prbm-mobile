@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entity_types">
+        <item>Fiore</item>
+        <item>Albero</item>
+        <item>Fauna</item>
+        <item>Edificio</item>
+        <item>Panorama</item>
+        <item>Monumento</item>
+        <item>Intervista</item>
+        <item>Notizia</item>
+        <item>Curiosità</item>
+        <item>Evento Metereologico</item>
+        <item>Altro</item>
+    </string-array>
+</resources>

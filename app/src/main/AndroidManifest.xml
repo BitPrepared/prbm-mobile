@@ -49,9 +49,6 @@
             android:name=".activity.ListPrbmActivity"
             android:label="@string/list_of_prbms" />
         <activity
-            android:name=".activity.PrbmAddEntityActivity"
-            android:label="@string/choose_entity" />
-        <activity
             android:name=".activity.EntityActivity"
             android:label="@string/entity_details" />
     </application>

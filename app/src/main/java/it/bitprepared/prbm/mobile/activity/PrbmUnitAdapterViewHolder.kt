@@ -7,6 +7,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import it.bitprepared.prbm.mobile.R
@@ -14,8 +15,11 @@ import it.bitprepared.prbm.mobile.databinding.ListUnitsBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 
-class PrbmUnitAdapterViewHolder(private val adapter: PrbmUnitAdapter, private val b: ListUnitsBinding) :
-    RecyclerView.ViewHolder(b.root) {
+class PrbmUnitAdapterViewHolder(
+    private val adapter: PrbmUnitAdapter, private val b: ListUnitsBinding
+) : RecyclerView.ViewHolder(b.root) {
+
+    var selectedEntityOptions = 0
 
     fun bind(unit: PrbmUnit) {
         val context = b.root.context
@@ -34,20 +38,23 @@ class PrbmUnitAdapterViewHolder(private val adapter: PrbmUnitAdapter, private va
             b.txtGPS.setTextColor(ContextCompat.getColor(context, R.color.green))
         }
         listOf(
-            b.btnAddFarLeft,
-            b.btnAddNearLeft,
-            b.btnAddNearRight,
-            b.btnAddFarRight
+            b.btnAddFarLeft, b.btnAddNearLeft, b.btnAddNearRight, b.btnAddFarRight
         ).forEachIndexed { index, button ->
             button.setOnClickListener {
-                UserData.column = index
-                UserData.unit = unit
-                val addEntity = Intent(button.context, PrbmAddEntityActivity::class.java)
-                // TODO This will break.
-                (context as Activity).startActivityForResult(
-                    addEntity,
-                    PrbmDetailActivity.ACTIVITY_ADD_ENTITY
-                )
+//                UserData.column = index
+//                UserData.unit = unit
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(R.string.choose_entity)
+                    .setSingleChoiceItems(R.array.entity_types, 0) { _, which ->
+                        selectedEntityOptions = which
+                    }
+                    .setNegativeButton(context.getString(R.string.abort)) { _, _ -> }
+                    .setPositiveButton(context.getString(R.string.proceed)) { _, _ ->
+                        UserData.newEntityFromPosition(selectedEntityOptions)
+                        val prbmEntityModify = Intent(context, EntityActivity::class.java)
+                        startActivity(context, prbmEntityModify, null)
+                    }
+                    .show()
             }
         }
         val param = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -55,7 +62,9 @@ class PrbmUnitAdapterViewHolder(private val adapter: PrbmUnitAdapter, private va
 
         // Array of entities and linear layouts
         val arrayEntity = listOf(unit.farLeft, unit.nearLeft, unit.nearRight, unit.farRight)
-        val arrayLin = listOf(b.lstEntityFarLeft, b.lstEntityNearLeft, b.lstEntityNearRight, b.lstEntityFarRight)
+        val arrayLin = listOf(
+            b.lstEntityFarLeft, b.lstEntityNearLeft, b.lstEntityNearRight, b.lstEntityFarRight
+        )
 
         for (i in arrayLin.indices) {
             val entities: List<PrbmEntity> = arrayEntity[i]
@@ -104,8 +113,7 @@ class PrbmUnitAdapterViewHolder(private val adapter: PrbmUnitAdapter, private va
                             val addEntity = Intent(context, EntityActivity::class.java)
                             addEntity.putExtra("edit", true)
                             (context as Activity).startActivityForResult(
-                                addEntity,
-                                PrbmDetailActivity.ACTIVITY_MODIFY_ENTITY
+                                addEntity, PrbmDetailActivity.ACTIVITY_MODIFY_ENTITY
                             )
                             dialog.dismiss()
                         } else if (item == 1) {

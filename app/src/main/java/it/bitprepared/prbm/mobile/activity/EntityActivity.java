@@ -209,9 +209,6 @@ public class EntityActivity extends AppCompatActivity {
             involved.addEntity(entity, UserData.getColumn());
           }
           setResult(RESULT_OK);
-          if (PrbmAddEntityActivity.self != null) {
-            PrbmAddEntityActivity.self.finish();
-          }
           finish();
         }
       }

@@ -10,6 +10,17 @@ import com.google.gson.Strictness
 import it.bitprepared.prbm.mobile.model.Prbm
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
+import it.bitprepared.prbm.mobile.model.entities.EntityBuilding
+import it.bitprepared.prbm.mobile.model.entities.EntityCuriosity
+import it.bitprepared.prbm.mobile.model.entities.EntityFauna
+import it.bitprepared.prbm.mobile.model.entities.EntityFlower
+import it.bitprepared.prbm.mobile.model.entities.EntityInterview
+import it.bitprepared.prbm.mobile.model.entities.EntityMonument
+import it.bitprepared.prbm.mobile.model.entities.EntityNews
+import it.bitprepared.prbm.mobile.model.entities.EntityOther
+import it.bitprepared.prbm.mobile.model.entities.EntityPanorama
+import it.bitprepared.prbm.mobile.model.entities.EntityTree
+import it.bitprepared.prbm.mobile.model.entities.EntityWeather
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -39,6 +50,23 @@ object UserData {
     // TODO: Move me to ViewModel
     @JvmStatic
     var entity: PrbmEntity? = null
+
+    fun newEntityFromPosition(position: Int) {
+        entity = when(position) {
+            0 -> EntityFlower()
+            1 -> EntityTree()
+            2 -> EntityFauna()
+            3 -> EntityBuilding()
+            4 -> EntityPanorama()
+            5 -> EntityMonument()
+            6 -> EntityInterview()
+            7 -> EntityNews()
+            8 -> EntityCuriosity()
+            9 -> EntityWeather()
+            10 -> EntityOther()
+            else -> error("Invalid position")
+        }
+    }
 
     /** Reference to actual unit  */
     // TODO: Move me to ViewModel
@@ -114,7 +142,7 @@ object UserData {
         return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
     }
 
-    private fun getPrbmDirectory(context: Context) : File {
+    private fun getPrbmDirectory(context: Context): File {
         if (!isExternalStorageWritable()) error("External storage not writable")
         val rootDirectory = context.applicationContext.getExternalFilesDir("")
         return File(rootDirectory, "prbms")

@@ -12,7 +12,7 @@
     
     <item
         android:id="@+id/confirm"
-        android:title="@string/avanti"
+        android:title="@string/proceed"
         android:icon="@drawable/ic_check_white_36dp"
         app:showAsAction="always|withText"
         />
