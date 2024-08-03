@@ -10,6 +10,7 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit
 class PrbmUnitAdapter(
     data: List<PrbmUnit>,
     private val layoutInflater: LayoutInflater,
+    private val listener: OnPrbmUnitListener
 ) : RecyclerView.Adapter<PrbmUnitAdapterViewHolder>() {
 
     private val _data: MutableList<PrbmUnit> = data.toMutableList()
@@ -20,5 +21,12 @@ class PrbmUnitAdapter(
     override fun getItemCount(): Int = _data.size
 
     override fun onBindViewHolder(holder: PrbmUnitAdapterViewHolder, position: Int) =
-        holder.bind(_data[position])
+        holder.bind(_data[position], listener)
+
+    interface OnPrbmUnitListener {
+        fun onClickMeters(prbmUnit: PrbmUnit)
+        fun onClickAzimuth(prbmUnit: PrbmUnit)
+        fun onClickMinutes(prbmUnit: PrbmUnit)
+        fun onClickGps(prbmUnit: PrbmUnit)
+    }
 }

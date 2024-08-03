@@ -111,5 +111,10 @@
     <string name="coordinates_acquiring">Coordinate: Acquisizione…</string>
     <string name="coordinates_missing">Coordinate: Assenti</string>
     <string name="coordinates">"Coordinate: %1$d %2$d"</string>
+    <string name="number_of_meters">Numero di Metri percorsi</string>
+    <string name="meters_label">Metri</string>
+    <string name="azimuth_label">Azimuth</string>
+    <string name="minutes_label">Minuti</string>
+    <string name="azimuth_explanation">Angolo dell\'azimuth (gradi)</string>
 
 </resources>

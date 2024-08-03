@@ -16,23 +16,28 @@ import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 
 class PrbmUnitAdapterViewHolder(
-    private val adapter: PrbmUnitAdapter, private val b: ListUnitsBinding
+    private val adapter: PrbmUnitAdapter,
+    private val b: ListUnitsBinding
 ) : RecyclerView.ViewHolder(b.root) {
 
     var selectedEntityOptions = 0
 
-    fun bind(unit: PrbmUnit) {
+    fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener) {
         val context = b.root.context
-        b.txtAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
-        b.txtMeters.text = context.getString(R.string.meters, unit.meter)
-        b.txtMinutes.text = context.getString(R.string.minutes, unit.minutes)
+        b.chipAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
+        b.chipMeters.text = context.getString(R.string.meters, unit.meters)
+        b.chipMinutes.text = context.getString(R.string.minutes, unit.minutes)
+        b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit) }
+        b.chipMeters.setOnClickListener { listener.onClickMeters(unit) }
+        b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit) }
+        b.chipGps.setOnClickListener { listener.onClickGps(unit) }
 
         val color = when {
             unit.isFlagAcquiringGPS -> R.color.black
             unit.latitude == 0.0 && unit.longitude == 0.0 -> R.color.red
             else -> R.color.green
         }
-        b.txtGPS.setTextColor(ContextCompat.getColor(context, color))
+        b.chipGps.setTextColor(ContextCompat.getColor(context, color))
 
         listOf(
             b.btnAddFarLeft, b.btnAddNearLeft, b.btnAddNearRight, b.btnAddFarRight

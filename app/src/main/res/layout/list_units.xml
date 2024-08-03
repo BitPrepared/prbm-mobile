@@ -5,43 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.chip.ChipGroup
+    <HorizontalScrollView
         android:id="@+id/chip_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingHorizontal="@dimen/grid_sing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/txtMeters"
+        <com.google.android.material.chip.ChipGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chipIcon="@drawable/ic_meter"
-            tools:text="120 m" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleLine="true">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/txtAzimuth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:chipIcon="@drawable/ic_explore"
-            tools:text="14.0°" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_meters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipIcon="@drawable/ic_meter"
+                tools:text="120 m" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/txtMinutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:chipIcon="@drawable/ic_time"
-            tools:text="120" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_azimuth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipIcon="@drawable/ic_explore"
+                tools:text="14.0°" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/txtGPS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:chipIcon="@drawable/ic_gps_fixed"
-            android:text="@string/gps" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipIcon="@drawable/ic_time"
+                tools:text="120" />
 
-    </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps"
+                app:chipIcon="@drawable/ic_gps_fixed" />
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/lstEntityFarLeft"

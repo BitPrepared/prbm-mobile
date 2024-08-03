@@ -27,14 +27,14 @@ import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.prbm
 import it.bitprepared.prbm.mobile.activity.UserData.savePrbm
 import it.bitprepared.prbm.mobile.databinding.ActivityDetailPrbmBinding
-import it.bitprepared.prbm.mobile.databinding.ModifyUnitValuesBinding
+import it.bitprepared.prbm.mobile.databinding.EditNumericFieldBinding
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 import kotlinx.coroutines.launch
 
 /**
  * Class responsible for visualizing a single Prbm
  */
-class PrbmDetailActivity : AppCompatActivity() {
+class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListener {
 
     private lateinit var binding: ActivityDetailPrbmBinding
     private lateinit var adtPrbmUnit: PrbmUnitAdapter
@@ -43,10 +43,6 @@ class PrbmDetailActivity : AppCompatActivity() {
 
     private lateinit var adtUnit: PrbmUnitAdapter
 
-    /** Reference to value edit dialog  */
-    private lateinit var valueDialog: AlertDialog
-
-    /** Reference to Location Manager  */
     private lateinit var locationManager: LocationManager
 
     private lateinit var azimuthInput: EditText
@@ -66,6 +62,9 @@ class PrbmDetailActivity : AppCompatActivity() {
                         showSavedSuccessfully()
                     } else if (state.editReady == true) {
                         openPrbmEditActivity()
+                    } else if (state.editedRow != null) {
+                        adtPrbmUnit.notifyItemChanged(state.editedRow)
+                        viewModel.listUpdateDone()
                     }
                 }
             }
@@ -97,33 +96,12 @@ class PrbmDetailActivity : AppCompatActivity() {
 
         val refPrbm = UserData.prbm
         if (refPrbm != null) {
-            adtPrbmUnit = PrbmUnitAdapter(refPrbm.units, LayoutInflater.from(this))
+            adtPrbmUnit = PrbmUnitAdapter(refPrbm.units, LayoutInflater.from(this), this)
             binding.lstUnits.setLayoutManager(LinearLayoutManager(this))
             val divider = MaterialDividerItemDecoration(this, LinearLayoutManager.VERTICAL)
             binding.lstUnits.addItemDecoration(divider)
             binding.lstUnits.setAdapter(adtPrbmUnit)
         }
-
-        // Building dialog for unit value edit
-        val alertValuesBuilder = MaterialAlertDialogBuilder(this@PrbmDetailActivity)
-        val dialogBinding = ModifyUnitValuesBinding.inflate(layoutInflater)
-        azimuthInput = dialogBinding.azimuthInput
-        metersInput = dialogBinding.meterInput
-        minutesInput = dialogBinding.minutesInput
-
-        alertValuesBuilder.setMessage(getString(R.string.modify_entity_values))
-        alertValuesBuilder.setIcon(R.drawable.ic_compass_outline_black_48dp)
-        alertValuesBuilder.setView(dialogBinding.root)
-        alertValuesBuilder.setNegativeButton(R.string.abort) { dialog, _ -> dialog.dismiss() }
-        alertValuesBuilder.setPositiveButton(R.string.ok) { dialog, _ -> // Update Unit values
-            val unit = UserData.unit ?: error("Unit is null - App should crash")
-            unit.setAzimuth(dialogBinding.azimuthInput.text.toString().replace(',', '.'))
-            unit.setMinutes(dialogBinding.minutesInput.text.toString().replace(',', '.'))
-            unit.setMeters(dialogBinding.meterInput.text.toString().replace(',', '.'))
-            dialog.dismiss()
-            adtUnit.notifyDataSetChanged()
-        }
-        valueDialog = alertValuesBuilder.create()
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
     }
 
@@ -132,7 +110,6 @@ class PrbmDetailActivity : AppCompatActivity() {
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         if (v.id == R.id.lstUnits) {
-            menu.add(Menu.NONE, MENU_UNIT_EDIT, 0, getString(R.string.modify_values))
             menu.add(Menu.NONE, MENU_UNIT_ADD_AFTER, 0, getString(R.string.insert_unit_up))
             menu.add(Menu.NONE, MENU_UNIT_ADD_BEFORE, 0, getString(R.string.insert_unit_down))
             menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, getString(R.string.delete_row))
@@ -144,15 +121,7 @@ class PrbmDetailActivity : AppCompatActivity() {
         val info = item.menuInfo as AdapterContextMenuInfo?
 
         val refPrbm = UserData.prbm
-        if (item.itemId == MENU_UNIT_EDIT) {
-            // Show value dialog
-            val unit = refPrbm!!.getUnit(info!!.position)
-            UserData.unit = unit
-            metersInput.setText(unit.meter.toString())
-            azimuthInput.setText(unit.azimuth.toString())
-            minutesInput.setText(unit.minutes.toString())
-            valueDialog.show()
-        } else if (item.itemId == MENU_UNIT_ADD_AFTER) {
+        if (item.itemId == MENU_UNIT_ADD_AFTER) {
             // Add a unit after
             refPrbm!!.addNewUnits(info!!.position, false)
             adtUnit.notifyDataSetChanged()
@@ -242,10 +211,59 @@ class PrbmDetailActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        /** Flag used for context menu - Edit unit  */
-        private const val MENU_UNIT_EDIT = 1
+    override fun onClickMeters(prbmUnit: PrbmUnit) {
+        val binding = EditNumericFieldBinding.inflate(layoutInflater)
+        binding.editField.setText(prbmUnit.meters.toString())
+        binding.textFieldTitle.hint = getString(R.string.meters_label)
 
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.number_of_meters))
+            .setView(binding.root)
+            .setNegativeButton(getString(R.string.abort)) { _, _ -> }
+            .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
+                val newValue = binding.editField.text.toString()
+                viewModel.updateMeters(prbmUnit, newValue)
+            }
+            .show()
+    }
+
+    override fun onClickAzimuth(prbmUnit: PrbmUnit) {
+        val binding = EditNumericFieldBinding.inflate(layoutInflater)
+        binding.editField.setText(prbmUnit.azimuth.toString())
+        binding.textFieldTitle.hint = getString(R.string.azimuth_label)
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.azimuth_explanation))
+            .setView(binding.root)
+            .setNegativeButton(getString(R.string.abort)) { _, _ -> }
+            .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
+                val newValue = binding.editField.text.toString()
+                viewModel.updateAzimuth(prbmUnit, newValue)
+            }
+            .show()
+    }
+
+    override fun onClickMinutes(prbmUnit: PrbmUnit) {
+        val binding = EditNumericFieldBinding.inflate(layoutInflater)
+        binding.editField.setText(prbmUnit.minutes.toString())
+        binding.textFieldTitle.hint = getString(R.string.minutes_label)
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.azimuth_explanation))
+            .setView(binding.root)
+            .setNegativeButton(getString(R.string.abort)) { _, _ -> }
+            .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
+                val newValue = binding.editField.text.toString()
+                viewModel.updateMinutes(prbmUnit, newValue)
+            }
+            .show()
+    }
+
+    override fun onClickGps(prbmUnit: PrbmUnit) {
+        TODO("Not yet implemented")
+    }
+
+    companion object {
         /** Flag used for context menu - Add unit before  */
         private const val MENU_UNIT_ADD_BEFORE = 2
 

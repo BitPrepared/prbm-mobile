@@ -3,6 +3,7 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import it.bitprepared.prbm.mobile.model.PrbmUnit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,4 +34,31 @@ class PrbmDetailViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(saveSuccessful = false))
     }
 
+    fun updateMeters(prbmUnit: PrbmUnit, newValue: String) = viewModelScope.launch {
+        if (newValue.toIntOrNull() != null) {
+            prbmUnit.meters = newValue.toInt()
+            val editedPrbm = requireNotNull(UserData.prbm).units.indexOf(prbmUnit)
+            _modelState.emit(_modelState.value.copy(editedRow = editedPrbm))
+        }
+    }
+
+    fun updateAzimuth(prbmUnit: PrbmUnit, newValue: String) = viewModelScope.launch {
+        if (newValue.toIntOrNull() != null) {
+            prbmUnit.azimuth = newValue.toInt()
+            val editedPrbm = requireNotNull(UserData.prbm).units.indexOf(prbmUnit)
+            _modelState.emit(_modelState.value.copy(editedRow = editedPrbm))
+        }
+    }
+
+    fun updateMinutes(prbmUnit: PrbmUnit, newValue: String) = viewModelScope.launch {
+        if (newValue.toIntOrNull() != null) {
+            prbmUnit.minutes = newValue.toInt()
+            val editedPrbm = requireNotNull(UserData.prbm).units.indexOf(prbmUnit)
+            _modelState.emit(_modelState.value.copy(editedRow = editedPrbm))
+        }
+    }
+
+    fun listUpdateDone() = viewModelScope.launch {
+        _modelState.emit(_modelState.value.copy(editedRow = null))
+    }
 }

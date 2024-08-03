@@ -7,19 +7,12 @@ import java.util.Collections
  * on 4 columns.
  */
 data class PrbmUnit(
-    /** Azimuth angle of this PrbmUnit  */
     var azimuth: Int = 0,
-    /** Meters of this PrbmUnit  */
-    var meter: Int = 0,
-    /** Minutes elapsed of this PrbmUnit  */
+    var meters: Int = 0,
     var minutes: Int = 0,
-    /** List of Entities far Left  */
     private val entitiesFarLeft: MutableList<PrbmEntity> = mutableListOf(),
-    /** List of Entities far Right  */
     private val entitiesFarRight: MutableList<PrbmEntity> = mutableListOf(),
-    /** List of Entities near Left  */
     private val entitiesNearLeft: MutableList<PrbmEntity> = mutableListOf(),
-    /** List of Entities near Left  */
     private val entitiesNearRight: MutableList<PrbmEntity> = mutableListOf(),
 ) {
 
@@ -49,7 +42,7 @@ data class PrbmUnit(
      * @param meter The new unit meters
      */
     fun setMeters(meter: String) {
-        this.meter = meter.toIntOrNull() ?: 0
+        this.meters = meter.toIntOrNull() ?: 0
     }
 
     val farLeft: List<PrbmEntity>
