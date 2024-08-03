@@ -21,7 +21,6 @@
     <string name="articolo_inserito_manualmente">Articolo inserito manualmente</string>
     <string name="visualizza">Visualizza</string>
     <string name="edit">Modifica</string>
-    <string name="elimina">Elimina</string>
     <string name="cancella">Cancella</string>
     <string name="fields_incomplete">Campi incompleti!</string>
 
@@ -116,5 +115,7 @@
     <string name="azimuth_label">Azimuth</string>
     <string name="minutes_label">Minuti</string>
     <string name="azimuth_explanation">Angolo dell\'azimuth (gradi)</string>
+    <string name="delete_the_row">Cancellare la riga?</string>
+    <string name="are_you_sure_to_delete_a_row">Sei sicuro di voler cancellare la riga? Tutte le osservazioni in questa riga verranno perse</string>
 
 </resources>

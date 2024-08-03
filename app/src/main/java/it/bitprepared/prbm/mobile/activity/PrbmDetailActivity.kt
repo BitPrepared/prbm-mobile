@@ -105,7 +105,6 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         if (v.id == R.id.lstUnits) {
-            menu.add(Menu.NONE, MENU_UNIT_DELETE, 0, getString(R.string.delete_row))
             menu.add(Menu.NONE, MENU_UNIT_GPS, 0, R.string.get_gps_coord)
         }
     }
@@ -114,18 +113,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         val info = item.menuInfo as AdapterContextMenuInfo?
 
         val refPrbm = UserData.prbm
-        if (item.itemId == MENU_UNIT_DELETE) {
-            // Delete a unit
-            if (refPrbm!!.canDelete()) {
-                refPrbm.deleteUnit(info!!.position)
-                adtUnit.notifyDataSetChanged()
-            } else {
-                // Tip to don't delete last unit
-                Toast.makeText(
-                    this, getString(R.string.you_cant_delete_last_unit), Toast.LENGTH_SHORT
-                ).show()
-            }
-        } else if (item.itemId == MENU_UNIT_GPS) {
+        if (item.itemId == MENU_UNIT_GPS) {
             val unit = refPrbm!!.getUnit(info!!.position)
             if (unit.latitude != 0.0 && unit.longitude != 0.0) {
                 MaterialAlertDialogBuilder(this).setTitle(getString(R.string.update_gps_coordinates))
@@ -252,10 +240,18 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         viewModel.addUnitFromPlusPosition(adtPrbmUnit.fromAdapterPositionToDataPosition(position))
     }
 
-    companion object {
-        /** Flag used for context menu - Delete Unit  */
-        private const val MENU_UNIT_DELETE = 4
+    override fun onClickDelete(position: Int) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.delete_the_row))
+            .setMessage(getString(R.string.are_you_sure_to_delete_a_row))
+            .setNegativeButton(getString(R.string.abort)) { _, _ -> }
+            .setPositiveButton(getString(R.string.ok)) { _ , _ ->
+                viewModel.deleteUnit(adtPrbmUnit.fromAdapterPositionToDataPosition(position))
+            }
+            .show()
+    }
 
+    companion object {
         /** Flag used for context menu - Obtain GPS  */
         private const val MENU_UNIT_GPS = 5
 

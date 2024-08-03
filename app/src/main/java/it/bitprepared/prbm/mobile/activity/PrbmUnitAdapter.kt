@@ -70,10 +70,10 @@ class PrbmUnitAdapter(
         fun onClickMinutes(value: Int, position: Int)
         fun onClickGps(position: Int)
         fun onAddUnitButtonClicked(position: Int)
+        fun onClickDelete(position: Int)
     }
 
     fun fromAdapterPositionToDataPosition(adapterPosition: Int): Int = adapterPosition / 2
-    fun fromDataPositionToAdapterPosition(dataPosition: Int): Int = (dataPosition * 2) + 1
 
     private fun padListWithAddButtons(input: List<PrbmUnit>): List<PrbmUnitAdapterViewType> {
         val paddedData = mutableListOf<PrbmUnitAdapterViewType>(PrbmUnitAdapterViewType.AddButton)

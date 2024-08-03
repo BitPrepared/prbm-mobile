@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import it.bitprepared.prbm.mobile.R
@@ -31,6 +33,12 @@ class PrbmUnitAdapterUnitViewHolder(
         b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit.azimuth, position) }
         b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit.minutes, position) }
         b.chipGps.setOnClickListener { listener.onClickGps(position) }
+        b.chipDelete.setOnClickListener { listener.onClickDelete(position) }
+        if (UserData.prbm!!.units.size == 1) {
+            b.chipDelete.isGone = true
+        } else {
+            b.chipDelete.isVisible = true
+        }
 
         val color = when {
             unit.isFlagAcquiringGPS -> R.color.black

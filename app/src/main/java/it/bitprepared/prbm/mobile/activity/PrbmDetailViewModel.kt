@@ -59,4 +59,9 @@ class PrbmDetailViewModel : ViewModel() {
         requireNotNull(UserData.prbm).units.add(position, PrbmUnit())
         _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
+
+    fun deleteUnit(position: Int) = viewModelScope.launch {
+        UserData.prbm!!.units.removeAt(position)
+        _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
+    }
 }
