@@ -59,6 +59,11 @@ class PrbmDetailViewModel : ViewModel() {
     }
 
     fun listUpdateDone() = viewModelScope.launch {
-        _modelState.emit(_modelState.value.copy(editedRow = null))
+        _modelState.emit(_modelState.value.copy(editedRow = null, addedRow = null))
+    }
+
+    fun addUnitFromPlusPosition(position: Int) = viewModelScope.launch {
+        requireNotNull(UserData.prbm).units.add(position, PrbmUnit())
+        _modelState.emit(_modelState.value.copy(addedRow = position))
     }
 }

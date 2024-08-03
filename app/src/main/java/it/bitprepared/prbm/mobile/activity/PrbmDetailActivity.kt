@@ -14,7 +14,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -63,7 +62,10 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                     } else if (state.editReady == true) {
                         openPrbmEditActivity()
                     } else if (state.editedRow != null) {
-                        adtPrbmUnit.notifyItemChanged(state.editedRow)
+                        adtPrbmUnit.notifyItemChanged(adtPrbmUnit.fromDataPositionToAdapterPosition(state.editedRow))
+                        viewModel.listUpdateDone()
+                    } else if (state.addedRow != null) {
+                        adtPrbmUnit.notifyDataSetChanged()
                         viewModel.listUpdateDone()
                     }
                 }
@@ -75,6 +77,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                 confirmExit()
             }
         })
+
         binding.prbmAppBar.setNavigationOnClickListener {
             confirmExit()
         }
@@ -261,6 +264,10 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
 
     override fun onClickGps(prbmUnit: PrbmUnit) {
         TODO("Not yet implemented")
+    }
+
+    override fun onAddUnitButtonClicked(position: Int) {
+        viewModel.addUnitFromPlusPosition(adtPrbmUnit.fromAdapterPositionToDataPosition(position))
     }
 
     companion object {

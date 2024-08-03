@@ -15,7 +15,7 @@ import it.bitprepared.prbm.mobile.databinding.ListUnitsBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 
-class PrbmUnitAdapterViewHolder(
+class PrbmUnitAdapterUnitViewHolder(
     private val adapter: PrbmUnitAdapter,
     private val b: ListUnitsBinding
 ) : RecyclerView.ViewHolder(b.root) {
@@ -24,11 +24,13 @@ class PrbmUnitAdapterViewHolder(
 
     fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener) {
         val context = b.root.context
-        b.chipAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
         b.chipMeters.text = context.getString(R.string.meters, unit.meters)
+        b.chipAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
         b.chipMinutes.text = context.getString(R.string.minutes, unit.minutes)
+        b.chipMeters.setOnClickListener {
+            listener.onClickMeters(unit)
+        }
         b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit) }
-        b.chipMeters.setOnClickListener { listener.onClickMeters(unit) }
         b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit) }
         b.chipGps.setOnClickListener { listener.onClickGps(unit) }
 
