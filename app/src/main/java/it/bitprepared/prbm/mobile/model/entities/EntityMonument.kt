@@ -89,6 +89,6 @@ class EntityMonument @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_monument
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.monument_back
 }

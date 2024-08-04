@@ -31,6 +31,6 @@ class EntityOther @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_other
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.other_back
 }

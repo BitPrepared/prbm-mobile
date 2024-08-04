@@ -31,8 +31,8 @@ abstract class PrbmEntity (
     /** The Resource ID for button background */
     abstract val idButtonImage: Int
 
-    /** The Resource ID for entity activity background */
-    abstract val idBackImage: Int
+    /** The Resource ID for entity color */
+    abstract val idIconColor: Int
 
     /** The list of Extra Fields to be drawn by this PrbmEntity */
     abstract val extraFields: Array<EntityField>

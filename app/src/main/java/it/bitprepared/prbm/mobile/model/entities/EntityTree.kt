@@ -80,6 +80,6 @@ class EntityTree @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_tree
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.tree_back
 }

@@ -122,6 +122,6 @@ class EntityWeather @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_forecast
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.forecast_back
 }

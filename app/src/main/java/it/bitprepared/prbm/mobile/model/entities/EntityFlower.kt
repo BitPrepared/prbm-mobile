@@ -56,6 +56,6 @@ class EntityFlower @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_flower
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.flower_black
 }

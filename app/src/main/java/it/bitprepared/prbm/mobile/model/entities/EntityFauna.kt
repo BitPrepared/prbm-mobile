@@ -95,6 +95,6 @@ class EntityFauna @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_fauna
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.fauna_back
 }

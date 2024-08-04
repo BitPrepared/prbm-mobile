@@ -58,6 +58,6 @@ class EntityNews @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_news
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.news_back
 }

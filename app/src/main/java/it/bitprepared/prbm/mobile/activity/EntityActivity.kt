@@ -62,7 +62,6 @@ class EntityActivity : AppCompatActivity() {
         setContentView(binding.root)
         val entity = entity
         if (entity != null) {
-            binding.imgEntity.setImageResource(entity.idBackImage)
             entity.drawYourSelf(this@EntityActivity, binding.linFree)
             binding.txtTitle.text = entity.type
 

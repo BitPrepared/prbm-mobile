@@ -52,6 +52,6 @@ class EntityBuilding @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_building
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.building_back
 }

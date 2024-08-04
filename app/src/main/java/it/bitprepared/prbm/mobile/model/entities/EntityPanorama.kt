@@ -73,6 +73,6 @@ class EntityPanorama @JvmOverloads constructor(
     override val idButtonImage: Int
         get() = R.drawable.button_panorama
 
-    override val idBackImage: Int
+    override val idIconColor: Int
         get() = R.color.panorama_back
 }
