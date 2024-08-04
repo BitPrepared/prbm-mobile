@@ -19,6 +19,8 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.google.gson.Gson
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.column
@@ -33,6 +35,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalTime
 import java.util.Calendar
 import java.util.Locale
 
@@ -53,8 +56,24 @@ class EntityActivity : AppCompatActivity() {
         val intent = intent
         edit = intent.getBooleanExtra("edit", false)
         binding = ActivityEntityBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
+        binding.editTime.text = "12:42"
+        binding.editTime.setOnClickListener {
+            val time = LocalTime.parse(binding.editTime.getText().toString())
+            val timePicker = MaterialTimePicker
+                .Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(time.hour)
+                .setMinute(time.minute)
+                .setTitleText(R.string.pick_unit_time).build()
+            timePicker.addOnPositiveButtonClickListener { _ ->
+                // TODO send this over to the viewmodel
+                binding.editTime.text = "${timePicker.hour}:${timePicker.minute}"
+            }
+            timePicker.show(supportFragmentManager, "timePicker")
+        }
+
         val entity = entity
         if (entity != null) {
 //            entity.drawYourSelf(this@EntityActivity, binding.linFree)

@@ -16,6 +16,7 @@ data class NewPrbmEntity (
     val typeId: String = type.id,
     var description: String = "",
     var pictureName: String = "",
+    var time: String = "",
     val fieldValues: MutableMap<String, String> = mutableMapOf()
 ) {
 
