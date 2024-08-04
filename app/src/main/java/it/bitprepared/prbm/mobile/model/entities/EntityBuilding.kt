@@ -46,12 +46,6 @@ class EntityBuilding @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire informazioni su edifici o costruzioni."
 
-    override val idListImage: Int
-        get() = R.drawable.background_building_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_building
-
     override val idIconColor: Int
         get() = R.color.building_back
 }

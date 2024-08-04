@@ -74,12 +74,6 @@ class EntityTree @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire avvistamente di alberi, foreste, arbosti o altro tipo di vegetazione"
 
-    override val idListImage: Int
-        get() = R.drawable.background_tree_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_tree
-
     override val idIconColor: Int
         get() = R.color.tree_back
 }

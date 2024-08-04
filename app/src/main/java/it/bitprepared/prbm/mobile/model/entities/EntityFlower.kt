@@ -50,12 +50,6 @@ class EntityFlower @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire avvistamente di fiori o erba."
 
-    override val idListImage: Int
-        get() = R.drawable.background_flower_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_flower
-
     override val idIconColor: Int
         get() = R.color.flower_black
 }

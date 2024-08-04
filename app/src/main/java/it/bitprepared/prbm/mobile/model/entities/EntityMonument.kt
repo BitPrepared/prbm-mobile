@@ -83,12 +83,6 @@ class EntityMonument @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire informazioni su monumenti o luoghi di rilevanza storica."
 
-    override val idListImage: Int
-        get() = R.drawable.background_monument_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_monument
-
     override val idIconColor: Int
         get() = R.color.monument_back
 }

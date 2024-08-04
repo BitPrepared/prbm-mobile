@@ -94,7 +94,6 @@ class PrbmUnitAdapterUnitViewHolder(
                 b.text = entity.type
                 b.layoutParams = param
                 b.isFocusable = false
-                b.setBackgroundResource(entity.idButtonImage)
                 b.setTextColor(ContextCompat.getColor(context, R.color.white))
                 b.setOnClickListener {
                     UserData.column = i

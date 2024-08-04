@@ -31,12 +31,6 @@ class EntityCuriosity @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire ulteriori curiosità oppure osservazioni che non rientrano nelle altre classi."
 
-    override val idListImage: Int
-        get() = R.drawable.background_curiosity_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_curiosity
-
     override val idIconColor: Int
         get() = R.color.curiosity_back
 }

@@ -71,12 +71,6 @@ class EntityInterview @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire report o interviste alle persone incontrate."
 
-    override val idListImage: Int
-        get() = R.drawable.background_interview_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_interview
-
     override val idIconColor: Int
         get() = R.color.interview_back
 }

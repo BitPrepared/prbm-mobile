@@ -25,12 +25,6 @@ class EntityOther @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire informazioni che non rientrano nella classi precedenti."
 
-    override val idListImage: Int
-        get() = R.drawable.background_other_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_other
-
     override val idIconColor: Int
         get() = R.color.other_back
 }

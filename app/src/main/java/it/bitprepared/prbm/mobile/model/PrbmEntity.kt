@@ -25,12 +25,6 @@ abstract class PrbmEntity (
     /** The Entity Type description */
     abstract val typeDescription: String?
 
-    /** The Resource ID for list image background */
-    abstract val idListImage: Int
-
-    /** The Resource ID for button background */
-    abstract val idButtonImage: Int
-
     /** The Resource ID for entity color */
     abstract val idIconColor: Int
 

@@ -52,12 +52,6 @@ class EntityNews @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per riportare notizie o fatti di cronaca del posto."
 
-    override val idListImage: Int
-        get() = R.drawable.background_news_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_news
-
     override val idIconColor: Int
         get() = R.color.news_back
 }

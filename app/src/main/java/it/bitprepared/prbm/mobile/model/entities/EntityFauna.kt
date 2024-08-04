@@ -89,12 +89,6 @@ class EntityFauna @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire avvistamente di animali, nidi, insetti o altri avvistamenti relativi alla fauna."
 
-    override val idListImage: Int
-        get() = R.drawable.background_fauna_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_fauna
-
     override val idIconColor: Int
         get() = R.color.fauna_back
 }

@@ -67,12 +67,6 @@ class EntityPanorama @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire informazioni sull'ambiente naturale circostante e sui panorami ammirati."
 
-    override val idListImage: Int
-        get() = R.drawable.background_panorama_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_panorama
-
     override val idIconColor: Int
         get() = R.color.panorama_back
 }

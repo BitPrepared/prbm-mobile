@@ -116,12 +116,6 @@ class EntityWeather @JvmOverloads constructor(
     override val typeDescription: String =
         "Utilizza questa classe per inserire informazioni sulle condizioni atmosferiche osservate."
 
-    override val idListImage: Int
-        get() = R.drawable.background_forecast_list
-
-    override val idButtonImage: Int
-        get() = R.drawable.button_forecast
-
     override val idIconColor: Int
         get() = R.color.forecast_back
 }
