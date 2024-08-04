@@ -54,11 +54,6 @@ class EntityActivity : AppCompatActivity() {
         edit = intent.getBooleanExtra("edit", false)
         binding = ActivityEntityBinding.inflate(layoutInflater)
 
-        // Setting up Home back button
-        val bar = actionBar
-        bar?.setDisplayHomeAsUpEnabled(true)
-
-        // Inflating views
         setContentView(binding.root)
         val entity = entity
         if (entity != null) {
