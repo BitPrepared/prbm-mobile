@@ -59,8 +59,8 @@
                 android:id="@+id/textinput_caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="TODO - Titolo"
-                app:helperText="TODO - Inserisci un titolo"
+                android:hint="@string/unit_title"
+                app:helperText="@string/unit_title_hint"
                 app:helperTextEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -73,8 +73,8 @@
                 android:id="@+id/textinput_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="TODO - Descrizione"
-                app:helperText="TODO - Inserisci un Descrizione"
+                android:hint="@string/unit_description"
+                app:helperText="@string/unit_description_hint"
                 app:helperTextEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="20dp"
-                    android:contentDescription="TODO - conx`tentDescription"
+                    android:contentDescription="@string/unit_attachment"
                     android:visibility="gone" />
             </LinearLayout>
 

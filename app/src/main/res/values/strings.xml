@@ -117,5 +117,10 @@
     <string name="azimuth_explanation">Angolo dell\'azimuth (gradi)</string>
     <string name="delete_the_row">Cancellare la riga?</string>
     <string name="are_you_sure_to_delete_a_row">Sei sicuro di voler cancellare la riga? Tutte le osservazioni in questa riga verranno perse</string>
+    <string name="unit_attachment">Immagine allegata all\'osservazione</string>
+    <string name="unit_description">Descrizione</string>
+    <string name="unit_description_hint">Inserisci una descrizione per questa osservazione</string>
+    <string name="unit_title">Titolo</string>
+    <string name="unit_title_hint">Inserisci il titolo di questa osservazione</string>
 
 </resources>
