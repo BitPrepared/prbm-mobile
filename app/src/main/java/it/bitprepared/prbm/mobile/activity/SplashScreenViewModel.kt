@@ -1,10 +1,8 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import it.bitprepared.prbm.mobile.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
