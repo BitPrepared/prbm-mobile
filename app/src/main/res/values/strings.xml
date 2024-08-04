@@ -61,7 +61,7 @@
     <string name="meters">"%1$d m"</string>
     <string name="azimut">"%1$d °"</string>
     <string name="you_cant_delete_last_unit">Non puoi cancellare l\'ultima riga dal percorso rettificato</string>
-    <string name="choose_entity">Scegli l\'entità da aggiungere</string>
+    <string name="choose_entity">Scegli il tipo di osservazione da aggiungere</string>
     <string name="entity_details">Dettagli osservazione</string>
     <string name="exit">Esci</string>
     <string name="delete">Elimina</string>
