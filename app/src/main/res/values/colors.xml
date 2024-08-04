@@ -153,7 +153,6 @@
     <color name="light_gray">#ffb9b9b9</color>
     <color name="dark_gray">#ff696969</color>
 
-    <color name="flower_black">#1C3A7A</color>
     <color name="building_back">#504F4B</color>
     <color name="curiosity_back">#506159</color>
     <color name="fauna_back">#6A6A6A</color>
@@ -163,5 +162,4 @@
     <color name="news_back">#1C1C1A</color>
     <color name="other_back">#3F5457</color>
     <color name="panorama_back">#253B50</color>
-    <color name="tree_back">#31431B</color>
 </resources>

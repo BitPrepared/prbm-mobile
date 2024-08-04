@@ -57,8 +57,8 @@ class EntityActivity : AppCompatActivity() {
         setContentView(binding.root)
         val entity = entity
         if (entity != null) {
-            entity.drawYourSelf(this@EntityActivity, binding.linFree)
-            binding.txtTitle.text = entity.type
+//            entity.drawYourSelf(this@EntityActivity, binding.linFree)
+//            binding.txtTitle.text = entity.type
 
             val gson = Gson()
             Log.e("TAG", gson.toJson(entity))
@@ -66,11 +66,11 @@ class EntityActivity : AppCompatActivity() {
             if (!edit) {
                 // Setting current hour
                 val c = Calendar.getInstance(resources.configuration.locale)
-                binding.datTime.currentHour = c[Calendar.HOUR_OF_DAY]
-                binding.datTime.currentMinute = c[Calendar.MINUTE]
-                binding.datTime.setIs24HourView(true)
+//                binding.datTime.currentHour = c[Calendar.HOUR_OF_DAY]
+//                binding.datTime.currentMinute = c[Calendar.MINUTE]
+//                binding.datTime.setIs24HourView(true)
             } else {
-                binding.edtCaption.setText(entity.caption)
+//                binding.edtCaption.setText(entity.caption)
                 binding.edtDescription.setText(entity.description)
                 if (entity.pictureName.isNotEmpty()) {
                     capturedImageUri = entity.pictureURI
@@ -86,14 +86,14 @@ class EntityActivity : AppCompatActivity() {
                     "yyyy-MM-dd HH:mm:ss", Locale.getDefault()
                 )
                 try {
-                    val date = dateFormat.parse(entity.timestamp)
-                    val cal = Calendar.getInstance(Locale.getDefault())
-                    cal.time = date
-                    binding.datTime.currentHour = cal[Calendar.HOUR_OF_DAY]
-                    binding.datTime.currentMinute = cal[Calendar.MINUTE]
+//                    val date = dateFormat.parse(entity.timestamp)
+//                    val cal = Calendar.getInstance(Locale.getDefault())
+//                    cal.time = date
+//                    binding.datTime.currentHour = cal[Calendar.HOUR_OF_DAY]
+//                    binding.datTime.currentMinute = cal[Calendar.MINUTE]
                 } catch (_: ParseException) {
                 }
-                entity.restoreFields(this, binding.linFree)
+//                entity.restoreFields(this, binding.linFree)
             }
         }
     }
@@ -124,7 +124,7 @@ class EntityActivity : AppCompatActivity() {
             R.id.save -> {
                 // Checking if caption is empty
 
-                if (binding.edtCaption.text.isEmpty()) {
+                if (binding.edtCaption.text?.isEmpty() == true) {
                     val alert = MaterialAlertDialogBuilder(this)
                     alert.setTitle(R.string.fields_incomplete)
                     alert.setMessage(getString(R.string.you_must_insert_caption))
@@ -136,21 +136,21 @@ class EntityActivity : AppCompatActivity() {
                 } else {
                     val entity = entity
                     if (entity != null) {
-                        entity.saveFields(this@EntityActivity, binding.linFree)
-                        entity.caption = binding.edtCaption.text.toString()
+//                        entity.saveFields(this@EntityActivity, binding.linFree)
+//                        entity.caption = binding.edtCaption.text.toString()
                         entity.description = binding.edtDescription.text.toString()
                         val c = Calendar.getInstance(resources.configuration.locale)
 
                         // Saving timestamp. Date set at Unix epoch
-                        c[1970, 1, 1, binding.datTime.currentHour] = binding.datTime.currentMinute
-                        val dateFormat = SimpleDateFormat(
-                            "yyyy-MM-dd HH:mm:ss", resources.configuration.locale
-                        )
-                        entity.timestamp = dateFormat.format(c.time)
+//                        c[1970, 1, 1, binding.datTime.currentHour] = binding.datTime.currentMinute
+//                        val dateFormat = SimpleDateFormat(
+//                            "yyyy-MM-dd HH:mm:ss", resources.configuration.locale
+//                        )
+//                        entity.timestamp = dateFormat.format(c.time)
 
                         if (!edit) {
                             val involved = unit
-                            involved!!.addEntity(entity, column)
+//                            involved!!.addEntity(entity, column)
                         }
                         setResult(RESULT_OK)
                         finish()

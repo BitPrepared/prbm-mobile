@@ -1,0 +1,111 @@
+{
+  "entities": [
+    {
+      "fields": [
+        {
+          "id": "name",
+          "name": "Nome Comune",
+          "hint": "Inserire il nome comune del fiore",
+          "type": "string"
+        },
+        {
+          "id": "scientific_name",
+          "name": "Nome Scientifico",
+          "hint": "Inserire il nome scientifico del fiore",
+          "type": "string"
+        },
+        {
+          "id": "petal_number",
+          "name": "Numero Petali",
+          "hint": "Numero di petali osservati nel fiore",
+          "type": "integer"
+        },
+        {
+          "id": "average_height",
+          "name": "Altezza Media",
+          "hint": "Altezza media del fiore in cm",
+          "type": "integer"
+        },
+        {
+          "id": "typical_habitat",
+          "name": "Habitat Tipico",
+          "hint": "Inserire la descrizione dell'habitat tipico della pianta.",
+          "type": "string"
+        },
+        {
+          "id": "distribution",
+          "name": "Distribuzione",
+          "hint": "Inserire la descrizione della distribuzione della pianta.",
+          "type": "string"
+        }
+      ],
+      "id": "flower",
+      "name": "Fiore",
+      "description": "Osservazione di un fiore o di un'erba",
+      "icon_color": "#1C3A7A"
+    },
+    {
+      "fields": [
+        {
+          "id": "name",
+          "name": "Nome Comune",
+          "hint": "Inserire il nome comune della pianta",
+          "type": "string"
+        },
+        {
+          "id": "scientific_name",
+          "name": "Nome Scientifico",
+          "hint": "Inserire il nome scientifico della pianta",
+          "type": "string"
+        },
+        {
+          "id": "average_height",
+          "name": "Altezza Media",
+          "hint": "Altezza media del fiore in cm",
+          "type": "integer"
+        },
+        {
+          "id": "bearing",
+          "name": "Portamento",
+          "hint": "Portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.)",
+          "type": "string"
+        },
+
+        {
+          "id": "bark",
+          "name": "Corteccia",
+          "hint": "Informazioni sulla corteccia della pianta.",
+          "type": "string"
+        },
+        {
+          "id": "leaves",
+          "name": "Foglie",
+          "hint": "Informazioni sulle foglie della pianta (forma, nervature, margine, lamina, picciolo, colore, peli e superficie).",
+          "type": "string"
+        },
+        {
+          "id": "fruits",
+          "name": "Fiori e frutti",
+          "hint": "Informazioni sui fiori e sui frutti della pianta",
+          "type": "string"
+        },
+        {
+          "id": "typical_habitat",
+          "name": "Habitat Tipico",
+          "hint": "Descrizione dell'habitat tipico della pianta.",
+          "type": "string"
+        },
+        {
+          "id": "properties",
+          "name": "Proprietà",
+          "hint": "Eventuali proprietà di questa pianta.",
+          "type": "string"
+        }
+      ],
+      "id": "tree",
+      "name": "Albero",
+      "description": "Osservazione di alberi, foreste, arbusti o altro tipo di vegetazione",
+      "icon_color": "#31431B"
+    }
+  ]
+}

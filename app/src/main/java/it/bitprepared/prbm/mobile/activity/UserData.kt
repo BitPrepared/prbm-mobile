@@ -6,20 +6,12 @@ import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
+import it.bitprepared.prbm.mobile.model.NewPrbmEntity
+import it.bitprepared.prbm.mobile.model.NewPrbmEntityType
+import it.bitprepared.prbm.mobile.model.NewPrbmEntityHolder
 import it.bitprepared.prbm.mobile.model.Prbm
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
-import it.bitprepared.prbm.mobile.model.entities.EntityBuilding
-import it.bitprepared.prbm.mobile.model.entities.EntityCuriosity
-import it.bitprepared.prbm.mobile.model.entities.EntityFauna
-import it.bitprepared.prbm.mobile.model.entities.EntityFlower
-import it.bitprepared.prbm.mobile.model.entities.EntityInterview
-import it.bitprepared.prbm.mobile.model.entities.EntityMonument
-import it.bitprepared.prbm.mobile.model.entities.EntityNews
-import it.bitprepared.prbm.mobile.model.entities.EntityOther
-import it.bitprepared.prbm.mobile.model.entities.EntityPanorama
-import it.bitprepared.prbm.mobile.model.entities.EntityTree
-import it.bitprepared.prbm.mobile.model.entities.EntityWeather
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -45,27 +37,25 @@ object UserData {
     /** Flag to check if user is editing a PRBM */
     var editPrbm: Boolean = false
 
-    /** Reference to the [PrbmEntity] user is editing  */
+    /** Reference to the [NewPrbmEntity] user is editing  */
     // TODO: Move me to ViewModel
     @JvmStatic
-    var entity: PrbmEntity? = null
+    var entity: NewPrbmEntity? = null
 
     fun newEntityFromPosition(position: Int) {
-        entity = when(position) {
-            0 -> EntityFlower()
-            1 -> EntityTree()
-            2 -> EntityFauna()
-            3 -> EntityBuilding()
-            4 -> EntityPanorama()
-            5 -> EntityMonument()
-            6 -> EntityInterview()
-            7 -> EntityNews()
-            8 -> EntityCuriosity()
-            9 -> EntityWeather()
-            10 -> EntityOther()
-            else -> error("Invalid position")
+        val type = entityTypes[position]
+        entity = NewPrbmEntity(type)
+    }
+
+    lateinit var entityTypes: List<NewPrbmEntityType>
+
+    fun parseSchemaFromResources(context: Context) {
+        context.resources.assets.open("prbm-entity-schema.json").use {
+            entityTypes = gson.fromJson(it.reader(), NewPrbmEntityHolder::class.java).entities
         }
     }
+
+    fun getSingleChoiceEntityType(): Array<String> = entityTypes.map { it.name }.toTypedArray()
 
     /** Reference to actual unit  */
     // TODO: Move me to ViewModel
@@ -90,7 +80,6 @@ object UserData {
 
     val gson: Gson = GsonBuilder()
         .setStrictness(Strictness.LENIENT)
-        .registerTypeAdapter(PrbmEntity::class.java, PrbmEntityDecoder())
         .create()
 
     val restInterface: RemoteInterface by lazy {
@@ -105,8 +94,10 @@ object UserData {
      */
     @JvmStatic
     fun canMoveUnitUp(): Boolean {
-        val toCheck = unit?.getEntitiesFromColumn(this.column) ?: return false
-        return toCheck.indexOf(entity) > 0
+//        val toCheck = unit?.getEntitiesFromColumn(this.column) ?: return false
+//        return toCheck.indexOf(entity) > 0
+        // TODO Remove me?
+        return false
     }
 
     /**
@@ -115,8 +106,10 @@ object UserData {
      */
     @JvmStatic
     fun canMoveUnitDown(): Boolean {
-        val toCheck = unit?.getEntitiesFromColumn(this.column) ?: return false
-        return toCheck.indexOf(entity) < toCheck.size - 1
+//        val toCheck = unit?.getEntitiesFromColumn(this.column) ?: return false
+//        return toCheck.indexOf(entity) < toCheck.size - 1
+        // TODO Remove me?
+        return false
     }
 
     /**

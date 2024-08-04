@@ -55,7 +55,7 @@ class PrbmUnitAdapterUnitViewHolder(
 //                UserData.unit = unit
                 MaterialAlertDialogBuilder(context)
                     .setTitle(R.string.choose_entity)
-                    .setSingleChoiceItems(R.array.entity_types, 0) { _, which ->
+                    .setSingleChoiceItems(UserData.getSingleChoiceEntityType(), 0) { _, which ->
                         selectedEntityOptions = which
                     }
                     .setNegativeButton(context.getString(R.string.abort)) { _, _ -> }
@@ -98,7 +98,7 @@ class PrbmUnitAdapterUnitViewHolder(
                 b.setOnClickListener {
                     UserData.column = i
                     UserData.unit = unit
-                    UserData.entity = entity
+//                    UserData.entity = entity
 
                     // Creating a contextual menu as Item Dialog
                     val menuItems = ArrayList<String>()
