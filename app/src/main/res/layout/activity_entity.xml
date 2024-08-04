@@ -28,7 +28,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtEntityTitleAdd"
+                    android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -91,7 +91,7 @@
                     android:textSize="18sp"/>
 
                 <TimePicker
-                    android:id="@+id/datTimeEntity"
+                    android:id="@+id/datTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -107,7 +107,7 @@
             android:layout_weight="6">
 
             <LinearLayout
-                android:id="@+id/linearFreeEntity"
+                android:id="@+id/linFree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

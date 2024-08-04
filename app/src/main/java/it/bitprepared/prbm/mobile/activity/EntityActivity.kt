@@ -12,14 +12,10 @@ import android.provider.OpenableColumns
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,6 +24,7 @@ import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.column
 import it.bitprepared.prbm.mobile.activity.UserData.entity
 import it.bitprepared.prbm.mobile.activity.UserData.unit
+import it.bitprepared.prbm.mobile.databinding.ActivityEntityBinding
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -43,12 +40,9 @@ import java.util.Locale
  * Class responsible for visualizing and modifying a single PrbmEntity
  */
 class EntityActivity : AppCompatActivity() {
-    private lateinit var linFree: LinearLayout
-    private lateinit var edtCaption: EditText
-    private lateinit var edtDescription: EditText
-    private lateinit var datTime: TimePicker
-    private lateinit var imgCamera: ImageView
     private var edit = false
+
+    private lateinit var binding: ActivityEntityBinding
 
     @Transient
     private var capturedImageUri: Uri? = null
@@ -58,26 +52,19 @@ class EntityActivity : AppCompatActivity() {
 
         val intent = intent
         edit = intent.getBooleanExtra("edit", false)
+        binding = ActivityEntityBinding.inflate(layoutInflater)
 
         // Setting up Home back button
         val bar = actionBar
         bar?.setDisplayHomeAsUpEnabled(true)
 
         // Inflating views
-        setContentView(R.layout.activity_entity)
-        linFree = findViewById(R.id.linearFreeEntity)
-        val imgBack = findViewById<ImageView>(R.id.imgEntity)
-        val txtTitle = findViewById<TextView>(R.id.txtEntityTitleAdd)
-        datTime = findViewById(R.id.datTimeEntity)
-        edtCaption = findViewById(R.id.edtCaption)
-        edtDescription = findViewById(R.id.edtDescription)
-        imgCamera = findViewById(R.id.imgCamera)
-
+        setContentView(binding.root)
         val entity = entity
         if (entity != null) {
-            imgBack.setImageResource(entity.idBackImage)
-            entity.drawYourSelf(this@EntityActivity, linFree)
-            txtTitle.text = entity.type
+            binding.imgEntity.setImageResource(entity.idBackImage)
+            entity.drawYourSelf(this@EntityActivity, binding.linFree)
+            binding.txtTitle.text = entity.type
 
             val gson = Gson()
             Log.e("TAG", gson.toJson(entity))
@@ -85,21 +72,19 @@ class EntityActivity : AppCompatActivity() {
             if (!edit) {
                 // Setting current hour
                 val c = Calendar.getInstance(resources.configuration.locale)
-                datTime.currentHour = c[Calendar.HOUR_OF_DAY]
-                datTime.currentMinute = c[Calendar.MINUTE]
-                datTime.setIs24HourView(true)
+                binding.datTime.currentHour = c[Calendar.HOUR_OF_DAY]
+                binding.datTime.currentMinute = c[Calendar.MINUTE]
+                binding.datTime.setIs24HourView(true)
             } else {
-                edtCaption.setText(entity.caption)
-                edtDescription.setText(entity.description)
+                binding.edtCaption.setText(entity.caption)
+                binding.edtDescription.setText(entity.description)
                 if (entity.pictureName.isNotEmpty()) {
                     capturedImageUri = entity.pictureURI
-                    imgCamera.setVisibility(View.VISIBLE)
+                    binding.imgCamera.isVisible = true
 
-                    Glide
-                        .with(this)
-                        .load(capturedImageUri)
+                    Glide.with(this).load(capturedImageUri)
                         .apply(RequestOptions().override(600, 300).centerCrop())
-                        .into(imgCamera)
+                        .into(binding.imgCamera)
                 }
 
                 // Restoring timestamp to TimePicker
@@ -110,11 +95,11 @@ class EntityActivity : AppCompatActivity() {
                     val date = dateFormat.parse(entity.timestamp)
                     val cal = Calendar.getInstance(Locale.getDefault())
                     cal.time = date
-                    datTime.currentHour = cal[Calendar.HOUR_OF_DAY]
-                    datTime.currentMinute = cal[Calendar.MINUTE]
+                    binding.datTime.currentHour = cal[Calendar.HOUR_OF_DAY]
+                    binding.datTime.currentMinute = cal[Calendar.MINUTE]
                 } catch (_: ParseException) {
                 }
-                entity.restoreFields(this, linFree)
+                entity.restoreFields(this, binding.linFree)
             }
         }
     }
@@ -141,10 +126,11 @@ class EntityActivity : AppCompatActivity() {
                 build.show()
                 return true
             }
+
             R.id.save -> {
                 // Checking if caption is empty
 
-                if (edtCaption.text.isEmpty()) {
+                if (binding.edtCaption.text.isEmpty()) {
                     val alert = MaterialAlertDialogBuilder(this)
                     alert.setTitle(R.string.fields_incomplete)
                     alert.setMessage(getString(R.string.you_must_insert_caption))
@@ -156,13 +142,13 @@ class EntityActivity : AppCompatActivity() {
                 } else {
                     val entity = entity
                     if (entity != null) {
-                        entity.saveFields(this@EntityActivity, linFree)
-                        entity.caption = edtCaption.text.toString()
-                        entity.description = edtDescription.text.toString()
+                        entity.saveFields(this@EntityActivity, binding.linFree)
+                        entity.caption = binding.edtCaption.text.toString()
+                        entity.description = binding.edtDescription.text.toString()
                         val c = Calendar.getInstance(resources.configuration.locale)
 
                         // Saving timestamp. Date set at Unix epoch
-                        c[1970, 1, 1, datTime.currentHour] = datTime.currentMinute
+                        c[1970, 1, 1, binding.datTime.currentHour] = binding.datTime.currentMinute
                         val dateFormat = SimpleDateFormat(
                             "yyyy-MM-dd HH:mm:ss", resources.configuration.locale
                         )
@@ -178,15 +164,14 @@ class EntityActivity : AppCompatActivity() {
                 }
                 return true
             }
+
             R.id.pic -> {
                 val entity = entity
                 val itemadd = arrayOf<CharSequence>(
-                    "Scatta una foto",
-                    "Scegli dalla Galleria"
+                    "Scatta una foto", "Scegli dalla Galleria"
                 )
                 val itemadddelete = arrayOf<CharSequence>(
-                    "Scatta una foto",
-                    "Scegli dalla Galleria", "Rimuovi foto"
+                    "Scatta una foto", "Scegli dalla Galleria", "Rimuovi foto"
                 )
                 val deleteflag = (entity != null && entity.pictureName.isNotEmpty())
                 val builder = MaterialAlertDialogBuilder(this)
@@ -208,7 +193,7 @@ class EntityActivity : AppCompatActivity() {
 
                         2 -> {
                             entity!!.pictureName = ""
-                            imgCamera.visibility = View.GONE
+                            binding.imgCamera.isGone = true
                             dialog.dismiss()
                         }
 
@@ -304,21 +289,16 @@ class EntityActivity : AppCompatActivity() {
         val entity = entity
 
         if (requestCode == CAMERA_RESULT) {
-            imgCamera.visibility = View.VISIBLE
-            Glide
-                .with(this)
-                .load(capturedImageUri)
-                .apply(RequestOptions().override(600, 300).centerCrop())
-                .into(imgCamera)
+            binding.imgCamera.isVisible = true
+            Glide.with(this).load(capturedImageUri)
+                .apply(RequestOptions().override(600, 300).centerCrop()).into(binding.imgCamera)
 
             entity!!.pictureName = getFilenameFromURI(capturedImageUri)!!
             Log.d(TAG, "capturedImage " + capturedImageUri!!.path)
         } else if (requestCode == GALLERY_RESULT) {
             if (resultCode != RESULT_OK) {
                 Toast.makeText(
-                    this,
-                    "Impossibile caricare l'immagine dalla galleria",
-                    Toast.LENGTH_SHORT
+                    this, "Impossibile caricare l'immagine dalla galleria", Toast.LENGTH_SHORT
                 ).show()
                 return
             }
@@ -327,12 +307,9 @@ class EntityActivity : AppCompatActivity() {
                 return
             }
             capturedImageUri = data.data
-            imgCamera.visibility = View.VISIBLE
-            Glide
-                .with(this)
-                .load(data.data)
-                .apply(RequestOptions().override(600, 300).centerCrop())
-                .into(imgCamera)
+            binding.imgCamera.isVisible = true
+            Glide.with(this).load(data.data).apply(RequestOptions().override(600, 300).centerCrop())
+                .into(binding.imgCamera)
 
             val cal = Calendar.getInstance()
             val root = Environment.getExternalStorageDirectory()
