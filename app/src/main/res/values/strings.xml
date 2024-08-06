@@ -123,5 +123,7 @@
     <string name="unit_description_hint">Inserisci una descrizione per questa osservazione</string>
     <string name="unit_title">Titolo</string>
     <string name="unit_title_hint">Inserisci il titolo di questa osservazione</string>
+    <string name="press_to_pick_image_from_gallery">Premi per aggiungere un\'immagine dalla galleria</string>
+    <string name="press_to_add_pic_from_camera">Premi per aggiungere un\'immagine dalla fotocamera</string>
 
 </resources>
