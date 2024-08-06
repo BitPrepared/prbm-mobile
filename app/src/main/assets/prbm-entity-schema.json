@@ -70,7 +70,6 @@
           "hint": "Portamento della pianta (espanso, conico, fastigliato, colonnare, ombrelliforme, ricadente, scadente, prostrato, strisciante, etc.)",
           "type": "string"
         },
-
         {
           "id": "bark",
           "name": "Corteccia",
@@ -106,6 +105,484 @@
       "name": "Albero",
       "description": "Osservazione di alberi, foreste, arbusti o altro tipo di vegetazione",
       "icon_color": "#31431B"
+    },
+    {
+      "fields": [
+        {
+          "id": "name",
+          "name": "Nome Comune",
+          "hint": "Inserire il nome comune dell'animale",
+          "type": "string"
+        },
+        {
+          "id": "scientific_name",
+          "name": "Nome Scientifico",
+          "hint": "Inserire il nome scientifico dell'animale",
+          "type": "string"
+        },
+        {
+          "id": "average_height",
+          "name": "Dimensione",
+          "hint": "Dimensione tipica dell'animale",
+          "type": "string"
+        },
+        {
+          "id": "signs",
+          "name": "Tracce/Segni di presenza",
+          "hint": "Ritrovamenti di tracce o di segni di presenza dell'animale.",
+          "type": "string"
+        },
+        {
+          "id": "excrement",
+          "name": "Escrementi",
+          "hint": "Dettagli sugli escrementi dell'animale",
+          "type": "string"
+        },
+        {
+          "id": "puppies",
+          "name": "I piccoli e la prole",
+          "hint": "Dettagli sull'accudimento della prole da parte dell'animale.",
+          "type": "string"
+        },
+        {
+          "id": "diet",
+          "name": "Alimentazione",
+          "hint": "Informazioni sulle abitudini alimentari dell'animale.",
+          "type": "string"
+        },
+        {
+          "id": "food_chain",
+          "name": "Posizione nella catena alimentare",
+          "hint": "Posizione che l'animale ricopre all'interno della catena alimentare.",
+          "type": "string"
+        },
+        {
+          "id": "nest",
+          "name": "Tane/Nidi/Rifugi",
+          "hint": "Dettagli su avvistamenti di tane, nidi o rifugi dell'animale.",
+          "type": "string"
+        },
+        {
+          "id": "attack",
+          "name": "Attacco/Difesa/Mimetismo",
+          "hint": "Dettagli sulle tecniche di attacco, difesa o mimetismo utilizzate dall'animale.",
+          "type": "string"
+        },
+        {
+          "id": "habitat",
+          "name": "Habitat Tipico",
+          "hint": "Descrizione dell'habitat tipico dell'animale.",
+          "type": "string"
+        },
+        {
+          "id": "distribution",
+          "name": "Distribuzione",
+          "hint": "Inserire la descrizione della distribuzione della pianta.",
+          "type": "string"
+        },
+        {
+          "id": "territoriality",
+          "name": "Territorialità",
+          "hint": "Informazioni sulla territorialità della specie.",
+          "type": "string"
+        }
+      ],
+      "id": "animal",
+      "name": "Fauna",
+      "description": "Osservazione di animali, nidi, insetti o altro tipo di fauna",
+      "icon_color": "#6A6A6A"
+    },
+    {
+      "fields": [
+        {
+          "id": "description",
+          "name": "Descrizione",
+          "hint": "Breve descrizione dell'edificio/struttura",
+          "type": "string"
+        },
+        {
+          "id": "material",
+          "name": "Materiale",
+          "hint": "Di quali materiali è composta la struttura (mattoni, legno, pietra, etc...)",
+          "type": "string"
+        },
+        {
+          "id": "purpose",
+          "name": "Scopo",
+          "hint": "Quale è lo scopo della struttura?",
+          "type": "string"
+        },
+        {
+          "id": "conservation_status",
+          "name": "Stato di conservazione",
+          "hint": "In quale stato verte attualmente la struttura?",
+          "type": "string"
+        },
+        {
+          "id": "property_type",
+          "name": "Proprietà",
+          "hint": "Indicare se si tratta di una proprietà privata o pubblica e l'eventuale proprietario",
+          "type": "string"
+        }
+      ],
+      "id": "building",
+      "name": "Edificio",
+      "description": "Osservazione di edifici o costruzioni",
+      "icon_color": "#504F4B"
+    },
+    {
+      "fields": [
+        {
+          "id": "name",
+          "name": "Denominazione",
+          "hint": "Inserisci la denominazione del monumento o luogo storico.",
+          "type": "string"
+        },
+        {
+          "id": "district",
+          "name": "Comune/Provincia",
+          "hint": "Il Comune e la provicina del monumento/luogo.",
+          "type": "string"
+        },
+        {
+          "id": "properties",
+          "name": "Proprietà attuali",
+          "hint": "Breve descrizione dello stato attuale del monumento/luogo.",
+          "type": "string"
+        },
+        {
+          "id": "builder",
+          "name": "Committente",
+          "hint": "Nome di chi ha commissionato la costruzione del monumento.",
+          "type": "string"
+        },
+        {
+          "id": "reason",
+          "name": "Motivo",
+          "hint": "Il motivo che ha portato alla costruzione del monumento.",
+          "type": "string"
+        },
+        {
+          "id": "materials",
+          "name": "Materiali",
+          "hint": "Materiali utilizzati nella costruzione del monumento/luogo",
+          "type": "string"
+        },
+        {
+          "id": "artifacts",
+          "name": "Opere d'arte",
+          "hint": "Fescrizione di eventuali opere d'arte presenti nelle vicinanze.",
+          "type": "string"
+        },
+        {
+          "id": "build_date",
+          "name": "Data Costruzione",
+          "hint": "Data di costruzione del monumento",
+          "type": "string"
+        }
+      ],
+      "id": "monument",
+      "name": "Monumento",
+      "description": "Osservazione di monumenti o luoghi di rilevanza storica.",
+      "icon_color": "#783725"
+    },
+    {
+      "fields": [
+        {
+          "id": "place",
+          "name": "Località",
+          "hint": "Nome della località del panorama osservato.",
+          "type": "string"
+        },
+        {
+          "id": "type",
+          "name": "Tipo Ambiente",
+          "hint": "Inserire la tipologia di ambiente osservato.",
+          "type": "string"
+        },
+        {
+          "id": "flora",
+          "name": "Descrizione della flora",
+          "hint": "Breve descrizione della flora circostante.",
+          "type": "string"
+        },
+        {
+          "id": "human_impact",
+          "name": "Impatto dell'uomo",
+          "hint": "Quale è stato l'impatto dell'uomo sull'ambiente osservato?",
+          "type": "string"
+        }
+      ],
+      "id": "panorama",
+      "name": "Panorama",
+      "description": "Osservazione di monumenti o luoghi di rilevanza storica.",
+      "icon_color": "#253B50"
+    },
+    {
+      "fields": [
+        {
+          "id": "age",
+          "name": "Età",
+          "hint": "Inserire l'età dell'intervistato",
+          "type": "numeric"
+        },
+        {
+          "id": "job",
+          "name": "Professione",
+          "hint": "Inserire la professione dell'intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "maritial_status",
+          "name": "Stato civile",
+          "hint": "Inserire lo stato civile dell'intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "role",
+          "name": "Ruolo",
+          "hint": "Indicare in quale veste il soggetto è stato intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "reason",
+          "name": "Scopo dell'intervista",
+          "hint": "Indicare quale è il motivo/scopo di questa intervista.",
+          "type": "string"
+        },
+        {
+          "id": "how",
+          "name": "Come si è arrivati a lui",
+          "hint": "Indicare attraverso quali contatti si è arrivati al soggetto intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "mood",
+          "name": "Stato d'animo",
+          "hint": "Indicare lo stato d'animo dell'intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "enjoyment",
+          "name": "Gradimento",
+          "hint": "Indicare il grado di gradimento dell'intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "trustwotrhiness",
+          "name": "Affidabilità",
+          "hint": "Indicare il grado di affidabilità dell'intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "relationship",
+          "name": "Rapporto con l'intervistato",
+          "hint": "Indicare che genere di rapporto si è avuto con l'intervistato.",
+          "type": "string"
+        },
+        {
+          "id": "transcript",
+          "name": "Trascrizione dell'intervista",
+          "hint": "Riportare la trascrizione integrale dell'intervista.",
+          "type": "string"
+        }
+      ],
+      "id": "interview",
+      "name": "Intervista",
+      "description": "Report o interviste alle persone incontrate.",
+      "icon_color": "#4A4A4A"
+    },
+    {
+      "fields": [
+        {
+          "id": "place",
+          "name": "Luogo",
+          "hint": "Inserire il luogo dove si è svolto il fatto di cronaca.",
+          "type": "string"
+        },
+        {
+          "id": "involved_people",
+          "name": "Persone coinvolte",
+          "hint": "Inserire l'elenco delle persone coinvolte.",
+          "type": "string"
+        },
+        {
+          "id": "what",
+          "name": "Cosa è successo?",
+          "hint": "Inserire la descrizione del fatto di cronaca.",
+          "type": "string"
+        },
+        {
+          "id": "why",
+          "name": "Perchè?",
+          "hint": "Inserire le motivazioni o ciò che ha provocato il fatto.",
+          "type": "string"
+        },
+        {
+          "id": "avoidable",
+          "name": "Se negativo, poteva essere evitato?",
+          "hint": "Inserire se, ed in quali circostanze, il fatto di cronaca negativo poteva essere evitato.",
+          "type": "string"
+        },
+        {
+          "id": "consequences",
+          "name": "Conseguenze",
+          "hint": "Inserire le conseguenze del fatto di cronaca.",
+          "type": "string"
+        },
+        {
+          "id": "what_learned",
+          "name": "Cosa hai imparato?",
+          "hint": "Inserire cosa hai imparato da questo fatto di cronaca.",
+          "type": "string"
+        }
+      ],
+      "id": "news",
+      "name": "Fatto di Cronaca",
+      "description": "Notizie o fatti di cronaca del posto.",
+      "icon_color": "#1C1C1A"
+    },
+    {
+      "fields": [
+        {
+          "id": "temp",
+          "name": "Temperatura (C°)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "humidity",
+          "name": "Umidità (%)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "pressure",
+          "name": "Pressione (mBar)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "wind_speed",
+          "name": "Velocità del vento (Km/h)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "wind_direction",
+          "name": "Direzione del vento",
+          "hint": "Inserire la direzione del vento (Nord, Sud, Est, Ovest).",
+          "type": "string"
+        },
+        {
+          "id": "rain",
+          "name": "Precipitazioni",
+          "hint": "Inserire una breve descrizione delle precipitazioni attuali.",
+          "type": "string"
+        },
+        {
+          "id": "rain_mm",
+          "name": "Quantità di pioggia (mm)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "water_ph",
+          "name": "Acidità dell'acqua (Ph)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "snow",
+          "name": "Neve",
+          "hint": "Inserire una breve descrizione della neve (intensità, tipo di fiocco, torbidità dell'acqua)",
+          "type": "string"
+        },
+        {
+          "id": "snow_ph",
+          "name": "Neve, acidità dell'acqua distillata (Ph)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "hail",
+          "name": "Grandine",
+          "hint": "Inserire una breve descrizione della grandine (intensità, tipo di fiocco, torbidità dell'acqua)",
+          "type": "string"
+        },
+        {
+          "id": "hail_size",
+          "name": "Grandine, diametro (cm)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "hail_ph",
+          "name": "Grandine, Acidità dell'acqua (Ph)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "events",
+          "name": "Eventi particolari",
+          "hint": "Inserire eventuali eventi particolari (trombe d'aria, tornadi, cicloni, tempeste)",
+          "type": "string"
+        },
+        {
+          "id": "sun_angle",
+          "name": "Sole, angolazione (°)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "sun_anomalies",
+          "name": "Sole, eventuali anomalie",
+          "hint": "Inserire eventuali anomalie solari quali eclissi parziali o totali",
+          "type": "string"
+        },
+        {
+          "id": "fog_visibility",
+          "name": "Nebbia, visibilità (m)",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "fog_type",
+          "name": "Nebbia, tipo di formazione",
+          "hint": "Inserire il tipo di formazione della nebbia (nebbia, nuvole, evaporazione)",
+          "type": "string"
+        },
+        {
+          "id": "cloud_speed",
+          "name": "Nubi, velocità di spostamento",
+          "hint": "",
+          "type": "numeric"
+        },
+        {
+          "id": "cloud_type",
+          "name": "Nubi, tipologia",
+          "hint": "Inserire la tipologia delle nubi osservate (nembi, cumoli, cirri, etc.)",
+          "type": "string"
+        }
+      ],
+      "id": "weather",
+      "name": "Meteo",
+      "description": "Informazioni sulle condizioni atmosferiche osservate",
+      "icon_color": "#86594A"
+    },
+    {
+      "fields": [
+        {
+          "id": "longer_description",
+          "name": "Note",
+          "hint": "Spazio per inserire eventuali note.",
+          "type": "string"
+        }
+      ],
+      "id": "other",
+      "name": "Altro",
+      "description": "Informazioni che non rientrano nella classi precedenti",
+      "icon_color": "#3F5457"
     }
   ]
 }

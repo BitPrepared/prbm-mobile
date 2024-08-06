@@ -152,14 +152,4 @@
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#ffb9b9b9</color>
     <color name="dark_gray">#ff696969</color>
-
-    <color name="building_back">#504F4B</color>
-    <color name="curiosity_back">#506159</color>
-    <color name="fauna_back">#6A6A6A</color>
-    <color name="forecast_back">#86594A</color>
-    <color name="interview_back">#4A4A4A</color>
-    <color name="monument_back">#783725</color>
-    <color name="news_back">#1C1C1A</color>
-    <color name="other_back">#3F5457</color>
-    <color name="panorama_back">#253B50</color>
 </resources>
