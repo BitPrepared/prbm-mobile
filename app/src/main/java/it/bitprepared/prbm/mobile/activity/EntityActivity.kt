@@ -56,9 +56,13 @@ class EntityActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.modelState.collect { state ->
-                    binding.editTime.text = state.time
-                    binding.edtTitle.setTextIfDifferent(state.title)
-                    binding.edtDescription.setTextIfDifferent(state.description)
+                    if (state.saveReady) {
+                        finish()
+                    } else {
+                        binding.editTime.text = state.time
+                        binding.edtTitle.setTextIfDifferent(state.title)
+                        binding.edtDescription.setTextIfDifferent(state.description)
+                    }
                 }
             }
         }
@@ -86,9 +90,11 @@ class EntityActivity : AppCompatActivity() {
             }
             timePicker.show(supportFragmentManager, "timePicker")
         }
-
         binding.topAppBar.setNavigationOnClickListener {
             confirmExit()
+        }
+        binding.btnSaveEntity.setOnClickListener {
+            viewModel.saveEntity()
         }
 
 

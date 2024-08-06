@@ -32,5 +32,12 @@ class EntityViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(time = newTime))
     }
 
+    fun saveEntity() = viewModelScope.launch {
+        UserData.entity?.time = _modelState.value.time
+        UserData.entity?.title = _modelState.value.title
+        UserData.entity?.description = _modelState.value.description
+        _modelState.emit(_modelState.value.copy(saveReady = true))
+    }
+
 
 }
