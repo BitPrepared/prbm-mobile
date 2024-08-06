@@ -1,6 +1,6 @@
 package it.bitprepared.prbm.mobile.model
 
-data class NewPrbmEntityField(
+data class PrbmEntityField(
     val id: String,
     val name: String,
     val hint: String,

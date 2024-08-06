@@ -83,15 +83,15 @@ class PrbmUnitAdapterUnitViewHolder(
                 val entity = entities[j]
                 val v = arrayLin[i].getChildAt(j + 1)
                 if (v != null && v is Button) {
-                    if (v.text.toString().contentEquals(entity.type)) {
-                        j++
-                        continue  // Button is already present...skip to next
-                    } else arrayLin[i].removeViewAt(j + 1)
+//                    if (v.text.toString().contentEquals(entity.type)) {
+//                        j++
+//                        continue  // Button is already present...skip to next
+//                    } else arrayLin[i].removeViewAt(j + 1)
                 }
 
                 // If not present, create a new button
                 val b = Button(context)
-                b.text = entity.type
+//                b.text = entity.type
                 b.layoutParams = param
                 b.isFocusable = false
                 b.setTextColor(ContextCompat.getColor(context, R.color.white))

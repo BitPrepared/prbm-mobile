@@ -76,19 +76,19 @@ data class Prbm(
             Log.d(TAG, " --- Unit $i")
             for (j in u.farLeft.indices) {
                 val e = u.farLeft[j]
-                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.type)
+                Log.d(TAG, " ------ Entity " + j + " Type " + e.typeId)
             }
             for (j in u.nearLeft.indices) {
                 val e = u.nearLeft[j]
-                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.type)
+                Log.d(TAG, " ------ Entity " + j + " Type " + e.typeId)
             }
             for (j in u.nearRight.indices) {
                 val e = u.nearRight[j]
-                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.type)
+                Log.d(TAG, " ------ Entity " + j + " Type " + e.typeId)
             }
             for (j in u.farRight.indices) {
                 val e = u.farRight[j]
-                Log.d(TAG, " ------ Entity " + j + " Tyep " + e.type)
+                Log.d(TAG, " ------ Entity " + j + " Type " + e.typeId)
             }
         }
     }

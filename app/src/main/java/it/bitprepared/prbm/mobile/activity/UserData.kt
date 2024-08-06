@@ -6,11 +6,10 @@ import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
-import it.bitprepared.prbm.mobile.model.NewPrbmEntity
-import it.bitprepared.prbm.mobile.model.NewPrbmEntityType
-import it.bitprepared.prbm.mobile.model.NewPrbmEntityHolder
-import it.bitprepared.prbm.mobile.model.Prbm
 import it.bitprepared.prbm.mobile.model.PrbmEntity
+import it.bitprepared.prbm.mobile.model.PrbmEntityType
+import it.bitprepared.prbm.mobile.model.PrbmEntityTypeHolder
+import it.bitprepared.prbm.mobile.model.Prbm
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,21 +36,21 @@ object UserData {
     /** Flag to check if user is editing a PRBM */
     var editPrbm: Boolean = false
 
-    /** Reference to the [NewPrbmEntity] user is editing  */
+    /** Reference to the [PrbmEntity] user is editing  */
     // TODO: Move me to ViewModel
     @JvmStatic
-    var entity: NewPrbmEntity? = null
+    var entity: PrbmEntity? = null
 
     fun newEntityFromPosition(position: Int) {
         val type = entityTypes[position]
-        entity = NewPrbmEntity(type)
+        entity = PrbmEntity(type)
     }
 
-    lateinit var entityTypes: List<NewPrbmEntityType>
+    lateinit var entityTypes: List<PrbmEntityType>
 
     fun parseSchemaFromResources(context: Context) {
         context.resources.assets.open("prbm-entity-schema.json").use {
-            entityTypes = gson.fromJson(it.reader(), NewPrbmEntityHolder::class.java).entities
+            entityTypes = gson.fromJson(it.reader(), PrbmEntityTypeHolder::class.java).entities
         }
     }
 
