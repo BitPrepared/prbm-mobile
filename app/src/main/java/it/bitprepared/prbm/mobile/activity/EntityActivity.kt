@@ -59,6 +59,7 @@ class EntityActivity : AppCompatActivity() {
                     if (state.saveReady) {
                         finish()
                     } else {
+                        binding.topAppBar.title = state.typeDescription
                         binding.editTime.text = state.time
                         binding.edtTitle.setTextIfDifferent(state.title)
                         binding.edtDescription.setTextIfDifferent(state.description)
@@ -86,7 +87,7 @@ class EntityActivity : AppCompatActivity() {
                 MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(time.hour)
                     .setMinute(time.minute).setTitleText(R.string.pick_unit_time).build()
             timePicker.addOnPositiveButtonClickListener { _ ->
-                viewModel.updateTime("${timePicker.hour}:${timePicker.minute}")
+                viewModel.updateTime(timePicker.hour, timePicker.minute)
             }
             timePicker.show(supportFragmentManager, "timePicker")
         }

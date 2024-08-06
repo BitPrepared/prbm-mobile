@@ -21,6 +21,9 @@ data class PrbmEntity(
     val fieldValues: MutableMap<String, String> = mutableMapOf()
 ) {
 
+    val type :PrbmEntityType
+        get() = UserData.entityTypes.first { it.id == typeId }
+
     constructor(type: PrbmEntityType) : this(type.id) {
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val now = ZonedDateTime.now()
