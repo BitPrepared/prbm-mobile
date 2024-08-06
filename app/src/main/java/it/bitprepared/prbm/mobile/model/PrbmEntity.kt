@@ -2,7 +2,11 @@ package it.bitprepared.prbm.mobile.model
 
 import android.net.Uri
 import android.os.Environment
+import it.bitprepared.prbm.mobile.activity.CreateEditPrbmViewModelState
+import it.bitprepared.prbm.mobile.activity.UserData
 import java.io.File
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * PrbmEntity represent a single observation
@@ -10,13 +14,18 @@ import java.io.File
  */
 data class PrbmEntity(
     val typeId: String,
+    var time: String = "",
+    var title: String = "",
     var description: String = "",
     var pictureName: String = "",
-    var time: String = "",
     val fieldValues: MutableMap<String, String> = mutableMapOf()
 ) {
 
-    constructor(type: PrbmEntityType) : this(type.id)
+    constructor(type: PrbmEntityType) : this(type.id) {
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+        val now = ZonedDateTime.now()
+        time = now.toLocalTime().format(timeFormatter)
+    }
 
 //    /**
 //     * Abstract method invoked when each entity must render itself.

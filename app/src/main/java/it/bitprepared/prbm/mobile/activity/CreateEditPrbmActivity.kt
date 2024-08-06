@@ -130,5 +130,5 @@ class CreateEditPrbmActivity : AppCompatActivity() {
     }
 }
 
-private fun AppCompatEditText.setTextIfDifferent(input: String) =
+fun AppCompatEditText.setTextIfDifferent(input: String) =
     if (text.toString() != input) setText(input) else Unit

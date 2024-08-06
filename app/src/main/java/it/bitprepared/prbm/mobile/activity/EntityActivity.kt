@@ -9,43 +9,40 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
-import android.util.Log
-import android.view.Menu
+import android.text.TextWatcher
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.google.gson.Gson
 import it.bitprepared.prbm.mobile.R
-import it.bitprepared.prbm.mobile.activity.UserData.column
 import it.bitprepared.prbm.mobile.activity.UserData.entity
-import it.bitprepared.prbm.mobile.activity.UserData.unit
 import it.bitprepared.prbm.mobile.databinding.ActivityEntityBinding
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.util.Calendar
-import java.util.Locale
 
 /**
  * Class responsible for visualizing and modifying a single PrbmEntity
  */
 class EntityActivity : AppCompatActivity() {
-    private var edit = false
-
     private lateinit var binding: ActivityEntityBinding
+    private val viewModel: EntityViewModel by viewModels()
 
     @Transient
     private var capturedImageUri: Uri? = null
@@ -53,97 +50,82 @@ class EntityActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = intent
-        edit = intent.getBooleanExtra("edit", false)
         binding = ActivityEntityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.editTime.text = "12:42"
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.modelState.collect { state ->
+                    binding.editTime.text = state.time
+                    binding.edtTitle.setTextIfDifferent(state.title)
+                    binding.edtDescription.setTextIfDifferent(state.description)
+                }
+            }
+        }
+        binding.edtTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) {
+                viewModel.updateTitle(s.toString())
+            }
+        })
+        binding.edtDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) {
+                viewModel.updateDescription(s.toString())
+            }
+        })
         binding.editTime.setOnClickListener {
             val time = LocalTime.parse(binding.editTime.getText().toString())
-            val timePicker = MaterialTimePicker
-                .Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(time.hour)
-                .setMinute(time.minute)
-                .setTitleText(R.string.pick_unit_time).build()
+            val timePicker =
+                MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(time.hour)
+                    .setMinute(time.minute).setTitleText(R.string.pick_unit_time).build()
             timePicker.addOnPositiveButtonClickListener { _ ->
-                // TODO send this over to the viewmodel
-                binding.editTime.text = "${timePicker.hour}:${timePicker.minute}"
+                viewModel.updateTime("${timePicker.hour}:${timePicker.minute}")
             }
             timePicker.show(supportFragmentManager, "timePicker")
         }
+
+        binding.topAppBar.setNavigationOnClickListener {
+            confirmExit()
+        }
+
 
         val entity = entity
         if (entity != null) {
 //            entity.drawYourSelf(this@EntityActivity, binding.linFree)
 //            binding.txtTitle.text = entity.type
-
-            val gson = Gson()
-            Log.e("TAG", gson.toJson(entity))
-
-            if (!edit) {
-                // Setting current hour
-                val c = Calendar.getInstance(resources.configuration.locale)
-//                binding.datTime.currentHour = c[Calendar.HOUR_OF_DAY]
-//                binding.datTime.currentMinute = c[Calendar.MINUTE]
-//                binding.datTime.setIs24HourView(true)
-            } else {
+//            if (!edit) {
+//            } else {
 //                binding.edtCaption.setText(entity.caption)
-                binding.edtDescription.setText(entity.description)
-                if (entity.pictureName.isNotEmpty()) {
-                    capturedImageUri = entity.pictureURI
-                    binding.imgCamera.isVisible = true
+            if (entity.pictureName.isNotEmpty()) {
+                capturedImageUri = entity.pictureURI
+                binding.imgCamera.isVisible = true
 
-                    Glide.with(this).load(capturedImageUri)
-                        .apply(RequestOptions().override(600, 300).centerCrop())
-                        .into(binding.imgCamera)
-                }
-
-                // Restoring timestamp to TimePicker
-                val dateFormat = SimpleDateFormat(
-                    "yyyy-MM-dd HH:mm:ss", Locale.getDefault()
-                )
-                try {
-//                    val date = dateFormat.parse(entity.timestamp)
-//                    val cal = Calendar.getInstance(Locale.getDefault())
-//                    cal.time = date
-//                    binding.datTime.currentHour = cal[Calendar.HOUR_OF_DAY]
-//                    binding.datTime.currentMinute = cal[Calendar.MINUTE]
-                } catch (_: ParseException) {
-                }
-//                entity.restoreFields(this, binding.linFree)
+                Glide.with(this)
+                    .load(capturedImageUri)
+                    .apply(
+                        RequestOptions()
+                            .override(600, 300).centerCrop()
+                    )
+                    .into(binding.imgCamera)
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.prbm_entity, menu)
-        return true
-    }
-
+    private fun confirmExit() = MaterialAlertDialogBuilder(this).setTitle(R.string.confirmation)
+        .setIcon(R.drawable.ic_alert).setMessage(R.string.are_you_sure)
+        .setPositiveButton(getString(R.string.exit_without_save)) { _, _ ->
+            finish()
+        }.setNegativeButton(R.string.abort) { _, _ -> }.create().show()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
-            R.id.discard, android.R.id.home -> {
-                val build = MaterialAlertDialogBuilder(this@EntityActivity)
-                build.setTitle(R.string.confirmation)
-                build.setMessage(R.string.are_you_sure)
-                build.setPositiveButton(R.string.ok) { _: DialogInterface?, _: Int ->
-                    val entity = entity
-                    entity!!.pictureName = ""
-                    finish()
-                }
-                build.setNegativeButton(R.string.abort) { _: DialogInterface?, _: Int -> }
-                build.show()
-                return true
-            }
-
             R.id.save -> {
                 // Checking if caption is empty
-
-                if (binding.edtCaption.text?.isEmpty() == true) {
+                if (binding.edtTitle.text?.isEmpty() == true) {
                     val alert = MaterialAlertDialogBuilder(this)
                     alert.setTitle(R.string.fields_incomplete)
                     alert.setMessage(getString(R.string.you_must_insert_caption))
@@ -167,10 +149,10 @@ class EntityActivity : AppCompatActivity() {
 //                        )
 //                        entity.timestamp = dateFormat.format(c.time)
 
-                        if (!edit) {
-                            val involved = unit
+//                        if (!edit) {
+//                            val involved = unit
 //                            involved!!.addEntity(entity, column)
-                        }
+//                        }
                         setResult(RESULT_OK)
                         finish()
                     }
@@ -307,7 +289,6 @@ class EntityActivity : AppCompatActivity() {
                 .apply(RequestOptions().override(600, 300).centerCrop()).into(binding.imgCamera)
 
             entity!!.pictureName = getFilenameFromURI(capturedImageUri)!!
-            Log.d(TAG, "capturedImage " + capturedImageUri!!.path)
         } else if (requestCode == GALLERY_RESULT) {
             if (resultCode != RESULT_OK) {
                 Toast.makeText(
@@ -355,7 +336,6 @@ class EntityActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "EntityActivity"
         private const val CAMERA_RESULT = 1005
         private const val GALLERY_RESULT = 1006
 
