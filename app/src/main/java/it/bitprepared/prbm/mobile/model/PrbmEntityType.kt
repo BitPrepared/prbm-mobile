@@ -5,5 +5,6 @@ data class PrbmEntityType(
     val name: String,
     val description: String,
     val icon_color: String,
+    val icon_name: String,
     val fields: List<PrbmEntityField>
 )

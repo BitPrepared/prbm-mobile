@@ -68,6 +68,7 @@ class PrbmUnitAdapter(
         fun onClickGps(position: Int)
         fun onAddUnitButtonClicked(position: Int)
         fun onClickDelete(position: Int)
+        fun onNewEntityClicked(position: Int, index: Int, selectedEntityOptions: Int)
     }
 
     fun fromAdapterPositionToDataPosition(adapterPosition: Int): Int = adapterPosition / 2

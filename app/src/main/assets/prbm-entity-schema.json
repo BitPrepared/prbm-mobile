@@ -42,7 +42,8 @@
       "id": "flower",
       "name": "Fiore",
       "description": "Osservazione di un fiore o di un'erba",
-      "icon_color": "#1C3A7A"
+      "icon_color": "#1C3A7A",
+      "icon_name": "ic_flower"
     },
     {
       "fields": [
@@ -104,7 +105,8 @@
       "id": "tree",
       "name": "Albero",
       "description": "Osservazione di alberi, foreste, arbusti o altro tipo di vegetazione",
-      "icon_color": "#31431B"
+      "icon_color": "#31431B",
+      "icon_name": "ic_tree"
     },
     {
       "fields": [
@@ -190,7 +192,8 @@
       "id": "animal",
       "name": "Fauna",
       "description": "Osservazione di animali, nidi, insetti o altro tipo di fauna",
-      "icon_color": "#6A6A6A"
+      "icon_color": "#6A6A6A",
+      "icon_name": "ic_animal"
     },
     {
       "fields": [
@@ -284,7 +287,8 @@
       "id": "monument",
       "name": "Monumento",
       "description": "Osservazione di monumenti o luoghi di rilevanza storica.",
-      "icon_color": "#783725"
+      "icon_color": "#783725",
+      "icon_name": "ic_monument"
     },
     {
       "fields": [
@@ -316,7 +320,8 @@
       "id": "panorama",
       "name": "Panorama",
       "description": "Osservazione di monumenti o luoghi di rilevanza storica.",
-      "icon_color": "#253B50"
+      "icon_color": "#253B50",
+      "icon_name": "ic_panorama"
     },
     {
       "fields": [
@@ -390,7 +395,8 @@
       "id": "interview",
       "name": "Intervista",
       "description": "Report o interviste alle persone incontrate.",
-      "icon_color": "#4A4A4A"
+      "icon_color": "#4A4A4A",
+        "icon_name": "ic_microphone"
     },
     {
       "fields": [
@@ -440,7 +446,8 @@
       "id": "news",
       "name": "Fatto di Cronaca",
       "description": "Notizie o fatti di cronaca del posto.",
-      "icon_color": "#1C1C1A"
+      "icon_color": "#1C1C1A",
+      "icon_name": "ic_newspaper"
     },
     {
       "fields": [
@@ -568,7 +575,8 @@
       "id": "weather",
       "name": "Meteo",
       "description": "Informazioni sulle condizioni atmosferiche osservate",
-      "icon_color": "#86594A"
+      "icon_color": "#86594A",
+      "icon_name": "ic_weather"
     },
     {
       "fields": [
@@ -582,7 +590,8 @@
       "id": "other",
       "name": "Altro",
       "description": "Informazioni che non rientrano nella classi precedenti",
-      "icon_color": "#3F5457"
+      "icon_color": "#3F5457",
+      "icon_name": "ic_others"
     }
   ]
 }

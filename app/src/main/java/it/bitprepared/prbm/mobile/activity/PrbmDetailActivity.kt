@@ -10,11 +10,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -57,6 +56,8 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                         showSavedSuccessfully()
                     } else if (state.editReady == true) {
                         openPrbmEditActivity()
+                    } else if (state.newUnitReady == true) {
+                        openNewUnitActivity()
                     }
                     adtPrbmUnit.setNewData(state.prbm.units)
                 }
@@ -95,6 +96,8 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         binding.lstUnits.setAdapter(adtPrbmUnit)
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
     }
+
+
 
     override fun onCreateContextMenu(
         menu: ContextMenu, v: View, menuInfo: ContextMenuInfo
@@ -168,6 +171,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     private fun openPrbmEditActivity() {
         startActivity(Intent(this@PrbmDetailActivity, CreateEditPrbmActivity::class.java))
         viewModel.editPrbmStarted()
+    }
+
+    private fun openNewUnitActivity() {
+        startActivity(Intent(this@PrbmDetailActivity, EntityActivity::class.java))
+        viewModel.newEntityStarted()
     }
 
 
@@ -245,6 +253,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                 viewModel.deleteUnit(adtPrbmUnit.fromAdapterPositionToDataPosition(position))
             }
             .show()
+    }
+
+    override fun onNewEntityClicked(position: Int, columnIndex: Int, selectedEntityOptions: Int) {
+        val unitIndex = adtPrbmUnit.fromAdapterPositionToDataPosition(position)
+        viewModel.addNewEntity(unitIndex, columnIndex, selectedEntityOptions)
     }
 
     companion object {

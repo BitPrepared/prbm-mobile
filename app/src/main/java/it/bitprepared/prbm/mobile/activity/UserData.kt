@@ -41,10 +41,7 @@ object UserData {
     @JvmStatic
     var entity: PrbmEntity? = null
 
-    fun newEntityFromPosition(position: Int) {
-        val type = entityTypes[position]
-        entity = PrbmEntity(type)
-    }
+    fun newEntityFromMenuIndex(position: Int) = PrbmEntity(entityTypes[position])
 
     lateinit var entityTypes: List<PrbmEntityType>
 
