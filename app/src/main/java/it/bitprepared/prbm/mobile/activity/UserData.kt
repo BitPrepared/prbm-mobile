@@ -86,30 +86,6 @@ object UserData {
     }
 
     /**
-     * Check if actual unit can be moved up in its column
-     * @return True if actual unit can be moved up
-     */
-    @JvmStatic
-    fun canMoveUnitUp(): Boolean {
-//        val toCheck = unit?.getEntitiesFromColumn(this.column) ?: return false
-//        return toCheck.indexOf(entity) > 0
-        // TODO Remove me?
-        return false
-    }
-
-    /**
-     * Check if actual unit can be moved down in its column
-     * @return True if actual unit can be moved down
-     */
-    @JvmStatic
-    fun canMoveUnitDown(): Boolean {
-//        val toCheck = unit?.getEntitiesFromColumn(this.column) ?: return false
-//        return toCheck.indexOf(entity) < toCheck.size - 1
-        // TODO Remove me?
-        return false
-    }
-
-    /**
      * Store actual PRBM and serialize the PRBM list
      */
     @JvmStatic
