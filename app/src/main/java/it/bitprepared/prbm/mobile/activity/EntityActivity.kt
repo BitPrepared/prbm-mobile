@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -12,6 +13,8 @@ import android.provider.OpenableColumns
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -148,6 +151,10 @@ class EntityActivity : AppCompatActivity() {
                 viewModel.updateFieldValue(field.name, it.toString())
             }
         }
+        // We add some padding so the "Save" button is not always overlapping.
+        val emptyView = View(this)
+        emptyView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120)
+        binding.linFree.addView(emptyView)
     }
 
     private fun confirmExit() = MaterialAlertDialogBuilder(this).setTitle(R.string.confirmation)
