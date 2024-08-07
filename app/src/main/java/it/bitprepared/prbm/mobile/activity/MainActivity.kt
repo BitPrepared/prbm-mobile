@@ -64,7 +64,14 @@ class MainActivity : AppCompatActivity() {
             navigateToPrbmList()
         }
         binding.btnSyncro.setOnClickListener {
-            viewModel.uploadPrbmJSONs(this@MainActivity)
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Sincronizzazione")
+                .setIcon(R.drawable.ic_sync)
+                .setMessage("Questa funzionalità non è ancora disponibile.")
+                .setPositiveButton(R.string.ok) { _, _ -> }
+                .create()
+                .show()
+//            viewModel.uploadPrbmJSONs(this@MainActivity)
         }
         binding.btnAbout.setOnClickListener {
             showAboutDialog()
