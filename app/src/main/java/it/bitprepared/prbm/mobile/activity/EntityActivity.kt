@@ -149,17 +149,6 @@ class EntityActivity : AppCompatActivity() {
         val id = item.itemId
         when (id) {
             R.id.save -> {
-                // Checking if caption is empty
-                if (binding.edtTitle.text?.isEmpty() == true) {
-                    val alert = MaterialAlertDialogBuilder(this)
-                    alert.setTitle(R.string.fields_incomplete)
-                    alert.setMessage(getString(R.string.you_must_insert_caption))
-                    alert.setIcon(R.drawable.ic_alert_black_48dp)
-                    alert.setPositiveButton(
-                        R.string.ok
-                    ) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
-                    alert.show()
-                } else {
                     val entity = entity
                     if (entity != null) {
 //                        entity.saveFields(this@EntityActivity, binding.linFree)
@@ -181,49 +170,48 @@ class EntityActivity : AppCompatActivity() {
                         setResult(RESULT_OK)
                         finish()
                     }
-                }
                 return true
             }
 
-            R.id.pic -> {
-                val entity = entity
-                val itemadd = arrayOf<CharSequence>(
-                    "Scatta una foto", "Scegli dalla Galleria"
-                )
-                val itemadddelete = arrayOf<CharSequence>(
-                    "Scatta una foto", "Scegli dalla Galleria", "Rimuovi foto"
-                )
-                val deleteflag = (entity != null && entity.pictureName.isNotEmpty())
-                val builder = MaterialAlertDialogBuilder(this)
-                builder.setIcon(R.drawable.ic_camera_iris_black_36dp)
-                builder.setTitle("Fotografia")
-                builder.setItems(
-                    (if (deleteflag) itemadddelete else itemadd)
-                ) { dialog: DialogInterface, which: Int ->
-                    when (which) {
-                        0 -> {
-                            takePicture()
-                            dialog.dismiss()
-                        }
-
-                        1 -> {
-                            chooseFromGallery()
-                            dialog.dismiss()
-                        }
-
-                        2 -> {
-                            entity!!.pictureName = ""
-                            binding.imgCamera.isGone = true
-                            dialog.dismiss()
-                        }
-
-                        else -> {}
-                    }
-                }
-                val alert = builder.create()
-                alert.setCancelable(true)
-                alert.show()
-            }
+//            R.id.pic -> {
+//                val entity = entity
+//                val itemadd = arrayOf<CharSequence>(
+//                    "Scatta una foto", "Scegli dalla Galleria"
+//                )
+//                val itemadddelete = arrayOf<CharSequence>(
+//                    "Scatta una foto", "Scegli dalla Galleria", "Rimuovi foto"
+//                )
+//                val deleteflag = (entity != null && entity.pictureName.isNotEmpty())
+//                val builder = MaterialAlertDialogBuilder(this)
+//                builder.setIcon(R.drawable.ic_camera_iris_black_36dp)
+//                builder.setTitle("Fotografia")
+//                builder.setItems(
+//                    (if (deleteflag) itemadddelete else itemadd)
+//                ) { dialog: DialogInterface, which: Int ->
+//                    when (which) {
+//                        0 -> {
+//                            takePicture()
+//                            dialog.dismiss()
+//                        }
+//
+//                        1 -> {
+//                            chooseFromGallery()
+//                            dialog.dismiss()
+//                        }
+//
+//                        2 -> {
+//                            entity!!.pictureName = ""
+//                            binding.imgCamera.isGone = true
+//                            dialog.dismiss()
+//                        }
+//
+//                        else -> {}
+//                    }
+//                }
+//                val alert = builder.create()
+//                alert.setCancelable(true)
+//                alert.show()
+//            }
         }
         return super.onOptionsItemSelected(item)
     }

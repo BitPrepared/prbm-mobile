@@ -129,10 +129,10 @@ class PrbmUnitAdapterUnitViewHolder(
                             // Alert dialog to check if sure to delete
 
                             val alert = MaterialAlertDialogBuilder(context)
-                            alert.setTitle(context.getString(R.string.confirm_delete))
-                            alert.setMessage(context.getString(R.string.are_you_sure_delete_entity))
-                            alert.setIcon(R.drawable.ic_alert_black_48dp)
-                            alert.setPositiveButton(
+                            .setTitle(context.getString(R.string.confirm_delete))
+                            .setMessage(context.getString(R.string.are_you_sure_delete_entity))
+                            .setIcon(R.drawable.ic_alert)
+                            .setPositiveButton(
                                 R.string.delete
                             ) { d, _ ->
                                 unit.deleteEntity(entity, i)
