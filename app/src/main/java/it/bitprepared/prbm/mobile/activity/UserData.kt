@@ -53,14 +53,12 @@ object UserData {
 
     fun getSingleChoiceEntityType(): Array<String> = entityTypes.map { it.name }.toTypedArray()
 
-
     /** Reference to actual unit  */
     // TODO: Move me to ViewModel
     @JvmStatic
     var unit: PrbmUnit? = null
 
     /** Returns reference to actual entity column (1-4) */
-    // TODO: Move me to ViewModel
     @JvmStatic
     var column: Int = 0
 

@@ -37,11 +37,20 @@ class EntityViewModel : ViewModel() {
     }
 
     fun saveEntity() = viewModelScope.launch {
-        UserData.entity?.time = _modelState.value.time
-        UserData.entity?.title = _modelState.value.title
-        UserData.entity?.description = _modelState.value.description
-        UserData.entity?.fieldValues?.clear()
-        UserData.entity?.fieldValues?.putAll(_modelState.value.fieldValues)
+        val involvedEntity = requireNotNull(UserData.entity).apply {
+            time = _modelState.value.time
+            title = _modelState.value.title
+            description = _modelState.value.description
+            fieldValues.clear()
+            fieldValues.putAll(_modelState.value.fieldValues)
+        }
+        val involvedUnit = UserData.unit
+        when (UserData.column) {
+            0 -> involvedUnit?.entitiesFarLeft?.add(involvedEntity)
+            1 -> involvedUnit?.entitiesNearLeft?.add(involvedEntity)
+            2 -> involvedUnit?.entitiesNearRight?.add(involvedEntity)
+            3 -> involvedUnit?.entitiesFarRight?.add(involvedEntity)
+        }
         _modelState.emit(_modelState.value.copy(saveReady = true))
     }
 

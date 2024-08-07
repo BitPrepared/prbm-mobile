@@ -68,13 +68,8 @@ class PrbmDetailViewModel : ViewModel() {
     fun addNewEntity(unitIndex: Int, columnIndex: Int, selectedMenuIndex: Int) = viewModelScope.launch {
         val newEntity = UserData.newEntityFromMenuIndex(selectedMenuIndex)
         UserData.entity = newEntity
-        val involvedUnit = UserData.prbm?.units?.get(unitIndex)
-        when (columnIndex) {
-            0 -> involvedUnit?.entitiesFarLeft?.add(newEntity)
-            1 -> involvedUnit?.entitiesNearLeft?.add(newEntity)
-            2 -> involvedUnit?.entitiesNearRight?.add(newEntity)
-            3 -> involvedUnit?.entitiesFarRight?.add(newEntity)
-        }
+        UserData.column = columnIndex
+        UserData.unit = UserData.prbm?.units?.get(unitIndex)
         _modelState.emit(_modelState.value.copy(newUnitReady = true))
     }
 
