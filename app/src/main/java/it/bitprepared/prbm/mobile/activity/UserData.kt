@@ -82,7 +82,8 @@ object UserData {
      */
     @JvmStatic
     fun savePrbm(context: Context, prbm: Prbm) {
-        if (prbm !in _prbmList) _prbmList.add(prbm)
+        _prbmList.removeIf { it.uuid == prbm.uuid }
+        _prbmList.add(prbm)
         serializePrbms(context)
     }
 
