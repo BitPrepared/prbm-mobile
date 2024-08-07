@@ -37,8 +37,8 @@ class MainViewModel : ViewModel() {
             val totalToUpload = UserData.prbmList.map { prbm ->
                 prbm.units.map {
                     it.farLeft + it.farRight + it.nearLeft + it.nearRight
-                }.flatten().map { entity ->
-                    entity.pictureName
+                }.flatten().flatMap { entity ->
+                    entity.pictureNames
                 }.filter { it.isNotEmpty() }
             }.flatten().size + UserData.prbmList.size
             var uploadedSoFar = 0
@@ -59,14 +59,14 @@ class MainViewModel : ViewModel() {
                 prbm.units.map {
                     it.farLeft + it.farRight + it.nearLeft + it.nearRight
                 }.flatten().forEach { entity ->
-                    if (entity.pictureName.isNotEmpty()) {
-                        val pictureName = entity.pictureName
-                        val pictureEncoded = base64Encode(context, entity.pictureURI)
-                        Log.d(TAG, "Uploading image to remote server: $pictureName")
-                        restInterface.uploadImage(pictureName, pictureEncoded)
-                        uploadedSoFar++
-                        _modelState.emit(MainViewModelState(true, uploadedSoFar.toFloat() / totalToUpload))
-                    }
+//                    if (entity.pictureName.isNotEmpty()) {
+//                        val pictureName = entity.pictureName
+//                        val pictureEncoded = base64Encode(context, entity.pictureURI)
+//                        Log.d(TAG, "Uploading image to remote server: $pictureName")
+//                        restInterface.uploadImage(pictureName, pictureEncoded)
+//                        uploadedSoFar++
+//                        _modelState.emit(MainViewModelState(true, uploadedSoFar.toFloat() / totalToUpload))
+//                    }
                 }
             }
             _modelState.emit(MainViewModelState(false, 1f))

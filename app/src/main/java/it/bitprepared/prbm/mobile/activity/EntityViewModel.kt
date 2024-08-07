@@ -1,5 +1,7 @@
 package it.bitprepared.prbm.mobile.activity
 
+import android.net.Uri
+import androidx.core.net.toFile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.bitprepared.prbm.mobile.model.PrbmEntity
@@ -22,7 +24,8 @@ class EntityViewModel : ViewModel() {
             title = UserData.entity?.title ?: "",
             description = UserData.entity?.description ?: "",
             fields = UserData.entity?.type?.fields ?: emptyList(),
-            fieldValues = UserData.entity?.fieldValues ?: emptyMap()
+            fieldValues = UserData.entity?.fieldValues ?: emptyMap(),
+            images = emptyList()
         )
 
     fun updateTitle(newTitle: String) = viewModelScope.launch {
@@ -74,6 +77,11 @@ class EntityViewModel : ViewModel() {
         val newFieldValues = _modelState.value.fieldValues.toMutableMap()
         newFieldValues[fieldName] = fieldValue
         _modelState.emit(_modelState.value.copy(fieldValues = newFieldValues))
+    }
+
+    fun addImage(capturedImageUri: Uri) = viewModelScope.launch {
+        UserData.entity?.pictureNames?.add(capturedImageUri.toString())
+        _modelState.emit(_modelState.value.copy(images = UserData.entity?.pictureNames ?: emptyList()))
     }
 
 }

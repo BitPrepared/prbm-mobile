@@ -98,11 +98,13 @@
                 android:clipToPadding="false">
 
                 <LinearLayout
+                    android:id="@+id/lin_gallery"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_camera"
                         android:layout_width="@dimen/gallery_box_size"
                         android:layout_height="@dimen/gallery_box_size"
                         app:cardBackgroundColor="@color/md_theme_secondaryContainer"
@@ -117,6 +119,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_gallery"
                         android:layout_width="@dimen/gallery_box_size"
                         android:layout_height="@dimen/gallery_box_size"
                         android:layout_marginStart="@dimen/grid_doub"
