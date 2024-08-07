@@ -44,7 +44,7 @@ class PrbmUnitAdapter(
             )
         } else {
             PrbmUnitAdapterUnitViewHolder(
-                this, ListUnitsBinding.inflate(layoutInflater, parent, false)
+                ListUnitsBinding.inflate(layoutInflater, parent, false)
             )
         }
 

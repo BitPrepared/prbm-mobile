@@ -12,7 +12,7 @@ import it.bitprepared.prbm.mobile.databinding.ListUnitsBinding
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 
 class PrbmUnitAdapterUnitViewHolder(
-  private val adapter: PrbmUnitAdapter, private val b: ListUnitsBinding
+  private val b: ListUnitsBinding
 ) : RecyclerView.ViewHolder(b.root) {
 
   var selectedEntityOptions = 0
