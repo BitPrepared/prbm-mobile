@@ -24,7 +24,3 @@ class ListPrbmViewModel : ViewModel() {
     }
 }
 
-class ListPrbmViewModelState(
-    val prbmList: List<Prbm> = UserData.prbmList,
-    val prbmToEdit: Prbm? = null
-)
