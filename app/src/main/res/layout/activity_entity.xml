@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_back"
+                app:menu="@menu/entity_menu"
                 app:title="Flora/Fauna" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

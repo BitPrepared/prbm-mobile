@@ -1,7 +1,6 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -35,6 +34,9 @@ object UserData {
 
     /** Flag to check if user is editing a PRBM */
     var editPrbm: Boolean = false
+
+    /** Flag to check if user is editing a PRBM Unit */
+    var editEntity: Boolean = false
 
     /** Reference to the [PrbmEntity] user is editing  */
     // TODO: Move me to ViewModel

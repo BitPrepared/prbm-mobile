@@ -60,19 +60,29 @@ class PrbmUnitAdapterUnitViewHolder(
       unit.nearLeft to b.lstEntityNearLeft,
       unit.nearRight to b.lstEntityNearRight,
       unit.farRight to b.lstEntityFarRight
-    ).forEach { (units, layout) ->
+    ).forEach { (entities, layout) ->
       if (layout.childCount != 1) {
         while (layout.childCount > 1) {
           layout.removeViewAt(1)
         }
       }
-      units.forEach {
+      entities.forEach { currentEntity ->
         val unitButton = MaterialButton(
           context, null, com.google.android.material.R.attr.materialIconButtonOutlinedStyle
         )
         val drawableResourceId: Int =
-          context.resources.getIdentifier(it.type.icon_name, "drawable", context.packageName)
+          context.resources.getIdentifier(currentEntity.type.icon_name, "drawable", context.packageName)
         unitButton.icon = ContextCompat.getDrawable(context, drawableResourceId)
+        val columnIndex = when(entities) {
+          unit.farLeft -> 0
+          unit.nearLeft -> 1
+          unit.nearRight -> 2
+          unit.farRight -> 3
+          else -> error("Invalid index")
+        }
+        unitButton.setOnClickListener {
+          listener.onEntityClicked(currentEntity, position, columnIndex)
+        }
         layout.addView(unitButton)
       }
     }

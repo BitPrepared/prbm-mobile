@@ -2,6 +2,7 @@ package it.bitprepared.prbm.mobile.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import it.bitprepared.prbm.mobile.model.PrbmEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +16,7 @@ class EntityViewModel : ViewModel() {
 
     private fun getInitialState(): EntityViewModelState =
         EntityViewModelState(
+            isEditing = UserData.editEntity,
             typeDescription = UserData.entity?.type?.name ?: "",
             time = UserData.entity?.time ?: "",
             title = UserData.entity?.title ?: "",
@@ -45,11 +47,25 @@ class EntityViewModel : ViewModel() {
             fieldValues.putAll(_modelState.value.fieldValues)
         }
         val involvedUnit = UserData.unit
+        if (!UserData.editEntity) {
+            when (UserData.column) {
+                0 -> involvedUnit?.entitiesFarLeft?.add(involvedEntity)
+                1 -> involvedUnit?.entitiesNearLeft?.add(involvedEntity)
+                2 -> involvedUnit?.entitiesNearRight?.add(involvedEntity)
+                3 -> involvedUnit?.entitiesFarRight?.add(involvedEntity)
+            }
+        }
+        _modelState.emit(_modelState.value.copy(saveReady = true))
+    }
+
+    fun deleteEntity() = viewModelScope.launch {
+        val involvedEntity = UserData.entity!!
+        val involvedUnit = UserData.unit
         when (UserData.column) {
-            0 -> involvedUnit?.entitiesFarLeft?.add(involvedEntity)
-            1 -> involvedUnit?.entitiesNearLeft?.add(involvedEntity)
-            2 -> involvedUnit?.entitiesNearRight?.add(involvedEntity)
-            3 -> involvedUnit?.entitiesFarRight?.add(involvedEntity)
+            0 -> involvedUnit?.entitiesFarLeft?.remove(involvedEntity)
+            1 -> involvedUnit?.entitiesNearLeft?.remove(involvedEntity)
+            2 -> involvedUnit?.entitiesNearRight?.remove(involvedEntity)
+            3 -> involvedUnit?.entitiesFarRight?.remove(involvedEntity)
         }
         _modelState.emit(_modelState.value.copy(saveReady = true))
     }
@@ -59,4 +75,5 @@ class EntityViewModel : ViewModel() {
         newFieldValues[fieldName] = fieldValue
         _modelState.emit(_modelState.value.copy(fieldValues = newFieldValues))
     }
+
 }

@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -68,6 +69,16 @@ class EntityActivity : AppCompatActivity() {
                         binding.edtTitle.setTextIfDifferent(state.title)
                         binding.edtDescription.setTextIfDifferent(state.description)
                         renderFields(state.fields, state.fieldValues)
+                        binding.topAppBar.menu[0].isVisible = state.isEditing
+                        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+                            when (menuItem.itemId) {
+                                R.id.delete -> {
+                                    confirmDelete()
+                                    true
+                                }
+                                else -> false
+                            }
+                        }
                     }
                 }
             }
@@ -143,6 +154,12 @@ class EntityActivity : AppCompatActivity() {
         .setIcon(R.drawable.ic_alert).setMessage(R.string.are_you_sure)
         .setPositiveButton(getString(R.string.exit_without_save)) { _, _ ->
             finish()
+        }.setNegativeButton(R.string.abort) { _, _ -> }.create().show()
+
+    private fun confirmDelete() = MaterialAlertDialogBuilder(this).setTitle(R.string.confirm_delete)
+        .setIcon(R.drawable.ic_delete).setMessage(R.string.are_you_sure_delete_entity)
+        .setPositiveButton(getString(R.string.delete)) { _, _ ->
+            viewModel.deleteEntity()
         }.setNegativeButton(R.string.abort) { _, _ -> }.create().show()
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {

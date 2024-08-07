@@ -6,6 +6,6 @@ data class PrbmDetailModelState(
     val prbm: Prbm,
     val saveSuccessful: Boolean? = null,
     val editReady: Boolean? = null,
-    val newUnitReady: Boolean? = null,
+    val editUnitReady: Boolean? = null,
     val stateTimestamp: Long = System.currentTimeMillis()
 )

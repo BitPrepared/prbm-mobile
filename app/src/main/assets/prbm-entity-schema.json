@@ -231,7 +231,8 @@
       "id": "building",
       "name": "Edificio",
       "description": "Osservazione di edifici o costruzioni",
-      "icon_color": "#504F4B"
+      "icon_color": "#504F4B",
+      "icon_name": "ic_building"
     },
     {
       "fields": [

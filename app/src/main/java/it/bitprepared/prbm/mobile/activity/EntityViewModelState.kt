@@ -3,6 +3,7 @@ package it.bitprepared.prbm.mobile.activity
 import it.bitprepared.prbm.mobile.model.PrbmEntityField
 
 data class EntityViewModelState(
+    val isEditing: Boolean,
     val typeDescription: String,
     val time: String = "",
     val title: String = "",

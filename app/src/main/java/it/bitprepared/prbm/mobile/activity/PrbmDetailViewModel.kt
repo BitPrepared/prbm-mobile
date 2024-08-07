@@ -3,6 +3,7 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -69,11 +70,20 @@ class PrbmDetailViewModel : ViewModel() {
         val newEntity = UserData.newEntityFromMenuIndex(selectedMenuIndex)
         UserData.entity = newEntity
         UserData.column = columnIndex
+        UserData.editEntity = false
         UserData.unit = UserData.prbm?.units?.get(unitIndex)
-        _modelState.emit(_modelState.value.copy(newUnitReady = true))
+        _modelState.emit(_modelState.value.copy(editUnitReady = true))
     }
 
-    fun newEntityStarted() = viewModelScope.launch {
-        _modelState.emit(_modelState.value.copy(newUnitReady = false))
+    fun editEntity(currentEntity: PrbmEntity, unitIndex: Int, columnIndex: Int) = viewModelScope.launch {
+        UserData.entity = currentEntity
+        UserData.column = columnIndex
+        UserData.editEntity = true
+        UserData.unit = UserData.prbm?.units?.get(unitIndex)
+        _modelState.emit(_modelState.value.copy(editUnitReady = true))
+    }
+
+    fun editEntityStarted() = viewModelScope.launch {
+        _modelState.emit(_modelState.value.copy(editUnitReady = false))
     }
 }

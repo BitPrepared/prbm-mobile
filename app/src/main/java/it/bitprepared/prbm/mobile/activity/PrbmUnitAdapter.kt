@@ -1,11 +1,13 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.bitprepared.prbm.mobile.databinding.ListUnitsAddbuttonBinding
 import it.bitprepared.prbm.mobile.databinding.ListUnitsBinding
+import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 
 
@@ -69,6 +71,7 @@ class PrbmUnitAdapter(
         fun onAddUnitButtonClicked(position: Int)
         fun onClickDelete(position: Int)
         fun onNewEntityClicked(position: Int, index: Int, selectedEntityOptions: Int)
+        fun onEntityClicked(prbmEntity: PrbmEntity, position: Int, columnIndex: Int)
     }
 
     fun fromAdapterPositionToDataPosition(adapterPosition: Int): Int = adapterPosition / 2

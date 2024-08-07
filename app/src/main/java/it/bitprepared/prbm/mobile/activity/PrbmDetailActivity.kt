@@ -13,7 +13,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -26,6 +25,7 @@ import it.bitprepared.prbm.mobile.activity.UserData.prbm
 import it.bitprepared.prbm.mobile.activity.UserData.savePrbm
 import it.bitprepared.prbm.mobile.databinding.ActivityDetailPrbmBinding
 import it.bitprepared.prbm.mobile.databinding.EditNumericFieldBinding
+import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 import kotlinx.coroutines.launch
 
@@ -56,7 +56,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                         showSavedSuccessfully()
                     } else if (state.editReady == true) {
                         openPrbmEditActivity()
-                    } else if (state.newUnitReady == true) {
+                    } else if (state.editUnitReady == true) {
                         openNewUnitActivity()
                     }
                     adtPrbmUnit.setNewData(state.prbm.units)
@@ -175,7 +175,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
 
     private fun openNewUnitActivity() {
         startActivity(Intent(this@PrbmDetailActivity, EntityActivity::class.java))
-        viewModel.newEntityStarted()
+        viewModel.editEntityStarted()
     }
 
 
@@ -258,6 +258,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     override fun onNewEntityClicked(position: Int, columnIndex: Int, selectedEntityOptions: Int) {
         val unitIndex = adtPrbmUnit.fromAdapterPositionToDataPosition(position)
         viewModel.addNewEntity(unitIndex, columnIndex, selectedEntityOptions)
+    }
+
+    override fun onEntityClicked(prbmEntity: PrbmEntity, position: Int, columnIndex: Int) {
+        val unitIndex = adtPrbmUnit.fromAdapterPositionToDataPosition(position)
+        viewModel.editEntity(prbmEntity, unitIndex, columnIndex)
     }
 
     companion object {
