@@ -44,10 +44,6 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
 
     private lateinit var locationManager: LocationManager
 
-    private lateinit var azimuthInput: EditText
-    private lateinit var metersInput: EditText
-    private lateinit var minutesInput: EditText
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
