@@ -64,14 +64,6 @@ object UserData {
     @JvmStatic
     var column: Int = 0
 
-    /**
-     * Set a loaded hashmap of bitmaps. The hashmap can be used later to improve
-     * performances while retrieving bitmaps.
-     */
-    // TODO: Remove me, probably unnecessary
-    @JvmStatic
-    val backBitmaps: MutableMap<Int, Bitmap> = mutableMapOf()
-
     /** Base URL for HTTP Calls  */
     private const val API_BASE_URL = "http://prbmm.bitprepared.it/"
 
