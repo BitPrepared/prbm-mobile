@@ -17,10 +17,7 @@ class PrbmUnitAdapter(
     private var _data = mutableListOf<PrbmUnitAdapterViewType>()
 
     fun setNewData(newData: List<PrbmUnit>) {
-        System.err.println("setNewData")
-        System.err.println("old $_data")
         val paddedNewData = padListWithAddButtons(newData)
-        System.err.println("new $paddedNewData")
         val diffCallback = DiffUtilCallback(_data, paddedNewData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         diffResult.dispatchUpdatesTo(this)

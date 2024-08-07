@@ -18,7 +18,9 @@ class EntityViewModel : ViewModel() {
             typeDescription = UserData.entity?.type?.name ?: "",
             time = UserData.entity?.time ?: "",
             title = UserData.entity?.title ?: "",
-            description = UserData.entity?.description ?: ""
+            description = UserData.entity?.description ?: "",
+            fields = UserData.entity?.type?.fields ?: emptyList(),
+            fieldValues = UserData.entity?.fieldValues ?: emptyMap()
         )
 
     fun updateTitle(newTitle: String) = viewModelScope.launch {
@@ -38,8 +40,14 @@ class EntityViewModel : ViewModel() {
         UserData.entity?.time = _modelState.value.time
         UserData.entity?.title = _modelState.value.title
         UserData.entity?.description = _modelState.value.description
+        UserData.entity?.fieldValues?.clear()
+        UserData.entity?.fieldValues?.putAll(_modelState.value.fieldValues)
         _modelState.emit(_modelState.value.copy(saveReady = true))
     }
 
-
+    fun updateFieldValue(fieldName: String, fieldValue: String) = viewModelScope.launch {
+        val newFieldValues = _modelState.value.fieldValues.toMutableMap()
+        newFieldValues[fieldName] = fieldValue
+        _modelState.emit(_modelState.value.copy(fieldValues = newFieldValues))
+    }
 }

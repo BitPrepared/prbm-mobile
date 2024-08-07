@@ -18,13 +18,13 @@
           "id": "petal_number",
           "name": "Numero Petali",
           "hint": "Numero di petali osservati nel fiore",
-          "type": "integer"
+          "type": "numeric"
         },
         {
           "id": "average_height",
           "name": "Altezza Media",
           "hint": "Altezza media del fiore in cm",
-          "type": "integer"
+          "type": "numeric"
         },
         {
           "id": "typical_habitat",
@@ -62,7 +62,7 @@
           "id": "average_height",
           "name": "Altezza Media",
           "hint": "Altezza media del fiore in cm",
-          "type": "integer"
+          "type": "numeric"
         },
         {
           "id": "bearing",

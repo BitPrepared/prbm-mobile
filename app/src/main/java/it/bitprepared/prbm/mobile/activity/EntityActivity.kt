@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -27,6 +29,8 @@ import com.google.android.material.timepicker.TimeFormat
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.activity.UserData.entity
 import it.bitprepared.prbm.mobile.databinding.ActivityEntityBinding
+import it.bitprepared.prbm.mobile.databinding.EditGenericFieldBinding
+import it.bitprepared.prbm.mobile.model.PrbmEntityField
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
@@ -63,6 +67,7 @@ class EntityActivity : AppCompatActivity() {
                         binding.editTime.text = state.time
                         binding.edtTitle.setTextIfDifferent(state.title)
                         binding.edtDescription.setTextIfDifferent(state.description)
+                        renderFields(state.fields, state.fieldValues)
                     }
                 }
             }
@@ -101,11 +106,6 @@ class EntityActivity : AppCompatActivity() {
 
         val entity = entity
         if (entity != null) {
-//            entity.drawYourSelf(this@EntityActivity, binding.linFree)
-//            binding.txtTitle.text = entity.type
-//            if (!edit) {
-//            } else {
-//                binding.edtCaption.setText(entity.caption)
             if (entity.pictureName.isNotEmpty()) {
                 capturedImageUri = entity.pictureURI
                 binding.imgCamera.isVisible = true
@@ -117,6 +117,24 @@ class EntityActivity : AppCompatActivity() {
                             .override(600, 300).centerCrop()
                     )
                     .into(binding.imgCamera)
+            }
+        }
+    }
+
+    private fun renderFields(fields: List<PrbmEntityField>, fieldValues: Map<String, String>) {
+        fields.forEach { field ->
+            val fieldBinding = EditGenericFieldBinding.inflate(layoutInflater, binding.linFree, false)
+            fieldBinding.textinputGeneric.hint = field.name
+            fieldBinding.textinputGeneric.helperText = field.hint
+            fieldBinding.edtFieldGeneric.inputType = if (field.type == "number") {
+                InputType.TYPE_CLASS_NUMBER or InputType.TYPE_CLASS_TEXT
+            } else {
+                InputType.TYPE_CLASS_TEXT
+            }
+            binding.linFree.addView(fieldBinding.root)
+            fieldBinding.edtFieldGeneric.setText(fieldValues.getOrDefault(field.name, ""))
+            fieldBinding.edtFieldGeneric.addTextChangedListener {
+                viewModel.updateFieldValue(field.name, it.toString())
             }
         }
     }
