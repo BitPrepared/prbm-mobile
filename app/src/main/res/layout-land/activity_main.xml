@@ -7,6 +7,16 @@
     app:flow_verticalGap="@dimen/grid_doub"
     tools:context=".activity.MainActivity">
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_explore"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/md_theme_primaryContainer"
+        tools:ignore="MissingConstraints" />
+
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
@@ -39,6 +49,7 @@
 
     <Button
         android:id="@+id/btn_list"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/list_prbm"
@@ -48,6 +59,7 @@
 
     <Button
         android:id="@+id/btn_syncro"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/sync"
@@ -57,6 +69,7 @@
 
     <Button
         android:id="@+id/btn_about"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="@string/about"
