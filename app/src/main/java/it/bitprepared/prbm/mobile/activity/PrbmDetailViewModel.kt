@@ -3,6 +3,7 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,8 +64,12 @@ class PrbmDetailViewModel : ViewModel() {
     }
 
     fun deleteUnit(unit: PrbmUnit) = viewModelScope.launch {
-        UserData.prbm!!.units.remove(unit)
-        _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
+        if (UserData.prbm!!.units.size > 1) {
+            UserData.prbm!!.units.remove(unit)
+            _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
+        } else {
+            _modelState.emit(_modelState.value.copy(errorMessage = R.string.you_cant_delete_last_unit))
+        }
     }
 
     fun addNewEntity(unit: PrbmUnit, columnIndex: Int, selectedMenuIndex: Int) = viewModelScope.launch {
@@ -86,5 +91,9 @@ class PrbmDetailViewModel : ViewModel() {
 
     fun editEntityStarted() = viewModelScope.launch {
         _modelState.emit(_modelState.value.copy(editUnitReady = false))
+    }
+
+    fun errorShown() = viewModelScope.launch {
+        _modelState.emit(_modelState.value.copy(errorMessage = null))
     }
 }

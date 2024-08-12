@@ -1,5 +1,6 @@
 package it.bitprepared.prbm.mobile.activity
 
+import androidx.annotation.StringRes
 import it.bitprepared.prbm.mobile.model.Prbm
 
 data class PrbmDetailModelState(
@@ -7,5 +8,6 @@ data class PrbmDetailModelState(
     val saveSuccessful: Boolean? = null,
     val editReady: Boolean? = null,
     val editUnitReady: Boolean? = null,
-    val stateTimestamp: Long = System.currentTimeMillis()
+    val stateTimestamp: Long = System.currentTimeMillis(),
+    @StringRes val errorMessage: Int? = null
 )

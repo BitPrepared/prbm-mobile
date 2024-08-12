@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.AdapterView.AdapterContextMenuInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -59,6 +60,9 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                     } else if (state.editUnitReady == true) {
                         openNewUnitActivity()
                     }
+                    if (state.errorMessage != null) {
+                        showErrorSnackbar(state.errorMessage)
+                    }
                     adtPrbmUnit.setNewData(state.prbm.units)
                     // TODO Change me to proper animation
                     adtPrbmUnit.notifyDataSetChanged()
@@ -99,6 +103,10 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
     }
 
+    private fun showErrorSnackbar(@StringRes errorMessage: Int) {
+        Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
+        viewModel.errorShown()
+    }
 
 
     override fun onCreateContextMenu(
