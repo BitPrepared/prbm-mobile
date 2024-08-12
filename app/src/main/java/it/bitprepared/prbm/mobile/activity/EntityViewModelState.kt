@@ -11,5 +11,6 @@ data class EntityViewModelState(
   val saveReady: Boolean = false,
   val fields: List<PrbmEntityField>,
   val fieldValues: Map<String, String>,
-  val images: List<String>
+  val images: List<String>,
+  val lastUpdated: Long = System.currentTimeMillis()
 )

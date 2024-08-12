@@ -18,12 +18,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.get
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -34,7 +32,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import it.bitprepared.prbm.mobile.R
-import it.bitprepared.prbm.mobile.activity.UserData.entity
 import it.bitprepared.prbm.mobile.databinding.ActivityEntityBinding
 import it.bitprepared.prbm.mobile.databinding.EditGenericFieldBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntityField
@@ -46,7 +43,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.time.LocalTime
-import java.util.Calendar
 
 
 /**
@@ -82,12 +78,11 @@ class EntityActivity : AppCompatActivity() {
                   confirmDelete()
                   true
                 }
+
                 else -> false
               }
             }
-            while (binding.linGallery.childCount > 2) {
-              binding.linGallery.removeViewAt(2)
-            }
+            binding.linGallery.removeAllViews()
             state.images.forEach {
               val px8 = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -166,6 +161,7 @@ class EntityActivity : AppCompatActivity() {
   }
 
   private fun renderFields(fields: List<PrbmEntityField>, fieldValues: Map<String, String>) {
+    binding.linFree.removeAllViews()
     fields.forEach { field ->
       val fieldBinding = EditGenericFieldBinding.inflate(layoutInflater, binding.linFree, false)
       fieldBinding.textinputGeneric.hint = field.name
@@ -230,8 +226,6 @@ class EntityActivity : AppCompatActivity() {
   @Deprecated("Deprecated in Java")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    val entity = entity
-
     if (requestCode == CAMERA_RESULT && resultCode == RESULT_OK) {
       viewModel.addImage(capturedImageUri)
     } else if (requestCode == GALLERY_RESULT) {

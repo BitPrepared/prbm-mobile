@@ -81,7 +81,10 @@ class EntityViewModel : ViewModel() {
 
     fun addImage(capturedImageUri: Uri) = viewModelScope.launch {
         UserData.entity?.pictureNames?.add(capturedImageUri.toString())
-        _modelState.emit(_modelState.value.copy(images = UserData.entity?.pictureNames ?: emptyList()))
+        _modelState.emit(_modelState.value.copy(
+            images = UserData.entity?.pictureNames ?: emptyList(),
+            lastUpdated = System.currentTimeMillis()
+        ))
     }
 
 }
