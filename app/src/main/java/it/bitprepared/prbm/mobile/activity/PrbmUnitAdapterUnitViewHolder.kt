@@ -32,11 +32,6 @@ class PrbmUnitAdapterUnitViewHolder(
     b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit.minutes, position) }
     b.chipGps.setOnClickListener { listener.onClickGps(position) }
     b.chipDelete.setOnClickListener { listener.onClickDelete(position) }
-    if (UserData.prbm!!.units.size == 1) {
-      b.chipDelete.isGone = true
-    } else {
-      b.chipDelete.isVisible = true
-    }
 
     val color = when {
       unit.isFlagAcquiringGPS -> R.color.black
