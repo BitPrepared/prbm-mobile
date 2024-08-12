@@ -20,6 +20,10 @@ class PrbmUnitAdapterUnitViewHolder(
   @SuppressLint("DiscouragedApi")
   fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener, position: Int) {
     val context = b.root.context
+    b.lstFarLeft.removeAllViews()
+    b.lstNearLeft.removeAllViews()
+    b.lstNearRight.removeAllViews()
+    b.lstFarRight.removeAllViews()
     b.chipMeters.text = context.getString(R.string.meters, unit.meters)
     b.chipAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
     b.chipMinutes.text = context.getString(R.string.minutes, unit.minutes)
@@ -56,16 +60,11 @@ class PrbmUnitAdapterUnitViewHolder(
     }
 
     mapOf(
-      unit.farLeft to b.lstEntityFarLeft,
-      unit.nearLeft to b.lstEntityNearLeft,
-      unit.nearRight to b.lstEntityNearRight,
-      unit.farRight to b.lstEntityFarRight
+      unit.farLeft to b.lstFarLeft,
+      unit.nearLeft to b.lstNearLeft,
+      unit.nearRight to b.lstNearRight,
+      unit.farRight to b.lstFarRight
     ).forEach { (entities, layout) ->
-      if (layout.childCount != 1) {
-        while (layout.childCount > 1) {
-          layout.removeViewAt(1)
-        }
-      }
       entities.forEach { currentEntity ->
         val unitButton = MaterialButton(
           context, null, com.google.android.material.R.attr.materialIconButtonOutlinedStyle

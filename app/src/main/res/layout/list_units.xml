@@ -9,8 +9,8 @@
         android:id="@+id/chip_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:paddingHorizontal="@dimen/grid_sing"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -62,11 +62,11 @@
     </HorizontalScrollView>
 
     <LinearLayout
-        android:id="@+id/lstEntityFarLeft"
+        android:id="@+id/lst_far_left_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/lstEntityNearLeft"
+        app:layout_constraintEnd_toStartOf="@id/lst_near_left_container"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chip_group">
@@ -79,15 +79,22 @@
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
             app:icon="@drawable/ic_add" />
+
+        <LinearLayout
+            android:id="@+id/lst_far_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lstEntityNearLeft"
+        android:id="@+id/lst_near_left_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/lstEntityNearRight"
-        app:layout_constraintStart_toEndOf="@id/lstEntityFarLeft"
+        app:layout_constraintEnd_toStartOf="@id/lst_near_right_container"
+        app:layout_constraintStart_toEndOf="@id/lst_far_left_container"
         app:layout_constraintTop_toBottomOf="@id/chip_group">
 
         <Button
@@ -98,15 +105,22 @@
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
             app:icon="@drawable/ic_add" />
+
+        <LinearLayout
+            android:id="@+id/lst_near_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lstEntityNearRight"
+        android:id="@+id/lst_near_right_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/lstEntityFarRight"
-        app:layout_constraintStart_toEndOf="@id/lstEntityNearLeft"
+        app:layout_constraintEnd_toStartOf="@id/lst_far_right_container"
+        app:layout_constraintStart_toEndOf="@id/lst_near_left_container"
         app:layout_constraintTop_toBottomOf="@id/chip_group">
 
         <Button
@@ -117,19 +131,23 @@
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
             app:icon="@drawable/ic_add" />
+
+        <LinearLayout
+            android:id="@+id/lst_near_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lstEntityFarRight"
+        android:id="@+id/lst_far_right_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/lstEntityNearRight"
-        app:layout_constraintTop_toBottomOf="@id/chip_group"
-
-        >
-
+        app:layout_constraintStart_toEndOf="@id/lst_near_right_container"
+        app:layout_constraintTop_toBottomOf="@id/chip_group">
 
         <Button
             android:id="@+id/btnAddFarRight"
@@ -139,5 +157,12 @@
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
             app:icon="@drawable/ic_add" />
+
+        <LinearLayout
+            android:id="@+id/lst_far_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
