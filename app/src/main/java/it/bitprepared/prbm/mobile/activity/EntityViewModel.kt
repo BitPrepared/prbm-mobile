@@ -25,7 +25,7 @@ class EntityViewModel : ViewModel() {
             description = UserData.entity?.description ?: "",
             fields = UserData.entity?.type?.fields ?: emptyList(),
             fieldValues = UserData.entity?.fieldValues ?: emptyMap(),
-            images = emptyList()
+            images = UserData.entity?.pictureNames ?: emptyList()
         )
 
     fun updateTitle(newTitle: String) = viewModelScope.launch {
@@ -48,6 +48,8 @@ class EntityViewModel : ViewModel() {
             description = _modelState.value.description
             fieldValues.clear()
             fieldValues.putAll(_modelState.value.fieldValues)
+            pictureNames.clear()
+            pictureNames.addAll(_modelState.value.images)
         }
         val involvedUnit = UserData.unit
         if (!UserData.editEntity) {
@@ -82,7 +84,7 @@ class EntityViewModel : ViewModel() {
     fun addImage(imageUri: Uri) = viewModelScope.launch {
         UserData.entity?.pictureNames?.add(imageUri.toString())
         _modelState.emit(_modelState.value.copy(
-            images = UserData.entity?.pictureNames ?: emptyList(),
+            images = UserData.entity?.pictureNames?.toList() ?: emptyList(),
             lastUpdated = System.currentTimeMillis()
         ))
     }
@@ -90,7 +92,7 @@ class EntityViewModel : ViewModel() {
     fun removeImage(imageUri: String) = viewModelScope.launch {
         UserData.entity?.pictureNames?.remove(imageUri)
         _modelState.emit(_modelState.value.copy(
-            images = UserData.entity?.pictureNames ?: emptyList(),
+            images = UserData.entity?.pictureNames?.toList() ?: emptyList(),
             lastUpdated = System.currentTimeMillis()
         ))
     }
