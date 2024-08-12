@@ -79,12 +79,21 @@ class EntityViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(fieldValues = newFieldValues))
     }
 
-    fun addImage(capturedImageUri: Uri) = viewModelScope.launch {
-        UserData.entity?.pictureNames?.add(capturedImageUri.toString())
+    fun addImage(imageUri: Uri) = viewModelScope.launch {
+        UserData.entity?.pictureNames?.add(imageUri.toString())
         _modelState.emit(_modelState.value.copy(
             images = UserData.entity?.pictureNames ?: emptyList(),
             lastUpdated = System.currentTimeMillis()
         ))
     }
+
+    fun removeImage(imageUri: String) = viewModelScope.launch {
+        UserData.entity?.pictureNames?.remove(imageUri)
+        _modelState.emit(_modelState.value.copy(
+            images = UserData.entity?.pictureNames ?: emptyList(),
+            lastUpdated = System.currentTimeMillis()
+        ))
+    }
+
 
 }

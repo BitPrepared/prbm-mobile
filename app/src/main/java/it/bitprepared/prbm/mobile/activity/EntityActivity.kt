@@ -79,7 +79,7 @@ class EntityActivity : AppCompatActivity() {
               }
             }
             binding.linGallery.removeAllViews()
-            state.images.forEach {
+            state.images.forEach { image ->
               val px8 = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 8F, this@EntityActivity.getResources().displayMetrics
               ).toInt()
@@ -100,8 +100,18 @@ class EntityActivity : AppCompatActivity() {
                   ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
                 )
               }
+              cardView.setOnClickListener {
+                MaterialAlertDialogBuilder(this@EntityActivity)
+                  .setTitle("Rimuovere l'immagine?")
+                  .setIcon(R.drawable.ic_delete)
+                  .setMessage("Sei sicuro di voler cancellare questa immagine dall'osservazione?")
+                  .setNegativeButton(R.string.abort) { dialog, _ -> dialog.dismiss() }
+                  .setPositiveButton(R.string.delete) { _, _ -> viewModel.removeImage(image) }
+                  .create()
+                  .show()
+              }
               cardView.addView(imageView)
-              Glide.with(this@EntityActivity).load(it)
+              Glide.with(this@EntityActivity).load(image)
                 .apply(RequestOptions().override(80, 80).centerCrop()).into(imageView)
               binding.linGallery.addView(cardView)
             }
