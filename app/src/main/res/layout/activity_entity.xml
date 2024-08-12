@@ -94,6 +94,7 @@
                 android:layout_height="@dimen/gallery_box_size"
                 android:layout_marginTop="@dimen/grid_doub"
                 android:layout_marginBottom="@dimen/grid_doub"
+                android:scrollbars="none"
                 android:clipToPadding="false">
 
                 <LinearLayout
@@ -151,7 +152,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="64dp"/>
+                android:layout_height="48dp"/>
 
         </LinearLayout>
 
