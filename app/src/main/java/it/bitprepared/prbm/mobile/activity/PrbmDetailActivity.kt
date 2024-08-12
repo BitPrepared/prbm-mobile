@@ -60,6 +60,8 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
                         openNewUnitActivity()
                     }
                     adtPrbmUnit.setNewData(state.prbm.units)
+                    // TODO Change me to proper animation
+                    adtPrbmUnit.notifyDataSetChanged()
                 }
             }
         }
@@ -188,7 +190,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         }
     }
 
-    override fun onClickMeters(value: Int, position: Int) {
+    override fun onClickMeters(unit: PrbmUnit, value: Int) {
         val binding = EditNumericFieldBinding.inflate(layoutInflater)
         binding.editField.setText(value.toString())
         binding.textFieldTitle.hint = getString(R.string.meters_label)
@@ -199,12 +201,12 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
                 val newValue = binding.editField.text.toString()
-                viewModel.updateMeters(adtPrbmUnit.fromAdapterPositionToDataPosition(position), newValue)
+                viewModel.updateMeters(unit, newValue)
             }
             .show()
     }
 
-    override fun onClickAzimuth(value: Int, position: Int) {
+    override fun onClickAzimuth(unit: PrbmUnit, value: Int) {
         val binding = EditNumericFieldBinding.inflate(layoutInflater)
         binding.editField.setText(value.toString())
         binding.textFieldTitle.hint = getString(R.string.azimuth_label)
@@ -215,12 +217,12 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
                 val newValue = binding.editField.text.toString()
-                viewModel.updateAzimuth(adtPrbmUnit.fromAdapterPositionToDataPosition(position), newValue)
+                viewModel.updateAzimuth(unit, newValue)
             }
             .show()
     }
 
-    override fun onClickMinutes(value: Int, position: Int) {
+    override fun onClickMinutes(unit: PrbmUnit, value: Int) {
         val binding = EditNumericFieldBinding.inflate(layoutInflater)
         binding.editField.setText(value.toString())
         binding.textFieldTitle.hint = getString(R.string.minutes_label)
@@ -231,38 +233,36 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.proceed)) { _ , _ ->
                 val newValue = binding.editField.text.toString()
-                viewModel.updateMinutes(adtPrbmUnit.fromAdapterPositionToDataPosition(position), newValue)
+                viewModel.updateMinutes(unit, newValue)
             }
             .show()
     }
 
-    override fun onClickGps(position: Int) {
+    override fun onClickGps(unit: PrbmUnit) {
         TODO("Not yet implemented")
     }
 
-    override fun onAddUnitButtonClicked(position: Int) {
-        viewModel.addUnitFromPlusPosition(adtPrbmUnit.fromAdapterPositionToDataPosition(position))
+    override fun onAddUnitButtonClicked(unit: PrbmUnit) {
+        viewModel.addUnitBelow(unit)
     }
 
-    override fun onClickDelete(position: Int) {
+    override fun onClickDelete(unit: PrbmUnit) {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.delete_the_row))
             .setMessage(getString(R.string.are_you_sure_to_delete_a_row))
             .setNegativeButton(getString(R.string.abort)) { _, _ -> }
             .setPositiveButton(getString(R.string.ok)) { _ , _ ->
-                viewModel.deleteUnit(adtPrbmUnit.fromAdapterPositionToDataPosition(position))
+                viewModel.deleteUnit(unit)
             }
             .show()
     }
 
-    override fun onNewEntityClicked(position: Int, columnIndex: Int, selectedEntityOptions: Int) {
-        val unitIndex = adtPrbmUnit.fromAdapterPositionToDataPosition(position)
-        viewModel.addNewEntity(unitIndex, columnIndex, selectedEntityOptions)
+    override fun onNewEntityClicked(unit: PrbmUnit, columnIndex: Int, selectedEntityOptions: Int) {
+        viewModel.addNewEntity(unit, columnIndex, selectedEntityOptions)
     }
 
-    override fun onEntityClicked(prbmEntity: PrbmEntity, position: Int, columnIndex: Int) {
-        val unitIndex = adtPrbmUnit.fromAdapterPositionToDataPosition(position)
-        viewModel.editEntity(prbmEntity, unitIndex, columnIndex)
+    override fun onEntityClicked(unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int) {
+        viewModel.editEntity(unit, entity, columnIndex)
     }
 
     companion object {

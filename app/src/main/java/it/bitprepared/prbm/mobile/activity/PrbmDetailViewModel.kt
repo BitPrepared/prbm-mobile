@@ -35,51 +35,52 @@ class PrbmDetailViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(saveSuccessful = false))
     }
 
-    fun updateMeters(position: Int, newValue: String) = viewModelScope.launch {
+    fun updateMeters(unit: PrbmUnit, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
-            UserData.prbm!!.units[position].meters = newValue.toInt()
+            unit.meters = newValue.toInt()
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun updateAzimuth(position: Int, newValue: String) = viewModelScope.launch {
+    fun updateAzimuth(unit: PrbmUnit, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
-            UserData.prbm!!.units[position].azimuth = newValue.toInt()
+            unit.azimuth = newValue.toInt()
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun updateMinutes(position: Int, newValue: String) = viewModelScope.launch {
+    fun updateMinutes(unit: PrbmUnit, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
-            UserData.prbm!!.units[position].minutes = newValue.toInt()
+            unit.minutes = newValue.toInt()
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun addUnitFromPlusPosition(position: Int) = viewModelScope.launch {
-        requireNotNull(UserData.prbm).units.add(position, PrbmUnit())
+    fun addUnitBelow(unit: PrbmUnit) = viewModelScope.launch {
+        val idx = requireNotNull(UserData.prbm).units.indexOf(unit)
+        requireNotNull(UserData.prbm).units.add(idx + 1, PrbmUnit())
         _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
 
-    fun deleteUnit(position: Int) = viewModelScope.launch {
-        UserData.prbm!!.units.removeAt(position)
+    fun deleteUnit(unit: PrbmUnit) = viewModelScope.launch {
+        UserData.prbm!!.units.remove(unit)
         _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
 
-    fun addNewEntity(unitIndex: Int, columnIndex: Int, selectedMenuIndex: Int) = viewModelScope.launch {
+    fun addNewEntity(unit: PrbmUnit, columnIndex: Int, selectedMenuIndex: Int) = viewModelScope.launch {
         val newEntity = UserData.newEntityFromMenuIndex(selectedMenuIndex)
         UserData.entity = newEntity
         UserData.column = columnIndex
         UserData.editEntity = false
-        UserData.unit = UserData.prbm?.units?.get(unitIndex)
+        UserData.unit = unit
         _modelState.emit(_modelState.value.copy(editUnitReady = true))
     }
 
-    fun editEntity(currentEntity: PrbmEntity, unitIndex: Int, columnIndex: Int) = viewModelScope.launch {
-        UserData.entity = currentEntity
+    fun editEntity(unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int) = viewModelScope.launch {
+        UserData.entity = entity
         UserData.column = columnIndex
         UserData.editEntity = true
-        UserData.unit = UserData.prbm?.units?.get(unitIndex)
+        UserData.unit = unit
         _modelState.emit(_modelState.value.copy(editUnitReady = true))
     }
 

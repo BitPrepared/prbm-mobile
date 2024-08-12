@@ -12,110 +12,54 @@ import it.bitprepared.prbm.mobile.model.PrbmUnit
 
 
 class PrbmUnitAdapter(
-    private val layoutInflater: LayoutInflater,
-    private val listener: OnPrbmUnitListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+  private val layoutInflater: LayoutInflater,
+  private val listener: OnPrbmUnitListener
+) : RecyclerView.Adapter<PrbmUnitAdapterUnitViewHolder>() {
 
-    private var _data = mutableListOf<PrbmUnitAdapterViewType>()
+  private var _data = mutableListOf<PrbmUnit>()
 
-    fun setNewData(newData: List<PrbmUnit>) {
-        val paddedNewData = padListWithAddButtons(newData)
-        val diffCallback = DiffUtilCallback(_data, paddedNewData)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        diffResult.dispatchUpdatesTo(this)
-        _data = paddedNewData.map {
-            if (it is PrbmUnitAdapterViewType.Unit) {
-                PrbmUnitAdapterViewType.Unit(
-                    it.prbmUnit.copy(
-                        entitiesFarLeft = it.prbmUnit.entitiesFarLeft.toMutableList(),
-                        entitiesFarRight = it.prbmUnit.entitiesFarRight.toMutableList(),
-                        entitiesNearLeft = it.prbmUnit.entitiesNearLeft.toMutableList(),
-                        entitiesNearRight = it.prbmUnit.entitiesNearRight.toMutableList()
-                    )
-                )
-            } else {
-                PrbmUnitAdapterViewType.AddButton
-            }
-        }.toMutableList()
-    }
+  fun setNewData(newData: List<PrbmUnit>) {
+    _data = newData.toMutableList()
+//        val paddedNewData = padListWithAddButtons(newData)
+//        val diffCallback = DiffUtilCallback(_data, paddedNewData)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        diffResult.dispatchUpdatesTo(this)
+//        _data = paddedNewData.map {
+//            if (it is PrbmUnitAdapterViewType.Unit) {
+//                PrbmUnitAdapterViewType.Unit(
+//                    it.prbmUnit.copy(
+//                        entitiesFarLeft = it.prbmUnit.entitiesFarLeft.toMutableList(),
+//                        entitiesFarRight = it.prbmUnit.entitiesFarRight.toMutableList(),
+//                        entitiesNearLeft = it.prbmUnit.entitiesNearLeft.toMutableList(),
+//                        entitiesNearRight = it.prbmUnit.entitiesNearRight.toMutableList()
+//                    )
+//                )
+//            } else {
+//                PrbmUnitAdapterViewType.AddButton
+//            }
+//        }.toMutableList()
+  }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        if (viewType == PrbmUnitAdapterViewType.AddButton.idx) {
-            PrbmUnitAdapterAddButtonViewHolder(
-                ListUnitsAddbuttonBinding.inflate(layoutInflater, parent, false)
-            )
-        } else {
-            PrbmUnitAdapterUnitViewHolder(
-                ListUnitsBinding.inflate(layoutInflater, parent, false)
-            )
-        }
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrbmUnitAdapterUnitViewHolder =
+    PrbmUnitAdapterUnitViewHolder(
+      ListUnitsBinding.inflate(layoutInflater, parent, false)
+    )
 
-    override fun getItemCount(): Int = _data.size
 
-    override fun getItemViewType(position: Int): Int =
-        if (position % 2 == 0) PrbmUnitAdapterViewType.AddButton.idx else PrbmUnitAdapterViewType.Unit.idx
+  override fun onBindViewHolder(holder: PrbmUnitAdapterUnitViewHolder, position: Int) {
+    holder.bind(_data[position], listener)
+  }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        if (holder.itemViewType == PrbmUnitAdapterViewType.AddButton.idx) {
-            (holder as PrbmUnitAdapterAddButtonViewHolder).bind(listener, position)
-        } else {
-            val unit = _data[position] as PrbmUnitAdapterViewType.Unit
-            (holder as PrbmUnitAdapterUnitViewHolder).bind(unit.prbmUnit, listener, position)
-        }
+  override fun getItemCount(): Int = _data.size
 
-    interface OnPrbmUnitListener {
-        fun onClickMeters(value: Int, position: Int)
-        fun onClickAzimuth(value: Int, position: Int)
-        fun onClickMinutes(value: Int, position: Int)
-        fun onClickGps(position: Int)
-        fun onAddUnitButtonClicked(position: Int)
-        fun onClickDelete(position: Int)
-        fun onNewEntityClicked(position: Int, index: Int, selectedEntityOptions: Int)
-        fun onEntityClicked(prbmEntity: PrbmEntity, position: Int, columnIndex: Int)
-    }
-
-    fun fromAdapterPositionToDataPosition(adapterPosition: Int): Int = adapterPosition / 2
-
-    private fun padListWithAddButtons(input: List<PrbmUnit>): List<PrbmUnitAdapterViewType> {
-        val paddedData = mutableListOf<PrbmUnitAdapterViewType>(PrbmUnitAdapterViewType.AddButton)
-        input.forEach {
-            paddedData.add(PrbmUnitAdapterViewType.Unit(it))
-            paddedData.add(PrbmUnitAdapterViewType.AddButton)
-        }
-        return paddedData
-    }
-
-    inner class DiffUtilCallback(
-        private val oldData: MutableList<PrbmUnitAdapterViewType>, private val newData: List<PrbmUnitAdapterViewType>
-    ) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldData.size
-
-        override fun getNewListSize(): Int = newData.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            val old = oldData[oldItemPosition]
-            val new = newData[newItemPosition]
-            return if (old is PrbmUnitAdapterViewType.Unit && new is PrbmUnitAdapterViewType.Unit) {
-                areContentsTheSame(oldItemPosition, newItemPosition)
-            } else {
-                old == new
-            }
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            val old = oldData[oldItemPosition]
-            val new = newData[newItemPosition]
-            return if (old is PrbmUnitAdapterViewType.Unit && new is PrbmUnitAdapterViewType.Unit) {
-                old.prbmUnit.meters == new.prbmUnit.meters &&
-                    old.prbmUnit.azimuth == new.prbmUnit.azimuth &&
-                    old.prbmUnit.minutes == new.prbmUnit.minutes &&
-                    old.prbmUnit.entitiesFarLeft == new.prbmUnit.entitiesFarLeft &&
-                    old.prbmUnit.entitiesFarRight == new.prbmUnit.entitiesFarRight &&
-                    old.prbmUnit.entitiesNearLeft == new.prbmUnit.entitiesNearLeft &&
-                    old.prbmUnit.entitiesNearRight == new.prbmUnit.entitiesNearRight
-            } else {
-                old == new
-            }
-        }
-    }
+  interface OnPrbmUnitListener {
+    fun onClickMeters(unit: PrbmUnit, value: Int)
+    fun onClickAzimuth(unit: PrbmUnit, value: Int)
+    fun onClickMinutes(unit: PrbmUnit, value: Int)
+    fun onClickGps(unit: PrbmUnit)
+    fun onAddUnitButtonClicked(unit: PrbmUnit)
+    fun onClickDelete(unit: PrbmUnit)
+    fun onNewEntityClicked(unit: PrbmUnit, columnIndex: Int, selectedEntityOptions: Int)
+    fun onEntityClicked(unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int)
+  }
 }

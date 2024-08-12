@@ -18,7 +18,7 @@ class PrbmUnitAdapterUnitViewHolder(
   var selectedEntityOptions = 0
 
   @SuppressLint("DiscouragedApi")
-  fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener, position: Int) {
+  fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener) {
     val context = b.root.context
     b.lstFarLeft.removeAllViews()
     b.lstNearLeft.removeAllViews()
@@ -27,11 +27,12 @@ class PrbmUnitAdapterUnitViewHolder(
     b.chipMeters.text = context.getString(R.string.meters, unit.meters)
     b.chipAzimuth.text = context.getString(R.string.azimut, unit.azimuth)
     b.chipMinutes.text = context.getString(R.string.minutes, unit.minutes)
-    b.chipMeters.setOnClickListener { listener.onClickMeters(unit.meters, position) }
-    b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit.azimuth, position) }
-    b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit.minutes, position) }
-    b.chipGps.setOnClickListener { listener.onClickGps(position) }
-    b.chipDelete.setOnClickListener { listener.onClickDelete(position) }
+    b.chipMeters.setOnClickListener { listener.onClickMeters(unit, unit.meters) }
+    b.chipAzimuth.setOnClickListener { listener.onClickAzimuth(unit, unit.azimuth) }
+    b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit, unit.minutes) }
+    b.chipGps.setOnClickListener { listener.onClickGps(unit) }
+    b.chipDelete.setOnClickListener { listener.onClickDelete(unit) }
+    b.btnAddBelow.setOnClickListener { listener.onAddUnitButtonClicked(unit) }
 
     val color = when {
       unit.isFlagAcquiringGPS -> R.color.black
@@ -49,7 +50,7 @@ class PrbmUnitAdapterUnitViewHolder(
             selectedEntityOptions = which
           }.setNegativeButton(context.getString(R.string.abort)) { _, _ -> }
           .setPositiveButton(context.getString(R.string.proceed)) { _, _ ->
-            listener.onNewEntityClicked(position, index, selectedEntityOptions)
+            listener.onNewEntityClicked(unit, index, selectedEntityOptions)
           }.show()
       }
     }
@@ -75,7 +76,7 @@ class PrbmUnitAdapterUnitViewHolder(
           else -> error("Invalid index")
         }
         unitButton.setOnClickListener {
-          listener.onEntityClicked(currentEntity, position, columnIndex)
+          listener.onEntityClicked(unit, currentEntity, columnIndex)
         }
         layout.addView(unitButton)
       }
