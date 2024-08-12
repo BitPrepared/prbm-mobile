@@ -1,7 +1,9 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -79,7 +81,7 @@ class EntityActivity : AppCompatActivity() {
               }
             }
             binding.linGallery.removeAllViews()
-            state.images.forEach { image ->
+            state.imageUris.forEach { image ->
               val px8 = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 8F, this@EntityActivity.getResources().displayMetrics
               ).toInt()
@@ -157,7 +159,7 @@ class EntityActivity : AppCompatActivity() {
     }
     pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
       if (uri != null) {
-        viewModel.addImage(uri)
+        viewModel.addImage(uri.toString(), getFilenameFromUri(this@EntityActivity, uri))
       }
     }
   }
@@ -232,11 +234,30 @@ class EntityActivity : AppCompatActivity() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == CAMERA_RESULT && resultCode == RESULT_OK) {
-      viewModel.addImage(capturedImageUri)
+      viewModel.addImage(capturedImageUri.toString(), getFilenameFromUri(this@EntityActivity, capturedImageUri))
     }
   }
 
   companion object {
     private const val CAMERA_RESULT = 1005
+
+    fun getFilenameFromUri(context: Context, uri: Uri?): String? {
+      if (uri == null) return null
+      val scheme: String = uri.scheme.toString()
+      var fileName: String? = null
+      if (scheme == "file") {
+        fileName = uri.lastPathSegment
+      } else if (scheme == "content") {
+        val proj = arrayOf(MediaStore.Images.Media.TITLE)
+        val cursor: Cursor? = context.contentResolver.query(uri, proj, null, null, null)
+        if (cursor != null && cursor.count != 0) {
+          val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)
+          cursor.moveToFirst()
+          fileName = cursor.getString(columnIndex)
+        }
+        cursor?.close()
+      }
+      return fileName
+    }
   }
 }

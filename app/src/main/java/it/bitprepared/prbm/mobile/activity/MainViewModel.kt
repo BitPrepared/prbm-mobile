@@ -38,7 +38,7 @@ class MainViewModel : ViewModel() {
                 prbm.units.map {
                     it.farLeft + it.farRight + it.nearLeft + it.nearRight
                 }.flatten().flatMap { entity ->
-                    entity.pictureNames
+                    entity.pictureUri
                 }.filter { it.isNotEmpty() }
             }.flatten().size + UserData.prbmList.size
             var uploadedSoFar = 0

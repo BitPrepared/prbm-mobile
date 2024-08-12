@@ -1,10 +1,7 @@
 package it.bitprepared.prbm.mobile.activity
 
-import android.net.Uri
-import androidx.core.net.toFile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import it.bitprepared.prbm.mobile.model.PrbmEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +22,8 @@ class EntityViewModel : ViewModel() {
             description = UserData.entity?.description ?: "",
             fields = UserData.entity?.type?.fields ?: emptyList(),
             fieldValues = UserData.entity?.fieldValues ?: emptyMap(),
-            images = UserData.entity?.pictureNames ?: emptyList()
+            imageUris = UserData.entity?.pictureUri ?: emptyList(),
+            imageFilenames = UserData.entity?.pictureFilenames ?: emptyList(),
         )
 
     fun updateTitle(newTitle: String) = viewModelScope.launch {
@@ -48,8 +46,7 @@ class EntityViewModel : ViewModel() {
             description = _modelState.value.description
             fieldValues.clear()
             fieldValues.putAll(_modelState.value.fieldValues)
-            pictureNames.clear()
-            pictureNames.addAll(_modelState.value.images)
+            populatePictures(_modelState.value.imageUris, _modelState.value.imageFilenames)
         }
         val involvedUnit = UserData.unit
         if (!UserData.editEntity) {
@@ -81,18 +78,23 @@ class EntityViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(fieldValues = newFieldValues))
     }
 
-    fun addImage(imageUri: Uri) = viewModelScope.launch {
-        UserData.entity?.pictureNames?.add(imageUri.toString())
+    fun addImage(imageUri: String, imageName: String?) = viewModelScope.launch {
+        UserData.entity?.pictureUri?.add(imageUri)
+        UserData.entity?.pictureFilenames?.add(imageName ?: "")
         _modelState.emit(_modelState.value.copy(
-            images = UserData.entity?.pictureNames?.toList() ?: emptyList(),
+            imageUris = UserData.entity?.pictureUri?.toList() ?: emptyList(),
+            imageFilenames = UserData.entity?.pictureFilenames?.toList() ?: emptyList(),
             lastUpdated = System.currentTimeMillis()
         ))
     }
 
     fun removeImage(imageUri: String) = viewModelScope.launch {
-        UserData.entity?.pictureNames?.remove(imageUri)
+        val idx = UserData.entity?.pictureUri?.indexOf(imageUri) ?: error("Invalid image index")
+        UserData.entity?.pictureUri?.removeAt(idx)
+        UserData.entity?.pictureFilenames?.removeAt(idx)
         _modelState.emit(_modelState.value.copy(
-            images = UserData.entity?.pictureNames?.toList() ?: emptyList(),
+            imageUris = UserData.entity?.pictureUri?.toList() ?: emptyList(),
+            imageFilenames = UserData.entity?.pictureFilenames?.toList() ?: emptyList(),
             lastUpdated = System.currentTimeMillis()
         ))
     }
