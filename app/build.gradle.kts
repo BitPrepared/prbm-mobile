@@ -13,8 +13,8 @@ android {
         applicationId = "it.bitprepared.prbm.mobile"
         minSdk = 19
         targetSdk = 34
-        versionCode = 15
-        versionName = "v1.0.0"
+        versionCode = 16
+        versionName = "v1.0.1"
         multiDexEnabled = true
     }
 
@@ -57,10 +57,6 @@ dependencies {
     // Glide
     implementation(libs.glide)
     annotationProcessor(libs.glideCompiler)
-
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
 
     implementation(libs.androidx.multidex)
     coreLibraryDesugaring(libs.desugarjdklibs)
