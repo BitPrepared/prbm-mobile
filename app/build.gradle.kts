@@ -13,8 +13,8 @@ android {
         applicationId = "it.bitprepared.prbm.mobile"
         minSdk = 19
         targetSdk = 34
-        versionCode = 14
-        versionName = "v0.7.0"
+        versionCode = 15
+        versionName = "v1.0.0"
         multiDexEnabled = true
     }
 
