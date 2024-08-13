@@ -1,9 +1,11 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.bitprepared.prbm.mobile.R
+import it.bitprepared.prbm.mobile.model.PrbmCoordinates
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,8 +61,13 @@ class PrbmDetailViewModel : ViewModel() {
 
     fun addUnitBelow(unit: PrbmUnit) = viewModelScope.launch {
         val idx = requireNotNull(UserData.prbm).units.indexOf(unit)
-        requireNotNull(UserData.prbm).units.add(idx + 1, PrbmUnit())
-        _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
+        val newUnit = PrbmUnit()
+        requireNotNull(UserData.prbm).units.add(idx + 1, newUnit)
+        if (_modelState.value.gpsStatus == GpsStatus.FIXED) {
+            updateGpsCoordinatesForUnit(newUnit)
+        } else {
+            _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
+        }
     }
 
     fun deleteUnit(unit: PrbmUnit) = viewModelScope.launch {
@@ -95,5 +102,50 @@ class PrbmDetailViewModel : ViewModel() {
 
     fun errorShown() = viewModelScope.launch {
         _modelState.emit(_modelState.value.copy(errorMessage = null))
+    }
+
+    fun userToggledGps() = viewModelScope.launch {
+        val newStatus = when (_modelState.value.gpsStatus) {
+            GpsStatus.DISABLED -> GpsStatus.PAIRING
+            else -> GpsStatus.DISABLED
+        }
+        _modelState.emit(_modelState.value.copy(gpsStatus = newStatus))
+    }
+
+    fun updateGpsCoordinates(
+        latitude: Double,
+        longitude: Double,
+        time: Long,
+        bearing: Float,
+        speed: Float
+    ) = viewModelScope.launch {
+        requireNotNull(UserData.prbm).coordinates.add(
+            PrbmCoordinates(latitude, longitude, time, bearing, speed)
+        )
+        val units = requireNotNull(UserData.prbm).units
+        if (units.size == 1 && !units[0].hasCoordinates()) {
+            updateGpsCoordinatesForUnit(units[0])
+        }
+        if (_modelState.value.gpsStatus == GpsStatus.PAIRING) {
+            _modelState.emit(_modelState.value.copy(
+                errorMessage = R.string.gps_paired,
+                gpsStatus = GpsStatus.FIXED
+            ))
+        }
+    }
+
+    fun updateGpsCoordinatesForUnit(unit: PrbmUnit) = viewModelScope.launch {
+        if (_modelState.value.gpsStatus == GpsStatus.FIXED || UserData.prbm?.coordinates?.isNotEmpty() == true) {
+            val lastCoordinates = UserData.prbm!!.coordinates.last()
+            unit.setCoordinatesFrom(lastCoordinates)
+            _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
+        } else {
+            _modelState.emit(_modelState.value.copy(errorMessage = R.string.no_gps_coordinates))
+        }
+    }
+
+    fun removeGpsCoordinatesForUnit(unit: PrbmUnit) = viewModelScope.launch {
+        unit.setCoordinatesFrom(PrbmCoordinates())
+        _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
 }

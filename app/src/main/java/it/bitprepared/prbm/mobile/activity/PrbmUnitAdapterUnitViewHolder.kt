@@ -15,7 +15,7 @@ class PrbmUnitAdapterUnitViewHolder(
   private val b: ListUnitsBinding
 ) : RecyclerView.ViewHolder(b.root) {
 
-  var selectedEntityOptions = 0
+  private var selectedEntityOptions = 0
 
   @SuppressLint("DiscouragedApi")
   fun bind(unit: PrbmUnit, listener: PrbmUnitAdapter.OnPrbmUnitListener) {
@@ -34,11 +34,7 @@ class PrbmUnitAdapterUnitViewHolder(
     b.chipDelete.setOnClickListener { listener.onClickDelete(unit) }
     b.btnAddBelow.setOnClickListener { listener.onAddUnitButtonClicked(unit) }
 
-    val color = when {
-      unit.isFlagAcquiringGPS -> R.color.black
-      unit.latitude == 0.0 && unit.longitude == 0.0 -> R.color.red
-      else -> R.color.green
-    }
+    val color = if (unit.hasCoordinates()) R.color.green else R.color.red
     b.chipGps.setTextColor(ContextCompat.getColor(context, color))
 
     listOf(

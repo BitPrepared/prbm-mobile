@@ -1,29 +1,19 @@
 package it.bitprepared.prbm.mobile.model
 
-import java.util.Collections
-
 /**
  * [PrbmUnit] represent a single row of a [Prbm] that is composed by several [PrbmEntity]
  * on 4 columns.
  */
-data class PrbmUnit(
+data class PrbmUnit constructor(
     var azimuth: Int = 0,
     var meters: Int = 0,
     var minutes: Int = 0,
-    val entitiesFarLeft: MutableList<PrbmEntity> = mutableListOf(),
-    val entitiesFarRight: MutableList<PrbmEntity> = mutableListOf(),
-    val entitiesNearLeft: MutableList<PrbmEntity> = mutableListOf(),
-    val entitiesNearRight: MutableList<PrbmEntity> = mutableListOf(),
+    var coordinates: PrbmCoordinates = PrbmCoordinates(),
+    val farLeft: MutableList<PrbmEntity> = mutableListOf(),
+    val farRight: MutableList<PrbmEntity> = mutableListOf(),
+    val nearLeft: MutableList<PrbmEntity> = mutableListOf(),
+    val nearRight: MutableList<PrbmEntity> = mutableListOf(),
 ) {
-
-    @JvmField
-    var longitude: Double = 0.0
-
-    @JvmField
-    var latitude: Double = 0.0
-
-    @Transient
-    var isFlagAcquiringGPS: Boolean = false
 
     fun setAzimuth(azimuth: String) {
         this.azimuth = azimuth.toIntOrNull() ?: 0
@@ -45,68 +35,14 @@ data class PrbmUnit(
         this.meters = meter.toIntOrNull() ?: 0
     }
 
-    val farLeft: List<PrbmEntity>
-        get() = entitiesFarLeft
-
-    val farRight: List<PrbmEntity>
-        get() = entitiesFarRight
-
-    val nearLeft: List<PrbmEntity>
-        get() = entitiesNearLeft
-
-    val nearRight: List<PrbmEntity>
-        get() = entitiesNearRight
-
-    /** Add an entity in a specified column */
-    fun addEntity(entity: PrbmEntity, column: Int) = when (column) {
-        0 -> entitiesFarLeft
-        1 -> entitiesNearLeft
-        2 -> entitiesNearRight
-        3 -> entitiesFarRight
-        else -> error("Column must be between 0 and 3")
-    }.add(entity)
-
-    /** Getter for entity list from a specified column */
-    fun getEntitiesFromColumn(column: Int): List<PrbmEntity> = when (column) {
-        0 -> entitiesFarLeft
-        1 -> entitiesNearLeft
-        2 -> entitiesNearRight
-        3 -> entitiesFarRight
-        else -> error("Column must be between 0 and 3")
+    fun setCoordinatesFrom(lastCoordinates: PrbmCoordinates) {
+        this.coordinates.latitude = lastCoordinates.latitude
+        this.coordinates.longitude = lastCoordinates.longitude
+        this.coordinates.time = lastCoordinates.time
+        this.coordinates.bearing = lastCoordinates.bearing
+        this.coordinates.speed = lastCoordinates.speed
     }
 
-    /**
-     * Delete an entity from a specified column
-     */
-    fun deleteEntity(entity: PrbmEntity, column: Int) {
-        when (column) {
-            0 -> entitiesFarLeft
-            1 -> entitiesNearLeft
-            2 -> entitiesNearRight
-            3 -> entitiesFarRight
-            else -> error("Column must be between 0 and 3")
-        }.remove(entity)
-    }
-
-    /**
-     * Move an entity within a specified column
-     * @param entity Entity to add
-     * @param column Involved column (0-3)
-     * @param down   Boolean flag to specify if movement must be downside or upside
-     */
-    fun moveEntity(entity: PrbmEntity, column: Int, down: Boolean) {
-        val toMove = when (column) {
-            0 -> entitiesFarLeft
-            1 -> entitiesNearLeft
-            2 -> entitiesNearRight
-            3 -> entitiesFarRight
-            else -> error("Column must be between 0 and 3")
-        }
-        val index = toMove.indexOf(entity)
-        if (down) {
-            Collections.swap(toMove, index, index + 1)
-        } else {
-            Collections.swap(toMove, index, index - 1)
-        }
-    }
+    fun hasCoordinates(): Boolean =
+        this.coordinates.latitude != 0.0 && this.coordinates.longitude != 0.0
 }

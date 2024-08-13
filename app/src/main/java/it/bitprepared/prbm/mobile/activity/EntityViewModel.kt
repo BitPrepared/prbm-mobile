@@ -51,10 +51,10 @@ class EntityViewModel : ViewModel() {
         val involvedUnit = UserData.unit
         if (!UserData.editEntity) {
             when (UserData.column) {
-                0 -> involvedUnit?.entitiesFarLeft?.add(involvedEntity)
-                1 -> involvedUnit?.entitiesNearLeft?.add(involvedEntity)
-                2 -> involvedUnit?.entitiesNearRight?.add(involvedEntity)
-                3 -> involvedUnit?.entitiesFarRight?.add(involvedEntity)
+                0 -> involvedUnit?.farLeft?.add(involvedEntity)
+                1 -> involvedUnit?.nearLeft?.add(involvedEntity)
+                2 -> involvedUnit?.nearRight?.add(involvedEntity)
+                3 -> involvedUnit?.farRight?.add(involvedEntity)
             }
         }
         _modelState.emit(_modelState.value.copy(saveReady = true))
@@ -64,10 +64,10 @@ class EntityViewModel : ViewModel() {
         val involvedEntity = UserData.entity!!
         val involvedUnit = UserData.unit
         when (UserData.column) {
-            0 -> involvedUnit?.entitiesFarLeft?.remove(involvedEntity)
-            1 -> involvedUnit?.entitiesNearLeft?.remove(involvedEntity)
-            2 -> involvedUnit?.entitiesNearRight?.remove(involvedEntity)
-            3 -> involvedUnit?.entitiesFarRight?.remove(involvedEntity)
+            0 -> involvedUnit?.farLeft?.remove(involvedEntity)
+            1 -> involvedUnit?.nearLeft?.remove(involvedEntity)
+            2 -> involvedUnit?.nearRight?.remove(involvedEntity)
+            3 -> involvedUnit?.farRight?.remove(involvedEntity)
         }
         _modelState.emit(_modelState.value.copy(saveReady = true))
     }

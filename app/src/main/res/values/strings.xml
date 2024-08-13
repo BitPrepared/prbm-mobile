@@ -125,5 +125,11 @@
     <string name="unit_title_hint">Inserisci il titolo di questa osservazione</string>
     <string name="press_to_pick_image_from_gallery">Premi per aggiungere un\'immagine dalla galleria</string>
     <string name="press_to_add_pic_from_camera">Premi per aggiungere un\'immagine dalla fotocamera</string>
+    <string name="gps_permission_denied">Impossibile ottenere la posizione se non hai dato i permessi all\'app</string>
+    <string name="no_gps_coordinates">Impossibile ottenere le coordinate per questa riga perché il GPS non é attivo.</string>
+    <string name="coordinates_overview">Latitudine %1$s\nLongitudine %2$s\nAngolo %3$s\nVelocità %4$s\nOrario GPS %5$s</string>
+    <string name="update_coordinates">Aggiorna le coordinate</string>
+    <string name="remove_coordinates">Rimuovi le coordinate</string>
+    <string name="gps_paired">Acquisizione GPS riuscita</string>
 
 </resources>

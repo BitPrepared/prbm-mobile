@@ -5,6 +5,13 @@
     tools:context=".activity.PrbmDetailActivity">
 
     <item
+        android:id="@+id/gps"
+        android:title="@string/gps"
+        android:icon="@drawable/ic_gps_off"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
         android:id="@+id/parameters"
         android:title="@string/parameters"
         android:icon="@drawable/ic_edit"
