@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import it.bitprepared.prbm.mobile.BuildConfig
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.databinding.AboutDialogBinding
 import it.bitprepared.prbm.mobile.databinding.ActivityMainBinding
@@ -125,6 +126,7 @@ class MainActivity : AppCompatActivity() {
     val dialogBinding = AboutDialogBinding.inflate(layoutInflater)
     Linkify.addLinks(dialogBinding.text, Linkify.WEB_URLS)
     Linkify.addLinks(dialogBinding.webtext, Linkify.WEB_URLS)
+    dialogBinding.version.text = getString(R.string.version, BuildConfig.VERSION_NAME)
     MaterialAlertDialogBuilder(this)
       .setView(dialogBinding.root)
       .setPositiveButton(R.string.contact) { _, _ -> sendContactEmail() }

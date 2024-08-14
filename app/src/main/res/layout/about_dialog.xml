@@ -16,6 +16,12 @@
         app:drawableStartCompat="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/grid_sing" />
+
+    <TextView
         android:id="@+id/webtext"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
