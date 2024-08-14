@@ -11,7 +11,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:contentDescription="@string/prbm_icon"
-        android:src="@drawable/ic_hiking"
+        app:srcCompat="@drawable/ic_hiking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

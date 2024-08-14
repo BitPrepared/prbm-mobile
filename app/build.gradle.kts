@@ -16,6 +16,7 @@ android {
         versionCode = 18
         versionName = "v1.0.3"
         multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
