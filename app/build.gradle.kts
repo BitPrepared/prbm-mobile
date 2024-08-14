@@ -69,4 +69,7 @@ dependencies {
 
     implementation(libs.androidx.multidex)
     coreLibraryDesugaring(libs.desugarjdklibs)
+
+    // Appintro
+    implementation(libs.appintro)
 }
