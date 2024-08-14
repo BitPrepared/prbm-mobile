@@ -3,6 +3,8 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
+import android.util.Log
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
@@ -130,5 +132,6 @@ class CreateEditPrbmActivity : AppCompatActivity() {
     }
 }
 
-fun AppCompatEditText.setTextIfDifferent(input: String) =
+fun EditText.setTextIfDifferent(input: String) {
     if (text.toString() != input) setText(input) else Unit
+}

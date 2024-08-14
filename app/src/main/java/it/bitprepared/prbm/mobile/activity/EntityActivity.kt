@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Environment.getExternalStoragePublicDirectory
 import android.provider.MediaStore
+import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.TypedValue
@@ -24,13 +25,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.get
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import it.bitprepared.prbm.mobile.R
@@ -164,27 +166,37 @@ class EntityActivity : AppCompatActivity() {
     }
   }
 
-  private fun renderFields(fields: List<PrbmEntityField>, fieldValues: Map<String, String>) {
-    binding.linFree.removeAllViews()
-    fields.forEach { field ->
-      val fieldBinding = EditGenericFieldBinding.inflate(layoutInflater, binding.linFree, false)
-      fieldBinding.textinputGeneric.hint = field.name
-      fieldBinding.textinputGeneric.helperText = field.hint
-      fieldBinding.edtFieldGeneric.inputType = if (field.type == "number") {
-        InputType.TYPE_CLASS_NUMBER or InputType.TYPE_CLASS_TEXT
-      } else {
-        InputType.TYPE_CLASS_TEXT
+  private fun renderFields(
+    fields: List<PrbmEntityField>,
+    fieldValues: Map<String, String>
+  ) {
+    if (binding.linFree.childCount == 0) {
+      fields.forEach { field ->
+        val fieldBinding = EditGenericFieldBinding.inflate(layoutInflater, binding.linFree, false)
+        fieldBinding.textinputGeneric.hint = field.name
+        fieldBinding.textinputGeneric.helperText = field.hint
+        fieldBinding.edtFieldGeneric.inputType = if (field.type == "number") {
+          // TODO This doesn't work, fix it
+          InputType.TYPE_CLASS_NUMBER or InputType.TYPE_CLASS_TEXT
+        } else {
+          InputType.TYPE_CLASS_TEXT
+        }
+        binding.linFree.addView(fieldBinding.root)
+        fieldBinding.edtFieldGeneric.setText(fieldValues.getOrDefault(field.name, ""))
+        fieldBinding.edtFieldGeneric.addTextChangedListener(object : TextWatcher {
+          override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+          override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+          override fun afterTextChanged(s: Editable?) {
+            viewModel.updateFieldValue(field.name, s.toString())
+          }
+        })
       }
-      binding.linFree.addView(fieldBinding.root)
-      fieldBinding.edtFieldGeneric.setText(fieldValues.getOrDefault(field.name, ""))
-      fieldBinding.edtFieldGeneric.addTextChangedListener {
-        viewModel.updateFieldValue(field.name, it.toString())
+    } else {
+      fields.forEachIndexed { index, field ->
+        val editText = (binding.linFree.getChildAt(index) as TextInputLayout).editText
+        editText?.setTextIfDifferent(fieldValues.getOrDefault(field.name, ""))
       }
     }
-    // We add some padding so the "Save" button is not always overlapping.
-    val emptyView = View(this)
-    emptyView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120)
-    binding.linFree.addView(emptyView)
   }
 
   private fun confirmExit() =

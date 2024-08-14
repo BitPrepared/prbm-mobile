@@ -84,7 +84,7 @@ class EntityViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(
             imageUris = UserData.entity?.pictureUri?.toList() ?: emptyList(),
             imageFilenames = UserData.entity?.pictureFilenames?.toList() ?: emptyList(),
-            lastUpdated = System.currentTimeMillis()
+            lastUpdated = System.currentTimeMillis(),
         ))
     }
 
@@ -95,7 +95,7 @@ class EntityViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(
             imageUris = UserData.entity?.pictureUri?.toList() ?: emptyList(),
             imageFilenames = UserData.entity?.pictureFilenames?.toList() ?: emptyList(),
-            lastUpdated = System.currentTimeMillis()
+            lastUpdated = System.currentTimeMillis(),
         ))
     }
 
