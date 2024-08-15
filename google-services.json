@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454246810319",
+    "project_id": "prbm-mobile",
+    "storage_bucket": "prbm-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454246810319:android:76551fb7cb077f998b6dba",
+        "android_client_info": {
+          "package_name": "it.bitprepared.prbm.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454246810319-md43kfgh028q62id49qo2g6aak109agi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9mYGtZbjAk-TvTLsCcOZanxqucvN-rK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454246810319-md43kfgh028q62id49qo2g6aak109agi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

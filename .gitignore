@@ -3,9 +3,6 @@
 *.ap_
 app/release/
 
-# Firebase
-google-services.json
-
 # files for the dex VM
 *.dex
 
