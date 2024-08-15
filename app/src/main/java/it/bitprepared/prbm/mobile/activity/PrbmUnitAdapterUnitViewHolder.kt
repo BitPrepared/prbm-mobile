@@ -42,7 +42,7 @@ class PrbmUnitAdapterUnitViewHolder(
     ).forEachIndexed { index, button ->
       button.setOnClickListener {
         MaterialAlertDialogBuilder(context).setTitle(R.string.choose_entity)
-          .setSingleChoiceItems(UserData.getSingleChoiceEntityType(), 0) { _, which ->
+          .setSingleChoiceItems(UserData.getSingleChoiceEntityType(context), 0) { _, which ->
             selectedEntityOptions = which
           }.setNegativeButton(context.getString(R.string.abort)) { _, _ -> }
           .setPositiveButton(context.getString(R.string.proceed)) { _, _ ->

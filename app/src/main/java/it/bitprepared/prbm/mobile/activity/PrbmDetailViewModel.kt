@@ -79,8 +79,8 @@ class PrbmDetailViewModel : ViewModel() {
         }
     }
 
-    fun addNewEntity(unit: PrbmUnit, columnIndex: Int, selectedMenuIndex: Int) = viewModelScope.launch {
-        val newEntity = UserData.newEntityFromMenuIndex(selectedMenuIndex)
+    fun addNewEntity(context: Context, unit: PrbmUnit, columnIndex: Int, selectedMenuIndex: Int) = viewModelScope.launch {
+        val newEntity = UserData.newEntityFromMenuIndex(context, selectedMenuIndex)
         UserData.entity = newEntity
         UserData.column = columnIndex
         UserData.editEntity = false

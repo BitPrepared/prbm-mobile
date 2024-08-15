@@ -1,20 +1,15 @@
 package it.bitprepared.prbm.mobile.activity
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.os.Environment.getExternalStoragePublicDirectory
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.TypedValue
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -24,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.FileProvider
 import androidx.core.view.get
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +27,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -51,8 +46,9 @@ class EntityActivity : AppCompatActivity() {
   private lateinit var binding: ActivityEntityBinding
   private val viewModel: EntityViewModel by viewModels()
 
-  private lateinit var capturedImageUri: Uri
+  private lateinit var latestUri: Uri
   private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+  private lateinit var takePicture: ActivityResultLauncher<Uri>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -159,12 +155,27 @@ class EntityActivity : AppCompatActivity() {
     binding.cardGallery.setOnClickListener {
       selectFromGallery()
     }
+
     pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
       if (uri != null) {
-        viewModel.addImage(uri.toString(), getFilenameFromUri(this@EntityActivity, uri))
+        viewModel.addImage(uri.toString(), getFilenameFromUri(uri))
+      }
+    }
+    takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
+      if (result) {
+        viewModel.addImage(latestUri.toString(), getFilenameFromUri(latestUri))
       }
     }
   }
+
+//  inner class TakePictureAndroid4 : ActivityResultContracts.TakePicture() {
+//    override fun createIntent(context: Context, input: Uri): Intent {
+//      return super.createIntent(context, input)
+//        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//        .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+//        .putExtra(MediaStore.EXTRA_OUTPUT, latestUri)
+//    }
+//  }
 
   private fun renderFields(
     fields: List<PrbmEntityField>,
@@ -216,60 +227,33 @@ class EntityActivity : AppCompatActivity() {
   private fun getNewImageFilename() = "prbm_${System.currentTimeMillis()}.jpg"
 
   private fun getNewImageUri(): Uri {
-    val fileName = getNewImageFilename()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      val values = ContentValues().apply {
-        put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-        put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-      }
-      return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
-    } else {
-      val imagePath = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()
-      return Uri.fromFile(File(imagePath, fileName))
-    }
+    val tempImagesDir = File(
+      applicationContext.filesDir, //this function gets the external cache dir
+      "prbmm_images"
+    ) //gets the directory for the temporary images dir
+    tempImagesDir.mkdir() //Create the temp_images dir
+    val tempImage = File(
+      tempImagesDir, //prefix the new abstract path with the temporary images dir path
+      getNewImageFilename()
+    ) //gets the abstract temp_image file name
+
+    return FileProvider.getUriForFile(
+      applicationContext,
+      "it.bitprepared.prbm.mobile.provider",
+      tempImage
+    )
   }
 
   private fun takePicture() {
-    val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-    capturedImageUri = getNewImageUri()
-    i.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri)
-    // TODO Move to Activity Result API
-    startActivityForResult(i, CAMERA_RESULT)
+    latestUri = getNewImageUri()
+    takePicture.launch(latestUri)
   }
 
   private fun selectFromGallery() {
     pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
   }
 
-  @Deprecated("Deprecated in Java")
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == CAMERA_RESULT && resultCode == RESULT_OK) {
-      viewModel.addImage(capturedImageUri.toString(), getFilenameFromUri(this@EntityActivity, capturedImageUri))
-    }
-  }
-
   companion object {
-    private const val CAMERA_RESULT = 1005
-
-    fun getFilenameFromUri(context: Context, uri: Uri?): String? {
-      if (uri == null) return null
-      val scheme: String = uri.scheme.toString()
-      var fileName: String? = null
-      if (scheme == "file") {
-        fileName = uri.lastPathSegment
-      } else if (scheme == "content") {
-        val proj = arrayOf(MediaStore.Images.Media.TITLE)
-        val cursor: Cursor? = context.contentResolver.query(uri, proj, null, null, null)
-        if (cursor != null && cursor.count != 0) {
-          val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)
-          cursor.moveToFirst()
-          fileName = cursor.getString(columnIndex)
-        }
-        cursor?.close()
-      }
-      return fileName
-    }
+    fun getFilenameFromUri(uri: Uri?): String? = uri?.lastPathSegment
   }
 }

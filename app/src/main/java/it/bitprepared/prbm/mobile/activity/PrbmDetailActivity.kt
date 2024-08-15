@@ -297,7 +297,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
   }
 
   override fun onNewEntityClicked(unit: PrbmUnit, columnIndex: Int, selectedEntityOptions: Int) {
-    viewModel.addNewEntity(unit, columnIndex, selectedEntityOptions)
+    viewModel.addNewEntity(this, unit, columnIndex, selectedEntityOptions)
   }
 
   override fun onEntityClicked(unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int) {

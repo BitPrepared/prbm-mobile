@@ -43,17 +43,20 @@ object UserData {
     @JvmStatic
     var entity: PrbmEntity? = null
 
-    fun newEntityFromMenuIndex(position: Int) = PrbmEntity(entityTypes[position])
-
-    lateinit var entityTypes: List<PrbmEntityType>
-
-    fun parseSchemaFromResources(context: Context) {
-        context.resources.assets.open("prbm-entity-schema.json").use {
-            entityTypes = gson.fromJson(it.reader(), PrbmEntityTypeHolder::class.java).entities
+    private val _entityTypes: MutableList<PrbmEntityType> = mutableListOf()
+    fun getEntityTypes(context: Context) : List<PrbmEntityType> {
+        if (_entityTypes.isEmpty()) {
+            context.resources.assets.open("prbm-entity-schema.json").use {
+                _entityTypes.addAll(gson.fromJson(it.reader(), PrbmEntityTypeHolder::class.java).entities)
+            }
         }
+        return _entityTypes.toList()
     }
+    fun getEntityTypes() = _entityTypes.toList()
 
-    fun getSingleChoiceEntityType(): Array<String> = entityTypes.map { it.name }.toTypedArray()
+    fun newEntityFromMenuIndex(context: Context, position: Int) = PrbmEntity(getEntityTypes(context)[position])
+
+    fun getSingleChoiceEntityType(context: Context): Array<String> = getEntityTypes(context).map { it.name }.toTypedArray()
 
     /** Reference to actual unit  */
     // TODO: Move me to ViewModel

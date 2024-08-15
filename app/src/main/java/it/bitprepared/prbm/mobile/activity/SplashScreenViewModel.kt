@@ -17,7 +17,7 @@ class SplashScreenViewModel : ViewModel() {
     fun load(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             UserData.restorePrbms(context)
-            UserData.parseSchemaFromResources(context)
+            UserData.getEntityTypes(context)
             _appLoadedState.emit(true)
         }
     }
