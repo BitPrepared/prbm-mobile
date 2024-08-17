@@ -11,11 +11,11 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:contentDescription="@string/prbm_icon"
-        app:srcCompat="@drawable/ic_hiking"
-        app:tint="@color/md_theme_onBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_hiking"
+        app:tint="@color/md_theme_onBackground" />
 
     <!--  TODO Put them 3 in a chain -->
     <TextView
@@ -24,32 +24,36 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/grid_sing"
         android:textSize="@dimen/text_default"
-        app:layout_constraintStart_toEndOf="@id/img_list_icon"
-        app:layout_constraintEnd_toStartOf="@id/btn_edit"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_edit"
+        app:layout_constraintStart_toEndOf="@id/img_list_icon"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Example Path in Pisa\nSquadriglia Oro\nPisa" />
 
     <Button
+        android:id="@+id/btn_edit"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/grid_sing"
+        android:contentDescription="@string/edit"
+        android:text="@string/edit"
+        app:icon="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_delete"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btn_delete"
-        style="?attr/materialIconButtonFilledTonalStyle"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/delete"
+        android:text="@string/delete"
         app:icon="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_edit"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/edit"
-        app:icon="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_delete"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

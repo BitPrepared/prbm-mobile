@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/prbm_menu"
+            app:navigationIconTint="@color/md_theme_onBackground"
             app:navigationIcon="@drawable/ic_back" />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -20,24 +20,6 @@ class PrbmUnitAdapter(
 
   fun setNewData(newData: List<PrbmUnit>) {
     _data = newData.toMutableList()
-//        val paddedNewData = padListWithAddButtons(newData)
-//        val diffCallback = DiffUtilCallback(_data, paddedNewData)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//        diffResult.dispatchUpdatesTo(this)
-//        _data = paddedNewData.map {
-//            if (it is PrbmUnitAdapterViewType.Unit) {
-//                PrbmUnitAdapterViewType.Unit(
-//                    it.prbmUnit.copy(
-//                        entitiesFarLeft = it.prbmUnit.entitiesFarLeft.toMutableList(),
-//                        entitiesFarRight = it.prbmUnit.entitiesFarRight.toMutableList(),
-//                        entitiesNearLeft = it.prbmUnit.entitiesNearLeft.toMutableList(),
-//                        entitiesNearRight = it.prbmUnit.entitiesNearRight.toMutableList()
-//                    )
-//                )
-//            } else {
-//                PrbmUnitAdapterViewType.AddButton
-//            }
-//        }.toMutableList()
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrbmUnitAdapterUnitViewHolder =

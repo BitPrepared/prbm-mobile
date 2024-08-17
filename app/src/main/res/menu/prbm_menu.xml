@@ -9,13 +9,13 @@
         android:title="@string/gps"
         android:icon="@drawable/ic_gps_off"
         app:showAsAction="ifRoom"
-        />
+        app:iconTint="@color/md_theme_onBackground" />
 
     <item
         android:id="@+id/parameters"
         android:title="@string/parameters"
         android:icon="@drawable/ic_edit"
         app:showAsAction="ifRoom"
-        />
+        app:iconTint="@color/md_theme_onBackground" />
 
 </menu>

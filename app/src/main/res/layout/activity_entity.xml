@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_back"
+                app:navigationIconTint="@color/md_theme_onBackground"
                 app:menu="@menu/entity_menu"
                 app:title="Flora/Fauna" />
 
@@ -117,6 +118,7 @@
                             android:layout_height="@dimen/icon_size"
                             android:layout_gravity="center"
                             android:contentDescription="@string/press_to_add_pic_from_camera"
+                            app:tint="@color/md_theme_onBackground"
                             app:srcCompat="@drawable/ic_camera" />
                     </androidx.cardview.widget.CardView>
 
@@ -133,6 +135,7 @@
                             android:layout_height="@dimen/icon_size"
                             android:layout_gravity="center"
                             android:contentDescription="@string/press_to_pick_image_from_gallery"
+                            app:tint="@color/md_theme_onBackground"
                             app:srcCompat="@drawable/ic_photolibrary" />
                     </androidx.cardview.widget.CardView>
 

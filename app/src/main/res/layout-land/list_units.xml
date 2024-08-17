@@ -79,11 +79,12 @@
 
         <Button
             android:id="@+id/btnAddFarLeft"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
+            android:text="@string/far_left"
             app:icon="@drawable/ic_add" />
 
         <LinearLayout
@@ -106,11 +107,12 @@
 
         <Button
             android:id="@+id/btnAddNearLeft"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
+            android:text="@string/near_left"
             app:icon="@drawable/ic_add" />
 
         <LinearLayout
@@ -133,11 +135,12 @@
 
         <Button
             android:id="@+id/btnAddNearRight"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
+            android:text="@string/near_right"
             app:icon="@drawable/ic_add" />
 
         <LinearLayout
@@ -160,11 +163,12 @@
 
         <Button
             android:id="@+id/btnAddFarRight"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/add"
+            android:text="@string/far_right"
             app:icon="@drawable/ic_add" />
 
         <LinearLayout

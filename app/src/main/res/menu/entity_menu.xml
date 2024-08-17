@@ -10,6 +10,7 @@
         android:icon="@drawable/ic_delete"
         app:showAsAction="ifRoom"
         android:visible="true"
+        app:iconTint="@color/md_theme_onBackground"
         />
 
 </menu>

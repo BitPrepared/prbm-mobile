@@ -61,6 +61,7 @@ class PrbmUnitAdapterUnitViewHolder(
         val unitButton = MaterialButton(
           context, null, com.google.android.material.R.attr.materialIconButtonOutlinedStyle
         )
+        unitButton.text = currentEntity.type.name
         val drawableResourceId: Int =
           context.resources.getIdentifier(currentEntity.type.icon_name, "drawable", context.packageName)
         unitButton.icon = ContextCompat.getDrawable(context, drawableResourceId)

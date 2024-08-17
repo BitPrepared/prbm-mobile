@@ -133,5 +133,9 @@
     <string name="gps_paired">Acquisizione GPS riuscita</string>
     <string name="version">Versione: %1$s</string>
     <string name="enable_gps">Attiva GPS</string>
+    <string name="far_left">Lontano sinistra</string>
+    <string name="near_left">Vicino sinistra</string>
+    <string name="near_right">Vicino destra</string>
+    <string name="far_right">Lontano destra</string>
 
 </resources>
