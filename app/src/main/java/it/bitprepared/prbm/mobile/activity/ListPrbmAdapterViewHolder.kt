@@ -20,7 +20,11 @@ class ListPrbmAdapterViewHolder(private val binding: ListPrbmBinding) :
         }
         if (prbm.place?.isNotBlank() == true) {
             stringBuilder.append("\n")
-            stringBuilder.append("${prbm.place} ${prbm.date}".trim())
+            stringBuilder.append("${prbm.place} - ${prbm.date}".trim())
+        }
+        if (prbm.note?.isNotBlank() == true) {
+            stringBuilder.append("\n")
+            stringBuilder.append("Note: ${prbm.note}".trim())
         }
         binding.txtListContent.text = stringBuilder
         binding.btnEdit.setOnClickListener {
