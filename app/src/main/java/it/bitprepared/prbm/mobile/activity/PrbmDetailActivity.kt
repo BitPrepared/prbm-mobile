@@ -22,8 +22,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import it.bitprepared.prbm.mobile.R
-import it.bitprepared.prbm.mobile.activity.UserData.prbm
-import it.bitprepared.prbm.mobile.activity.UserData.savePrbm
 import it.bitprepared.prbm.mobile.databinding.ActivityDetailPrbmBinding
 import it.bitprepared.prbm.mobile.databinding.EditNumericFieldBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntity
@@ -44,12 +42,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
 
   private val viewModel: PrbmDetailViewModel by viewModels()
 
-  private lateinit var adtUnit: PrbmUnitAdapter
-
   private lateinit var locationManager: LocationManager
   private val locationListener: LocationListener = object : LocationListener {
     override fun onLocationChanged(location: Location) {
       viewModel.updateGpsCoordinates(
+        this@PrbmDetailActivity,
         location.latitude,
         location.longitude,
         location.time,
@@ -75,9 +72,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     lifecycleScope.launch {
       repeatOnLifecycle(Lifecycle.State.STARTED) {
         viewModel.modelState.collect { state ->
-          if (state.saveSuccessful == true) {
-            showSavedSuccessfully()
-          } else if (state.editReady == true) {
+          if (state.editReady == true) {
             openPrbmEditActivity()
           } else if (state.editUnitReady == true) {
             openNewUnitActivity()
@@ -108,22 +103,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
       }
     }
 
-    onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-      override fun handleOnBackPressed() {
-        confirmExit()
-      }
-    })
-
     binding.prbmAppBar.setNavigationOnClickListener {
-      confirmExit()
+      finish()
     }
     binding.prbmAppBar.setOnMenuItemClickListener { menuItem ->
       when (menuItem.itemId) {
-        R.id.save -> {
-          viewModel.savePrbm(this@PrbmDetailActivity)
-          true
-        }
-
         R.id.parameters -> {
           viewModel.editPrbm()
           true
@@ -176,22 +160,6 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     locationManager.removeUpdates(locationListener)
   }
 
-  private fun showSavedSuccessfully() {
-    Snackbar.make(
-      binding.root, getString(R.string.save_prbm_successful), Snackbar.LENGTH_SHORT
-    ).show()
-    viewModel.showSavedDone()
-  }
-
-  private fun confirmExit() = MaterialAlertDialogBuilder(this@PrbmDetailActivity)
-    .setTitle(R.string.confirmation)
-    .setIcon(R.drawable.ic_alert)
-    .setMessage(R.string.are_you_sure)
-    .setPositiveButton(getString(R.string.save_and_exit)) { _, _ ->
-      savePrbm(this@PrbmDetailActivity, prbm!!)
-      finish()
-    }.setNegativeButton(R.string.abort) { _, _ -> }.create().show()
-
   private fun openPrbmEditActivity() {
     startActivity(Intent(this@PrbmDetailActivity, CreateEditPrbmActivity::class.java))
     viewModel.editPrbmStarted()
@@ -213,7 +181,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
       .setNegativeButton(getString(R.string.abort)) { _, _ -> }
       .setPositiveButton(getString(R.string.proceed)) { _, _ ->
         val newValue = binding.editField.text.toString()
-        viewModel.updateMeters(unit, newValue)
+        viewModel.updateMeters(this@PrbmDetailActivity, unit, newValue)
       }
       .show()
   }
@@ -229,7 +197,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
       .setNegativeButton(getString(R.string.abort)) { _, _ -> }
       .setPositiveButton(getString(R.string.proceed)) { _, _ ->
         val newValue = binding.editField.text.toString()
-        viewModel.updateAzimuth(unit, newValue)
+        viewModel.updateAzimuth(this@PrbmDetailActivity, unit, newValue)
       }
       .show()
   }
@@ -245,12 +213,12 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
       .setNegativeButton(getString(R.string.abort)) { _, _ -> }
       .setPositiveButton(getString(R.string.proceed)) { _, _ ->
         val newValue = binding.editField.text.toString()
-        viewModel.updateMinutes(unit, newValue)
+        viewModel.updateMinutes(this@PrbmDetailActivity, unit, newValue)
       }
       .show()
   }
 
-  fun convertTimeStampToLocalDateTime(timestamp: Long): String {
+  private fun convertTimeStampToLocalDateTime(timestamp: Long): String {
     val date = Date(timestamp)
     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     sdf.timeZone = TimeZone.getDefault()
@@ -272,17 +240,17 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
         )
       )
       .setPositiveButton(getString(R.string.update_coordinates)) { _, _ ->
-        viewModel.updateGpsCoordinatesForUnit(unit)
+        viewModel.updateGpsCoordinatesForUnit(this@PrbmDetailActivity, unit)
       }
       .setNeutralButton(getString(R.string.abort)) { _, _ -> }
       .setNegativeButton(getString(R.string.remove_coordinates)) { _, _ ->
-        viewModel.removeGpsCoordinatesForUnit(unit)
+        viewModel.removeGpsCoordinatesForUnit(this@PrbmDetailActivity, unit)
       }
       .show()
   }
 
   override fun onAddUnitButtonClicked(unit: PrbmUnit) {
-    viewModel.addUnitBelow(unit)
+    viewModel.addUnitBelow(this@PrbmDetailActivity, unit)
   }
 
   override fun onClickDelete(unit: PrbmUnit) {
@@ -291,7 +259,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
       .setMessage(getString(R.string.are_you_sure_to_delete_a_row))
       .setNegativeButton(getString(R.string.abort)) { _, _ -> }
       .setPositiveButton(getString(R.string.ok)) { _, _ ->
-        viewModel.deleteUnit(unit)
+        viewModel.deleteUnit(this@PrbmDetailActivity, unit)
       }
       .show()
   }
@@ -301,6 +269,6 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
   }
 
   override fun onEntityClicked(unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int) {
-    viewModel.editEntity(unit, entity, columnIndex)
+    viewModel.editEntity(this@PrbmDetailActivity, unit, entity, columnIndex)
   }
 }

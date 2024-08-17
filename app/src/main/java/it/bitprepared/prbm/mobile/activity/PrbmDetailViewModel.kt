@@ -19,11 +19,6 @@ class PrbmDetailViewModel : ViewModel() {
     private val _modelState = MutableStateFlow(PrbmDetailModelState(UserData.prbm!!))
     val modelState: StateFlow<PrbmDetailModelState> = _modelState.asStateFlow()
 
-    fun savePrbm(context: Context) = viewModelScope.launch {
-        UserData.savePrbm(context, _modelState.value.prbm)
-        _modelState.emit(_modelState.value.copy(saveSuccessful = true))
-    }
-
     fun editPrbm() = viewModelScope.launch {
         UserData.prbm = _modelState.value.prbm
         UserData.editPrbm = true
@@ -34,45 +29,46 @@ class PrbmDetailViewModel : ViewModel() {
         _modelState.emit(_modelState.value.copy(editReady = false))
     }
 
-    fun showSavedDone() = viewModelScope.launch {
-        _modelState.emit(_modelState.value.copy(saveSuccessful = false))
-    }
-
-    fun updateMeters(unit: PrbmUnit, newValue: String) = viewModelScope.launch {
+    fun updateMeters(context: Context, unit: PrbmUnit, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
             unit.meters = newValue.toInt()
+            UserData.savePrbm(context, _modelState.value.prbm)
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun updateAzimuth(unit: PrbmUnit, newValue: String) = viewModelScope.launch {
+    fun updateAzimuth(context: Context, unit: PrbmUnit, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
             unit.azimuth = newValue.toInt()
+            UserData.savePrbm(context, _modelState.value.prbm)
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun updateMinutes(unit: PrbmUnit, newValue: String) = viewModelScope.launch {
+    fun updateMinutes(context: Context, unit: PrbmUnit, newValue: String) = viewModelScope.launch {
         if (newValue.toIntOrNull() != null) {
             unit.minutes = newValue.toInt()
+            UserData.savePrbm(context, _modelState.value.prbm)
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun addUnitBelow(unit: PrbmUnit) = viewModelScope.launch {
+    fun addUnitBelow(context: Context, unit: PrbmUnit) = viewModelScope.launch {
         val idx = requireNotNull(UserData.prbm).units.indexOf(unit)
         val newUnit = PrbmUnit()
         requireNotNull(UserData.prbm).units.add(idx + 1, newUnit)
         if (_modelState.value.gpsStatus == GpsStatus.FIXED) {
-            updateGpsCoordinatesForUnit(newUnit)
+            updateGpsCoordinatesForUnit(context, newUnit)
         } else {
+            UserData.savePrbm(context, _modelState.value.prbm)
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         }
     }
 
-    fun deleteUnit(unit: PrbmUnit) = viewModelScope.launch {
+    fun deleteUnit(context: Context, unit: PrbmUnit) = viewModelScope.launch {
         if (UserData.prbm!!.units.size > 1) {
             UserData.prbm!!.units.remove(unit)
+            UserData.savePrbm(context, _modelState.value.prbm)
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         } else {
             _modelState.emit(_modelState.value.copy(errorMessage = R.string.you_cant_delete_last_unit))
@@ -85,14 +81,16 @@ class PrbmDetailViewModel : ViewModel() {
         UserData.column = columnIndex
         UserData.editEntity = false
         UserData.unit = unit
+        UserData.savePrbm(context, _modelState.value.prbm)
         _modelState.emit(_modelState.value.copy(editUnitReady = true))
     }
 
-    fun editEntity(unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int) = viewModelScope.launch {
+    fun editEntity(context: Context, unit: PrbmUnit, entity: PrbmEntity, columnIndex: Int) = viewModelScope.launch {
         UserData.entity = entity
         UserData.column = columnIndex
         UserData.editEntity = true
         UserData.unit = unit
+        UserData.savePrbm(context, _modelState.value.prbm)
         _modelState.emit(_modelState.value.copy(editUnitReady = true))
     }
 
@@ -113,6 +111,7 @@ class PrbmDetailViewModel : ViewModel() {
     }
 
     fun updateGpsCoordinates(
+        context: Context,
         latitude: Double,
         longitude: Double,
         time: Long,
@@ -124,7 +123,7 @@ class PrbmDetailViewModel : ViewModel() {
         )
         val units = requireNotNull(UserData.prbm).units
         if (units.size == 1 && !units[0].hasCoordinates()) {
-            updateGpsCoordinatesForUnit(units[0])
+            updateGpsCoordinatesForUnit(context, units[0])
         }
         if (_modelState.value.gpsStatus == GpsStatus.PAIRING) {
             _modelState.emit(_modelState.value.copy(
@@ -134,18 +133,20 @@ class PrbmDetailViewModel : ViewModel() {
         }
     }
 
-    fun updateGpsCoordinatesForUnit(unit: PrbmUnit) = viewModelScope.launch {
+    fun updateGpsCoordinatesForUnit(context: Context, unit: PrbmUnit) = viewModelScope.launch {
         if (_modelState.value.gpsStatus == GpsStatus.FIXED || UserData.prbm?.coordinates?.isNotEmpty() == true) {
             val lastCoordinates = UserData.prbm!!.coordinates.last()
             unit.setCoordinatesFrom(lastCoordinates)
+            UserData.savePrbm(context, _modelState.value.prbm)
             _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
         } else {
             _modelState.emit(_modelState.value.copy(errorMessage = R.string.no_gps_coordinates))
         }
     }
 
-    fun removeGpsCoordinatesForUnit(unit: PrbmUnit) = viewModelScope.launch {
+    fun removeGpsCoordinatesForUnit(context: Context, unit: PrbmUnit) = viewModelScope.launch {
         unit.setCoordinatesFrom(PrbmCoordinates())
+        UserData.savePrbm(context, _modelState.value.prbm)
         _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
 }
