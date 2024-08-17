@@ -2,6 +2,7 @@ package it.bitprepared.prbm.mobile.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
@@ -52,11 +53,16 @@ class ListPrbmActivity : AppCompatActivity(), OnPrbmClickListener {
           }
           if (state.prbmToEdit != null) {
             startActivity(Intent(this@ListPrbmActivity, PrbmDetailActivity::class.java))
-            finish()
+            viewModel.editPrbmStarted()
           }
         }
       }
     }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    viewModel.onResume()
   }
 
   private fun showPrbmList(prbmList: List<Prbm>) {

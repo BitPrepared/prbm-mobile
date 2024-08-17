@@ -87,17 +87,15 @@ class CreateEditPrbmViewModel : ViewModel() {
             _modelState.value =
                 _modelState.value.copy(errorMessageResId = R.string.error_no_title_prbm)
         } else {
-            val newPrbm = if (UserData.editPrbm) {
-                requireNotNull(UserData.prbm).copy(
-                    title = _modelState.value.title,
-                    authors = _modelState.value.authors,
-                    place = _modelState.value.place,
-                    note = _modelState.value.notes,
-                    date = _modelState.value.date,
-                    time = _modelState.value.time
-                )
+            if (UserData.editPrbm) {
+                    requireNotNull(UserData.prbm).title = _modelState.value.title
+                    requireNotNull(UserData.prbm).authors = _modelState.value.authors
+                    requireNotNull(UserData.prbm).place = _modelState.value.place
+                    requireNotNull(UserData.prbm).note = _modelState.value.notes
+                    requireNotNull(UserData.prbm).date = _modelState.value.date
+                    requireNotNull(UserData.prbm).time = _modelState.value.time
             } else {
-                Prbm(
+                UserData.prbm = Prbm(
                     title = _modelState.value.title,
                     authors = _modelState.value.authors,
                     place = _modelState.value.place,
@@ -106,9 +104,8 @@ class CreateEditPrbmViewModel : ViewModel() {
                     time = _modelState.value.time,
                 )
             }
-            UserData.prbm = newPrbm
             UserData.editPrbm = false
-            UserData.savePrbm(context, newPrbm)
+            UserData.savePrbm(context, UserData.prbm!!)
             _modelState.value = _modelState.value.copy(saveReady = true)
         }
     }

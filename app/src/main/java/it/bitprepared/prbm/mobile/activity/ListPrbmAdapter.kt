@@ -36,6 +36,8 @@ class ListPrbmAdapter(
         _data.clear()
         _data.addAll(newData)
         diffResult.dispatchUpdatesTo(this)
+      // Remove DiffUtil from this Adapter
+      notifyDataSetChanged()
     }
 
 
@@ -57,7 +59,9 @@ class ListPrbmAdapter(
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
             oldData[oldItemPosition].title == newData[newItemPosition].title &&
             oldData[oldItemPosition].place == newData[newItemPosition].place &&
-            oldData[oldItemPosition].date == newData[newItemPosition].date
+            oldData[oldItemPosition].date == newData[newItemPosition].date &&
+            oldData[oldItemPosition].authors == newData[newItemPosition].authors &&
+              oldData[oldItemPosition].note == newData[newItemPosition].note
     }
 
 }

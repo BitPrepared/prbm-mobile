@@ -18,9 +18,17 @@ class ListPrbmViewModel : ViewModel() {
         _modelState.emit(ListPrbmViewModelState(prbmToEdit = prbm))
     }
 
+    fun editPrbmStarted() = viewModelScope.launch {
+        _modelState.emit(ListPrbmViewModelState(prbmToEdit = null))
+    }
+
     fun deletePrbm(context: Context, prbm: Prbm) = viewModelScope.launch {
         UserData.deletePrbm(context, prbm)
         _modelState.emit(ListPrbmViewModelState())
+    }
+
+    fun onResume() = viewModelScope.launch {
+        _modelState.emit(_modelState.value.copy(lastUpdated = System.currentTimeMillis()))
     }
 }
 
