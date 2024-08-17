@@ -16,11 +16,6 @@
 
     <!-- TODO: Implement SelectedPhotoAccess -->
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29"
-        tools:ignore="ScopedStorage" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
