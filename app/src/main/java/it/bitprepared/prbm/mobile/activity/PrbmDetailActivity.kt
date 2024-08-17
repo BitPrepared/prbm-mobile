@@ -130,8 +130,16 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
   }
 
   private fun showErrorSnackbar(@StringRes errorMessage: Int) {
-    Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
-    viewModel.errorShown()
+    if (errorMessage == R.string.no_gps_coordinates) {
+      Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT)
+        .setAction(R.string.enable_gps) {
+          viewModel.userToggledGps()
+        }.show()
+      viewModel.errorShown()
+    } else {
+      Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
+      viewModel.errorShown()
+    }
   }
 
   private fun enableLocationEnable() {
