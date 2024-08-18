@@ -13,8 +13,8 @@ android {
         applicationId = "it.bitprepared.prbm.mobile"
         minSdk = 19
         targetSdk = 34
-        versionCode = 20
-        versionName = "v1.0.5"
+        versionCode = 21
+        versionName = "v1.0.6"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
     }
