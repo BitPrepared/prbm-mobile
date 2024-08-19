@@ -9,11 +9,11 @@ interface RemoteInterface {
     @POST("upload.php")
     suspend fun uploadPrbm(
         @Field("filename") filename: String, @Field("content") content: String
-    ): String
+    )
 
     @FormUrlEncoded
     @POST("image.php")
     suspend fun uploadImage(
         @Field("name") filename: String, @Field("image") content: String
-    ): String
+    )
 }

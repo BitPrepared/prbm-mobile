@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,7 +19,6 @@ import it.bitprepared.prbm.mobile.BuildConfig
 import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.databinding.AboutDialogBinding
 import it.bitprepared.prbm.mobile.databinding.ActivityMainBinding
-import it.bitprepared.prbm.mobile.databinding.ProgressDialogBinding
 import kotlinx.coroutines.launch
 
 /**
@@ -37,23 +37,15 @@ class MainActivity : AppCompatActivity() {
 
     lifecycleScope.launch {
       repeatOnLifecycle(Lifecycle.State.STARTED) {
-        val dialogBinding = ProgressDialogBinding.inflate(layoutInflater)
-        val dialog = MaterialAlertDialogBuilder(this@MainActivity)
-          .setView(dialogBinding.root)
-          .create()
         viewModel.modelState.collect { (isUploading, progress, error) ->
-          if (isUploading && !dialog.isShowing) {
-            dialogBinding.progressBar.setProgressCompat(0, false)
-            dialog.show()
-          } else if (isUploading && dialog.isShowing) {
-            val progressPerc = (progress * 100).toInt()
-            dialogBinding.progressBar.setProgressCompat(progressPerc, false)
-            dialogBinding.progressText.text =
-              getString(R.string.loading_in_progress, progressPerc)
-          } else if (!isUploading) {
-            dialog.dismiss()
-          } else if (error != null) {
-            dialogBinding.progressText.text = getString(R.string.loading_error, error)
+          if (isUploading) {
+            binding.progressCard.isVisible = true
+          }
+          binding.progressBar.setProgressCompat((progress * 100).toInt(), true)
+          if (error != null) {
+            binding.progressStatus.text = "Error: $error"
+          } else {
+            binding.progressStatus.text = "Caricamento in corso: ${(progress * 100).toInt()}%"
           }
         }
       }
@@ -66,14 +58,7 @@ class MainActivity : AppCompatActivity() {
       navigateToPrbmList()
     }
     binding.btnSyncro.setOnClickListener {
-      MaterialAlertDialogBuilder(this)
-        .setTitle("Sincronizzazione")
-        .setIcon(R.drawable.ic_sync)
-        .setMessage("Questa funzionalità non è ancora disponibile.")
-        .setPositiveButton(R.string.ok) { _, _ -> }
-        .create()
-        .show()
-//            viewModel.uploadPrbmJSONs(this@MainActivity)
+      viewModel.uploadPrbmJSONs(this@MainActivity)
     }
     binding.btnAbout.setOnClickListener {
       showAboutDialog()

@@ -20,7 +20,7 @@ desugaring = "2.0.4"
 
 # Do not bump those dependencies as they need Android 5.0+
 #noinspection GradleDependency
-retrofit = "2.1.0"
+retrofit = "2.6.0"
 #noinspection GradleDependency
 firebase = "32.8.1"
 #noinspection GradleDependency

@@ -10,9 +10,9 @@
     <ImageView
         android:layout_width="400dp"
         android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_hiking"
         app:tint="@color/md_theme_primaryContainer"
         tools:ignore="MissingConstraints" />
@@ -38,47 +38,81 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/progress_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/grid_sing"
+        android:elevation="@dimen/grid_sing"
+        app:cardCornerRadius="@dimen/grid_sing"
+        app:layout_constraintBottom_toTopOf="@+id/btn_new"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
+        tools:targetApi="lollipop">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/grid_sing"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/progress_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_primary"
+                tools:text="Caricamento in corso..." />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <Button
         android:id="@+id/btn_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/new_prbm"
-        app:layout_constraintStart_toStartOf="parent"
         app:icon="@drawable/ic_document"
         app:layout_constraintBottom_toTopOf="@id/btn_list"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        style="@style/Widget.Material3.Button.TonalButton"
         android:id="@+id/btn_list"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/list_prbm"
         app:icon="@drawable/ic_list"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_syncro"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        style="@style/Widget.Material3.Button.TonalButton"
         android:id="@+id/btn_syncro"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sync"
         app:icon="@drawable/ic_sync"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_about"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        style="@style/Widget.Material3.Button.TonalButton"
         android:id="@+id/btn_about"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about"
         app:icon="@drawable/ic_info"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,8 @@ object UserData {
 
     val restInterface: RemoteInterface by lazy {
         val retrofit = Retrofit.Builder().baseUrl(API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson)).build()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
         retrofit.create(RemoteInterface::class.java)
     }
 

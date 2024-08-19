@@ -1,6 +1,8 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -61,7 +63,15 @@ class PrbmUnitAdapterUnitViewHolder(
         val unitButton = MaterialButton(
           context, null, com.google.android.material.R.attr.materialIconButtonOutlinedStyle
         )
-        unitButton.text = currentEntity.type.name
+        unitButton.layoutParams = LinearLayout.LayoutParams(
+          LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+          unitButton.text = currentEntity.type.name
+        } else {
+          unitButton.text = ""
+        }
+
         val drawableResourceId: Int =
           context.resources.getIdentifier(currentEntity.type.icon_name, "drawable", context.packageName)
         unitButton.icon = ContextCompat.getDrawable(context, drawableResourceId)

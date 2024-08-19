@@ -8,7 +8,6 @@ import android.os.Environment
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -36,7 +35,6 @@ import it.bitprepared.prbm.mobile.databinding.EditGenericFieldBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntityField
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.IOException
 import java.time.LocalTime
 
 
@@ -156,14 +154,27 @@ class EntityActivity : AppCompatActivity() {
       selectFromGallery()
     }
 
-    pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    pickMedia = registerForActivityResult(PickPersistableVisualMedia()) { uri ->
       if (uri != null) {
+        contentResolver.takePersistableUriPermission(
+          uri,
+          Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        )
         viewModel.addImage(uri.toString(), getFilenameFromUri(uri))
       }
     }
     takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
       if (result) {
         viewModel.addImage(latestUri.toString(), getFilenameFromUri(latestUri))
+      }
+    }
+  }
+
+  inner class PickPersistableVisualMedia: ActivityResultContracts.PickVisualMedia() {
+    override fun createIntent(context: Context, input: PickVisualMediaRequest): Intent {
+      return super.createIntent(context, input).apply {
+        addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
       }
     }
   }

@@ -38,6 +38,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/progress_card"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/grid_sing"
+        android:elevation="@dimen/grid_sing"
+        android:visibility="invisible"
+        app:cardCornerRadius="@dimen/grid_sing"
+        app:layout_constraintBottom_toTopOf="@+id/btn_new"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:targetApi="lollipop">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/grid_sing"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/progress_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_primary"
+                tools:text="Caricamento in corso..." />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <Button
         android:id="@+id/btn_new"
         android:layout_width="360dp"
