@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -74,11 +75,11 @@ class EntityActivity : AppCompatActivity() {
                   confirmDelete()
                   true
                 }
-
                 else -> false
               }
             }
             binding.linGallery.removeAllViews()
+            Log.e("PRBM", "Images to load ${state.imageUris}")
             state.imageUris.forEach { image ->
               val px8 = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 8F, this@EntityActivity.getResources().displayMetrics
@@ -122,14 +123,14 @@ class EntityActivity : AppCompatActivity() {
     binding.edtTitle.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
       override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-      override fun afterTextChanged(s: android.text.Editable?) {
+      override fun afterTextChanged(s: Editable?) {
         viewModel.updateTitle(s.toString())
       }
     })
     binding.edtDescription.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
       override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-      override fun afterTextChanged(s: android.text.Editable?) {
+      override fun afterTextChanged(s: Editable?) {
         viewModel.updateDescription(s.toString())
       }
     })

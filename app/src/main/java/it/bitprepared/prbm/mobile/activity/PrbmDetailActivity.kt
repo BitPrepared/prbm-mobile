@@ -127,6 +127,11 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
   }
 
+  override fun onResume() {
+    super.onResume()
+    viewModel.onResume(this)
+  }
+
   private fun showErrorSnackbar(@StringRes errorMessage: Int) {
     if (errorMessage == R.string.no_gps_coordinates) {
       Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT)

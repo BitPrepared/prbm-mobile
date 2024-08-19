@@ -152,4 +152,8 @@ class PrbmDetailViewModel : ViewModel() {
         UserData.savePrbm(context, _modelState.value.prbm)
         _modelState.emit(_modelState.value.copy(stateTimestamp = System.currentTimeMillis()))
     }
+
+  fun onResume(context: Context) {
+      UserData.savePrbm(context, _modelState.value.prbm)
+  }
 }

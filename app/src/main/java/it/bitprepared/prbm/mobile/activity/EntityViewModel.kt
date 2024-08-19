@@ -1,5 +1,6 @@
 package it.bitprepared.prbm.mobile.activity
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -81,6 +82,7 @@ class EntityViewModel : ViewModel() {
     fun addImage(imageUri: String, imageName: String?) = viewModelScope.launch {
         UserData.entity?.pictureUri?.add(imageUri)
         UserData.entity?.pictureFilenames?.add(imageName ?: "")
+        Log.e("PRBM", "Adding image $imageUri - $imageName")
         _modelState.emit(_modelState.value.copy(
             imageUris = UserData.entity?.pictureUri?.toList() ?: emptyList(),
             imageFilenames = UserData.entity?.pictureFilenames?.toList() ?: emptyList(),
