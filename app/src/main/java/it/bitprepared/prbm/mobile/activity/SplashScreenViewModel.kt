@@ -1,6 +1,7 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ class SplashScreenViewModel : ViewModel() {
 
     fun load(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
             UserData.restorePrbms(context)
             UserData.getEntityTypes(context)
             _appLoadedState.emit(true)
