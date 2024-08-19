@@ -181,11 +181,12 @@
 
     <Button
         android:id="@+id/btn_add_below"
-        style="?attr/materialIconButtonStyle"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/add"
+        android:contentDescription="@string/add_row"
+        android:text="@string/add_row"
         app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
