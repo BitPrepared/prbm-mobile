@@ -7,6 +7,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -83,20 +84,27 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
               binding.prbmAppBar.menu.findItem(R.id.gps).setIcon(R.drawable.ic_gps_off)
               disableLocationManager()
             }
-
             GpsStatus.PAIRING -> {
               binding.prbmAppBar.menu.findItem(R.id.gps).setIcon(R.drawable.ic_gps_not_fixed)
               enableLocationEnable()
             }
-
             GpsStatus.FIXED -> {
               binding.prbmAppBar.menu.findItem(R.id.gps).setIcon(R.drawable.ic_gps_fixed)
             }
           }
-
           adtPrbmUnit.setNewData(state.prbm.units)
-          // TODO Change me to proper animation
-          adtPrbmUnit.notifyDataSetChanged()
+          if (state.rowEdited != null || state.rowInserted != null || state.rowDeleted != null) {
+            if (state.rowEdited != null) {
+              adtPrbmUnit.notifyItemChanged(state.rowEdited)
+            }
+            if (state.rowInserted != null) {
+              adtPrbmUnit.notifyItemInserted(state.rowInserted)
+            }
+            if (state.rowDeleted != null) {
+              adtPrbmUnit.notifyItemRemoved(state.rowDeleted)
+            }
+            viewModel.listAnimationDispatched()
+          }
         }
       }
     }
@@ -129,6 +137,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
 
   override fun onResume() {
     super.onResume()
+    adtPrbmUnit.notifyDataSetChanged()
     viewModel.onResume(this)
   }
 

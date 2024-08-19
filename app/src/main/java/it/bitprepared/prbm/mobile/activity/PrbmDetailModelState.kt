@@ -13,7 +13,10 @@ data class PrbmDetailModelState(
     val prbm: Prbm,
     val editReady: Boolean? = null,
     val editUnitReady: Boolean? = null,
-    val stateTimestamp: Long = System.currentTimeMillis(),
+    val lastUpdated: Long = System.currentTimeMillis(),
     @StringRes val errorMessage: Int? = null,
-    val gpsStatus: GpsStatus = GpsStatus.DISABLED
+    val gpsStatus: GpsStatus = GpsStatus.DISABLED,
+    val rowEdited: Int? = null,
+    val rowInserted: Int? = null,
+    val rowDeleted: Int? = null,
 )

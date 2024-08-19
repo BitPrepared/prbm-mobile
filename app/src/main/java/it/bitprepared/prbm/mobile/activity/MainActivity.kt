@@ -107,9 +107,6 @@ class MainActivity : AppCompatActivity() {
 
   private val permissionsRequest =
     registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-      permissions.entries.forEach {
-        Log.e("PRBM", "Result $it")
-      }
       if (!permissions.entries.any { !it.value }) {
         navigateToCreatePrbm()
       } else {

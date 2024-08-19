@@ -28,7 +28,6 @@ class MainViewModel : ViewModel() {
     val modelState: StateFlow<MainViewModelState> = _modelState.asStateFlow()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, error ->
-        Log.e(TAG, "Error during PRBM upload", error)
         _modelState.tryEmit(MainViewModelState(false, 0f, error.message ?: "Unknown error"))
     }
 

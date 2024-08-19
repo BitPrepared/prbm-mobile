@@ -2,10 +2,9 @@ package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.os.Environment
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -37,6 +36,7 @@ import it.bitprepared.prbm.mobile.databinding.EditGenericFieldBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntityField
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.IOException
 import java.time.LocalTime
 
 
@@ -79,7 +79,6 @@ class EntityActivity : AppCompatActivity() {
               }
             }
             binding.linGallery.removeAllViews()
-            Log.e("PRBM", "Images to load ${state.imageUris}")
             state.imageUris.forEach { image ->
               val px8 = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 8F, this@EntityActivity.getResources().displayMetrics
@@ -169,15 +168,6 @@ class EntityActivity : AppCompatActivity() {
     }
   }
 
-//  inner class TakePictureAndroid4 : ActivityResultContracts.TakePicture() {
-//    override fun createIntent(context: Context, input: Uri): Intent {
-//      return super.createIntent(context, input)
-//        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//        .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-//        .putExtra(MediaStore.EXTRA_OUTPUT, latestUri)
-//    }
-//  }
-
   private fun renderFields(
     fields: List<PrbmEntityField>,
     fieldValues: Map<String, String>
@@ -227,7 +217,14 @@ class EntityActivity : AppCompatActivity() {
 
   private fun getNewImageFilename() = "prbm_${System.currentTimeMillis()}.jpg"
 
-  private fun getNewImageUri(): Uri {
+  private fun getNewImageUri(): Uri =
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+      getNewImageUriWithFileProvider()
+    } else {
+      getNewImageUriWithFileUri()
+    }
+
+  private fun getNewImageUriWithFileProvider(): Uri {
     val tempImagesDir = File(
       applicationContext.filesDir, //this function gets the external cache dir
       "prbmm_images"
@@ -245,6 +242,15 @@ class EntityActivity : AppCompatActivity() {
     )
   }
 
+  private fun getNewImageUriWithFileUri(): Uri {
+    val fileName = getNewImageFilename()
+    val root = Environment.getExternalStorageDirectory()
+    val imagesFolder = File(root, "prbm_images").apply {
+      mkdirs()
+    }
+    return Uri.fromFile(File(imagesFolder, fileName))
+  }
+
   private fun takePicture() {
     latestUri = getNewImageUri()
     takePicture.launch(latestUri)
@@ -254,7 +260,10 @@ class EntityActivity : AppCompatActivity() {
     pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
   }
 
-  companion object {
-    fun getFilenameFromUri(uri: Uri?): String? = uri?.lastPathSegment
-  }
+  private fun getFilenameFromUri(uri: Uri): String? =
+    if (uri.lastPathSegment != null && uri.lastPathSegment!!.endsWith(".jpg")) {
+      uri.lastPathSegment
+    } else {
+      getNewImageFilename()
+    }
 }
