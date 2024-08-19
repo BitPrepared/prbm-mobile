@@ -107,7 +107,11 @@ class PrbmDetailViewModel : ViewModel() {
             GpsStatus.DISABLED -> GpsStatus.PAIRING
             else -> GpsStatus.DISABLED
         }
-        _modelState.emit(_modelState.value.copy(gpsStatus = newStatus))
+        val message = when (newStatus) {
+            GpsStatus.PAIRING -> R.string.gps_pairing
+            else -> R.string.gps_disabled
+        }
+        _modelState.emit(_modelState.value.copy(gpsStatus = newStatus, errorMessage = message))
     }
 
     fun updateGpsCoordinates(
