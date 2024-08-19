@@ -32,7 +32,7 @@ class PrbmUnitAdapterUnitViewHolder(
     b.chipMinutes.setOnClickListener { listener.onClickMinutes(unit, unit.minutes) }
     b.chipGps.setOnClickListener { listener.onClickGps(unit) }
     b.chipDelete.setOnClickListener { listener.onClickDelete(unit) }
-    b.btnAddBelow.setOnClickListener { listener.onAddUnitButtonClicked(unit) }
+    b.chipAddAbove.setOnClickListener { listener.onAddUnitButtonClicked(unit) }
 
     val color = if (unit.hasCoordinates()) R.color.green else R.color.red
     b.chipGps.setTextColor(ContextCompat.getColor(context, color))

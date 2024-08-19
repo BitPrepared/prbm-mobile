@@ -1,7 +1,6 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.bitprepared.prbm.mobile.R
@@ -53,10 +52,10 @@ class PrbmDetailViewModel : ViewModel() {
         }
     }
 
-    fun addUnitBelow(context: Context, unit: PrbmUnit) = viewModelScope.launch {
+    fun addUnitAbove(context: Context, unit: PrbmUnit) = viewModelScope.launch {
         val idx = requireNotNull(UserData.prbm).units.indexOf(unit)
         val newUnit = PrbmUnit()
-        requireNotNull(UserData.prbm).units.add(idx + 1, newUnit)
+        requireNotNull(UserData.prbm).units.add(idx, newUnit)
         if (_modelState.value.gpsStatus == GpsStatus.FIXED) {
             updateGpsCoordinatesForUnit(context, newUnit)
         } else {

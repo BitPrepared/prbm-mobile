@@ -6,10 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -258,7 +256,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
   }
 
   override fun onAddUnitButtonClicked(unit: PrbmUnit) {
-    viewModel.addUnitBelow(this@PrbmDetailActivity, unit)
+    viewModel.addUnitAbove(this@PrbmDetailActivity, unit)
   }
 
   override fun onClickDelete(unit: PrbmUnit) {

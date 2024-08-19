@@ -56,6 +56,14 @@
                 app:chipIcon="@drawable/ic_gps_fixed" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_add_above"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_row"
+                app:chipIconTint="@color/md_theme_onBackground"
+                app:chipIcon="@drawable/ic_arrow_up_double" />
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/chip_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +79,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_below"
         app:layout_constraintEnd_toStartOf="@id/lst_near_left_container"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +106,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_below"
         app:layout_constraintEnd_toStartOf="@id/lst_near_right_container"
         app:layout_constraintStart_toEndOf="@id/lst_far_left_container"
         app:layout_constraintTop_toBottomOf="@id/chip_group">
@@ -126,7 +132,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_below"
         app:layout_constraintEnd_toStartOf="@id/lst_far_right_container"
         app:layout_constraintStart_toEndOf="@id/lst_near_left_container"
         app:layout_constraintTop_toBottomOf="@id/chip_group">
@@ -153,7 +158,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_below"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/lst_near_right_container"
         app:layout_constraintTop_toBottomOf="@id/chip_group">
@@ -174,18 +178,6 @@
             android:orientation="vertical" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_add_below"
-        style="?attr/materialIconButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/add"
-        app:icon="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -139,6 +139,6 @@
     <string name="near_left">Vicino sinistra</string>
     <string name="near_right">Vicino destra</string>
     <string name="far_right">Lontano destra</string>
-    <string name="add_row">Aggiungi riga</string>
+    <string name="add_row">Nuova riga sopra</string>
 
 </resources>
