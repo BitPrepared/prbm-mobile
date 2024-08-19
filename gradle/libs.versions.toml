@@ -1,5 +1,4 @@
 [versions]
-appintro = "6.3.1"
 agp = "8.5.2"
 gms = "4.4.2"
 annotations = "1.8.2"
@@ -27,7 +26,6 @@ firebase = "32.8.1"
 fragment_ktx = "1.7.1"
 
 [libraries]
-appintro = { module = "com.github.AppIntro:AppIntro", version.ref = "appintro" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_annotations = { module = "androidx.annotation:annotation", version.ref = "annotations" }
 androidx_constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
