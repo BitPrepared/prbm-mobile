@@ -58,12 +58,13 @@
 	<?php
 	$countPoint = 0;
 	echo "var markers = [";
-	for ($countPoint = 0; $countPoint < count($row["units"]); $countPoint++) {
-		echo "['" . $countPoint . "', " . $row["units"][$countPoint]["latitude"] . ", " . $row["units"][$countPoint]["longitude"] . "]";
-		if ($countPoint + 1 < count($row["units"]))
+	for ($countPoint = 0; $countPoint < count($row["coordinates"]); $countPoint++) {
+		echo "['" . $countPoint . "', '" . $row["coordinates"][$countPoint]["latitude"] . "', '" . $row["coordinates"][$countPoint]["longitude"] . "']";
+		if ($countPoint + 1 < count($row["coordinates"]))
 			echo ",";
 	}
 	echo "];";
+
 	?>
 	// Info Window Content
 
@@ -72,7 +73,7 @@
 	// Display multiple markers on a map
 	var infoWindow = new google.maps.InfoWindow(), marker, i;
 
-			// Loop through our array of markers & place each one on the map  
+			// Loop through our array of markers & place each one on the map
 			for (i = 0; i < markers.length; i++) {
 				var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
 				bounds.extend(position);
@@ -83,7 +84,7 @@
 					icon: 'http://maps.google.com/mapfiles/kml/pal4/icon49.png'
 				});
 
-				// Allow each marker to have an info window    
+				// Allow each marker to have an info window
 				google.maps.event.addListener(marker, 'click', (function (marker, i) {
 					return function () {
 						infoWindow.setContent("Punto " + (i + 1) + " ");
@@ -122,33 +123,33 @@
 				$more = $i + 1;
 				echo '<th scoper="row">' . $more . '</th>';
 				echo "<td>";
-				$elem = $row["units"][$i]["entitiesFarLeft"];
+				$elem = $row["units"][$i]["farLeft"];
 				for ($j = 0; $j < count($elem); $j++) {
 					$extra = "";
-					for ($i1 = 0; $i1 < count($elem[$j]["extraFields"]); $i1++) {
-						if ($elem[$j]["extraFields"][$i1]["value"] != "") {
-							$extra .= $elem[$j]["extraFields"][$i1]["title"] . ": " . $elem[$j]["extraFields"][$i1]["value"] . "<br/>";
-						}
+					foreach($elem[$j]["fieldValues"] as $key => $value) {
+						$extra .= $key . ": " . $value . "<br/>";
 					}
-					echo '<a class="smartTooltip"  data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["caption"] . " " . $elem[$j]["description"] . "</a>";
-					if (isset($elem[$j]["pictureName"])) {
-						echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureName"] . '"><i class="material-icons">camera_alt</i></a>';
+					echo '<a class="smartTooltip"  data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["title"] . " " . $elem[$j]["description"] . "</a>";
+					if (isset($elem[$j]["pictureFilenames"])) {
+						for ($k = 0; $k < count($elem[$j]["pictureFilenames"]); $k++) {
+							echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureFilenames"][$k] . '"><i class="material-icons">camera_alt</i></a>';
+						}
 					}
 					echo "<br/>";
 				}
 				echo "</td>";
 				echo "<td>";
-				$elem = $row["units"][$i]["entitiesNearLeft"];
+				$elem = $row["units"][$i]["nearLeft"];
 				for ($j = 0; $j < count($elem); $j++) {
 					$extra = "";
-					for ($i1 = 0; $i1 < count($elem[$j]["extraFields"]); $i1++) {
-						if ($elem[$j]["extraFields"][$i1]["value"] != "") {
-							$extra .= $elem[$j]["extraFields"][$i1]["title"] . ": " . $elem[$j]["extraFields"][$i1]["value"] . "<br/>";
-						}
+					foreach($elem[$j]["fieldValues"] as $key => $value) {
+						$extra .= $key . ": " . $value . "<br/>";
 					}
-					echo '<a class="smartTooltip" data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["caption"] . " " . $elem[$j]["description"] . "</a>";
-					if (isset($elem[$j]["pictureName"])) {
-						echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureName"] . '"><i class="material-icons">camera_alt</i></a>';
+					echo '<a class="smartTooltip" data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["title"] . " " . $elem[$j]["description"] . "</a>";
+					if (isset($elem[$j]["pictureFilenames"])) {
+						for ($k = 0; $k < count($elem[$j]["pictureFilenames"]); $k++) {
+							echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureFilenames"][$k] . '"><i class="material-icons">camera_alt</i></a>';
+						}
 					}
 					echo "<br/>";
 				}
@@ -157,43 +158,43 @@
 				echo "<td>";
 				$elem = $row["units"][$i];
 
-				echo "Metri: " . $elem["meter"];
+				echo "Metri: " . $elem["meters"];
 				echo "<br/>";
 				echo "Minuti: " . $elem["minutes"];
 				echo "<br/>";
-				echo "Azimut: " . $elem["azimut"];
+				echo "Azimut: " . $elem["azimuth"];
 				echo "<br/>";
-				echo "Coordinate: " . $elem["latitude"] . " - " . $elem["longitude"];
+				echo "Coordinate: " . $elem["coordinates"]["latitude"] . " - " . $elem["coordinates"]["longitude"];
 				echo "</td>";
 
 				echo "<td>";
-				$elem = $row["units"][$i]["entitiesNearRight"];
+				$elem = $row["units"][$i]["nearRight"];
 				for ($j = 0; $j < count($elem); $j++) {
 					$extra = "";
-					for ($i1 = 0; $i1 < count($elem[$j]["extraFields"]); $i1++) {
-						if ($elem[$j]["extraFields"][$i1]["value"] != "") {
-							$extra .= $elem[$j]["extraFields"][$i1]["title"] . ": " . $elem[$j]["extraFields"][$i1]["value"] . "<br/>";
-						}
+					foreach($elem[$j]["fieldValues"] as $key => $value) {
+						$extra .= $key . ": " . $value . "<br/>";
 					}
-					echo '<a class="smartTooltip" data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["caption"] . " " . $elem[$j]["description"] . "</a>";
-					if (isset($elem[$j]["pictureName"])) {
-						echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureName"] . '"><i class="material-icons">camera_alt</i></a>';
+					echo '<a class="smartTooltip" data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["title"] . " " . $elem[$j]["description"] . "</a>";
+					if (isset($elem[$j]["pictureFilenames"])) {
+						for ($k = 0; $k < count($elem[$j]["pictureFilenames"]); $k++) {
+							echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureFilenames"][$k] . '"><i class="material-icons">camera_alt</i></a>';
+						}
 					}
 					echo "<br/>";
 				}
 				echo "</td>";
 				echo "<td>";
-				$elem = $row["units"][$i]["entitiesFarRight"];
+				$elem = $row["units"][$i]["farRight"];
 				for ($j = 0; $j < count($elem); $j++) {
 					$extra = "";
-					for ($i1 = 0; $i1 < count($elem[$j]["extraFields"]); $i1++) {
-						if ($elem[$j]["extraFields"][$i1]["value"] != "") {
-							$extra .= $elem[$j]["extraFields"][$i1]["title"] . ": " . $elem[$j]["extraFields"][$i1]["value"] . "<br/>";
-						}
+					foreach($elem[$j]["fieldValues"] as $key => $value) {
+						$extra .= $key . ": " . $value . "<br/>";
 					}
-					echo '<a class="smartTooltip"  data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["caption"] . " " . $elem[$j]["description"] . "</a>";
-					if (isset($elem[$j]["pictureName"])) {
-						echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureName"] . '"><i class="material-icons">camera_alt</i></a>';
+					echo '<a class="smartTooltip"  data-toggle="tooltip" title="' . $extra . '">' . $elem[$j]["title"] . " " . $elem[$j]["description"] . "</a>";
+					if (isset($elem[$j]["pictureFilenames"])) {
+						for ($k = 0; $k < count($elem[$j]["pictureFilenames"]); $k++) {
+							echo '<a class="btn" target="_blank" href="./upload/images/' . $elem[$j]["pictureFilenames"][$k] . '"><i class="material-icons">camera_alt</i></a>';
+						}
 					}
 					echo "<br/>";
 				}

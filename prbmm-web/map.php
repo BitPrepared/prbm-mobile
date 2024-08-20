@@ -32,11 +32,11 @@ function initialize() {
     var mapOptions = {
         mapTypeId: 'roadmap'
     };
-                    
+
     // Display a map on the page
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     map.setTilt(45);
-        
+
     // Multiple Markers
     var markers = [
         ['London Eye, London', 51.503454,-0.119562],
@@ -46,8 +46,8 @@ function initialize() {
 
     // Display multiple markers on a map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
-    
-    // Loop through our array of markers & place each one on the map  
+
+    // Loop through our array of markers & place each one on the map
     for( i = 0; i < markers.length; i++ ) {
         var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
         bounds.extend(position);
@@ -57,7 +57,7 @@ function initialize() {
             title: markers[i][0],
             icon:'http://maps.google.com/mapfiles/kml/pal4/icon49.png'
         });
-        
+
         // Automatically center the map fitting all markers on the screen
         map.fitBounds(bounds);
     }
@@ -67,7 +67,7 @@ function initialize() {
         this.setZoom(14);
         google.maps.event.removeListener(boundsListener);
     });
-    
+
 }</script>
 
 </html>

@@ -32,8 +32,7 @@ for($i=2; $i < count($files); $i++ ){
     fclose($handle);
     
     $percorso = json_decode($contents, true);
-    echo  "<tr class='clickable-row' data-href='percorso.php?percorso=".$files[$i]."'
->";
+    echo  "<tr class='clickable-row' data-href='percorso.php?percorso=".$files[$i]."'>";
         echo "<td>".$percorso["title"]."</td>";
         echo "<td>".$percorso["authors"]."</td>";
         echo "<td>".$percorso["place"]."</td>";
