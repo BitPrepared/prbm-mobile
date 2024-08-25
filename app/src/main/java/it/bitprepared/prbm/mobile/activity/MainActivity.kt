@@ -58,7 +58,14 @@ class MainActivity : AppCompatActivity() {
       navigateToPrbmList()
     }
     binding.btnSyncro.setOnClickListener {
-      viewModel.uploadPrbmJSONs(this@MainActivity)
+      MaterialAlertDialogBuilder(this)
+        .setTitle("Sincronizzazione disabilitata")
+        .setIcon(R.drawable.ic_alert)
+        .setMessage("La sincronizzazione dei PRBM é attiva solamente durante il campetto di competenza BitPrepared.")
+        .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+        .create()
+        .show()
+      // viewModel.uploadPrbmJSONs(this@MainActivity)
     }
     binding.btnAbout.setOnClickListener {
       showAboutDialog()
