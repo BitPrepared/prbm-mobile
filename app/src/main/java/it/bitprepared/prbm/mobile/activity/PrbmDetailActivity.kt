@@ -228,7 +228,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     binding.textFieldTitle.hint = getString(R.string.minutes_label)
 
     MaterialAlertDialogBuilder(this)
-      .setTitle(getString(R.string.azimuth_explanation))
+      .setTitle(getString(R.string.minutes_explanation))
       .setView(binding.root)
       .setNegativeButton(getString(R.string.abort)) { _, _ -> }
       .setPositiveButton(getString(R.string.proceed)) { _, _ ->
