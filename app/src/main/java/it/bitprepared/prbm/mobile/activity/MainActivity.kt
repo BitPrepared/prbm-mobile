@@ -1,12 +1,10 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.util.Linkify
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -45,7 +43,12 @@ class MainActivity : AppCompatActivity() {
           if (error != null) {
             binding.progressStatus.text = "Error: $error"
           } else {
-            binding.progressStatus.text = "Caricamento in corso: ${(progress * 100).toInt()}%"
+            val progressPercent = (progress * 100).toInt()
+            if (progressPercent < 100) {
+              binding.progressStatus.text = "Caricamento in corso: ${progressPercent}%"
+            } else {
+              binding.progressStatus.text = "Caricamento completato!"
+            }
           }
         }
       }
