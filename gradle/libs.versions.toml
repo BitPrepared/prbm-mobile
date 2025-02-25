@@ -15,7 +15,7 @@ multidex = "2.0.1"
 recyclerview = "1.4.0"
 rxandroid = "2.1.1"
 rxjava = "2.2.21"
-desugaring = "2.1.4"
+desugaring = "2.1.5"
 
 # Do not bump those dependencies as they need Android 5.0+
 #noinspection GradleDependency
