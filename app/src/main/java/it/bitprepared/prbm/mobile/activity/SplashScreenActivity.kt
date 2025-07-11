@@ -2,7 +2,6 @@ package it.bitprepared.prbm.mobile.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels

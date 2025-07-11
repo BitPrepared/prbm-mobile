@@ -1,11 +1,8 @@
 package it.bitprepared.prbm.mobile.activity
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import it.bitprepared.prbm.mobile.databinding.ListUnitsAddbuttonBinding
 import it.bitprepared.prbm.mobile.databinding.ListUnitsBinding
 import it.bitprepared.prbm.mobile.model.PrbmEntity
 import it.bitprepared.prbm.mobile.model.PrbmUnit

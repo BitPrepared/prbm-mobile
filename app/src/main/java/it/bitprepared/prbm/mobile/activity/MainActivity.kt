@@ -18,6 +18,7 @@ import it.bitprepared.prbm.mobile.R
 import it.bitprepared.prbm.mobile.databinding.AboutDialogBinding
 import it.bitprepared.prbm.mobile.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 /**
  * Activity responsible for main menu visualization
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity() {
     startActivity(
       Intent(
         Intent.ACTION_VIEW,
-        Uri.parse("market://details?id=it.bitprepared.prbm.mobile")
+          "market://details?id=it.bitprepared.prbm.mobile".toUri()
       )
     )
   }

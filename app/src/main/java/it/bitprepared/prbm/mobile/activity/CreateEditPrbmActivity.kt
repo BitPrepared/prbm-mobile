@@ -3,11 +3,9 @@ package it.bitprepared.prbm.mobile.activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -99,7 +97,7 @@ class CreateEditPrbmActivity : AppCompatActivity() {
             val datePicker = MaterialDatePicker.Builder
                 .datePicker()
                 .setTitleText(R.string.pick_prbm_date)
-                .setSelection(fromDateToTimestamp(binding.editDate.getText().toString()))
+                .setSelection(fromDateToTimestamp(binding.editDate.text.toString()))
                 .build()
             datePicker.addOnPositiveButtonClickListener { _ ->
                 viewModel.updateDate(datePicker.selection)
@@ -108,7 +106,7 @@ class CreateEditPrbmActivity : AppCompatActivity() {
         }
 
         binding.editTime.setOnClickListener { _ ->
-            val time = LocalTime.parse(binding.editTime.getText().toString())
+            val time = LocalTime.parse(binding.editTime.text.toString())
             val timePicker = MaterialTimePicker
                 .Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)

@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import androidx.core.net.toUri
 
 
 class MainViewModel : ViewModel() {
@@ -63,7 +64,7 @@ class MainViewModel : ViewModel() {
           entity.pictureUri.forEach {
             if (it.isNotEmpty()) {
               val pictureName = entity.pictureFilenames[entity.pictureUri.indexOf(it)]
-              val pictureEncoded = base64Encode(context, Uri.parse(it))
+              val pictureEncoded = base64Encode(context, it.toUri())
               Log.d(TAG, "Uploading image to remote server: $pictureName")
               restInterface.uploadImage(pictureName, pictureEncoded)
               uploadedSoFar++

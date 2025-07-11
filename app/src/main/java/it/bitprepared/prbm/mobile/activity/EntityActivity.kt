@@ -36,6 +36,7 @@ import it.bitprepared.prbm.mobile.model.PrbmEntityField
 import kotlinx.coroutines.launch
 import java.io.File
 import java.time.LocalTime
+import androidx.core.view.isEmpty
 
 
 /**
@@ -132,7 +133,7 @@ class EntityActivity : AppCompatActivity() {
       }
     })
     binding.editTime.setOnClickListener {
-      val time = LocalTime.parse(binding.editTime.getText().toString())
+      val time = LocalTime.parse(binding.editTime.text.toString())
       val timePicker =
         MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(time.hour)
           .setMinute(time.minute).setTitleText(R.string.pick_unit_time).build()
@@ -183,7 +184,7 @@ class EntityActivity : AppCompatActivity() {
     fields: List<PrbmEntityField>,
     fieldValues: Map<String, String>
   ) {
-    if (binding.linFree.childCount == 0) {
+    if (binding.linFree.isEmpty()) {
       fields.forEach { field ->
         val fieldBinding = EditGenericFieldBinding.inflate(layoutInflater, binding.linFree, false)
         fieldBinding.textinputGeneric.hint = field.name
