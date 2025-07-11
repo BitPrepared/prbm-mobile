@@ -37,6 +37,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.time.LocalTime
 import androidx.core.view.isEmpty
+import com.google.android.material.snackbar.Snackbar
 
 
 /**
@@ -46,7 +47,7 @@ class EntityActivity : AppCompatActivity() {
   private lateinit var binding: ActivityEntityBinding
   private val viewModel: EntityViewModel by viewModels()
 
-  private lateinit var latestUri: Uri
+  private var latestUri: Uri? = null
   private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
   private lateinit var takePicture: ActivityResultLauncher<Uri>
 
@@ -166,7 +167,11 @@ class EntityActivity : AppCompatActivity() {
     }
     takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
       if (result) {
-        viewModel.addImage(latestUri.toString(), getFilenameFromUri(latestUri))
+        latestUri?.let { latestUri ->
+          viewModel.addImage(latestUri.toString(), getFilenameFromUri(latestUri))
+        } ?: run {
+          Snackbar.make(binding.root, R.string.photo_error, Snackbar.LENGTH_SHORT).show()
+        }
       }
     }
   }

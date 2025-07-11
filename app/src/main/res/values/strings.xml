@@ -98,7 +98,8 @@
     <string name="gps">GPS</string>
     <string name="get_gps_coord">Ottieni coordinate GPS</string>
     <string name="coordiante_assenti">Coordiante: Assenti</string>
-    <string name="foto">Foto</string>
+    <string name="photo">Foto</string>
+    <string name="photo_error">Errore nel salvataggio della foto</string>
     <string name="pick_prbm_date">Scegli la data del PRBM</string>
     <string name="pick_prbm_time">Scegli l\'ora del PRBM</string>
     <string name="pick_unit_time">Scegli l\'ora dell\'osservazione</string>
