@@ -9,7 +9,6 @@ crashlytics = "3.0.4"
 glide = "4.16.0"
 gson = "2.13.1"
 kotlin = "2.2.0"
-lifecycle = "2.8.7"
 mdc = "1.12.0"
 multidex = "2.0.1"
 recyclerview = "1.4.0"
@@ -18,11 +17,13 @@ rxjava = "2.2.21"
 desugaring = "2.1.5"
 
 # Do not bump those dependencies as they need Android 5.0+
-#noinspection GradleDependency
+#noinspection NewerVersionAvailable,GradleDependency
 retrofit = "2.6.0"
-#noinspection GradleDependency
+#noinspection NewerVersionAvailable,GradleDependency
+lifecycle = "2.8.7"
+#noinspection NewerVersionAvailable,GradleDependency
 firebase = "32.8.1"
-#noinspection GradleDependency
+#noinspection NewerVersionAvailable,GradleDependency
 fragment_ktx = "1.7.1"
 
 [libraries]

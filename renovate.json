@@ -10,10 +10,13 @@
         "gradle"
       ],
       "ignoreDeps": [
-        "com.squareup.retrofit2:retrofit",
-        "com.squareup.retrofit2:converter-gson",
+        "androidx.fragment:fragment-ktx",
+        "androidx.lifecycle:lifecycle-livedata-ktx",
+        "androidx.lifecycle:lifecycle-runtime-ktx",
+        "androidx.lifecycle:lifecycle-viewmodel-ktx",
         "com.google.firebase:firebase-bom",
-        "androidx.fragment:fragment-ktx"
+        "com.squareup.retrofit2:converter-gson",
+        "com.squareup.retrofit2:retrofit"
       ]
     }
   ]
