@@ -56,10 +56,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 
-    // RxJava
-    implementation(libs.rxjava)
-    implementation(libs.rxandroid)
-
     // Glide
     implementation(libs.glide)
     annotationProcessor(libs.glideCompiler)
