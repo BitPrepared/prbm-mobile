@@ -6,7 +6,7 @@
 # Feature request from 2024
 
 - [x] Add a link to the website where PRBMs can be viewed
-- [ ] During the editing/insertion of an observation, if you rotate the device, the edited fields are lost
+- [x] During the editing/insertion of an observation, if you rotate the device, the edited fields are lost
 - [ ] Sometimes the app crashes after you save an observation (check on Firebase Crashlytics)
 - [x] Add support to use floats for meters, azimuths, etc.
 

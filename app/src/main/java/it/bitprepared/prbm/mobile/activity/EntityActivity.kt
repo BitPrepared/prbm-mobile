@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -192,6 +193,7 @@ class EntityActivity : AppCompatActivity() {
     if (binding.linFree.isEmpty()) {
       fields.forEach { field ->
         val fieldBinding = EditGenericFieldBinding.inflate(layoutInflater, binding.linFree, false)
+        fieldBinding.edtFieldGeneric.id = View.generateViewId()
         fieldBinding.textinputGeneric.hint = field.name
         fieldBinding.textinputGeneric.helperText = field.hint
         fieldBinding.edtFieldGeneric.inputType = if (field.type == "number") {
