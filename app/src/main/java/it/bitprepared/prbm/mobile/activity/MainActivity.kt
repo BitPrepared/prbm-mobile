@@ -64,6 +64,9 @@ class MainActivity : AppCompatActivity() {
     binding.btnSyncro.setOnClickListener {
       viewModel.uploadPrbmJSONs(this@MainActivity)
     }
+    binding.btnPrbmWeb.setOnClickListener {
+      openPrbmWeb()
+    }
     binding.btnAbout.setOnClickListener {
       showAboutDialog()
     }
@@ -110,6 +113,15 @@ class MainActivity : AppCompatActivity() {
       .setPositiveButton(R.string.ok) { _, _ -> }
       .create()
       .show()
+
+  private fun openPrbmWeb() {
+    startActivity(
+      Intent(
+        Intent.ACTION_VIEW,
+        "https://prbmm.bitprepared.it".toUri()
+      )
+    )
+  }
 
   private fun showAboutDialog() {
     val dialogBinding = AboutDialogBinding.inflate(layoutInflater)
