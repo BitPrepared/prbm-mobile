@@ -32,8 +32,8 @@ class PrbmUnitAdapter(
   override fun getItemCount(): Int = _data.size
 
   interface OnPrbmUnitListener {
-    fun onClickMeters(unit: PrbmUnit, value: Int)
-    fun onClickAzimuth(unit: PrbmUnit, value: Int)
+    fun onClickMeters(unit: PrbmUnit, value: Double)
+    fun onClickAzimuth(unit: PrbmUnit, value: Double)
     fun onClickMinutes(unit: PrbmUnit, value: Int)
     fun onClickGps(unit: PrbmUnit)
     fun onAddUnitButtonClicked(unit: PrbmUnit)

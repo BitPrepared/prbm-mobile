@@ -29,8 +29,8 @@ class PrbmDetailViewModel : ViewModel() {
   }
 
   fun updateMeters(context: Context, unit: PrbmUnit, newValue: String) = viewModelScope.launch {
-    if (newValue.toIntOrNull() != null) {
-      unit.meters = newValue.toInt()
+    if (newValue.toDoubleOrNull() != null) {
+      unit.meters = newValue.toDouble()
       UserData.savePrbm(context, _modelState.value.prbm)
       val index = requireNotNull(UserData.prbm).units.indexOf(unit)
       _modelState.emit(
@@ -42,8 +42,8 @@ class PrbmDetailViewModel : ViewModel() {
   }
 
   fun updateAzimuth(context: Context, unit: PrbmUnit, newValue: String) = viewModelScope.launch {
-    if (newValue.toIntOrNull() != null) {
-      unit.azimuth = newValue.toInt()
+    if (newValue.toDoubleOrNull() != null) {
+      unit.azimuth = newValue.toDouble()
       UserData.savePrbm(context, _modelState.value.prbm)
       val index = requireNotNull(UserData.prbm).units.indexOf(unit)
       _modelState.emit(

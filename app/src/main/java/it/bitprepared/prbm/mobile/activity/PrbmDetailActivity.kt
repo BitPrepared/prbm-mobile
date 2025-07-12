@@ -189,9 +189,10 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
     viewModel.editEntityStarted()
   }
 
-  override fun onClickMeters(unit: PrbmUnit, value: Int) {
+  override fun onClickMeters(unit: PrbmUnit, value: Double) {
     val binding = EditNumericFieldBinding.inflate(layoutInflater)
     binding.editField.setText(value.toString())
+    binding.editField.inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
     binding.textFieldTitle.hint = getString(R.string.meters_label)
 
     MaterialAlertDialogBuilder(this)
@@ -205,9 +206,10 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
       .show()
   }
 
-  override fun onClickAzimuth(unit: PrbmUnit, value: Int) {
+  override fun onClickAzimuth(unit: PrbmUnit, value: Double) {
     val binding = EditNumericFieldBinding.inflate(layoutInflater)
     binding.editField.setText(value.toString())
+    binding.editField.inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
     binding.textFieldTitle.hint = getString(R.string.azimuth_label)
 
     MaterialAlertDialogBuilder(this)
@@ -224,6 +226,7 @@ class PrbmDetailActivity : AppCompatActivity(), PrbmUnitAdapter.OnPrbmUnitListen
   override fun onClickMinutes(unit: PrbmUnit, value: Int) {
     val binding = EditNumericFieldBinding.inflate(layoutInflater)
     binding.editField.setText(value.toString())
+    binding.editField.inputType = android.text.InputType.TYPE_CLASS_NUMBER
     binding.textFieldTitle.hint = getString(R.string.minutes_label)
 
     MaterialAlertDialogBuilder(this)

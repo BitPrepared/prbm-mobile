@@ -4,9 +4,9 @@ package it.bitprepared.prbm.mobile.model
  * [PrbmUnit] represent a single row of a [Prbm] that is composed by several [PrbmEntity]
  * on 4 columns.
  */
-data class PrbmUnit constructor(
-    var azimuth: Int = 0,
-    var meters: Int = 0,
+data class PrbmUnit(
+    var azimuth: Double = 0.0,
+    var meters: Double = 0.0,
     var minutes: Int = 0,
     var coordinates: PrbmCoordinates = PrbmCoordinates(),
     val farLeft: MutableList<PrbmEntity> = mutableListOf(),
@@ -16,7 +16,7 @@ data class PrbmUnit constructor(
 ) {
 
     fun setAzimuth(azimuth: String) {
-        this.azimuth = azimuth.toIntOrNull() ?: 0
+        this.azimuth = azimuth.toDoubleOrNull() ?: 0.0
     }
 
     /**
@@ -32,7 +32,7 @@ data class PrbmUnit constructor(
      * @param meter The new unit meters
      */
     fun setMeters(meter: String) {
-        this.meters = meter.toIntOrNull() ?: 0
+        this.meters = meter.toDoubleOrNull() ?: 0.0
     }
 
     fun setCoordinatesFrom(lastCoordinates: PrbmCoordinates) {
