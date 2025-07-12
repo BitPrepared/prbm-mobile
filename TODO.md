@@ -3,6 +3,10 @@
 - [ ] Add Activity to Review Image whenever user clicks on the image gallery (i.e. with buttons to add/remove or zoom the image)
 - [ ] Appintro (Add a small intro for the various screens of the app)
 
+# Feature request from 2025
+
+Add your requests here :)
+
 # Feature request from 2024
 
 - [x] Add a link to the website where PRBMs can be viewed
