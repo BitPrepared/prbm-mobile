@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.application)
     alias(libs.plugins.google.services)
     alias(libs.plugins.crashlytics)
-    alias(libs.plugins.kotlin)
 }
 
 android {
