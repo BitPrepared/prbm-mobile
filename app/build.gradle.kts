@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdk = 36
+    compileSdk = 37
     namespace = "it.bitprepared.prbm.mobile"
 
     defaultConfig {
         applicationId = "it.bitprepared.prbm.mobile"
         minSdk = 19
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 27
         versionName = "v1.1.5"
         multiDexEnabled = true
