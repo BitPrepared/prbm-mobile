@@ -1,7 +1,7 @@
 [versions]
 agp = "9.4.1"
 gms = "4.5.0"
-annotations = "1.10.0"
+annotations = "1.11.0"
 appcompat = "1.8.0"
 constraintlayout = "2.2.2"
 coroutines = "1.11.0"
